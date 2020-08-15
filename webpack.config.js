@@ -1,10 +1,12 @@
 const path = require('path');
 
 module.exports = {
-    'entry': './src/index.js',
+    'mode': 'production',
+    'entry': './src/kleur.js',
     'output': {
         'path': path.resolve(__dirname, 'dist'),
         'filename': 'kleur.js',
-        'library': 'kleur'
+        'library': 'kleur',
+        'libraryTarget': 'umd'
     },
 };

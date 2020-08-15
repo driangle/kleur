@@ -1,6 +1,5 @@
 import utils from './kleur-utils';
 import Kleur from './kleur-class';
-import _ from 'lodash';
 
 const rand = function(min, max) {
     return min + ((max - min) * Math.random());
@@ -37,7 +36,8 @@ const HSB = function () {
         // https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB_alternative
         const f = n => {
             const k = (n + utils.normalizeHue(hue) / 60.0) % 6;
-            return brightness - (brightness * saturation * Math.max(_.min([k, 4 - k, 1]), 0));
+            const min = [k, 4 - k, 1].sort()[0];
+            return brightness - (brightness * saturation * Math.max(min, 0));
         };
         return new Kleur(f(5), f(3), f(1), alpha);
     };
