@@ -28,20 +28,20 @@ export const HSB = {
         };
         return new Kleur(f(5), f(3), f(1), alpha);
     },
-    interpolate(start: Kleur, end: Kleur, amount: number) {
-        return HSB.create(
-            start.hue + (end.hue - start.hue) * amount,
-            start.saturation(HSB) + (end.saturation(HSB) - start.saturation(HSB)) * amount,
-            start.brightness + (end.brightness - start.brightness) * amount,
-            start.alpha + (end.alpha - start.alpha) * amount
-        );
-    },
     random(config: HSBRandomConfig = DEFAULT_HSB_RANDOM_CONFIG) {
         return HSB.create(
             rand(config.hue),
             rand(config.saturation),
             rand(config.brightness),
             rand(config.alpha)
+        );
+    },
+    interpolate(start: Kleur, end: Kleur, amount: number) {
+        return HSB.create(
+            start.hue + (end.hue - start.hue) * amount,
+            start.saturation(HSB) + (end.saturation(HSB) - start.saturation(HSB)) * amount,
+            start.brightness + (end.brightness - start.brightness) * amount,
+            start.alpha + (end.alpha - start.alpha) * amount
         );
     },
     withHue(color: Kleur, hue: number) {

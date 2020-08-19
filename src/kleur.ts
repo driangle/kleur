@@ -101,32 +101,29 @@ export class Kleur {
     /** Static Code */
     static readonly BLACK = new Kleur(0, 0, 0);
     static readonly WHITE = new Kleur(1, 1, 1);
+
     static readonly RED = new Kleur(1, 0, 0);
     static readonly GREEN = new Kleur(0, 1, 0);
     static readonly BLUE = new Kleur(0, 0, 1);
-    static readonly TEAL = new Kleur(0, 1, 1);
+
     static readonly YELLOW = new Kleur(1, 1, 0);
+    static readonly TEAL = new Kleur(0, 1, 1);
     static readonly PURPLE = new Kleur(1, 0, 1);
 
-    static random(config: RandomConfig): Kleur {
-        const isRGBRandomConfig = (config: RandomConfig): config is RGBRandomConfig => {
-            return (<RGBRandomConfig>config).red !== undefined;
-        };
-        const isHSBRandomConfig = (config: RandomConfig): config is HSBRandomConfig => {
-            return (<HSBRandomConfig>config).brightness !== undefined;
-        };
-        const isHSLRandomConfig = (config: RandomConfig): config is HSLRandomConfig => {
-            return (<HSLRandomConfig>config).lightness !== undefined;
-        };
-        if (isRGBRandomConfig(config)) {
-            return RGB.random(config);
-        } else if (isHSBRandomConfig(config)) {
-            return HSB.random(config);
-        } else if (isHSLRandomConfig(config)) {
-            return HSL.random(config);
-        } else {
-            return RGB.random();
-        }
+    static random(): Kleur {
+        return RGB.random();
+    }
+
+    static randomRGB(config: RGBRandomConfig): Kleur {
+        return RGB.random(config);
+    }
+
+    static randomHSB(config: HSBRandomConfig): Kleur {
+        return HSB.random(config);
+    }
+
+    static randomHSL(config: HSLRandomConfig): Kleur {
+        return HSL.random(config);
     }
 
     static rgb(red: number, green: number, blue: number, alpha: number) {
@@ -138,6 +135,7 @@ export class Kleur {
     static hsl(hue: number, saturation: number, lightness: number, alpha: number) {
         return HSL.create(hue, saturation, lightness, alpha);
     }
+
     static hex(hex: number) {
         const red = (hex & 0xff0000) >> 16;
         const green = (hex & 0x00ff00) >> 8;
