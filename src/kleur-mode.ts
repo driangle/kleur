@@ -8,8 +8,8 @@ export const rand = function (range: Range) {
     return range.min + ((range.max - range.min) * Math.random());
 };
 export type Range = {
-    min: number;
-    max: number;
+    min?: number;
+    max?: number;
 }
 export const DEFAULT_RANGE: Range = {min: 0, max: 1};
 

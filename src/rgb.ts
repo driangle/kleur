@@ -2,10 +2,10 @@ import {Kleur} from "./kleur";
 import {DEFAULT_RANGE, rand, Range} from "./kleur-mode";
 
 export type RGBRandomConfig = {
-    red: Range,
-    green: Range,
-    blue: Range,
-    alpha: Range
+    red?: Range,
+    green?: Range,
+    blue?: Range,
+    alpha?: Range
 };
 const DEFAULT_RGB_RANDOM_CONFIG = {
     red: DEFAULT_RANGE,
@@ -21,10 +21,10 @@ export const RGB = {
 
     random(config: RGBRandomConfig = DEFAULT_RGB_RANDOM_CONFIG): Kleur {
         return new Kleur(
-            rand(config.red),
-            rand(config.green),
-            rand(config.blue),
-            rand(config.alpha)
+            rand({...DEFAULT_RGB_RANDOM_CONFIG.red, ...config.red}),
+            rand({...DEFAULT_RGB_RANDOM_CONFIG.green, ...config.green}),
+            rand({...DEFAULT_RGB_RANDOM_CONFIG.blue, ...config.blue}),
+            rand({...DEFAULT_RGB_RANDOM_CONFIG.alpha, ...config.alpha})
         );
     },
 

@@ -3,12 +3,12 @@ import {KleurUtils} from "./kleur-utils";
 import {DEFAULT_RANGE, rand, Range} from "./kleur-mode";
 
 export type HSLRandomConfig = {
-    hue: Range;
-    saturation: Range;
-    lightness: Range;
-    alpha: Range;
+    hue?: Range;
+    saturation?: Range;
+    lightness?: Range;
+    alpha?: Range;
 };
-const DEFAULT_HSL_RANDOM_CONFIG : HSLRandomConfig = {
+const DEFAULT_HSL_RANDOM_CONFIG: HSLRandomConfig = {
     hue: {
         min: 0,
         max: 360
@@ -48,10 +48,10 @@ export const HSL = {
 
     random(config: HSLRandomConfig = DEFAULT_HSL_RANDOM_CONFIG): Kleur {
         return HSL.create(
-            rand(config.hue),
-            rand(config.saturation),
-            rand(config.lightness),
-            rand(config.alpha)
+            rand({...DEFAULT_HSL_RANDOM_CONFIG.hue, ...config.hue}),
+            rand({...DEFAULT_HSL_RANDOM_CONFIG.saturation, ...config.saturation}),
+            rand({...DEFAULT_HSL_RANDOM_CONFIG.lightness, ...config.lightness}),
+            rand({...DEFAULT_HSL_RANDOM_CONFIG.alpha, ...config.alpha})
         );
     },
 

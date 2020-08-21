@@ -3,10 +3,10 @@ import {KleurUtils} from "./kleur-utils";
 import {DEFAULT_RANGE, rand, Range} from "./kleur-mode";
 
 export type HSBRandomConfig = {
-    hue: Range;
-    saturation: Range;
-    brightness: Range;
-    alpha: Range;
+    hue?: Range;
+    saturation?: Range;
+    brightness?: Range;
+    alpha?: Range;
 };
 const DEFAULT_HSB_RANDOM_CONFIG : HSBRandomConfig = {
     hue: {
@@ -30,10 +30,10 @@ export const HSB = {
     },
     random(config: HSBRandomConfig = DEFAULT_HSB_RANDOM_CONFIG) {
         return HSB.create(
-            rand(config.hue),
-            rand(config.saturation),
-            rand(config.brightness),
-            rand(config.alpha)
+            rand({...DEFAULT_HSB_RANDOM_CONFIG.hue, ...config.hue}),
+            rand({...DEFAULT_HSB_RANDOM_CONFIG.saturation, ...config.saturation}),
+            rand({...DEFAULT_HSB_RANDOM_CONFIG.brightness, ...config.brightness}),
+            rand({...DEFAULT_HSB_RANDOM_CONFIG.alpha, ...config.alpha})
         );
     },
     interpolate(start: Kleur, end: Kleur, amount: number) {
