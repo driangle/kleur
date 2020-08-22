@@ -110,6 +110,11 @@ export class Kleur {
     static readonly TEAL = new Kleur(0, 1, 1);
     static readonly PURPLE = new Kleur(1, 0, 1);
 
+    static readonly RGB = RGB;
+    static readonly HSL = HSL;
+    static readonly HSB = HSB;
+
+
     static random(): Kleur {
         return RGB.random();
     }
