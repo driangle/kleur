@@ -55,6 +55,13 @@ export const HSL = {
         );
     },
 
+    randomize(color: Kleur, strength: number): Kleur {
+        return color
+            .withHueDelta(rand({min: -360, max: 360}) * strength)
+            .withSaturationDelta(rand({min: -1, max: 1}) * strength, HSL)
+            .withLightnessDelta(rand({min: -1, max: 1}) * strength);
+    },
+
     interpolate(start: Kleur, end: Kleur, amount: number): Kleur {
         return this.create(
             start.hue + (end.hue - start.hue) * amount,

@@ -27,7 +27,12 @@ export const RGB = {
             rand({...DEFAULT_RGB_RANDOM_CONFIG.alpha, ...config.alpha})
         );
     },
-
+    randomize(color: Kleur, strength: number): Kleur {
+        return color
+            .withRedDelta(rand({min: -1, max: 1}) * strength)
+            .withGreenDelta(rand({min: -1, max: 1}) * strength)
+            .withBlueDelta(rand({min: -1, max: 1}) * strength);
+    },
     interpolate(start: Kleur, end: Kleur, amount: number): Kleur {
         return new Kleur(
             start.red + (end.red - start.red) * amount,

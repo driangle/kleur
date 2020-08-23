@@ -172,6 +172,10 @@ export class Kleur {
         this.lightness = this.hsbl.lightness;
     }
 
+    randomize(strength: number, mode: KleurMode) : Kleur {
+        return mode.randomize(this, strength);
+    }
+
     saturation(mode: WithSaturation): number {
         return this.hsbl.saturation[mode.name];
     }
@@ -241,6 +245,11 @@ export class Kleur {
     withBrightnessDelta(delta: number) {
         verifyDelta(delta);
         return this.withBrightness(this.brightness + delta);
+    }
+
+    withLightnessDelta(delta: number) {
+        verifyDelta(delta);
+        return this.withLightness(this.lightness + delta);
     }
 
     // Min /Max

@@ -36,6 +36,12 @@ export const HSB = {
             rand({...DEFAULT_HSB_RANDOM_CONFIG.alpha, ...config.alpha})
         );
     },
+    randomize(color: Kleur, strength: number): Kleur {
+        return color
+            .withHueDelta(rand({min: -360, max: 360}) * strength)
+            .withSaturationDelta(rand({min: -1, max: 1}) * strength, HSB)
+            .withBrightnessDelta(rand({min: -1, max: 1}) * strength);
+    },
     interpolate(start: Kleur, end: Kleur, amount: number) {
         return HSB.create(
             start.hue + (end.hue - start.hue) * amount,
