@@ -1,0 +1,167 @@
+{
+  "version": "1.0.0",
+  "description": "Cross-language test vectors for the kleur color library. All implementations must produce identical results for these inputs.",
+  "format": {
+    "color": "RGBA object { r: 0-255, g: 0-255, b: 0-255, a: 0-1 }",
+    "tolerance": "Unless noted, integer channels allow +/-1, float values allow +/-0.01"
+  },
+
+  "parsing": {
+    "hex": [
+      { "input": "#ff0000", "expected": { "r": 255, "g": 0, "b": 0, "a": 1 } },
+      { "input": "#00ff00", "expected": { "r": 0, "g": 255, "b": 0, "a": 1 } },
+      { "input": "#0000ff", "expected": { "r": 0, "g": 0, "b": 255, "a": 1 } },
+      { "input": "#000000", "expected": { "r": 0, "g": 0, "b": 0, "a": 1 } },
+      { "input": "#ffffff", "expected": { "r": 255, "g": 255, "b": 255, "a": 1 } },
+      { "input": "#abc", "expected": { "r": 170, "g": 187, "b": 204, "a": 1 } },
+      { "input": "#4287f5", "expected": { "r": 66, "g": 135, "b": 245, "a": 1 } }
+    ],
+    "hsl": [
+      { "input": { "h": 0, "s": 100, "l": 50 }, "expected": { "r": 255, "g": 0, "b": 0, "a": 1 } },
+      { "input": { "h": 120, "s": 100, "l": 50 }, "expected": { "r": 0, "g": 255, "b": 0, "a": 1 } },
+      { "input": { "h": 240, "s": 100, "l": 50 }, "expected": { "r": 0, "g": 0, "b": 255, "a": 1 } },
+      { "input": { "h": 0, "s": 0, "l": 50 }, "expected": { "r": 128, "g": 128, "b": 128, "a": 1 } }
+    ],
+    "css": [
+      { "input": "rgb(66,135,245)", "expected": { "r": 66, "g": 135, "b": 245, "a": 1 } },
+      { "input": "rgba(255,0,0,0.5)", "expected": { "r": 255, "g": 0, "b": 0, "a": 0.5 } },
+      { "input": "hsl(0, 100, 50)", "expected": { "r": 255, "g": 0, "b": 0, "a": 1 } }
+    ],
+    "integer": [
+      { "input": 16711680, "expected": { "r": 255, "g": 0, "b": 0, "a": 1 }, "note": "0xFF0000" },
+      { "input": 65280, "expected": { "r": 0, "g": 255, "b": 0, "a": 1 }, "note": "0x00FF00" },
+      { "input": 255, "expected": { "r": 0, "g": 0, "b": 255, "a": 1 }, "note": "0x0000FF" }
+    ],
+    "named": [
+      { "input": "red", "expected": { "r": 255, "g": 0, "b": 0, "a": 1 } },
+      { "input": "cornflowerblue", "expected": { "r": 100, "g": 149, "b": 237, "a": 1 } },
+      { "input": "transparent", "expected": { "r": 0, "g": 0, "b": 0, "a": 0 } }
+    ]
+  },
+
+  "output": {
+    "toHex": [
+      { "input": { "r": 255, "g": 0, "b": 0 }, "expected": "#ff0000" },
+      { "input": { "r": 0, "g": 255, "b": 0 }, "expected": "#00ff00" },
+      { "input": { "r": 66, "g": 135, "b": 245 }, "expected": "#4287f5" },
+      { "input": { "r": 0, "g": 0, "b": 0 }, "expected": "#000000" },
+      { "input": { "r": 255, "g": 255, "b": 255 }, "expected": "#ffffff" }
+    ],
+    "toCss": [
+      { "input": { "r": 255, "g": 0, "b": 0, "a": 1 }, "expected": "rgba(255,0,0,1)" },
+      { "input": { "r": 0, "g": 0, "b": 255, "a": 0.5 }, "expected": "rgba(0,0,255,0.5)" }
+    ],
+    "toRgb": [
+      { "input": { "r": 66, "g": 135, "b": 245, "a": 0.8 }, "expected": { "r": 66, "g": 135, "b": 245 } }
+    ],
+    "toHsl": [
+      { "input": { "r": 255, "g": 0, "b": 0 }, "expected": { "h": 0, "s": 100, "l": 50 } },
+      { "input": { "r": 0, "g": 0, "b": 255 }, "expected": { "h": 240, "s": 100, "l": 50 } },
+      { "input": { "r": 128, "g": 128, "b": 128 }, "expected": { "h": 0, "s": 0, "l": 50 } }
+    ],
+    "toArray": [
+      { "input": { "r": 255, "g": 0, "b": 0, "a": 1 }, "expected": [255, 0, 0, 1] },
+      { "input": { "r": 0, "g": 0, "b": 0, "a": 0 }, "expected": [0, 0, 0, 0] }
+    ],
+    "toNormalized": [
+      { "input": { "r": 255, "g": 255, "b": 255, "a": 1 }, "expected": [1.0, 1.0, 1.0, 1.0] },
+      { "input": { "r": 0, "g": 0, "b": 0, "a": 0 }, "expected": [0.0, 0.0, 0.0, 0.0] }
+    ]
+  },
+
+  "adjustments": [
+    { "op": "lighten", "input": { "r": 255, "g": 0, "b": 0 }, "args": { "amount": 1 }, "expected_lightness": 100, "note": "lighten(1) -> white" },
+    { "op": "darken", "input": { "r": 255, "g": 0, "b": 0 }, "args": { "amount": 1 }, "expected_lightness": 0, "note": "darken(1) -> black" },
+    { "op": "lighten", "input": { "r": 255, "g": 0, "b": 0 }, "args": { "amount": 0.5 }, "expected_lightness": 75 },
+    { "op": "darken", "input": { "r": 255, "g": 0, "b": 0 }, "args": { "amount": 0.5 }, "expected_lightness": 25 },
+    { "op": "grayscale", "input": { "r": 255, "g": 0, "b": 0 }, "expected_saturation": 0 },
+    { "op": "invert", "input": { "r": 255, "g": 0, "b": 0 }, "expected": { "r": 0, "g": 255, "b": 255 } },
+    { "op": "invert", "input": { "r": 0, "g": 0, "b": 0 }, "expected": { "r": 255, "g": 255, "b": 255 } },
+    { "op": "complement", "input": { "r": 255, "g": 0, "b": 0 }, "expected_hue": 180 },
+    { "op": "rotate", "input": { "r": 255, "g": 0, "b": 0 }, "args": { "degrees": 120 }, "expected_hue": 120 },
+    { "op": "opaque", "input": { "r": 255, "g": 0, "b": 0, "a": 0.3 }, "expected_alpha": 1 },
+    { "op": "fade", "input": { "r": 255, "g": 0, "b": 0, "a": 1 }, "args": { "amount": 0.5 }, "expected_alpha": 0.5 }
+  ],
+
+  "harmony": [
+    {
+      "op": "triadic",
+      "input": { "r": 255, "g": 0, "b": 0 },
+      "expected_hues": [0, 120, 240],
+      "expected_count": 3
+    },
+    {
+      "op": "tetradic",
+      "input": { "r": 255, "g": 0, "b": 0 },
+      "expected_hues": [0, 90, 180, 270],
+      "expected_count": 4
+    },
+    {
+      "op": "analogous",
+      "input": { "r": 255, "g": 0, "b": 0 },
+      "args": { "angle": 30 },
+      "expected_hues": [330, 0, 30],
+      "expected_count": 3
+    }
+  ],
+
+  "blending": [
+    {
+      "op": "multiply",
+      "base": { "r": 255, "g": 0, "b": 0 },
+      "overlay": { "r": 255, "g": 255, "b": 255 },
+      "expected": { "r": 255, "g": 0, "b": 0 },
+      "note": "multiply with white is identity"
+    },
+    {
+      "op": "multiply",
+      "base": { "r": 255, "g": 0, "b": 0 },
+      "overlay": { "r": 0, "g": 0, "b": 0 },
+      "expected": { "r": 0, "g": 0, "b": 0 },
+      "note": "multiply with black is black"
+    },
+    {
+      "op": "screen",
+      "base": { "r": 255, "g": 0, "b": 0 },
+      "overlay": { "r": 0, "g": 0, "b": 0 },
+      "expected": { "r": 255, "g": 0, "b": 0 },
+      "note": "screen with black is identity"
+    },
+    {
+      "op": "screen",
+      "base": { "r": 255, "g": 0, "b": 0 },
+      "overlay": { "r": 255, "g": 255, "b": 255 },
+      "expected": { "r": 255, "g": 255, "b": 255 },
+      "note": "screen with white is white"
+    },
+    {
+      "op": "add",
+      "base": { "r": 200, "g": 100, "b": 50 },
+      "overlay": { "r": 100, "g": 200, "b": 50 },
+      "expected": { "r": 255, "g": 255, "b": 100 },
+      "tolerance": 1,
+      "note": "add clamps to 255"
+    }
+  ],
+
+  "analysis": {
+    "luminance": [
+      { "input": { "r": 255, "g": 255, "b": 255 }, "expected": 1.0 },
+      { "input": { "r": 0, "g": 0, "b": 0 }, "expected": 0.0 },
+      { "input": { "r": 255, "g": 0, "b": 0 }, "expected": 0.2126, "tolerance": 0.001 }
+    ],
+    "contrast": [
+      { "a": { "r": 255, "g": 255, "b": 255 }, "b": { "r": 0, "g": 0, "b": 0 }, "expected": 21.0, "tolerance": 0.1 },
+      { "a": { "r": 255, "g": 0, "b": 0 }, "b": { "r": 255, "g": 0, "b": 0 }, "expected": 1.0, "tolerance": 0.001 }
+    ],
+    "distance": [
+      { "a": { "r": 0, "g": 0, "b": 0 }, "b": { "r": 0, "g": 0, "b": 0 }, "expected": 0.0 },
+      { "a": { "r": 0, "g": 0, "b": 0 }, "b": { "r": 255, "g": 255, "b": 255 }, "expected": 441.67, "tolerance": 0.1 }
+    ],
+    "isLight": [
+      { "input": { "r": 255, "g": 255, "b": 255 }, "expected": true },
+      { "input": { "r": 0, "g": 0, "b": 0 }, "expected": false },
+      { "input": { "r": 128, "g": 128, "b": 128 }, "expected": false, "note": "l=50 is dark (<=50)" }
+    ]
+  }
+}

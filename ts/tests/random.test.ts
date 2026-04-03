@@ -51,8 +51,8 @@ describe("random()", () => {
 
   it("respects saturation constraint", () => {
     for (let i = 0; i < ITERATIONS; i++) {
-      // HSL round-trip rounding can shift saturation by a few points
-      const c = random({ saturation: [80, 100] });
+      // Constrain lightness to mid-range so saturation is meaningful after round-trip
+      const c = random({ saturation: [80, 100], lightness: [30, 70] });
       const s = c.saturation();
       expect(s).toBeGreaterThanOrEqual(75);
       expect(s).toBeLessThanOrEqual(100);

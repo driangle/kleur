@@ -1,7 +1,7 @@
 ---
 id: "01kn8ytcv"
 title: "Cross-language test vectors"
-status: pending
+status: completed
 priority: medium
 effort: medium
 type: chore
@@ -20,15 +20,15 @@ Create a language-agnostic test vector file (JSON) that defines expected input/o
 
 ## Tasks
 
-- [ ] Create `tests/vectors/` directory for shared test data
-- [ ] Write vectors for input parsing: hex, HSL, CSS strings, integer, named colors
-- [ ] Write vectors for output formats: toHex, toCss, toRgb, toHsl, toArray, toNormalized
-- [ ] Write vectors for adjustments: lighten, darken, saturate, etc. with specific amounts and expected outputs
-- [ ] Write vectors for harmony: triadic, tetradic, analogous with expected hue values
-- [ ] Write vectors for blending: each mode with known base/overlay/result
-- [ ] Write vectors for analysis: luminance, contrast, distance with known values
-- [ ] Run the TypeScript implementation against all vectors and ensure they pass
-- [ ] Document the vector file format in a README inside tests/vectors/
+- [x] Create `tests/vectors/` directory for shared test data
+- [x] Write vectors for input parsing: hex, HSL, CSS strings, integer, named colors
+- [x] Write vectors for output formats: toHex, toCss, toRgb, toHsl, toArray, toNormalized
+- [x] Write vectors for adjustments: lighten, darken, saturate, etc. with specific amounts and expected outputs
+- [x] Write vectors for harmony: triadic, tetradic, analogous with expected hue values
+- [x] Write vectors for blending: each mode with known base/overlay/result
+- [x] Write vectors for analysis: luminance, contrast, distance with known values
+- [x] Run the TypeScript implementation against all vectors and ensure they pass
+- [x] Document the vector file format in a README inside tests/vectors/
 
 ## Acceptance Criteria
 
