@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import InteractiveShell from "./InteractiveShell.vue";
 
 const copied = ref(false);
 
@@ -36,26 +37,7 @@ onMounted(() => {
     </section>
 
     <!-- Live Code Exhibit -->
-    <section class="kl-exhibit">
-      <div class="kl-exhibit-code">
-        <div class="kl-exhibit-chrome">
-          <span class="kl-dot"></span>
-          <span class="kl-dot"></span>
-          <span class="kl-dot"></span>
-          <span class="kl-exhibit-label">Interactive Shell</span>
-        </div>
-        <code class="kl-exhibit-snippet">
-          <span class="kl-kw">const</span> light =
-          <span class="kl-fn">kleur</span>(<span class="kl-str">"#ff7f50"</span
-          >).<span class="kl-fn">lighten</span>(<span class="kl-num">20</span
-          >).<span class="kl-fn">hex</span>()
-        </code>
-      </div>
-      <div class="kl-exhibit-preview">
-        <span class="kl-exhibit-preview-label">Live Preview</span>
-        <span class="kl-exhibit-preview-hex">#ff7f50</span>
-      </div>
-    </section>
+    <InteractiveShell />
 
     <!-- Feature Grid -->
     <section class="kl-features">
@@ -302,112 +284,6 @@ onMounted(() => {
   background: #fff;
   color: #1a1c1c;
   border-color: #fff;
-}
-
-/* ── Exhibit ── */
-.kl-exhibit {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-bottom: 120px;
-}
-
-@media (min-width: 768px) {
-  .kl-exhibit {
-    grid-template-columns: 2fr 1fr;
-  }
-}
-
-.kl-exhibit-code {
-  background: #0e0e0e;
-  padding: 40px 48px;
-  border-left: 1px solid rgba(71, 71, 71, 0.3);
-  border-top: 1px solid rgba(71, 71, 71, 0.3);
-}
-
-.kl-exhibit-chrome {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 32px;
-}
-
-.kl-dot {
-  width: 10px;
-  height: 10px;
-  background: #2a2a2a;
-}
-
-.kl-exhibit-label {
-  margin-left: 16px;
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #474747;
-}
-
-.kl-exhibit-snippet {
-  font-family: var(--vp-font-family-mono);
-  font-size: clamp(0.9rem, 2vw, 1.25rem);
-  line-height: 1.8;
-  color: #919191;
-  display: block;
-  white-space: pre-wrap;
-}
-
-.kl-kw {
-  color: #666;
-}
-
-.kl-fn {
-  color: #e5e2e1;
-}
-
-.kl-str {
-  color: #ff7f50;
-}
-
-.kl-num {
-  color: #e5e2e1;
-}
-
-.kl-exhibit-preview {
-  background: #ff7f50;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 32px;
-  min-height: 200px;
-  position: relative;
-  overflow: hidden;
-}
-
-.kl-exhibit-preview::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.08);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.kl-exhibit-preview:hover::after {
-  opacity: 1;
-}
-
-.kl-exhibit-preview-label {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: rgba(0, 0, 0, 0.5);
-  margin-bottom: 4px;
-}
-
-.kl-exhibit-preview-hex {
-  font-size: 1.75rem;
-  font-weight: 900;
-  color: #000;
 }
 
 /* ── Features ── */

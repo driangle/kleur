@@ -7,6 +7,9 @@
     "build": "vitepress build",
     "preview": "vitepress preview"
   },
+  "dependencies": {
+    "kleur": "file:../../ts"
+  },
   "devDependencies": {
     "vitepress": "^1.6.3",
     "vue": "^3.5.13"
