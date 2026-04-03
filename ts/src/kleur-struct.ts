@@ -1,4 +1,5 @@
 import { rgbToHsl, hslToRgb } from "./hsl.js";
+import type { Rgb, Rgba, Hsl, Hsla } from "./types.js";
 
 const clampByte = (v: number): number => Math.round(Math.min(255, Math.max(0, v)));
 const clampAlpha = (v: number): number => Math.min(1, Math.max(0, v));
@@ -93,5 +94,44 @@ export class KleurStruct {
 
   withAlpha(v: number): KleurStruct {
     return new KleurStruct(this.r, this.g, this.b, v);
+  }
+
+  // --- Output formats ---
+
+  toHex(): string {
+    const hex = (n: number): string => n.toString(16).padStart(2, "0");
+    return `#${hex(this.r)}${hex(this.g)}${hex(this.b)}`;
+  }
+
+  toCss(): string {
+    return `rgba(${this.r},${this.g},${this.b},${this.a})`;
+  }
+
+  toRgb(): Rgb {
+    return { r: this.r, g: this.g, b: this.b };
+  }
+
+  toRgba(): Rgba {
+    return { r: this.r, g: this.g, b: this.b, a: this.a };
+  }
+
+  toHsl(): Hsl {
+    return this.hsl();
+  }
+
+  toHsla(): Hsla {
+    return { ...this.hsl(), a: this.a };
+  }
+
+  toArray(): [number, number, number, number] {
+    return [this.r, this.g, this.b, this.a];
+  }
+
+  toNormalized(): [number, number, number, number] {
+    return [this.r / 255, this.g / 255, this.b / 255, this.a];
+  }
+
+  toString(): string {
+    return this.toCss();
   }
 }

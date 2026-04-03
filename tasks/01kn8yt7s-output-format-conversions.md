@@ -1,7 +1,7 @@
 ---
 id: "01kn8yt7s"
 title: "Output format conversions"
-status: pending
+status: completed
 priority: critical
 effort: small
 type: feature
@@ -20,16 +20,16 @@ Implement all output format methods on KleurStruct so any color can be serialize
 
 ## Tasks
 
-- [ ] Implement `toHex()` — returns "#rrggbb"
-- [ ] Implement `toCss()` — returns "rgba(r,g,b,a)"
-- [ ] Implement `toRgb()` — returns {r, g, b}
-- [ ] Implement `toRgba()` — returns {r, g, b, a}
-- [ ] Implement `toHsl()` — returns {h, s, l}
-- [ ] Implement `toHsla()` — returns {h, s, l, a}
-- [ ] Implement `toArray()` — returns [r, g, b, a]
-- [ ] Implement `toNormalized()` — returns [r/255, g/255, b/255, a] (0-1 range)
-- [ ] Implement `toString()` — delegates to toCss()
-- [ ] Write tests verifying output for known colors (e.g., pure red -> "#ff0000")
+- [x] Implement `toHex()` — returns "#rrggbb"
+- [x] Implement `toCss()` — returns "rgba(r,g,b,a)"
+- [x] Implement `toRgb()` — returns {r, g, b}
+- [x] Implement `toRgba()` — returns {r, g, b, a}
+- [x] Implement `toHsl()` — returns {h, s, l}
+- [x] Implement `toHsla()` — returns {h, s, l, a}
+- [x] Implement `toArray()` — returns [r, g, b, a]
+- [x] Implement `toNormalized()` — returns [r/255, g/255, b/255, a] (0-1 range)
+- [x] Implement `toString()` — delegates to toCss()
+- [x] Write tests verifying output for known colors (e.g., pure red -> "#ff0000")
 
 ## Acceptance Criteria
 
