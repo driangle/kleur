@@ -1,7 +1,7 @@
 ---
 id: "01kn8yt9k"
 title: "Color harmony generation"
-status: pending
+status: completed
 priority: high
 effort: medium
 type: feature
@@ -20,14 +20,14 @@ Implement color harmony methods that generate palettes based on color theory rel
 
 ## Tasks
 
-- [ ] Implement `triadic()` — return 3 colors spaced 120 degrees apart
-- [ ] Implement `tetradic()` — return 4 colors spaced 90 degrees apart
-- [ ] Implement `analogous(angle?)` — return 3 adjacent colors (default angle: 30 degrees)
-- [ ] Implement `splitComplement(angle?)` — return 3 colors: base + two at 180 +/- angle
-- [ ] Implement `tints(count)` — return progressively lighter variations
-- [ ] Implement `shades(count)` — return progressively darker variations
-- [ ] Implement `tones(count)` — return progressively desaturated variations
-- [ ] Write tests verifying correct hue spacing and count for each method
+- [x] Implement `triadic()` — return 3 colors spaced 120 degrees apart
+- [x] Implement `tetradic()` — return 4 colors spaced 90 degrees apart
+- [x] Implement `analogous(angle?)` — return 3 adjacent colors (default angle: 30 degrees)
+- [x] Implement `splitComplement(angle?)` — return 3 colors: base + two at 180 +/- angle
+- [x] Implement `tints(count)` — return progressively lighter variations
+- [x] Implement `shades(count)` — return progressively darker variations
+- [x] Implement `tones(count)` — return progressively desaturated variations
+- [x] Write tests verifying correct hue spacing and count for each method
 
 ## Acceptance Criteria
 

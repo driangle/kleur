@@ -16,6 +16,7 @@ export {
 } from "./parse.js";
 export type { NamedColorLookup } from "./parse.js";
 export { luminance, isLight, isDark, contrast, distance } from "./analysis.js";
+export { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "./harmony.js";
 export type {
   Rgb,
   Rgba,
