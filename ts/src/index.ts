@@ -57,6 +57,8 @@ export type {
   GradientStop,
   KleurFill,
   KleurValue,
+  DistancePreset,
+  DistanceOptions,
 } from "./types.js";
 
 // Auto-register named color lookup so object("red") works out of the box

@@ -68,6 +68,17 @@ export type KleurFill = SolidKleur | LinearGradient | RadialGradient;
 /** Any value accepted as a color input */
 export type KleurValue = string | number | KleurStruct;
 
+/** Preset name for common distance strategies */
+export type DistancePreset = "fast" | "perceptual" | "accurate" | "modern";
+
+/** Options for the distance() function — either a preset or explicit space+method */
+export type DistanceOptions =
+  | { preset: DistancePreset }
+  | {
+      space: "rgb" | "hsl" | "lab" | "lch" | "oklab" | "oklch";
+      method: "euclidean" | "deltaE76" | "deltaE94" | "deltaE2000" | "deltaEOK";
+    };
+
 // Forward reference — resolved at runtime via the actual class
 import type { KleurStruct } from "./kleur-struct.js";
 export type { KleurStruct };

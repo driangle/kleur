@@ -1,7 +1,7 @@
 ---
 title: "Add space and method options to distance function"
 id: "01kn9hvwx"
-status: pending
+status: completed
 priority: high
 type: feature
 tags: ["api", "analysis"]
@@ -35,15 +35,15 @@ Default behavior (no options) remains RGB Euclidean (`"fast"` preset), preservin
 
 ## Tasks
 
-- [ ] Add `DistancePreset` and `DistanceOptions` types
-- [ ] Implement color space conversion functions needed (RGB→Lab, RGB→OKLab, RGB→LCH, RGB→OKLCH)
-- [ ] Implement distance methods: euclidean, deltaE76, deltaE94, deltaE2000, deltaEOK
-- [ ] Define preset mappings (fast→rgb/euclidean, perceptual→lab/deltaE94, accurate→lab/deltaE2000, modern→oklab/deltaEOK)
-- [ ] Refactor `distance()` to accept optional third argument `options?: DistanceOptions`
-- [ ] Validate space+method combinations and throw clear errors for invalid ones
-- [ ] Update tests to cover: default (no options), each preset, explicit space+method, and invalid options
-- [ ] Ensure all existing distance tests and cross-language vectors still pass
-- [ ] Export `DistancePreset` and `DistanceOptions` types from index.ts
+- [x] Add `DistancePreset` and `DistanceOptions` types
+- [x] Implement color space conversion functions needed (RGB→Lab, RGB→OKLab, RGB→LCH, RGB→OKLCH)
+- [x] Implement distance methods: euclidean, deltaE76, deltaE94, deltaE2000, deltaEOK
+- [x] Define preset mappings (fast→rgb/euclidean, perceptual→lab/deltaE94, accurate→lab/deltaE2000, modern→oklab/deltaEOK)
+- [x] Refactor `distance()` to accept optional third argument `options?: DistanceOptions`
+- [x] Validate space+method combinations and throw clear errors for invalid ones
+- [x] Update tests to cover: default (no options), each preset, explicit space+method, and invalid options
+- [x] Ensure all existing distance tests and cross-language vectors still pass
+- [x] Export `DistancePreset` and `DistanceOptions` types from index.ts
 
 ## Acceptance Criteria
 
