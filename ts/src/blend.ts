@@ -30,15 +30,18 @@ export function blend(base: KleurStruct, overlay: KleurStruct, mode: BlendMode):
   return new KleurStruct(r, g, b, base.a);
 }
 
+export type EasingFn = (t: number) => number;
+
 /**
- * Linear interpolation between two colors in RGB space.
- * t=0 returns a, t=1 returns b, t=0.5 returns the midpoint.
+ * Interpolate between two colors in RGB space.
+ * t=0 returns a, t=1 returns b. An optional easing function remaps t before interpolation.
  */
-export function mix(a: KleurStruct, b: KleurStruct, t = 0.5): KleurStruct {
-  const r = a.r + (b.r - a.r) * t;
-  const g = a.g + (b.g - a.g) * t;
-  const bl = a.b + (b.b - a.b) * t;
-  const alpha = a.a + (b.a - a.a) * t;
+export function mix(a: KleurStruct, b: KleurStruct, t = 0.5, ease?: EasingFn): KleurStruct {
+  const et = ease ? ease(t) : t;
+  const r = a.r + (b.r - a.r) * et;
+  const g = a.g + (b.g - a.g) * et;
+  const bl = a.b + (b.b - a.b) * et;
+  const alpha = a.a + (b.a - a.a) * et;
   return new KleurStruct(r, g, bl, alpha);
 }
 

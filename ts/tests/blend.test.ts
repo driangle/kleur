@@ -137,6 +137,21 @@ describe("mix() / lerp()", () => {
     expect(mix(a, b, 0.5).a).toBeCloseTo(0.5);
   });
 
+  it("applies easing function to t", () => {
+    // ease that always returns 1 → result should equal b
+    const result = mix(black, white, 0.3, () => 1);
+    expect(result.r).toBe(255);
+    expect(result.g).toBe(255);
+    expect(result.b).toBe(255);
+  });
+
+  it("works with ease-in-quad", () => {
+    const easeInQuad = (t: number) => t * t;
+    // t=0.5 → eased=0.25 → 0 + (255-0)*0.25 = 63.75
+    const result = mix(black, white, 0.5, easeInQuad);
+    expect(result.r).toBeCloseTo(64, 0);
+  });
+
   it("lerp is an alias for mix", () => {
     const m = mix(red, black, 0.3);
     const l = lerp(red, black, 0.3);
@@ -169,6 +184,13 @@ describe("KleurStruct.interpolate()", () => {
     expect(lerpResult.r).toBe(interp.r);
     expect(lerpResult.g).toBe(interp.g);
     expect(lerpResult.b).toBe(interp.b);
+  });
+
+  it("applies easing function", () => {
+    const a = new KleurStruct(0, 0, 0);
+    const b = new KleurStruct(255, 255, 255);
+    const result = a.interpolate(b, 0.5, (t) => t * t);
+    expect(result.r).toBeCloseTo(64, 0);
   });
 
   it("returns new instance", () => {

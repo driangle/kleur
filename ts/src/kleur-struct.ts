@@ -130,14 +130,15 @@ export class KleurStruct {
   opaque(): KleurStruct { return new KleurStruct(this.r, this.g, this.b, 1); }
 
   // --- Interpolation ---
-  interpolate(target: KleurStruct, t = 0.5): KleurStruct {
+  interpolate(target: KleurStruct, t = 0.5, ease?: (t: number) => number): KleurStruct {
+    const et = ease ? ease(t) : t;
     return new KleurStruct(
-      this.r + (target.r - this.r) * t,
-      this.g + (target.g - this.g) * t,
-      this.b + (target.b - this.b) * t,
-      this.a + (target.a - this.a) * t,
+      this.r + (target.r - this.r) * et,
+      this.g + (target.g - this.g) * et,
+      this.b + (target.b - this.b) * et,
+      this.a + (target.a - this.a) * et,
     );
   }
 
-  lerp(target: KleurStruct, t = 0.5): KleurStruct { return this.interpolate(target, t); }
+  lerp(target: KleurStruct, t = 0.5, ease?: (t: number) => number): KleurStruct { return this.interpolate(target, t, ease); }
 }
