@@ -1,59 +1,57 @@
 import { describe, it, expect } from "vitest";
 
 describe("public API integration", () => {
-  it("exports Kleur namespace with full API", async () => {
+  it("exports Kleur namespace with grouped API", async () => {
     const mod = await import("../src/index.js");
     const { Kleur } = mod;
 
-    // Factory functions
-    expect(typeof Kleur.rgb).toBe("function");
-    expect(typeof Kleur.fromHex).toBe("function");
-    expect(typeof Kleur.fromHsl).toBe("function");
-    expect(typeof Kleur.fromHsla).toBe("function");
-    expect(typeof Kleur.fromNumber).toBe("function");
-    expect(typeof Kleur.fromCss).toBe("function");
-    expect(typeof Kleur.gray).toBe("function");
-    expect(typeof Kleur.grey).toBe("function");
-    expect(typeof Kleur.struct).toBe("function");
-    expect(typeof Kleur.random).toBe("function");
+    // Create
+    expect(typeof Kleur.create.rgb).toBe("function");
+    expect(typeof Kleur.create.hex).toBe("function");
+    expect(typeof Kleur.create.hsl).toBe("function");
+    expect(typeof Kleur.create.number).toBe("function");
+    expect(typeof Kleur.create.css).toBe("function");
+    expect(typeof Kleur.create.object).toBe("function");
+    expect(typeof Kleur.create.random).toBe("function");
+    expect(typeof Kleur.create.grayscale).toBe("function");
 
-    // Analysis
-    expect(typeof Kleur.luminance).toBe("function");
-    expect(typeof Kleur.isLight).toBe("function");
-    expect(typeof Kleur.isDark).toBe("function");
-    expect(typeof Kleur.contrast).toBe("function");
-    expect(typeof Kleur.distance).toBe("function");
+    // Analyze
+    expect(typeof Kleur.analyze.luminance).toBe("function");
+    expect(typeof Kleur.analyze.isLight).toBe("function");
+    expect(typeof Kleur.analyze.isDark).toBe("function");
+    expect(typeof Kleur.analyze.contrast).toBe("function");
+    expect(typeof Kleur.analyze.distance).toBe("function");
 
-    // Blending
-    expect(typeof Kleur.blend).toBe("function");
-    expect(typeof Kleur.mix).toBe("function");
-    expect(typeof Kleur.lerp).toBe("function");
+    // Combine
+    expect(typeof Kleur.combine.blend).toBe("function");
+    expect(typeof Kleur.combine.mix).toBe("function");
+    expect(typeof Kleur.combine.lerp).toBe("function");
 
     // Harmony
-    expect(typeof Kleur.triadic).toBe("function");
-    expect(typeof Kleur.tetradic).toBe("function");
-    expect(typeof Kleur.analogous).toBe("function");
-    expect(typeof Kleur.splitComplement).toBe("function");
-    expect(typeof Kleur.tints).toBe("function");
-    expect(typeof Kleur.shades).toBe("function");
-    expect(typeof Kleur.tones).toBe("function");
+    expect(typeof Kleur.harmony.triadic).toBe("function");
+    expect(typeof Kleur.harmony.tetradic).toBe("function");
+    expect(typeof Kleur.harmony.analogous).toBe("function");
+    expect(typeof Kleur.harmony.splitComplement).toBe("function");
+    expect(typeof Kleur.harmony.tints).toBe("function");
+    expect(typeof Kleur.harmony.shades).toBe("function");
+    expect(typeof Kleur.harmony.tones).toBe("function");
 
-    // Named colors
-    expect(typeof Kleur.getNamedColor).toBe("function");
+    // Named
+    expect(typeof Kleur.named.get).toBe("function");
 
-    // Gradients
-    expect(typeof Kleur.colorStop).toBe("function");
-    expect(typeof Kleur.solid).toBe("function");
-    expect(typeof Kleur.linearGradient).toBe("function");
-    expect(typeof Kleur.radialGradient).toBe("function");
-    expect(typeof Kleur.isSolid).toBe("function");
-    expect(typeof Kleur.isGradient).toBe("function");
+    // Gradient
+    expect(typeof Kleur.gradient.colorStop).toBe("function");
+    expect(typeof Kleur.gradient.solid).toBe("function");
+    expect(typeof Kleur.gradient.linearGradient).toBe("function");
+    expect(typeof Kleur.gradient.radialGradient).toBe("function");
+    expect(typeof Kleur.gradient.isSolid).toBe("function");
+    expect(typeof Kleur.gradient.isGradient).toBe("function");
 
-    // Color constants
-    expect(Kleur.white.r).toBe(255);
-    expect(Kleur.black.r).toBe(0);
-    expect(Kleur.red.r).toBe(255);
-    expect(Kleur.transparent.a).toBe(0);
+    // Named color constants
+    expect(Kleur.named.white.r).toBe(255);
+    expect(Kleur.named.black.r).toBe(0);
+    expect(Kleur.named.red.r).toBe(255);
+    expect(Kleur.named.transparent.a).toBe(0);
   });
 
   it("exports KleurStruct class directly", async () => {
@@ -73,17 +71,17 @@ describe("public API integration", () => {
   });
 
   it("exports factory functions directly", async () => {
-    const { fromHex, rgb, struct, mix } = await import("../src/index.js");
-    expect(fromHex("#ff0000").r).toBe(255);
+    const { hex, rgb, object, mix } = await import("../src/index.js");
+    expect(hex("#ff0000").r).toBe(255);
     expect(rgb(0, 255, 0).g).toBe(255);
-    expect(struct("#0000ff").b).toBe(255);
-    const mid = mix(fromHex("#000000"), fromHex("#ffffff"), 0.5);
+    expect(object("#0000ff").b).toBe(255);
+    const mid = mix(hex("#000000"), hex("#ffffff"), 0.5);
     expect(mid.r).toBe(128);
   });
 
-  it("Kleur.struct resolves named colors", async () => {
+  it("Kleur.create.object resolves named colors", async () => {
     const { Kleur } = await import("../src/index.js");
-    const c = Kleur.struct("cornflowerblue");
+    const c = Kleur.create.object("cornflowerblue");
     expect(c.r).toBe(100);
     expect(c.g).toBe(149);
     expect(c.b).toBe(237);

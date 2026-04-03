@@ -12,7 +12,7 @@ export function rgb(r: number, g: number, b: number, a?: number): KleurStruct {
  * Parse a hex color string. Requires `#` prefix.
  * Supports 3-digit (#abc) and 6-digit (#aabbcc) forms.
  */
-export function fromHex(hex: string): KleurStruct {
+export function hex(hex: string): KleurStruct {
   const s = hex.trim();
   if (!s.startsWith("#")) {
     throw new Error(`Invalid hex color: "${hex}" (must start with #)`);
@@ -37,17 +37,9 @@ export function fromHex(hex: string): KleurStruct {
 }
 
 /**
- * Create a color from HSL values.
+ * Create a color from HSL values with optional alpha.
  */
-export function fromHsl(h: number, s: number, l: number): KleurStruct {
-  const { r, g, b } = hslToRgb(h, s, l);
-  return new KleurStruct(r, g, b);
-}
-
-/**
- * Create a color from HSLA values.
- */
-export function fromHsla(h: number, s: number, l: number, a: number): KleurStruct {
+export function hsl(h: number, s: number, l: number, a?: number): KleurStruct {
   const { r, g, b } = hslToRgb(h, s, l);
   return new KleurStruct(r, g, b, a);
 }
@@ -55,7 +47,7 @@ export function fromHsla(h: number, s: number, l: number, a: number): KleurStruc
 /**
  * Create a color from a 24-bit packed integer (0xRRGGBB).
  */
-export function fromNumber(n: number): KleurStruct {
+export function number(n: number): KleurStruct {
   const int = n >>> 0; // ensure unsigned 32-bit
   const r = (int >> 16) & 0xff;
   const g = (int >> 8) & 0xff;
@@ -64,20 +56,17 @@ export function fromNumber(n: number): KleurStruct {
 }
 
 /**
- * Create a gray color (r=g=b=value).
+ * Create a grayscale color (r=g=b=value).
  */
-export function gray(value: number, alpha?: number): KleurStruct {
+export function grayscale(value: number, alpha?: number): KleurStruct {
   return new KleurStruct(value, value, value, alpha);
 }
-
-/** Alias for gray. */
-export const grey = gray;
 
 /**
  * Parse a CSS color function string.
  * Supports: rgb(), rgba(), hsl(), hsla()
  */
-export function fromCss(css: string): KleurStruct {
+export function css(css: string): KleurStruct {
   const s = css.trim().toLowerCase();
 
   const rgbaMatch = s.match(
@@ -123,13 +112,13 @@ export function setNamedColorLookup(lookup: NamedColorLookup): void {
 /**
  * Universal converter: accepts string (hex, CSS, named), number, or KleurStruct.
  */
-export function struct(value: string | number | KleurStruct): KleurStruct {
+export function object(value: string | number | KleurStruct): KleurStruct {
   if (value instanceof KleurStruct) {
     return value;
   }
 
   if (typeof value === "number") {
-    return fromNumber(value);
+    return number(value);
   }
 
   if (typeof value === "string") {
@@ -137,12 +126,12 @@ export function struct(value: string | number | KleurStruct): KleurStruct {
 
     // Hex
     if (s.startsWith("#")) {
-      return fromHex(s);
+      return hex(s);
     }
 
     // CSS function
     if (s.startsWith("rgb") || s.startsWith("hsl")) {
-      return fromCss(s);
+      return css(s);
     }
 
     // Named color lookup

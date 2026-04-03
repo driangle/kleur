@@ -1,5 +1,5 @@
 import { KleurStruct } from "./kleur-struct.js";
-import { fromHex } from "./parse.js";
+import { hex as parseHex } from "./parse.js";
 
 /**
  * All 148 CSS Color Level 4 named colors.
@@ -166,23 +166,23 @@ export function getNamedColor(name: string): KleurStruct | undefined {
   }
   const hex = CSS_COLORS[name.toLowerCase()];
   if (hex) {
-    return fromHex(hex);
+    return parseHex(hex);
   }
   return undefined;
 }
 
 // --- Direct constants ---
 
-export const white = fromHex("#ffffff");
-export const black = fromHex("#000000");
-export const red = fromHex("#ff0000");
-export const green = fromHex("#008000");
-export const blue = fromHex("#0000ff");
-export const yellow = fromHex("#ffff00");
-export const cyan = fromHex("#00ffff");
-export const magenta = fromHex("#ff00ff");
-export const orange = fromHex("#ffa500");
-export const purple = fromHex("#800080");
-export const pink = fromHex("#ffc0cb");
-export const lime = fromHex("#00ff00");
+export const white = parseHex("#ffffff");
+export const black = parseHex("#000000");
+export const red = parseHex("#ff0000");
+export const green = parseHex("#008000");
+export const blue = parseHex("#0000ff");
+export const yellow = parseHex("#ffff00");
+export const cyan = parseHex("#00ffff");
+export const magenta = parseHex("#ff00ff");
+export const orange = parseHex("#ffa500");
+export const purple = parseHex("#800080");
+export const pink = parseHex("#ffc0cb");
+export const lime = parseHex("#00ff00");
 export const transparent = new KleurStruct(0, 0, 0, 0);

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
-  KleurStruct, fromHex, fromHsl, fromCss, fromNumber, struct,
+  KleurStruct, hex, hsl, css, number, object,
   luminance, isLight, contrast, distance,
   blend, triadic, tetradic, analogous,
 } from "../src/index.js";
@@ -13,8 +13,8 @@ const toColor = (c: RGBA) => new KleurStruct(c.r, c.g, c.b, c.a ?? 1);
 describe("cross-language test vectors", () => {
   describe("parsing: hex", () => {
     for (const v of vectors.parsing.hex) {
-      it(`fromHex("${v.input}")`, () => {
-        const c = fromHex(v.input);
+      it(`hex("${v.input}")`, () => {
+        const c = hex(v.input);
         expect(c.r).toBe(v.expected.r);
         expect(c.g).toBe(v.expected.g);
         expect(c.b).toBe(v.expected.b);
@@ -24,8 +24,8 @@ describe("cross-language test vectors", () => {
 
   describe("parsing: hsl", () => {
     for (const v of vectors.parsing.hsl) {
-      it(`fromHsl(${v.input.h}, ${v.input.s}, ${v.input.l})`, () => {
-        const c = fromHsl(v.input.h, v.input.s, v.input.l);
+      it(`hsl(${v.input.h}, ${v.input.s}, ${v.input.l})`, () => {
+        const c = hsl(v.input.h, v.input.s, v.input.l);
         expect(c.r).toBe(v.expected.r);
         expect(c.g).toBe(v.expected.g);
         expect(c.b).toBe(v.expected.b);
@@ -35,8 +35,8 @@ describe("cross-language test vectors", () => {
 
   describe("parsing: css", () => {
     for (const v of vectors.parsing.css) {
-      it(`fromCss("${v.input}")`, () => {
-        const c = fromCss(v.input);
+      it(`css("${v.input}")`, () => {
+        const c = css(v.input);
         expect(c.r).toBe(v.expected.r);
         expect(c.g).toBe(v.expected.g);
         expect(c.b).toBe(v.expected.b);
@@ -47,8 +47,8 @@ describe("cross-language test vectors", () => {
 
   describe("parsing: integer", () => {
     for (const v of vectors.parsing.integer) {
-      it(`fromNumber(${v.input})`, () => {
-        const c = fromNumber(v.input);
+      it(`number(${v.input})`, () => {
+        const c = number(v.input);
         expect(c.r).toBe(v.expected.r);
         expect(c.g).toBe(v.expected.g);
         expect(c.b).toBe(v.expected.b);
@@ -58,8 +58,8 @@ describe("cross-language test vectors", () => {
 
   describe("parsing: named", () => {
     for (const v of vectors.parsing.named) {
-      it(`struct("${v.input}")`, () => {
-        const c = struct(v.input);
+      it(`object("${v.input}")`, () => {
+        const c = object(v.input);
         expect(c.r).toBe(v.expected.r);
         expect(c.g).toBe(v.expected.g);
         expect(c.b).toBe(v.expected.b);

@@ -5,14 +5,12 @@ export { KleurStruct } from "./kleur-struct.js";
 export { rgbToHsl, hslToRgb } from "./hsl.js";
 export {
   rgb,
-  fromHex,
-  fromHsl,
-  fromHsla,
-  fromNumber,
-  fromCss,
-  gray,
-  grey,
-  struct,
+  hex,
+  hsl,
+  number,
+  css,
+  grayscale,
+  object,
   setNamedColorLookup,
 } from "./parse.js";
 export type { NamedColorLookup } from "./parse.js";
@@ -61,7 +59,7 @@ export type {
   KleurValue,
 } from "./types.js";
 
-// Auto-register named color lookup so struct("red") works out of the box
+// Auto-register named color lookup so object("red") works out of the box
 import { setNamedColorLookup as _register } from "./parse.js";
 import { getNamedColor as _lookup } from "./named-colors.js";
 _register(_lookup);

@@ -27,9 +27,9 @@ Kleur provides color creation, conversion, manipulation, and analysis across mul
 import { Kleur } from "kleur";
 
 // Create colors
-const color = Kleur.rgb(66, 135, 245);
-const fromHex = Kleur.fromHex("#4287f5");
-const fromHsl = Kleur.fromHsl(217, 90, 61);
+const color = Kleur.create.rgb(66, 135, 245);
+const fromHex = Kleur.create.hex("#4287f5");
+const fromHsl = Kleur.create.hsl(217, 90, 61);
 
 // Manipulate (immutable - returns new instances)
 const lighter = color.lighten(0.2);
@@ -37,7 +37,7 @@ const warm = color.warm(0.3);
 const faded = color.fade(0.5);
 
 // Analyze
-const ratio = KleurStruct.contrast(color, Kleur.rgb(255, 255, 255));
+const ratio = KleurStruct.contrast(color, Kleur.create.rgb(255, 255, 255));
 const isAccessible = ratio >= 4.5;
 
 // Harmony
