@@ -1,7 +1,7 @@
 ---
 id: "01kn8ytc3"
 title: "Random color generation"
-status: pending
+status: completed
 priority: medium
 effort: small
 type: feature
@@ -20,13 +20,13 @@ Implement constrained random color generation. Users can generate random colors 
 
 ## Tasks
 
-- [ ] Implement `random(options?)` function
-- [ ] Support `hue` option: "warm", "cool", or [min, max] range
-- [ ] Support `saturation` option: [min, max] range (0-100)
-- [ ] Support `lightness` option: [min, max] range (0-100)
-- [ ] Support `alpha` option: fixed alpha value
-- [ ] Define "warm" as hue range roughly 0-90 and 330-360; "cool" as 90-330
-- [ ] Write tests verifying constraints are respected (run multiple times, check all outputs are in range)
+- [x] Implement `random(options?)` function
+- [x] Support `hue` option: "warm", "cool", or [min, max] range
+- [x] Support `saturation` option: [min, max] range (0-100)
+- [x] Support `lightness` option: [min, max] range (0-100)
+- [x] Support `alpha` option: fixed alpha value
+- [x] Define "warm" as hue range roughly 0-90 and 330-360; "cool" as 90-330
+- [x] Write tests verifying constraints are respected (run multiple times, check all outputs are in range)
 
 ## Acceptance Criteria
 

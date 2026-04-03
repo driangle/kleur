@@ -35,6 +35,8 @@ export {
   lime,
   transparent,
 } from "./named-colors.js";
+export { random } from "./random.js";
+export type { RandomOptions } from "./random.js";
 export type {
   Rgb,
   Rgba,
