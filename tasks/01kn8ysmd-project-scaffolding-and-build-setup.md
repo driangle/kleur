@@ -1,7 +1,7 @@
 ---
 id: "01kn8ysmd"
 title: "Project scaffolding and build setup"
-status: pending
+status: completed
 priority: critical
 effort: small
 type: chore
@@ -20,13 +20,13 @@ Set up the TypeScript project structure with package.json, tsconfig, build tooli
 
 ## Tasks
 
-- [ ] Initialize `ts/` directory as the TypeScript implementation root
-- [ ] Create package.json with name `kleur`, appropriate fields, and scripts (build, test, lint)
-- [ ] Configure tsconfig.json targeting ES2020+ with strict mode, ESM output
-- [ ] Set up a test framework (vitest recommended) with a placeholder test
-- [ ] Configure build to produce both ESM and CJS outputs
-- [ ] Add a minimal src/index.ts that exports nothing yet
-- [ ] Verify `npm run build` and `npm test` both pass
+- [x] Initialize `ts/` directory as the TypeScript implementation root
+- [x] Create package.json with name `kleur`, appropriate fields, and scripts (build, test, lint)
+- [x] Configure tsconfig.json targeting ES2020+ with strict mode, ESM output
+- [x] Set up a test framework (vitest recommended) with a placeholder test
+- [x] Configure build to produce both ESM and CJS outputs
+- [x] Add a minimal src/index.ts that exports nothing yet
+- [x] Verify `npm run build` and `npm test` both pass
 
 ## Acceptance Criteria
 
