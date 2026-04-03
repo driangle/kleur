@@ -19,8 +19,13 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/driangle/kleur"
+  },
   "scripts": {
     "typeCheck": "tsc",
     "build": "tsup",

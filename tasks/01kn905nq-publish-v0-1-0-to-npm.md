@@ -1,7 +1,7 @@
 ---
 id: "01kn905nq"
 title: "Publish v0.1.0 to npm"
-status: pending
+status: in-progress
 priority: medium
 effort: small
 type: chore
@@ -19,12 +19,12 @@ Publish the initial v0.1.0 release of kleur to npm. This is the first public rel
 
 ## Tasks
 
-- [ ] Verify package.json has correct: name, version (0.1.0), description, license (MIT), repository, keywords
-- [ ] Ensure `files` field in package.json includes only dist/, README, and LICENSE
-- [ ] Add LICENSE file (MIT)
-- [ ] Run full build and test suite — all must pass
-- [ ] Run `npm run lint` — no errors
-- [ ] Run `npm pack --dry-run` to verify package contents look correct
+- [x] Verify package.json has correct: name, version (0.1.0), description, license (MIT), repository, keywords
+- [x] Ensure `files` field in package.json includes only dist/, README, and LICENSE
+- [x] Add LICENSE file (MIT)
+- [x] Run full build and test suite — all must pass
+- [x] Run `npm run lint` — no errors
+- [x] Run `npm pack --dry-run` to verify package contents look correct
 - [ ] Create a git tag `v0.1.0`
 - [ ] Run `npm publish` (or `npm publish --access public` if scoped)
 - [ ] Verify the package is installable: `npm install kleur` in a fresh project
