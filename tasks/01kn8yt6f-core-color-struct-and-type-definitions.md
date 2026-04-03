@@ -1,7 +1,7 @@
 ---
 id: "01kn8yt6f"
 title: "Core color struct and type definitions"
-status: pending
+status: completed
 priority: critical
 effort: medium
 type: feature
@@ -20,15 +20,15 @@ Implement the foundational KleurStruct class and TypeScript type definitions. Th
 
 ## Tasks
 
-- [ ] Define core types: KleurValue (string | number | KleurStruct), SolidKleur, Gradient, Kleur union
-- [ ] Implement KleurStruct class with r, g, b (0-255) and a (0-1) storage
-- [ ] Add derived HSL computation (h: 0-360, s: 0-100, l: 0-100) via RGB-to-HSL conversion
-- [ ] Implement HSL-to-RGB conversion helper
-- [ ] Add channel getters: red(), green(), blue(), hue(), saturation(), lightness(), alpha()
-- [ ] Add immutable setters: withRed(), withGreen(), withBlue(), withHue(), withSaturation(), withLightness(), withAlpha()
-- [ ] Implement value clamping on construction and all operations
-- [ ] Ensure all operations return new instances (immutability)
-- [ ] Write unit tests for construction, clamping, getters, setters, HSL round-tripping
+- [x] Define core types: KleurValue (string | number | KleurStruct), SolidKleur, Gradient, Kleur union
+- [x] Implement KleurStruct class with r, g, b (0-255) and a (0-1) storage
+- [x] Add derived HSL computation (h: 0-360, s: 0-100, l: 0-100) via RGB-to-HSL conversion
+- [x] Implement HSL-to-RGB conversion helper
+- [x] Add channel getters: red(), green(), blue(), hue(), saturation(), lightness(), alpha()
+- [x] Add immutable setters: withRed(), withGreen(), withBlue(), withHue(), withSaturation(), withLightness(), withAlpha()
+- [x] Implement value clamping on construction and all operations
+- [x] Ensure all operations return new instances (immutability)
+- [x] Write unit tests for construction, clamping, getters, setters, HSL round-tripping
 
 ## Acceptance Criteria
 
