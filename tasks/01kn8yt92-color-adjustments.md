@@ -1,7 +1,7 @@
 ---
 id: "01kn8yt92"
 title: "Color adjustments"
-status: pending
+status: completed
 priority: high
 effort: medium
 type: feature
@@ -20,21 +20,21 @@ Implement all color adjustment methods that modify lightness, saturation, hue, a
 
 ## Tasks
 
-- [ ] Implement `lighten(amount)` — increase lightness toward white (amount 0-1)
-- [ ] Implement `darken(amount)` — decrease lightness toward black (amount 0-1)
-- [ ] Implement `brightness(factor)` — scale lightness by a factor
-- [ ] Implement `saturate(amount)` — increase saturation (amount 0-1)
-- [ ] Implement `desaturate(amount)` — decrease saturation (amount 0-1)
-- [ ] Implement `grayscale()` — set saturation to 0
-- [ ] Implement `rotate(degrees)` — rotate hue on the color wheel
-- [ ] Implement `complement()` — rotate hue by 180 degrees
-- [ ] Implement `warm(amount)` — shift hue toward orange (default 0.2)
-- [ ] Implement `cool(amount)` — shift hue toward blue (default 0.2)
-- [ ] Implement `invert()` — invert RGB channels (255 - value)
-- [ ] Implement `opacity(value)` — set alpha to value
-- [ ] Implement `fade(amount)` — reduce alpha by percentage
-- [ ] Implement `opaque()` — set alpha to 1
-- [ ] Write tests for each adjustment with known input/output pairs
+- [x] Implement `lighten(amount)` — increase lightness toward white (amount 0-1)
+- [x] Implement `darken(amount)` — decrease lightness toward black (amount 0-1)
+- [x] Implement `brightness(factor)` — scale lightness by a factor
+- [x] Implement `saturate(amount)` — increase saturation (amount 0-1)
+- [x] Implement `desaturate(amount)` — decrease saturation (amount 0-1)
+- [x] Implement `grayscale()` — set saturation to 0
+- [x] Implement `rotate(degrees)` — rotate hue on the color wheel
+- [x] Implement `complement()` — rotate hue by 180 degrees
+- [x] Implement `warm(amount)` — shift hue toward orange (default 0.2)
+- [x] Implement `cool(amount)` — shift hue toward blue (default 0.2)
+- [x] Implement `invert()` — invert RGB channels (255 - value)
+- [x] Implement `opacity(value)` — set alpha to value
+- [x] Implement `fade(amount)` — reduce alpha by percentage
+- [x] Implement `opaque()` — set alpha to 1
+- [x] Write tests for each adjustment with known input/output pairs
 
 ## Acceptance Criteria
 

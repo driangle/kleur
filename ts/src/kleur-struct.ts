@@ -134,4 +134,82 @@ export class KleurStruct {
   toString(): string {
     return this.toCss();
   }
+
+  // --- Color adjustments ---
+
+  private fromHsl(h: number, s: number, l: number): KleurStruct {
+    const rgb = hslToRgb(h, clampPercent(s), clampPercent(l));
+    return new KleurStruct(rgb.r, rgb.g, rgb.b, this.a);
+  }
+
+  lighten(amount: number): KleurStruct {
+    const { h, s, l } = this.hsl();
+    return this.fromHsl(h, s, l + (100 - l) * amount);
+  }
+
+  darken(amount: number): KleurStruct {
+    const { h, s, l } = this.hsl();
+    return this.fromHsl(h, s, l * (1 - amount));
+  }
+
+  brightness(factor: number): KleurStruct {
+    const { h, s, l } = this.hsl();
+    return this.fromHsl(h, s, l * factor);
+  }
+
+  saturate(amount: number): KleurStruct {
+    const { h, s, l } = this.hsl();
+    return this.fromHsl(h, s + (100 - s) * amount, l);
+  }
+
+  desaturate(amount: number): KleurStruct {
+    const { h, s, l } = this.hsl();
+    return this.fromHsl(h, s * (1 - amount), l);
+  }
+
+  grayscale(): KleurStruct {
+    const { h, l } = this.hsl();
+    return this.fromHsl(h, 0, l);
+  }
+
+  rotate(degrees: number): KleurStruct {
+    const { h, s, l } = this.hsl();
+    return this.fromHsl(clampHue(h + degrees), s, l);
+  }
+
+  complement(): KleurStruct {
+    return this.rotate(180);
+  }
+
+  warm(amount = 0.2): KleurStruct {
+    // Shift hue toward orange (30°)
+    const { h, s, l } = this.hsl();
+    const target = 30;
+    const diff = ((target - h + 540) % 360) - 180;
+    return this.fromHsl(clampHue(h + diff * amount), s, l);
+  }
+
+  cool(amount = 0.2): KleurStruct {
+    // Shift hue toward blue (240°)
+    const { h, s, l } = this.hsl();
+    const target = 240;
+    const diff = ((target - h + 540) % 360) - 180;
+    return this.fromHsl(clampHue(h + diff * amount), s, l);
+  }
+
+  invert(): KleurStruct {
+    return new KleurStruct(255 - this.r, 255 - this.g, 255 - this.b, this.a);
+  }
+
+  opacity(value: number): KleurStruct {
+    return new KleurStruct(this.r, this.g, this.b, value);
+  }
+
+  fade(amount: number): KleurStruct {
+    return new KleurStruct(this.r, this.g, this.b, this.a * (1 - amount));
+  }
+
+  opaque(): KleurStruct {
+    return new KleurStruct(this.r, this.g, this.b, 1);
+  }
 }
