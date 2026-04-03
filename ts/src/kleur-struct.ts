@@ -212,4 +212,18 @@ export class KleurStruct {
   opaque(): KleurStruct {
     return new KleurStruct(this.r, this.g, this.b, 1);
   }
+
+  // --- Interpolation ---
+
+  interpolate(target: KleurStruct, t = 0.5): KleurStruct {
+    const r = this.r + (target.r - this.r) * t;
+    const g = this.g + (target.g - this.g) * t;
+    const b = this.b + (target.b - this.b) * t;
+    const a = this.a + (target.a - this.a) * t;
+    return new KleurStruct(r, g, b, a);
+  }
+
+  lerp(target: KleurStruct, t = 0.5): KleurStruct {
+    return this.interpolate(target, t);
+  }
 }

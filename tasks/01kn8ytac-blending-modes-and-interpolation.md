@@ -1,7 +1,7 @@
 ---
 id: "01kn8ytac"
 title: "Blending modes and interpolation"
-status: pending
+status: completed
 priority: high
 effort: medium
 type: feature
@@ -20,15 +20,15 @@ Implement color blending (multiply, screen, overlay, add, subtract) and linear i
 
 ## Tasks
 
-- [ ] Implement `blend(base, overlay, mode)` static method
-- [ ] Implement multiply blend: `base * overlay` (per channel, normalized)
-- [ ] Implement screen blend: `1 - (1 - base) * (1 - overlay)`
-- [ ] Implement overlay blend: multiply if base < 0.5, screen otherwise
-- [ ] Implement add blend: `clamp(base + overlay, 0, 1)`
-- [ ] Implement subtract blend: `clamp(base - overlay, 0, 1)`
-- [ ] Implement `mix(a, b, t)` / `lerp(a, b, t)` — linear interpolation in RGB space, default t = 0.5
-- [ ] Add instance method `interpolate(target, t)` / `lerp(target, t)` on KleurStruct
-- [ ] Write tests with known blend results for each mode
+- [x] Implement `blend(base, overlay, mode)` static method
+- [x] Implement multiply blend: `base * overlay` (per channel, normalized)
+- [x] Implement screen blend: `1 - (1 - base) * (1 - overlay)`
+- [x] Implement overlay blend: multiply if base < 0.5, screen otherwise
+- [x] Implement add blend: `clamp(base + overlay, 0, 1)`
+- [x] Implement subtract blend: `clamp(base - overlay, 0, 1)`
+- [x] Implement `mix(a, b, t)` / `lerp(a, b, t)` — linear interpolation in RGB space, default t = 0.5
+- [x] Add instance method `interpolate(target, t)` / `lerp(target, t)` on KleurStruct
+- [x] Write tests with known blend results for each mode
 
 ## Acceptance Criteria
 
