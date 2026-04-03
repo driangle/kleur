@@ -15,6 +15,7 @@ export {
   setNamedColorLookup,
 } from "./parse.js";
 export type { NamedColorLookup } from "./parse.js";
+export { luminance, isLight, isDark, contrast, distance } from "./analysis.js";
 export type {
   Rgb,
   Rgba,

@@ -1,7 +1,7 @@
 ---
 id: "01kn8ytav"
 title: "Color analysis functions"
-status: pending
+status: completed
 priority: high
 effort: small
 type: feature
@@ -20,13 +20,13 @@ Implement color analysis methods for accessibility checking and color comparison
 
 ## Tasks
 
-- [ ] Implement `luminance()` — WCAG 2.1 relative luminance with sRGB linearization
-- [ ] Implement `isLight()` — true if lightness > 50
-- [ ] Implement `isDark()` — true if lightness <= 50
-- [ ] Implement `contrast(a, b)` — WCAG contrast ratio (1-21)
-- [ ] Implement `distance(a, b)` — Euclidean distance in RGB space
-- [ ] Write tests against known WCAG luminance values (e.g., white = 1.0, black = 0.0)
-- [ ] Write tests verifying contrast ratio of black/white = 21
+- [x] Implement `luminance()` — WCAG 2.1 relative luminance with sRGB linearization
+- [x] Implement `isLight()` — true if lightness > 50
+- [x] Implement `isDark()` — true if lightness <= 50
+- [x] Implement `contrast(a, b)` — WCAG contrast ratio (1-21)
+- [x] Implement `distance(a, b)` — Euclidean distance in RGB space
+- [x] Write tests against known WCAG luminance values (e.g., white = 1.0, black = 0.0)
+- [x] Write tests verifying contrast ratio of black/white = 21
 
 ## Acceptance Criteria
 
