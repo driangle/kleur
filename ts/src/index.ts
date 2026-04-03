@@ -2,6 +2,19 @@
 
 export { KleurStruct } from "./kleur-struct.js";
 export { rgbToHsl, hslToRgb } from "./hsl.js";
+export {
+  rgb,
+  fromHex,
+  fromHsl,
+  fromHsla,
+  fromNumber,
+  fromCss,
+  gray,
+  grey,
+  struct,
+  setNamedColorLookup,
+} from "./parse.js";
+export type { NamedColorLookup } from "./parse.js";
 export type {
   Rgb,
   Rgba,

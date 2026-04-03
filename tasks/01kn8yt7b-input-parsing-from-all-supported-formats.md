@@ -1,7 +1,7 @@
 ---
 id: "01kn8yt7b"
 title: "Input parsing from all supported formats"
-status: pending
+status: completed
 priority: critical
 effort: medium
 type: feature
@@ -20,15 +20,15 @@ Implement all input format parsers so colors can be created from hex strings, HS
 
 ## Tasks
 
-- [ ] Implement `rgb(r, g, b, a?)` factory function
-- [ ] Implement `fromHex(str)` — parse 3-digit and 6-digit hex strings (# required)
-- [ ] Implement `fromHsl(h, s, l)` and `fromHsla(h, s, l, a)` factory functions
-- [ ] Implement CSS string parser: `rgb()`, `rgba()`, `hsl()`, `hsla()` function syntax
-- [ ] Implement `fromNumber(int)` — parse 24-bit packed integer (0xRRGGBB)
-- [ ] Implement `gray(value, alpha?)` / `grey(value, alpha?)` shorthand
-- [ ] Implement named color lookup (case-insensitive) — depends on named colors dictionary or a minimal subset for testing
-- [ ] Implement `struct(value)` — universal converter from KleurValue to KleurStruct
-- [ ] Write tests for each input format, including edge cases and malformed input
+- [x] Implement `rgb(r, g, b, a?)` factory function
+- [x] Implement `fromHex(str)` — parse 3-digit and 6-digit hex strings (# required)
+- [x] Implement `fromHsl(h, s, l)` and `fromHsla(h, s, l, a)` factory functions
+- [x] Implement CSS string parser: `rgb()`, `rgba()`, `hsl()`, `hsla()` function syntax
+- [x] Implement `fromNumber(int)` — parse 24-bit packed integer (0xRRGGBB)
+- [x] Implement `gray(value, alpha?)` / `grey(value, alpha?)` shorthand
+- [x] Implement named color lookup (case-insensitive) — depends on named colors dictionary or a minimal subset for testing
+- [x] Implement `struct(value)` — universal converter from KleurValue to KleurStruct
+- [x] Write tests for each input format, including edge cases and malformed input
 
 ## Acceptance Criteria
 
