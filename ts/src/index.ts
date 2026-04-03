@@ -37,6 +37,16 @@ export {
 } from "./named-colors.js";
 export { random } from "./random.js";
 export type { RandomOptions } from "./random.js";
+export {
+  colorStop,
+  solid,
+  linearGradient,
+  radialGradient,
+  isSolid,
+  isLinearGradient,
+  isRadialGradient,
+  isGradient,
+} from "./gradient.js";
 export type {
   Rgb,
   Rgba,

@@ -1,7 +1,7 @@
 ---
 id: "01kn8ytba"
 title: "Gradient and fill types"
-status: pending
+status: completed
 priority: medium
 effort: medium
 type: feature
@@ -20,13 +20,13 @@ Implement gradient data structures (linear and radial) and the fill type union (
 
 ## Tasks
 
-- [ ] Define LinearGradient type: start/end points, color stops array, optional globalAlpha
-- [ ] Define RadialGradient type: inner/outer circles, color stops array, optional globalAlpha
-- [ ] Define ColorStop type: { offset: 0-1, color: KleurValue }
-- [ ] Define Fill type union: SolidKleur | LinearGradient | RadialGradient
-- [ ] Implement type guards: isSolid(), isGradient(), isLinearGradient(), isRadialGradient()
-- [ ] Ensure color stop offsets are clamped to 0-1
-- [ ] Write tests for type construction and type guards
+- [x] Define LinearGradient type: start/end points, color stops array, optional globalAlpha
+- [x] Define RadialGradient type: inner/outer circles, color stops array, optional globalAlpha
+- [x] Define ColorStop type: { offset: 0-1, color: KleurValue }
+- [x] Define Fill type union: SolidKleur | LinearGradient | RadialGradient
+- [x] Implement type guards: isSolid(), isGradient(), isLinearGradient(), isRadialGradient()
+- [x] Ensure color stop offsets are clamped to 0-1
+- [x] Write tests for type construction and type guards
 
 ## Acceptance Criteria
 
