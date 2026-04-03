@@ -63,7 +63,7 @@ export interface GradientStop {
 }
 
 /** Union of all fill types */
-export type Kleur = SolidKleur | LinearGradient | RadialGradient;
+export type KleurFill = SolidKleur | LinearGradient | RadialGradient;
 
 /** Any value accepted as a color input */
 export type KleurValue = string | number | KleurStruct;

@@ -1,5 +1,6 @@
 // kleur - color manipulation library
 
+export { Kleur } from "./kleur.js";
 export { KleurStruct } from "./kleur-struct.js";
 export { rgbToHsl, hslToRgb } from "./hsl.js";
 export {
@@ -56,7 +57,7 @@ export type {
   LinearGradient,
   RadialGradient,
   GradientStop,
-  Kleur,
+  KleurFill,
   KleurValue,
 } from "./types.js";
 

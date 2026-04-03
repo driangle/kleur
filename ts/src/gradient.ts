@@ -3,7 +3,7 @@ import type {
   LinearGradient,
   RadialGradient,
   GradientStop,
-  Kleur,
+  KleurFill,
 } from "./types.js";
 import { KleurStruct } from "./kleur-struct.js";
 
@@ -73,18 +73,18 @@ export function radialGradient(config: {
 
 // --- Type guards ---
 
-export function isSolid(fill: Kleur): fill is SolidKleur {
+export function isSolid(fill: KleurFill): fill is SolidKleur {
   return fill.type === "solid";
 }
 
-export function isLinearGradient(fill: Kleur): fill is LinearGradient {
+export function isLinearGradient(fill: KleurFill): fill is LinearGradient {
   return fill.type === "linear";
 }
 
-export function isRadialGradient(fill: Kleur): fill is RadialGradient {
+export function isRadialGradient(fill: KleurFill): fill is RadialGradient {
   return fill.type === "radial";
 }
 
-export function isGradient(fill: Kleur): fill is LinearGradient | RadialGradient {
+export function isGradient(fill: KleurFill): fill is LinearGradient | RadialGradient {
   return fill.type === "linear" || fill.type === "radial";
 }

@@ -1,7 +1,7 @@
 ---
 id: "01kn8ytch"
 title: "Public API namespace and exports"
-status: pending
+status: completed
 priority: high
 effort: small
 type: feature
@@ -20,13 +20,13 @@ Wire everything together into a clean public API. Create the Kleur namespace tha
 
 ## Tasks
 
-- [ ] Create Kleur namespace/object with all factory functions (rgb, fromHex, fromHsl, fromHsla, gray/grey, struct, random)
-- [ ] Attach static methods: mix, lerp, contrast, distance, blend, toCSSColor, toWebGLColor, toHSL
-- [ ] Attach named color lookup: namedColors map, getNamedColor()
-- [ ] Export color constants: white, black, red, green, blue, yellow, cyan, magenta, orange, purple, pink, lime, transparent
-- [ ] Configure package.json exports field and index.ts barrel exports
-- [ ] Write integration test: import from package entry point, verify all API surface is accessible
-- [ ] Verify tree-shaking works (unused code is not bundled)
+- [x] Create Kleur namespace/object with all factory functions (rgb, fromHex, fromHsl, fromHsla, gray/grey, struct, random)
+- [x] Attach static methods: mix, lerp, contrast, distance, blend, toCSSColor, toWebGLColor, toHSL
+- [x] Attach named color lookup: namedColors map, getNamedColor()
+- [x] Export color constants: white, black, red, green, blue, yellow, cyan, magenta, orange, purple, pink, lime, transparent
+- [x] Configure package.json exports field and index.ts barrel exports
+- [x] Write integration test: import from package entry point, verify all API surface is accessible
+- [x] Verify tree-shaking works (unused code is not bundled)
 
 ## Acceptance Criteria
 
