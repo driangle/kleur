@@ -1,0 +1,17 @@
+dir: ./tasks
+id:
+  strategy: ulid
+  length: 9
+phases:
+  - id: foundation
+    name: "Foundation"
+    description: "Project scaffolding, core types, and basic functionality"
+  - id: core
+    name: "Core Features"
+    description: "Color manipulation, harmony, blending, and analysis"
+  - id: extras
+    name: "Extras"
+    description: "Gradients, random generation, named colors"
+  - id: polish
+    name: "Polish"
+    description: "Public API, cross-language test vectors, documentation"
