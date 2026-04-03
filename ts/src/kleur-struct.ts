@@ -6,11 +6,7 @@ const clampAlpha = (v: number): number => Math.min(1, Math.max(0, v));
 const clampHue = (v: number): number => ((v % 360) + 360) % 360;
 const clampPercent = (v: number): number => Math.min(100, Math.max(0, v));
 
-/**
- * Immutable RGBA color with derived HSL access.
- *
- * All mutation methods return a new instance.
- */
+/** Immutable RGBA color with derived HSL access. All mutation methods return a new instance. */
 export class KleurStruct {
   readonly r: number;
   readonly g: number;
@@ -24,124 +20,61 @@ export class KleurStruct {
     this.a = clampAlpha(a);
   }
 
-  // --- HSL (derived on demand) ---
-
   private hsl(): { h: number; s: number; l: number } {
     return rgbToHsl(this.r, this.g, this.b);
   }
-
-  // --- Channel getters ---
-
-  red(): number {
-    return this.r;
-  }
-
-  green(): number {
-    return this.g;
-  }
-
-  blue(): number {
-    return this.b;
-  }
-
-  hue(): number {
-    return this.hsl().h;
-  }
-
-  saturation(): number {
-    return this.hsl().s;
-  }
-
-  lightness(): number {
-    return this.hsl().l;
-  }
-
-  alpha(): number {
-    return this.a;
-  }
-
-  // --- Immutable setters ---
-
-  withRed(v: number): KleurStruct {
-    return new KleurStruct(v, this.g, this.b, this.a);
-  }
-
-  withGreen(v: number): KleurStruct {
-    return new KleurStruct(this.r, v, this.b, this.a);
-  }
-
-  withBlue(v: number): KleurStruct {
-    return new KleurStruct(this.r, this.g, v, this.a);
-  }
-
-  withHue(v: number): KleurStruct {
-    const { s, l } = this.hsl();
-    const rgb = hslToRgb(clampHue(v), s, l);
-    return new KleurStruct(rgb.r, rgb.g, rgb.b, this.a);
-  }
-
-  withSaturation(v: number): KleurStruct {
-    const { h, l } = this.hsl();
-    const rgb = hslToRgb(h, clampPercent(v), l);
-    return new KleurStruct(rgb.r, rgb.g, rgb.b, this.a);
-  }
-
-  withLightness(v: number): KleurStruct {
-    const { h, s } = this.hsl();
-    const rgb = hslToRgb(h, s, clampPercent(v));
-    return new KleurStruct(rgb.r, rgb.g, rgb.b, this.a);
-  }
-
-  withAlpha(v: number): KleurStruct {
-    return new KleurStruct(this.r, this.g, this.b, v);
-  }
-
-  // --- Output formats ---
-
-  toHex(): string {
-    const hex = (n: number): string => n.toString(16).padStart(2, "0");
-    return `#${hex(this.r)}${hex(this.g)}${hex(this.b)}`;
-  }
-
-  toCss(): string {
-    return `rgba(${this.r},${this.g},${this.b},${this.a})`;
-  }
-
-  toRgb(): Rgb {
-    return { r: this.r, g: this.g, b: this.b };
-  }
-
-  toRgba(): Rgba {
-    return { r: this.r, g: this.g, b: this.b, a: this.a };
-  }
-
-  toHsl(): Hsl {
-    return this.hsl();
-  }
-
-  toHsla(): Hsla {
-    return { ...this.hsl(), a: this.a };
-  }
-
-  toArray(): [number, number, number, number] {
-    return [this.r, this.g, this.b, this.a];
-  }
-
-  toNormalized(): [number, number, number, number] {
-    return [this.r / 255, this.g / 255, this.b / 255, this.a];
-  }
-
-  toString(): string {
-    return this.toCss();
-  }
-
-  // --- Color adjustments ---
 
   private fromHsl(h: number, s: number, l: number): KleurStruct {
     const rgb = hslToRgb(h, clampPercent(s), clampPercent(l));
     return new KleurStruct(rgb.r, rgb.g, rgb.b, this.a);
   }
 
+  // --- Channel getters ---
+  red(): number { return this.r; }
+  green(): number { return this.g; }
+  blue(): number { return this.b; }
+  hue(): number { return this.hsl().h; }
+  saturation(): number { return this.hsl().s; }
+  lightness(): number { return this.hsl().l; }
+  alpha(): number { return this.a; }
+
+  // --- Immutable setters ---
+  withRed(v: number): KleurStruct { return new KleurStruct(v, this.g, this.b, this.a); }
+  withGreen(v: number): KleurStruct { return new KleurStruct(this.r, v, this.b, this.a); }
+  withBlue(v: number): KleurStruct { return new KleurStruct(this.r, this.g, v, this.a); }
+  withAlpha(v: number): KleurStruct { return new KleurStruct(this.r, this.g, this.b, v); }
+
+  withHue(v: number): KleurStruct {
+    const { s, l } = this.hsl();
+    return this.fromHsl(clampHue(v), s, l);
+  }
+
+  withSaturation(v: number): KleurStruct {
+    const { h, l } = this.hsl();
+    return this.fromHsl(h, clampPercent(v), l);
+  }
+
+  withLightness(v: number): KleurStruct {
+    const { h, s } = this.hsl();
+    return this.fromHsl(h, s, clampPercent(v));
+  }
+
+  // --- Output formats ---
+  toHex(): string {
+    const hex = (n: number): string => n.toString(16).padStart(2, "0");
+    return `#${hex(this.r)}${hex(this.g)}${hex(this.b)}`;
+  }
+
+  toCss(): string { return `rgba(${this.r},${this.g},${this.b},${this.a})`; }
+  toRgb(): Rgb { return { r: this.r, g: this.g, b: this.b }; }
+  toRgba(): Rgba { return { r: this.r, g: this.g, b: this.b, a: this.a }; }
+  toHsl(): Hsl { return this.hsl(); }
+  toHsla(): Hsla { return { ...this.hsl(), a: this.a }; }
+  toArray(): [number, number, number, number] { return [this.r, this.g, this.b, this.a]; }
+  toNormalized(): [number, number, number, number] { return [this.r / 255, this.g / 255, this.b / 255, this.a]; }
+  toString(): string { return this.toCss(); }
+
+  // --- Color adjustments ---
   lighten(amount: number): KleurStruct {
     const { h, s, l } = this.hsl();
     return this.fromHsl(h, s, l + (100 - l) * amount);
@@ -177,53 +110,34 @@ export class KleurStruct {
     return this.fromHsl(clampHue(h + degrees), s, l);
   }
 
-  complement(): KleurStruct {
-    return this.rotate(180);
-  }
+  complement(): KleurStruct { return this.rotate(180); }
 
   warm(amount = 0.2): KleurStruct {
-    // Shift hue toward orange (30°)
     const { h, s, l } = this.hsl();
-    const target = 30;
-    const diff = ((target - h + 540) % 360) - 180;
+    const diff = ((30 - h + 540) % 360) - 180;
     return this.fromHsl(clampHue(h + diff * amount), s, l);
   }
 
   cool(amount = 0.2): KleurStruct {
-    // Shift hue toward blue (240°)
     const { h, s, l } = this.hsl();
-    const target = 240;
-    const diff = ((target - h + 540) % 360) - 180;
+    const diff = ((240 - h + 540) % 360) - 180;
     return this.fromHsl(clampHue(h + diff * amount), s, l);
   }
 
-  invert(): KleurStruct {
-    return new KleurStruct(255 - this.r, 255 - this.g, 255 - this.b, this.a);
-  }
-
-  opacity(value: number): KleurStruct {
-    return new KleurStruct(this.r, this.g, this.b, value);
-  }
-
-  fade(amount: number): KleurStruct {
-    return new KleurStruct(this.r, this.g, this.b, this.a * (1 - amount));
-  }
-
-  opaque(): KleurStruct {
-    return new KleurStruct(this.r, this.g, this.b, 1);
-  }
+  invert(): KleurStruct { return new KleurStruct(255 - this.r, 255 - this.g, 255 - this.b, this.a); }
+  opacity(value: number): KleurStruct { return new KleurStruct(this.r, this.g, this.b, value); }
+  fade(amount: number): KleurStruct { return new KleurStruct(this.r, this.g, this.b, this.a * (1 - amount)); }
+  opaque(): KleurStruct { return new KleurStruct(this.r, this.g, this.b, 1); }
 
   // --- Interpolation ---
-
   interpolate(target: KleurStruct, t = 0.5): KleurStruct {
-    const r = this.r + (target.r - this.r) * t;
-    const g = this.g + (target.g - this.g) * t;
-    const b = this.b + (target.b - this.b) * t;
-    const a = this.a + (target.a - this.a) * t;
-    return new KleurStruct(r, g, b, a);
+    return new KleurStruct(
+      this.r + (target.r - this.r) * t,
+      this.g + (target.g - this.g) * t,
+      this.b + (target.b - this.b) * t,
+      this.a + (target.a - this.a) * t,
+    );
   }
 
-  lerp(target: KleurStruct, t = 0.5): KleurStruct {
-    return this.interpolate(target, t);
-  }
+  lerp(target: KleurStruct, t = 0.5): KleurStruct { return this.interpolate(target, t); }
 }

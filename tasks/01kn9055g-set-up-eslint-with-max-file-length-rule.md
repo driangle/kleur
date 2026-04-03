@@ -1,7 +1,7 @@
 ---
 id: "01kn9055g"
 title: "Set up ESLint with max file length rule"
-status: pending
+status: completed
 priority: high
 effort: small
 type: chore
@@ -19,12 +19,12 @@ Add ESLint to the TypeScript project with a strict max file length rule of 200 l
 
 ## Tasks
 
-- [ ] Install eslint and typescript-eslint as dev dependencies
-- [ ] Create eslint.config.ts (flat config format)
-- [ ] Enable the `max-lines` rule with a limit of 200 lines
-- [ ] Add recommended TypeScript-ESLint rules
-- [ ] Add `lint` script to package.json (`eslint src/`)
-- [ ] Verify `npm run lint` runs and passes on an empty/minimal project
+- [x] Install eslint and typescript-eslint as dev dependencies
+- [x] Create eslint.config.mjs (flat config format)
+- [x] Enable the `max-lines` rule with a limit of 200 lines
+- [x] Add recommended TypeScript-ESLint rules
+- [x] Add `lint` script to package.json (`eslint src/`)
+- [x] Verify `npm run lint` runs and passes on an empty/minimal project
 
 ## Acceptance Criteria
 
