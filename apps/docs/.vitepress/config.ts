@@ -4,14 +4,45 @@ export default defineConfig({
   title: "Kleur",
   description: "A cross-language color manipulation library",
   base: "/kleur/",
+  appearance: "dark",
 
-  head: [["meta", { name: "theme-color", content: "#4287f5" }]],
+  head: [
+    ["meta", { name: "theme-color", content: "#131313" }],
+    [
+      "link",
+      {
+        rel: "preconnect",
+        href: "https://fonts.googleapis.com",
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossorigin: "",
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap",
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap",
+      },
+    ],
+  ],
 
   themeConfig: {
     nav: [
       { text: "Guide", link: "/guide/getting-started" },
-      { text: "API", link: "/api/kleur-struct" },
-      { text: "GitHub", link: "https://github.com/driangle/kleur" },
+      { text: "API Reference", link: "/api/kleur-struct" },
     ],
 
     sidebar: {
@@ -72,5 +103,9 @@ export default defineConfig({
     socialLinks: [
       { icon: "github", link: "https://github.com/driangle/kleur" },
     ],
+
+    footer: {
+      copyright: "Built for precision color manipulation.",
+    },
   },
 });

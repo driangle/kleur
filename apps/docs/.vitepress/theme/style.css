@@ -1,0 +1,477 @@
+/**
+ * Kleur Documentation — Custom VitePress Theme
+ * Museum-grade dark monochromatic aesthetic with sharp edges
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* ──────────────────────────────────────────────
+   Surface palette
+   ────────────────────────────────────────────── */
+:root {
+  --kl-surface-lowest: #0e0e0e;
+  --kl-surface-dim: #131313;
+  --kl-surface-low: #1c1b1b;
+  --kl-surface: #201f1f;
+  --kl-surface-high: #2a2a2a;
+  --kl-surface-highest: #353534;
+  --kl-outline: #919191;
+  --kl-outline-variant: #474747;
+  --kl-on-surface: #e5e2e1;
+  --kl-on-surface-variant: #c6c6c6;
+  --kl-primary: #ffffff;
+  --kl-on-primary: #1a1c1c;
+}
+
+/* ──────────────────────────────────────────────
+   VitePress dark-mode variable overrides
+   ────────────────────────────────────────────── */
+.dark {
+  --vp-c-bg: var(--kl-surface-dim);
+  --vp-c-bg-alt: var(--kl-surface-low);
+  --vp-c-bg-elv: var(--kl-surface);
+  --vp-c-bg-soft: var(--kl-surface-high);
+
+  --vp-c-text-1: var(--kl-on-surface);
+  --vp-c-text-2: var(--kl-on-surface-variant);
+  --vp-c-text-3: var(--kl-outline);
+
+  --vp-c-divider: var(--kl-outline-variant);
+  --vp-c-gutter: var(--kl-surface-lowest);
+
+  --vp-c-brand-1: var(--kl-primary);
+  --vp-c-brand-2: #d4d4d4;
+  --vp-c-brand-3: var(--kl-primary);
+  --vp-c-brand-soft: rgba(255, 255, 255, 0.08);
+
+  --vp-c-tip-1: var(--kl-on-surface);
+  --vp-c-tip-2: var(--kl-on-surface-variant);
+  --vp-c-tip-3: var(--kl-outline);
+  --vp-c-tip-soft: rgba(255, 255, 255, 0.06);
+
+  --vp-code-block-bg: var(--kl-surface-lowest);
+  --vp-code-block-divider-color: var(--kl-outline-variant);
+  --vp-code-line-highlight-color: rgba(255, 255, 255, 0.05);
+  --vp-code-copy-code-bg: var(--kl-surface-high);
+  --vp-code-copy-code-hover-bg: var(--kl-surface-highest);
+
+  --vp-c-default-1: var(--kl-on-surface);
+  --vp-c-default-2: var(--kl-on-surface-variant);
+  --vp-c-default-3: var(--kl-outline);
+  --vp-c-default-soft: rgba(255, 255, 255, 0.06);
+
+  --vp-sidebar-bg-color: var(--kl-surface-low);
+
+  --vp-nav-bg-color: var(--kl-surface-dim);
+  --vp-nav-screen-bg-color: var(--kl-surface-dim);
+
+  --vp-button-brand-border: var(--kl-primary);
+  --vp-button-brand-text: var(--kl-on-primary);
+  --vp-button-brand-bg: var(--kl-primary);
+  --vp-button-brand-hover-border: #d4d4d4;
+  --vp-button-brand-hover-text: var(--kl-on-primary);
+  --vp-button-brand-hover-bg: #d4d4d4;
+  --vp-button-brand-active-border: #ababab;
+  --vp-button-brand-active-text: var(--kl-on-primary);
+  --vp-button-brand-active-bg: #ababab;
+
+  --vp-button-alt-border: var(--kl-outline-variant);
+  --vp-button-alt-text: var(--kl-on-surface);
+  --vp-button-alt-bg: transparent;
+  --vp-button-alt-hover-border: var(--kl-outline);
+  --vp-button-alt-hover-text: var(--kl-primary);
+  --vp-button-alt-hover-bg: rgba(255, 255, 255, 0.04);
+
+  --vp-home-hero-name-color: var(--kl-primary);
+  --vp-home-hero-name-background: none;
+  --vp-home-hero-image-background-image: none;
+  --vp-home-hero-image-filter: none;
+
+  --vp-custom-block-tip-border: var(--kl-outline-variant);
+  --vp-custom-block-tip-text: var(--kl-on-surface);
+  --vp-custom-block-tip-bg: var(--kl-surface);
+  --vp-custom-block-tip-code-bg: var(--kl-surface-lowest);
+
+  --vp-input-border-color: var(--kl-outline-variant);
+  --vp-input-hover-border-color: var(--kl-outline);
+  --vp-input-switch-bg-color: var(--kl-surface-high);
+
+  --vp-local-search-bg: var(--kl-surface);
+  --vp-local-search-result-bg: var(--kl-surface-low);
+  --vp-local-search-result-selected-bg: var(--kl-surface-high);
+}
+
+/* ──────────────────────────────────────────────
+   Global resets & typography
+   ────────────────────────────────────────────── */
+:root {
+  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', 'Menlo', monospace;
+
+  /* Kill all border-radius globally */
+  --vp-border-radius: 0px;
+}
+
+/* Force sharp edges on everything */
+*,
+*::before,
+*::after {
+  border-radius: 0px !important;
+}
+
+/* ──────────────────────────────────────────────
+   Navigation bar
+   ────────────────────────────────────────────── */
+.VPNav {
+  border-bottom: 1px solid var(--kl-outline-variant) !important;
+}
+
+.VPNavBar {
+  backdrop-filter: blur(12px);
+  background: rgba(19, 19, 19, 0.92) !important;
+}
+
+.VPNavBarTitle .title {
+  font-weight: 800 !important;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-size: 1.1rem !important;
+}
+
+.VPNavBarMenu .VPNavBarMenuLink {
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+/* Active nav link — bottom border accent */
+.VPNavBarMenu .VPNavBarMenuLink.active {
+  color: var(--kl-primary) !important;
+  border-bottom: 2px solid var(--kl-primary);
+  padding-bottom: 2px;
+}
+
+/* Search box styling */
+.VPNavBarSearch .DocSearch-Button,
+.VPNavBarSearch button {
+  background: var(--kl-surface-lowest) !important;
+  border: 1px solid var(--kl-outline-variant) !important;
+}
+
+/* ──────────────────────────────────────────────
+   Sidebar
+   ────────────────────────────────────────────── */
+.VPSidebar {
+  background: var(--kl-surface-low) !important;
+  border-right: 1px solid var(--kl-outline-variant) !important;
+}
+
+/* Sidebar group headings */
+.VPSidebarItem.level-0 > .item > .text {
+  font-size: 0.6875rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700 !important;
+  color: var(--kl-on-surface) !important;
+}
+
+/* Sidebar links */
+.VPSidebarItem .link {
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.VPSidebarItem .link:hover {
+  background: var(--kl-surface) !important;
+}
+
+/* Active sidebar link */
+.VPSidebarItem.is-active > .item > .link > .text {
+  color: var(--kl-primary) !important;
+  font-weight: 600 !important;
+}
+
+.VPSidebarItem.is-active > .item {
+  background: var(--kl-surface-highest) !important;
+}
+
+/* ──────────────────────────────────────────────
+   Home page — hero
+   ────────────────────────────────────────────── */
+.VPHero {
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+}
+
+.VPHero .name {
+  font-size: clamp(4rem, 10vw, 8rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.85 !important;
+  letter-spacing: -0.04em !important;
+}
+
+.VPHero .text {
+  font-size: clamp(1.5rem, 4vw, 2.5rem) !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--kl-on-surface-variant) !important;
+  max-width: 600px;
+}
+
+.VPHero .tagline {
+  font-size: 1.125rem !important;
+  color: var(--kl-outline) !important;
+  max-width: 540px;
+  line-height: 1.6 !important;
+}
+
+/* Hero action buttons — sharp, uppercase */
+.VPHero .actions .action {
+  margin: 0;
+}
+
+.VPButton {
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 14px 36px !important;
+  transition: all 0.2s ease !important;
+}
+
+.VPButton.brand:hover {
+  transform: translateY(-1px);
+}
+
+.VPButton.alt {
+  border-width: 1px !important;
+}
+
+.VPButton.alt:hover {
+  background: var(--kl-primary) !important;
+  color: var(--kl-on-primary) !important;
+  border-color: var(--kl-primary) !important;
+}
+
+/* ──────────────────────────────────────────────
+   Home page — features
+   ────────────────────────────────────────────── */
+.VPFeatures {
+  padding-top: 48px !important;
+  padding-bottom: 80px !important;
+}
+
+.VPFeature {
+  background: var(--kl-surface) !important;
+  border: 1px solid var(--kl-outline-variant) !important;
+  padding: 32px !important;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.VPFeature:hover {
+  border-color: var(--kl-outline) !important;
+  background: var(--kl-surface-high) !important;
+}
+
+.VPFeature .title {
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  letter-spacing: -0.01em;
+}
+
+.VPFeature .details {
+  font-size: 0.875rem !important;
+  color: var(--kl-on-surface-variant) !important;
+  line-height: 1.6 !important;
+}
+
+/* ──────────────────────────────────────────────
+   Content typography
+   ────────────────────────────────────────────── */
+.vp-doc h1 {
+  font-size: 2.5rem !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+.vp-doc h2 {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  border-top: 1px solid var(--kl-outline-variant) !important;
+  padding-top: 32px !important;
+  margin-top: 48px !important;
+}
+
+.vp-doc h3 {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+}
+
+/* Method signatures in docs */
+.vp-doc code {
+  font-family: var(--vp-font-family-mono);
+  background: var(--kl-surface-high) !important;
+  color: var(--kl-on-surface) !important;
+  padding: 2px 6px;
+  font-size: 0.875em;
+}
+
+/* Code blocks */
+.vp-doc div[class*='language-'] {
+  background: var(--kl-surface-lowest) !important;
+  border: 1px solid rgba(71, 71, 71, 0.3);
+}
+
+.vp-doc div[class*='language-'] > button.copy {
+  background: var(--kl-surface-high) !important;
+  border: 1px solid var(--kl-outline-variant) !important;
+}
+
+.vp-doc div[class*='language-'] > span.lang {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--kl-outline);
+}
+
+/* Tables */
+.vp-doc table {
+  border-collapse: collapse;
+}
+
+.vp-doc tr {
+  border-color: var(--kl-outline-variant) !important;
+}
+
+.vp-doc th {
+  font-size: 0.6875rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600 !important;
+  color: var(--kl-outline) !important;
+  background: var(--kl-surface) !important;
+}
+
+.vp-doc td {
+  font-size: 0.875rem;
+}
+
+/* Links */
+.vp-doc a {
+  color: var(--kl-primary) !important;
+  text-decoration-color: var(--kl-outline-variant) !important;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+
+.vp-doc a:hover {
+  text-decoration-color: var(--kl-primary) !important;
+}
+
+/* Blockquotes / custom blocks */
+.vp-doc .custom-block {
+  border-left: 2px solid var(--kl-outline-variant) !important;
+  background: var(--kl-surface) !important;
+  padding: 16px 20px !important;
+}
+
+.vp-doc .custom-block .custom-block-title {
+  font-size: 0.75rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+/* ──────────────────────────────────────────────
+   Footer
+   ────────────────────────────────────────────── */
+.VPFooter {
+  background: var(--kl-surface-lowest) !important;
+  border-top: 1px solid var(--kl-outline-variant) !important;
+}
+
+.VPFooter .message,
+.VPFooter .copyright {
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  color: var(--kl-outline) !important;
+}
+
+/* ──────────────────────────────────────────────
+   Scrollbar
+   ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--kl-surface-dim);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--kl-surface-highest);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--kl-outline-variant);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--kl-surface-highest) var(--kl-surface-dim);
+}
+
+/* ──────────────────────────────────────────────
+   Selection
+   ────────────────────────────────────────────── */
+::selection {
+  background: var(--kl-primary);
+  color: var(--kl-on-primary);
+}
+
+/* ──────────────────────────────────────────────
+   Misc refinements
+   ────────────────────────────────────────────── */
+
+/* Remove default VitePress gradient decoration on home hero name */
+.VPHero .clip {
+  -webkit-text-fill-color: unset !important;
+  background: none !important;
+}
+
+/* Content area max width for readability */
+.VPDoc .content-container {
+  max-width: 800px !important;
+}
+
+/* Subtle page transition */
+.VPContent {
+  transition: opacity 0.15s ease;
+}
+
+/* Local search modal */
+.VPLocalSearchBox .shell {
+  background: var(--kl-surface) !important;
+  border: 1px solid var(--kl-outline-variant) !important;
+}
+
+/* Badge overrides for method docs */
+.vp-doc .vp-badge {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  padding: 3px 8px;
+}
+
+/* Outline badges for immutability/return type labels */
+.vp-doc .vp-badge.info {
+  background: var(--kl-surface-highest) !important;
+  color: var(--kl-on-surface) !important;
+}
