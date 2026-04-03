@@ -1,7 +1,7 @@
 ---
 id: "01kn914px"
 title: "Set up VitePress documentation site with GitHub Pages deployment"
-status: pending
+status: completed
 priority: low
 effort: medium
 dependencies: []
@@ -17,14 +17,14 @@ Set up a VitePress-powered documentation site for the kleur library and configur
 
 ## Tasks
 
-- [ ] Initialize VitePress in the `docs/` directory with a basic config
-- [ ] Create landing page with project overview and quick-start example
-- [ ] Add API reference pages covering core color operations (creation, conversion, adjustments, harmony, blending, analysis)
-- [ ] Add installation and getting-started guide
-- [ ] Configure VitePress theme, navigation sidebar, and search
-- [ ] Add a GitHub Actions workflow (`.github/workflows/docs.yml`) to build and deploy to GitHub Pages on push to main
-- [ ] Configure GitHub Pages to serve from the `gh-pages` branch or GitHub Actions artifact
-- [ ] Verify the site builds locally with `npm run docs:build` and previews with `npm run docs:dev`
+- [x] Initialize VitePress in the `apps/docs/` directory with a basic config
+- [x] Create landing page with project overview and quick-start example
+- [x] Add API reference pages covering core color operations (creation, conversion, adjustments, harmony, blending, analysis)
+- [x] Add installation and getting-started guide
+- [x] Configure VitePress theme, navigation sidebar, and search
+- [x] Add a GitHub Actions workflow (`.github/workflows/docs.yml`) to build and deploy to GitHub Pages on push to main
+- [x] Configure GitHub Pages to serve from GitHub Actions artifact
+- [x] Verify the site builds locally with `npm run build` and previews with `npm run dev`
 
 ## Acceptance Criteria
 

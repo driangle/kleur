@@ -1,3 +1,7 @@
 node_modules
 dist
 scheduled_tasks.lock
+
+# VitePress
+apps/docs/.vitepress/dist
+apps/docs/.vitepress/cache
