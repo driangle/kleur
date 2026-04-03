@@ -19,6 +19,22 @@ export { luminance, isLight, isDark, contrast, distance } from "./analysis.js";
 export { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "./harmony.js";
 export { blend, mix, lerp } from "./blend.js";
 export type { BlendMode } from "./blend.js";
+export {
+  getNamedColor,
+  white,
+  black,
+  red,
+  green,
+  blue,
+  yellow,
+  cyan,
+  magenta,
+  orange,
+  purple,
+  pink,
+  lime,
+  transparent,
+} from "./named-colors.js";
 export type {
   Rgb,
   Rgba,
@@ -31,3 +47,8 @@ export type {
   Kleur,
   KleurValue,
 } from "./types.js";
+
+// Auto-register named color lookup so struct("red") works out of the box
+import { setNamedColorLookup as _register } from "./parse.js";
+import { getNamedColor as _lookup } from "./named-colors.js";
+_register(_lookup);
