@@ -56,7 +56,7 @@ interface Hsla extends Hsl {
 ```ts
 interface SolidKleur {
   type: "solid";
-  color: KleurStruct;
+  color: Color;
 }
 ```
 
@@ -95,7 +95,7 @@ interface RadialGradient {
 ```ts
 interface GradientStop {
   offset: number; // 0-1
-  color: KleurStruct;
+  color: Color;
 }
 ```
 
@@ -112,13 +112,13 @@ type KleurFill = SolidKleur | LinearGradient | RadialGradient;
 Any value accepted as a color input by `object()`:
 
 ```ts
-type KleurValue = string | number | KleurStruct;
+type KleurValue = string | number | Color;
 ```
 
 ### NamedColorLookup
 
 ```ts
-type NamedColorLookup = (name: string) => KleurStruct | undefined;
+type NamedColorLookup = (name: string) => Color | undefined;
 ```
 
 ## Distance Types

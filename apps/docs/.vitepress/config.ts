@@ -42,7 +42,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: "Guide", link: "/guide/getting-started" },
-      { text: "API Reference", link: "/api/kleur-struct" },
+      { text: "API Reference", link: "/api/color" },
     ],
 
     sidebar: {
@@ -59,7 +59,7 @@ export default defineConfig({
         {
           text: "Core",
           items: [
-            { text: "KleurStruct", link: "/api/kleur-struct" },
+            { text: "Color", link: "/api/color" },
             { text: "Kleur Namespace", link: "/api/kleur-namespace" },
           ],
         },

@@ -1,13 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { KleurStruct } from "../src/kleur-struct.js";
+import { Color } from "../src/color.js";
 import { luminance, isLight, isDark, contrast, distance } from "../src/analysis.js";
 
-const white = new KleurStruct(255, 255, 255);
-const black = new KleurStruct(0, 0, 0);
-const red = new KleurStruct(255, 0, 0);
-const green = new KleurStruct(0, 128, 0);
-const blue = new KleurStruct(0, 0, 255);
-const gray = new KleurStruct(128, 128, 128);
+const white = new Color(255, 255, 255);
+const black = new Color(0, 0, 0);
+const red = new Color(255, 0, 0);
+const green = new Color(0, 128, 0);
+const blue = new Color(0, 0, 255);
+const gray = new Color(128, 128, 128);
 
 describe("luminance()", () => {
   it("white luminance = 1.0", () => {
@@ -62,7 +62,7 @@ describe("isLight() / isDark()", () => {
   });
 
   it("light color (l > 50) is light", () => {
-    const light = new KleurStruct(200, 200, 200); // l=78
+    const light = new Color(200, 200, 200); // l=78
     expect(isLight(light)).toBe(true);
   });
 });
@@ -81,7 +81,7 @@ describe("contrast()", () => {
   });
 
   it("contrast ratio is between 1 and 21", () => {
-    const pairs: [KleurStruct, KleurStruct][] = [
+    const pairs: [Color, Color][] = [
       [white, black],
       [red, blue],
       [green, gray],

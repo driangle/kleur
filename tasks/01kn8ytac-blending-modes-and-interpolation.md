@@ -27,7 +27,7 @@ Implement color blending (multiply, screen, overlay, add, subtract) and linear i
 - [x] Implement add blend: `clamp(base + overlay, 0, 1)`
 - [x] Implement subtract blend: `clamp(base - overlay, 0, 1)`
 - [x] Implement `mix(a, b, t)` / `lerp(a, b, t)` — linear interpolation in RGB space, default t = 0.5
-- [x] Add instance method `interpolate(target, t)` / `lerp(target, t)` on KleurStruct
+- [x] Add instance method `interpolate(target, t)` / `lerp(target, t)` on Color
 - [x] Write tests with known blend results for each mode
 
 ## Acceptance Criteria

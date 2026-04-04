@@ -12,7 +12,7 @@ import { Kleur } from "@driangle/kleur";
 ## luminance
 
 ```ts
-luminance(color: KleurStruct): number
+luminance(color: Color): number
 ```
 
 Compute the WCAG 2.1 relative luminance of a color. Returns a value between 0 (black) and 1 (white).
@@ -25,7 +25,7 @@ luminance(black); // 0
 ## isLight
 
 ```ts
-isLight(color: KleurStruct): boolean
+isLight(color: Color): boolean
 ```
 
 Returns `true` if the color's HSL lightness is greater than 50.
@@ -38,7 +38,7 @@ isLight(hex("#333333")); // false
 ## isDark
 
 ```ts
-isDark(color: KleurStruct): boolean
+isDark(color: Color): boolean
 ```
 
 Returns `true` if the color's HSL lightness is 50 or less.
@@ -51,7 +51,7 @@ isDark(hex("#f0f0f0")); // false
 ## contrast
 
 ```ts
-contrast(a: KleurStruct, b: KleurStruct): number
+contrast(a: Color, b: Color): number
 ```
 
 Compute the WCAG contrast ratio between two colors. Returns a value between 1 (identical) and 21 (black vs white).

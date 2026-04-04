@@ -12,7 +12,7 @@ import { Kleur } from "@driangle/kleur";
 ## blend
 
 ```ts
-blend(base: KleurStruct, overlay: KleurStruct, mode: BlendMode): KleurStruct
+blend(base: Color, overlay: Color, mode: BlendMode): Color
 ```
 
 Blend two colors using the specified blend mode. Operates per-channel in normalized (0-1) space. The result uses the base color's alpha.
@@ -39,7 +39,7 @@ blend(a, b, "overlay").toHex();
 ## mix
 
 ```ts
-mix(a: KleurStruct, b: KleurStruct, t?: number, ease?: EasingFn): KleurStruct
+mix(a: Color, b: Color, t?: number, ease?: EasingFn): Color
 ```
 
 Interpolate between two colors in RGB space. `t=0` returns `a`, `t=1` returns `b`. Default `t` is `0.5` (midpoint).
@@ -58,7 +58,7 @@ mix(red, blue, 0.5, t => t * t); // ease-in quadratic
 ## lerp
 
 ```ts
-lerp(a: KleurStruct, b: KleurStruct, t?: number, ease?: EasingFn): KleurStruct
+lerp(a: Color, b: Color, t?: number, ease?: EasingFn): Color
 ```
 
 Alias for `mix`. Identical behavior.

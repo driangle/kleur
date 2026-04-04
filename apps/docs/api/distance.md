@@ -12,7 +12,7 @@ import { Kleur } from "@driangle/kleur";
 ## distance
 
 ```ts
-distance(a: KleurStruct, b: KleurStruct, options?: DistanceOptions): number
+distance(a: Color, b: Color, options?: DistanceOptions): number
 ```
 
 Without options, returns Euclidean distance in RGB space. Pass a preset or explicit `{space, method}` for perceptual distance metrics.

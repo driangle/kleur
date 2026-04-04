@@ -30,7 +30,7 @@ Wire everything together into a clean public API. Create the Kleur namespace tha
 
 ## Acceptance Criteria
 
-- `import { Kleur, KleurStruct } from "kleur"` gives access to the full API
+- `import { Kleur, Color } from "kleur"` gives access to the full API
 - All factory functions, static methods, and constants are accessible on the Kleur namespace
 - Named exports work for direct constant imports (e.g., `import { red, blue } from "kleur"`)
 - Package entry point resolves correctly for both ESM and CJS

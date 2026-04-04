@@ -1,11 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { KleurStruct } from "../src/kleur-struct.js";
+import { Color } from "../src/color.js";
 import { blend, mix, lerp } from "../src/blend.js";
 
-const white = new KleurStruct(255, 255, 255);
-const black = new KleurStruct(0, 0, 0);
-const red = new KleurStruct(255, 0, 0);
-const mid = new KleurStruct(128, 128, 128);
+const white = new Color(255, 255, 255);
+const black = new Color(0, 0, 0);
+const red = new Color(255, 0, 0);
+const mid = new Color(128, 128, 128);
 
 describe("blend()", () => {
   describe("multiply", () => {
@@ -60,7 +60,7 @@ describe("blend()", () => {
     });
 
     it("overlay black on dark base uses multiply path", () => {
-      const dark = new KleurStruct(50, 50, 50);
+      const dark = new Color(50, 50, 50);
       const result = blend(dark, black, "overlay");
       expect(result.r).toBe(0);
     });
@@ -91,7 +91,7 @@ describe("blend()", () => {
   });
 
   it("preserves base alpha", () => {
-    const base = new KleurStruct(128, 128, 128, 0.7);
+    const base = new Color(128, 128, 128, 0.7);
     const result = blend(base, white, "multiply");
     expect(result.a).toBe(0.7);
   });
@@ -132,8 +132,8 @@ describe("mix() / lerp()", () => {
   });
 
   it("interpolates alpha", () => {
-    const a = new KleurStruct(0, 0, 0, 0);
-    const b = new KleurStruct(0, 0, 0, 1);
+    const a = new Color(0, 0, 0, 0);
+    const b = new Color(0, 0, 0, 1);
     expect(mix(a, b, 0.5).a).toBeCloseTo(0.5);
   });
 
@@ -162,10 +162,10 @@ describe("mix() / lerp()", () => {
   });
 });
 
-describe("KleurStruct.interpolate()", () => {
+describe("Color.interpolate()", () => {
   it("works equivalently to static mix()", () => {
-    const a = new KleurStruct(100, 50, 200, 0.8);
-    const b = new KleurStruct(200, 150, 50, 0.4);
+    const a = new Color(100, 50, 200, 0.8);
+    const b = new Color(200, 150, 50, 0.4);
 
     const staticResult = mix(a, b, 0.3);
     const instanceResult = a.interpolate(b, 0.3);
@@ -177,8 +177,8 @@ describe("KleurStruct.interpolate()", () => {
   });
 
   it("instance lerp delegates to interpolate", () => {
-    const a = new KleurStruct(255, 0, 0);
-    const b = new KleurStruct(0, 0, 255);
+    const a = new Color(255, 0, 0);
+    const b = new Color(0, 0, 255);
     const interp = a.interpolate(b, 0.5);
     const lerpResult = a.lerp(b, 0.5);
     expect(lerpResult.r).toBe(interp.r);
@@ -187,15 +187,15 @@ describe("KleurStruct.interpolate()", () => {
   });
 
   it("applies easing function", () => {
-    const a = new KleurStruct(0, 0, 0);
-    const b = new KleurStruct(255, 255, 255);
+    const a = new Color(0, 0, 0);
+    const b = new Color(255, 255, 255);
     const result = a.interpolate(b, 0.5, (t) => t * t);
     expect(result.r).toBeCloseTo(64, 0);
   });
 
   it("returns new instance", () => {
-    const a = new KleurStruct(255, 0, 0);
-    const b = new KleurStruct(0, 0, 255);
+    const a = new Color(255, 0, 0);
+    const b = new Color(0, 0, 255);
     expect(a.interpolate(b, 0.5)).not.toBe(a);
     expect(a.interpolate(b, 0.5)).not.toBe(b);
   });

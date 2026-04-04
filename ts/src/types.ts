@@ -29,7 +29,7 @@ export interface Hsla extends Hsl {
 /** A solid color fill */
 export interface SolidKleur {
   type: "solid";
-  color: KleurStruct;
+  color: Color;
 }
 
 /** A linear gradient fill */
@@ -59,14 +59,14 @@ export interface RadialGradient {
 /** A color stop within a gradient */
 export interface GradientStop {
   offset: number;
-  color: KleurStruct;
+  color: Color;
 }
 
 /** Union of all fill types */
 export type KleurFill = SolidKleur | LinearGradient | RadialGradient;
 
 /** Any value accepted as a color input */
-export type KleurValue = string | number | KleurStruct;
+export type KleurValue = string | number | Color;
 
 /** Preset name for common distance strategies */
 export type DistancePreset = "fast" | "perceptual" | "accurate" | "modern";
@@ -80,5 +80,5 @@ export type DistanceOptions =
     };
 
 // Forward reference — resolved at runtime via the actual class
-import type { KleurStruct } from "./kleur-struct.js";
-export type { KleurStruct };
+import type { Color } from "./color.js";
+export type { Color };

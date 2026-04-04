@@ -1,4 +1,4 @@
-import { KleurStruct } from "./kleur-struct.js";
+import { Color } from "./color.js";
 
 export type BlendMode = "multiply" | "screen" | "overlay" | "add" | "subtract";
 
@@ -23,11 +23,11 @@ function applyBlend(base: number, overlay: number, mode: BlendMode): number {
  * Blend two colors using the specified blend mode.
  * Operates per-channel in normalized (0-1) space.
  */
-export function blend(base: KleurStruct, overlay: KleurStruct, mode: BlendMode): KleurStruct {
+export function blend(base: Color, overlay: Color, mode: BlendMode): Color {
   const r = applyBlend(base.r / 255, overlay.r / 255, mode) * 255;
   const g = applyBlend(base.g / 255, overlay.g / 255, mode) * 255;
   const b = applyBlend(base.b / 255, overlay.b / 255, mode) * 255;
-  return new KleurStruct(r, g, b, base.a);
+  return new Color(r, g, b, base.a);
 }
 
 export type EasingFn = (t: number) => number;
@@ -36,13 +36,13 @@ export type EasingFn = (t: number) => number;
  * Interpolate between two colors in RGB space.
  * t=0 returns a, t=1 returns b. An optional easing function remaps t before interpolation.
  */
-export function mix(a: KleurStruct, b: KleurStruct, t = 0.5, ease?: EasingFn): KleurStruct {
+export function mix(a: Color, b: Color, t = 0.5, ease?: EasingFn): Color {
   const et = ease ? ease(t) : t;
   const r = a.r + (b.r - a.r) * et;
   const g = a.g + (b.g - a.g) * et;
   const bl = a.b + (b.b - a.b) * et;
   const alpha = a.a + (b.a - a.a) * et;
-  return new KleurStruct(r, g, bl, alpha);
+  return new Color(r, g, bl, alpha);
 }
 
 /** Alias for mix. */

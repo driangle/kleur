@@ -1,13 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { KleurStruct } from "../src/kleur-struct.js";
+import { Color } from "../src/color.js";
 import { distance } from "../src/distance.js";
 import type { DistanceOptions } from "../src/types.js";
 
-const red = new KleurStruct(255, 0, 0);
-const blue = new KleurStruct(0, 0, 255);
-const white = new KleurStruct(255, 255, 255);
-const black = new KleurStruct(0, 0, 0);
-const green = new KleurStruct(0, 128, 0);
+const red = new Color(255, 0, 0);
+const blue = new Color(0, 0, 255);
+const white = new Color(255, 255, 255);
+const black = new Color(0, 0, 0);
+const green = new Color(0, 128, 0);
 
 describe("distance() with options", () => {
   describe("backward compatibility", () => {
@@ -142,8 +142,8 @@ describe("distance() with options", () => {
     });
 
     it("perceptually similar colors have small deltaE", () => {
-      const c1 = new KleurStruct(100, 100, 100);
-      const c2 = new KleurStruct(102, 100, 98);
+      const c1 = new Color(100, 100, 100);
+      const c2 = new Color(102, 100, 98);
       const d = distance(c1, c2, { preset: "accurate" });
       expect(d).toBeLessThan(2);
     });

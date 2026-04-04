@@ -12,13 +12,13 @@ import { Kleur } from "@driangle/kleur";
 ## getNamedColor
 
 ```ts
-getNamedColor(name: string): KleurStruct | undefined
+getNamedColor(name: string): Color | undefined
 ```
 
 Case-insensitive lookup of any of the 148 CSS Color Level 4 named colors. Returns `undefined` if the name is not recognized.
 
 ```ts
-const coral = getNamedColor("coral");    // KleurStruct
+const coral = getNamedColor("coral");    // Color
 const none = getNamedColor("notacolor"); // undefined
 ```
 
@@ -26,7 +26,7 @@ The special name `"transparent"` returns a fully transparent black (`rgba(0,0,0,
 
 ## Color Constants
 
-Pre-defined `KleurStruct` instances for common colors:
+Pre-defined `Color` instances for common colors:
 
 | Constant | Hex |
 |----------|-----|

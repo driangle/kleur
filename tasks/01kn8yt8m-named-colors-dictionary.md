@@ -21,7 +21,7 @@ Add the complete CSS Color Level 4 named colors dictionary (148 colors) and expo
 ## Tasks
 
 - [x] Create a named colors map: lowercase name -> hex value for all 148 CSS named colors
-- [x] Implement `getNamedColor(name)` — case-insensitive lookup returning KleurStruct or undefined
+- [x] Implement `getNamedColor(name)` — case-insensitive lookup returning Color or undefined
 - [x] Export direct constants: white, black, red, green, blue, yellow, cyan, magenta, orange, purple, pink, lime, transparent
 - [x] Ensure `transparent` has alpha = 0
 - [x] Write tests for lookup (case-insensitive), constants, and unknown names

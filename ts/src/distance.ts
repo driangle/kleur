@@ -1,7 +1,7 @@
 /**
  * Color distance computation with configurable space and method.
  */
-import type { KleurStruct } from "./kleur-struct.js";
+import type { Color } from "./color.js";
 import type { DistanceOptions } from "./types.js";
 import { rgbToLab, rgbToOklab, labToLch, oklabToOklch } from "./color-spaces.js";
 import { rgbToHsl } from "./hsl.js";
@@ -19,9 +19,9 @@ const PRESETS: Record<string, { space: string; method: string }> = {
   modern: { space: "oklab", method: "deltaEOK" },
 };
 
-// --- Space converters (KleurStruct → 3-component tuple) ---
+// --- Space converters (Color → 3-component tuple) ---
 
-const SPACE_CONVERTERS: Record<string, (c: KleurStruct) => Triple> = {
+const SPACE_CONVERTERS: Record<string, (c: Color) => Triple> = {
   rgb: (c) => [c.r, c.g, c.b],
   hsl: (c) => { const { h, s, l } = rgbToHsl(c.r, c.g, c.b); return [h, s, l]; },
   lab: (c) => { const { l, a, b } = rgbToLab(c.r, c.g, c.b); return [l, a, b]; },
@@ -77,8 +77,8 @@ function resolveOptions(options?: DistanceOptions): { space: string; method: str
  * Pass a preset or explicit {space, method} for perceptual distance metrics.
  */
 export function distance(
-  a: KleurStruct,
-  b: KleurStruct,
+  a: Color,
+  b: Color,
   options?: DistanceOptions,
 ): number {
   const { space, method } = resolveOptions(options);

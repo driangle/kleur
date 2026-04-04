@@ -1,4 +1,4 @@
-import { KleurStruct } from "./kleur-struct.js";
+import { Color } from "./color.js";
 import { hslToRgb } from "./hsl.js";
 
 export interface RandomOptions {
@@ -36,7 +36,7 @@ function randomHue(option?: "warm" | "cool" | [number, number]): number {
 /**
  * Generate a random color with optional constraints.
  */
-export function random(options?: RandomOptions): KleurStruct {
+export function random(options?: RandomOptions): Color {
   const h = randomHue(options?.hue);
   const s = options?.saturation
     ? randInRange(options.saturation[0], options.saturation[1])
@@ -47,5 +47,5 @@ export function random(options?: RandomOptions): KleurStruct {
   const a = options?.alpha ?? 1;
 
   const { r, g, b } = hslToRgb(h, s, l);
-  return new KleurStruct(r, g, b, a);
+  return new Color(r, g, b, a);
 }

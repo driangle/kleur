@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
-  KleurStruct, hex, hsl, css, number, object,
+  Color, hex, hsl, css, number, object,
   luminance, isLight, contrast, distance,
   blend, triadic, tetradic, analogous,
 } from "../src/index.js";
@@ -8,7 +8,7 @@ import type { BlendMode } from "../src/blend.js";
 import vectors from "./vectors/test-vectors.json";
 
 type RGBA = { r: number; g: number; b: number; a?: number };
-const toColor = (c: RGBA) => new KleurStruct(c.r, c.g, c.b, c.a ?? 1);
+const toColor = (c: RGBA) => new Color(c.r, c.g, c.b, c.a ?? 1);
 
 describe("cross-language test vectors", () => {
   describe("parsing: hex", () => {
@@ -118,7 +118,7 @@ describe("cross-language test vectors", () => {
     for (const v of vectors.adjustments) {
       it(`${v.op}(${JSON.stringify(v.args || {})}) on rgb(${v.input.r},${v.input.g},${v.input.b})`, () => {
         const c = toColor(v.input);
-        let result: KleurStruct;
+        let result: Color;
         switch (v.op) {
           case "lighten": result = c.lighten(v.args!.amount); break;
           case "darken": result = c.darken(v.args!.amount); break;
@@ -148,7 +148,7 @@ describe("cross-language test vectors", () => {
     for (const v of vectors.harmony) {
       it(`${v.op} on rgb(${v.input.r},${v.input.g},${v.input.b})`, () => {
         const c = toColor(v.input);
-        let result: KleurStruct[];
+        let result: Color[];
         switch (v.op) {
           case "triadic": result = triadic(c); break;
           case "tetradic": result = tetradic(c); break;

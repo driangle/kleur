@@ -16,7 +16,7 @@ context: ["docs/specs/mvp.md"]
 
 ## Objective
 
-Implement all input format parsers so colors can be created from hex strings, HSL values, CSS color strings, integers, and the gray shorthand. This task covers spec sections 2 (Input Formats) and the factory functions that create KleurStruct instances.
+Implement all input format parsers so colors can be created from hex strings, HSL values, CSS color strings, integers, and the gray shorthand. This task covers spec sections 2 (Input Formats) and the factory functions that create Color instances.
 
 ## Tasks
 
@@ -27,7 +27,7 @@ Implement all input format parsers so colors can be created from hex strings, HS
 - [x] Implement `fromNumber(int)` — parse 24-bit packed integer (0xRRGGBB)
 - [x] Implement `gray(value, alpha?)` / `grey(value, alpha?)` shorthand
 - [x] Implement named color lookup (case-insensitive) — depends on named colors dictionary or a minimal subset for testing
-- [x] Implement `struct(value)` — universal converter from KleurValue to KleurStruct
+- [x] Implement `struct(value)` — universal converter from KleurValue to Color
 - [x] Write tests for each input format, including edge cases and malformed input
 
 ## Acceptance Criteria
@@ -35,5 +35,5 @@ Implement all input format parsers so colors can be created from hex strings, HS
 - All 9 input formats from the spec are supported
 - `fromHex("#abc")` and `fromHex("#aabbcc")` produce identical colors
 - CSS string parsing handles spaces, missing alpha, and case variations
-- `struct()` accepts string, number, and KleurStruct inputs
+- `struct()` accepts string, number, and Color inputs
 - Invalid input is handled gracefully (clamped or errors, not silent corruption)

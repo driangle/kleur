@@ -16,12 +16,12 @@ context: ["docs/specs/mvp.md"]
 
 ## Objective
 
-Implement the foundational KleurStruct class and TypeScript type definitions. This is the central data structure of the library — an immutable RGBA color with derived HSL, channel getters/setters, and value clamping. Everything else in the library depends on this.
+Implement the foundational Color class and TypeScript type definitions. This is the central data structure of the library — an immutable RGBA color with derived HSL, channel getters/setters, and value clamping. Everything else in the library depends on this.
 
 ## Tasks
 
-- [x] Define core types: KleurValue (string | number | KleurStruct), SolidKleur, Gradient, Kleur union
-- [x] Implement KleurStruct class with r, g, b (0-255) and a (0-1) storage
+- [x] Define core types: KleurValue (string | number | Color), SolidKleur, Gradient, Kleur union
+- [x] Implement Color class with r, g, b (0-255) and a (0-1) storage
 - [x] Add derived HSL computation (h: 0-360, s: 0-100, l: 0-100) via RGB-to-HSL conversion
 - [x] Implement HSL-to-RGB conversion helper
 - [x] Add channel getters: red(), green(), blue(), hue(), saturation(), lightness(), alpha()
@@ -32,7 +32,7 @@ Implement the foundational KleurStruct class and TypeScript type definitions. Th
 
 ## Acceptance Criteria
 
-- KleurStruct stores RGBA and derives HSL correctly
+- Color stores RGBA and derives HSL correctly
 - All channel values are clamped to valid ranges
 - `withX()` methods return new instances without mutating the original
 - HSL <-> RGB round-trips are accurate (within +/-1 for integer rounding)

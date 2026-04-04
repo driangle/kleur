@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { KleurStruct } from "../src/kleur-struct.js";
+import { Color } from "../src/color.js";
 import {
   triadic,
   tetradic,
@@ -10,7 +10,7 @@ import {
   tones,
 } from "../src/harmony.js";
 
-const red = new KleurStruct(255, 0, 0); // hue=0, s=100, l=50
+const red = new Color(255, 0, 0); // hue=0, s=100, l=50
 
 describe("triadic()", () => {
   it("returns exactly 3 colors", () => {

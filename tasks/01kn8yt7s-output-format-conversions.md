@@ -16,7 +16,7 @@ context: ["docs/specs/mvp.md"]
 
 ## Objective
 
-Implement all output format methods on KleurStruct so any color can be serialized to hex, CSS, RGB/HSL objects, arrays, and normalized WebGL format. Covers spec section 3.
+Implement all output format methods on Color so any color can be serialized to hex, CSS, RGB/HSL objects, arrays, and normalized WebGL format. Covers spec section 3.
 
 ## Tasks
 

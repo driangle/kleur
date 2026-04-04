@@ -1,4 +1,4 @@
-import { KleurStruct } from "./kleur-struct.js";
+import { Color } from "./color.js";
 import { hex as parseHex } from "./parse.js";
 
 /**
@@ -158,11 +158,11 @@ const CSS_COLORS: Record<string, string> = {
 
 /**
  * Case-insensitive named color lookup.
- * Returns a KleurStruct or undefined if not found.
+ * Returns a Color or undefined if not found.
  */
-export function getNamedColor(name: string): KleurStruct | undefined {
+export function getNamedColor(name: string): Color | undefined {
   if (name === "transparent") {
-    return new KleurStruct(0, 0, 0, 0);
+    return new Color(0, 0, 0, 0);
   }
   const hex = CSS_COLORS[name.toLowerCase()];
   if (hex) {
@@ -185,4 +185,4 @@ export const orange = parseHex("#ffa500");
 export const purple = parseHex("#800080");
 export const pink = parseHex("#ffc0cb");
 export const lime = parseHex("#00ff00");
-export const transparent = new KleurStruct(0, 0, 0, 0);
+export const transparent = new Color(0, 0, 0, 0);

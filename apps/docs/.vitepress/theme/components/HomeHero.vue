@@ -30,7 +30,7 @@ onMounted(() => {
         <a href="./guide/getting-started" class="kl-btn kl-btn-primary">
           Get Started
         </a>
-        <a href="./api/kleur-struct" class="kl-btn kl-btn-outline">
+        <a href="./api/color" class="kl-btn kl-btn-outline">
           API Reference
         </a>
       </div>
@@ -41,7 +41,7 @@ onMounted(() => {
 
     <!-- Feature Grid -->
     <section class="kl-features">
-      <a href="./api/kleur-struct" class="kl-feature">
+      <a href="./api/color" class="kl-feature">
         <div class="kl-feature-content">
           <div class="kl-feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

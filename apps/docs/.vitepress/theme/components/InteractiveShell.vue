@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { hex as parseHex, type KleurStruct } from "@driangle/kleur";
+import { hex as parseHex, type Color } from "@driangle/kleur";
 
 interface Operation {
   method: string;
@@ -33,12 +33,12 @@ const baseColor = computed(() => {
 const resultColor = computed(() => {
   if (!baseColor.value) return null;
   try {
-    let color: KleurStruct = baseColor.value;
+    let color: Color = baseColor.value;
     for (const op of operations.value) {
       if (!op.enabled) continue;
-      const fn = color[op.method as keyof KleurStruct];
+      const fn = color[op.method as keyof Color];
       if (typeof fn === "function") {
-        color = (fn as (arg: number) => KleurStruct).call(color, op.arg);
+        color = (fn as (arg: number) => Color).call(color, op.arg);
       }
     }
     return color;

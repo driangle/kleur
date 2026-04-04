@@ -54,9 +54,9 @@ describe("public API integration", () => {
     expect(Kleur.named.transparent.a).toBe(0);
   });
 
-  it("exports KleurStruct class directly", async () => {
-    const { KleurStruct } = await import("../src/index.js");
-    const c = new KleurStruct(255, 0, 0);
+  it("exports Color class directly", async () => {
+    const { Color } = await import("../src/index.js");
+    const c = new Color(255, 0, 0);
     expect(c.r).toBe(255);
     expect(typeof c.lighten).toBe("function");
     expect(typeof c.toHex).toBe("function");

@@ -13,7 +13,7 @@ import { Kleur } from "@driangle/kleur";
 ## colorStop
 
 ```ts
-colorStop(offset: number, color: KleurStruct): GradientStop
+colorStop(offset: number, color: Color): GradientStop
 ```
 
 Create a gradient stop. The offset is clamped to 0-1.
@@ -25,7 +25,7 @@ const stop = colorStop(0.5, hex("#ff6600"));
 ## solid
 
 ```ts
-solid(color: KleurStruct): SolidKleur
+solid(color: Color): SolidKleur
 ```
 
 Create a solid fill from a single color.
@@ -33,7 +33,7 @@ Create a solid fill from a single color.
 ```ts
 const fill = solid(hex("#ff6600"));
 fill.type;  // "solid"
-fill.color; // KleurStruct
+fill.color; // Color
 ```
 
 ## linearGradient
@@ -104,7 +104,7 @@ isGradient(fill: KleurFill): fill is LinearGradient | RadialGradient
 ```ts
 function render(fill: KleurFill) {
   if (isSolid(fill)) {
-    // fill.color is KleurStruct
+    // fill.color is Color
   } else if (isLinearGradient(fill)) {
     // fill.x0, fill.y0, fill.x1, fill.y1, fill.stops
   } else if (isRadialGradient(fill)) {

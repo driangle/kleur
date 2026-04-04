@@ -12,7 +12,7 @@ import { Kleur } from "@driangle/kleur";
 ## triadic
 
 ```ts
-triadic(color: KleurStruct): [KleurStruct, KleurStruct, KleurStruct]
+triadic(color: Color): [Color, Color, Color]
 ```
 
 Returns 3 colors evenly spaced 120 degrees apart on the color wheel. The first element is the original color.
@@ -25,7 +25,7 @@ const [base, second, third] = triadic(hex("#ff0000"));
 ## tetradic
 
 ```ts
-tetradic(color: KleurStruct): [KleurStruct, KleurStruct, KleurStruct, KleurStruct]
+tetradic(color: Color): [Color, Color, Color, Color]
 ```
 
 Returns 4 colors evenly spaced 90 degrees apart (square harmony). The first element is the original color.
@@ -37,7 +37,7 @@ const [a, b, c, d] = tetradic(hex("#ff0000"));
 ## analogous
 
 ```ts
-analogous(color: KleurStruct, angle?: number): [KleurStruct, KleurStruct, KleurStruct]
+analogous(color: Color, angle?: number): [Color, Color, Color]
 ```
 
 Returns 3 adjacent colors. The center color is the original, flanked by colors at +/- `angle` degrees. Default angle is `30`.
@@ -50,7 +50,7 @@ const wider = analogous(hex("#ff6600"), 45);
 ## splitComplement
 
 ```ts
-splitComplement(color: KleurStruct, angle?: number): [KleurStruct, KleurStruct, KleurStruct]
+splitComplement(color: Color, angle?: number): [Color, Color, Color]
 ```
 
 Returns 3 colors: the original plus two colors near its complement (180 degrees +/- `angle`). Default angle is `30`.
@@ -62,7 +62,7 @@ const [base, a, b] = splitComplement(hex("#ff6600"));
 ## tints
 
 ```ts
-tints(color: KleurStruct, count: number): KleurStruct[]
+tints(color: Color, count: number): Color[]
 ```
 
 Returns `count` progressively lighter variations of the color.
@@ -75,7 +75,7 @@ const lightVariations = tints(hex("#ff6600"), 5);
 ## shades
 
 ```ts
-shades(color: KleurStruct, count: number): KleurStruct[]
+shades(color: Color, count: number): Color[]
 ```
 
 Returns `count` progressively darker variations of the color.
@@ -88,7 +88,7 @@ const darkVariations = shades(hex("#ff6600"), 5);
 ## tones
 
 ```ts
-tones(color: KleurStruct, count: number): KleurStruct[]
+tones(color: Color, count: number): Color[]
 ```
 
 Returns `count` progressively desaturated variations of the color.

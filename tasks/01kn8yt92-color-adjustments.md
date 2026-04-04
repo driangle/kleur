@@ -39,7 +39,7 @@ Implement all color adjustment methods that modify lightness, saturation, hue, a
 ## Acceptance Criteria
 
 - All 14 adjustment methods from the spec are implemented
-- All methods return new KleurStruct instances (immutability)
+- All methods return new Color instances (immutability)
 - `lighten(1)` on any color produces white; `darken(1)` produces black
 - `grayscale()` produces a color with saturation = 0
 - `complement()` is equivalent to `rotate(180)`

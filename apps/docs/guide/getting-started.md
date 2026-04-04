@@ -91,7 +91,7 @@ const overlay = blend(a, b, "screen");    // screen blend mode
 
 ## Next Steps
 
-- [API Reference — KleurStruct](/api/kleur-struct) for all instance methods
+- [API Reference — Color](/api/color) for all instance methods
 - [Parsing & Creation](/api/create) for all ways to create colors
 - [Color Harmonies](/api/harmony) for palette generation
 - [Analysis](/api/analysis) for accessibility checks

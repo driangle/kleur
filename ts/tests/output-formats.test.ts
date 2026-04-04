@@ -1,12 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { KleurStruct } from "../src/kleur-struct.js";
+import { Color } from "../src/color.js";
 
 describe("output format conversions", () => {
-  const red = new KleurStruct(255, 0, 0);
-  const blue = new KleurStruct(0, 0, 255, 0.5);
-  const cornflower = new KleurStruct(100, 149, 237);
-  const black = new KleurStruct(0, 0, 0);
-  const white = new KleurStruct(255, 255, 255);
+  const red = new Color(255, 0, 0);
+  const blue = new Color(0, 0, 255, 0.5);
+  const cornflower = new Color(100, 149, 237);
+  const black = new Color(0, 0, 0);
+  const white = new Color(255, 255, 255);
 
   describe("toHex()", () => {
     it("returns lowercase 6-digit hex with # prefix", () => {
@@ -18,7 +18,7 @@ describe("output format conversions", () => {
     });
 
     it("pads single-digit hex values", () => {
-      const dark = new KleurStruct(1, 2, 3);
+      const dark = new Color(1, 2, 3);
       expect(dark.toHex()).toBe("#010203");
     });
   });

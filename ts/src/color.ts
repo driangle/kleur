@@ -7,7 +7,7 @@ const clampHue = (v: number): number => ((v % 360) + 360) % 360;
 const clampPercent = (v: number): number => Math.min(100, Math.max(0, v));
 
 /** Immutable RGBA color with derived HSL access. All mutation methods return a new instance. */
-export class KleurStruct {
+export class Color {
   readonly r: number;
   readonly g: number;
   readonly b: number;
@@ -24,9 +24,9 @@ export class KleurStruct {
     return rgbToHsl(this.r, this.g, this.b);
   }
 
-  private fromHsl(h: number, s: number, l: number): KleurStruct {
+  private fromHsl(h: number, s: number, l: number): Color {
     const rgb = hslToRgb(h, clampPercent(s), clampPercent(l));
-    return new KleurStruct(rgb.r, rgb.g, rgb.b, this.a);
+    return new Color(rgb.r, rgb.g, rgb.b, this.a);
   }
 
   // --- Channel getters ---
@@ -39,22 +39,22 @@ export class KleurStruct {
   alpha(): number { return this.a; }
 
   // --- Immutable setters ---
-  withRed(v: number): KleurStruct { return new KleurStruct(v, this.g, this.b, this.a); }
-  withGreen(v: number): KleurStruct { return new KleurStruct(this.r, v, this.b, this.a); }
-  withBlue(v: number): KleurStruct { return new KleurStruct(this.r, this.g, v, this.a); }
-  withAlpha(v: number): KleurStruct { return new KleurStruct(this.r, this.g, this.b, v); }
+  withRed(v: number): Color { return new Color(v, this.g, this.b, this.a); }
+  withGreen(v: number): Color { return new Color(this.r, v, this.b, this.a); }
+  withBlue(v: number): Color { return new Color(this.r, this.g, v, this.a); }
+  withAlpha(v: number): Color { return new Color(this.r, this.g, this.b, v); }
 
-  withHue(v: number): KleurStruct {
+  withHue(v: number): Color {
     const { s, l } = this.hsl();
     return this.fromHsl(clampHue(v), s, l);
   }
 
-  withSaturation(v: number): KleurStruct {
+  withSaturation(v: number): Color {
     const { h, l } = this.hsl();
     return this.fromHsl(h, clampPercent(v), l);
   }
 
-  withLightness(v: number): KleurStruct {
+  withLightness(v: number): Color {
     const { h, s } = this.hsl();
     return this.fromHsl(h, s, clampPercent(v));
   }
@@ -75,64 +75,64 @@ export class KleurStruct {
   toString(): string { return this.toCss(); }
 
   // --- Color adjustments ---
-  lighten(amount: number): KleurStruct {
+  lighten(amount: number): Color {
     const { h, s, l } = this.hsl();
     return this.fromHsl(h, s, l + (100 - l) * amount);
   }
 
-  darken(amount: number): KleurStruct {
+  darken(amount: number): Color {
     const { h, s, l } = this.hsl();
     return this.fromHsl(h, s, l * (1 - amount));
   }
 
-  brightness(factor: number): KleurStruct {
+  brightness(factor: number): Color {
     const { h, s, l } = this.hsl();
     return this.fromHsl(h, s, l * factor);
   }
 
-  saturate(amount: number): KleurStruct {
+  saturate(amount: number): Color {
     const { h, s, l } = this.hsl();
     return this.fromHsl(h, s + (100 - s) * amount, l);
   }
 
-  desaturate(amount: number): KleurStruct {
+  desaturate(amount: number): Color {
     const { h, s, l } = this.hsl();
     return this.fromHsl(h, s * (1 - amount), l);
   }
 
-  grayscale(): KleurStruct {
+  grayscale(): Color {
     const { h, l } = this.hsl();
     return this.fromHsl(h, 0, l);
   }
 
-  rotate(degrees: number): KleurStruct {
+  rotate(degrees: number): Color {
     const { h, s, l } = this.hsl();
     return this.fromHsl(clampHue(h + degrees), s, l);
   }
 
-  complement(): KleurStruct { return this.rotate(180); }
+  complement(): Color { return this.rotate(180); }
 
-  warm(amount = 0.2): KleurStruct {
+  warm(amount = 0.2): Color {
     const { h, s, l } = this.hsl();
     const diff = ((30 - h + 540) % 360) - 180;
     return this.fromHsl(clampHue(h + diff * amount), s, l);
   }
 
-  cool(amount = 0.2): KleurStruct {
+  cool(amount = 0.2): Color {
     const { h, s, l } = this.hsl();
     const diff = ((240 - h + 540) % 360) - 180;
     return this.fromHsl(clampHue(h + diff * amount), s, l);
   }
 
-  invert(): KleurStruct { return new KleurStruct(255 - this.r, 255 - this.g, 255 - this.b, this.a); }
-  opacity(value: number): KleurStruct { return new KleurStruct(this.r, this.g, this.b, value); }
-  fade(amount: number): KleurStruct { return new KleurStruct(this.r, this.g, this.b, this.a * (1 - amount)); }
-  opaque(): KleurStruct { return new KleurStruct(this.r, this.g, this.b, 1); }
+  invert(): Color { return new Color(255 - this.r, 255 - this.g, 255 - this.b, this.a); }
+  opacity(value: number): Color { return new Color(this.r, this.g, this.b, value); }
+  fade(amount: number): Color { return new Color(this.r, this.g, this.b, this.a * (1 - amount)); }
+  opaque(): Color { return new Color(this.r, this.g, this.b, 1); }
 
   // --- Interpolation ---
-  interpolate(target: KleurStruct, t = 0.5, ease?: (t: number) => number): KleurStruct {
+  interpolate(target: Color, t = 0.5, ease?: (t: number) => number): Color {
     const et = ease ? ease(t) : t;
-    return new KleurStruct(
+    return new Color(
       this.r + (target.r - this.r) * et,
       this.g + (target.g - this.g) * et,
       this.b + (target.b - this.b) * et,
@@ -140,5 +140,5 @@ export class KleurStruct {
     );
   }
 
-  lerp(target: KleurStruct, t = 0.5, ease?: (t: number) => number): KleurStruct { return this.interpolate(target, t, ease); }
+  lerp(target: Color, t = 0.5, ease?: (t: number) => number): Color { return this.interpolate(target, t, ease); }
 }

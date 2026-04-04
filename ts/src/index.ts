@@ -1,7 +1,7 @@
 // kleur - color manipulation library
 
 export { Kleur } from "./kleur.js";
-export { KleurStruct } from "./kleur-struct.js";
+export { Color } from "./color.js";
 export { rgbToHsl, hslToRgb } from "./hsl.js";
 export {
   rgb,

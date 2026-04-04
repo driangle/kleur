@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { KleurStruct } from "../src/kleur-struct.js";
+import { Color } from "../src/color.js";
 import {
   rgb,
   hex,
@@ -186,8 +186,8 @@ describe("grayscale()", () => {
 });
 
 describe("object()", () => {
-  it("passes through KleurStruct instances", () => {
-    const c = new KleurStruct(255, 0, 0);
+  it("passes through Color instances", () => {
+    const c = new Color(255, 0, 0);
     expect(object(c)).toBe(c);
   });
 
@@ -210,7 +210,7 @@ describe("object()", () => {
 
   it("looks up named colors when registered", () => {
     setNamedColorLookup((name) => {
-      if (name === "red") return new KleurStruct(255, 0, 0);
+      if (name === "red") return new Color(255, 0, 0);
       return undefined;
     });
 
@@ -230,7 +230,7 @@ describe("object()", () => {
 
   it("is case-insensitive for named colors", () => {
     setNamedColorLookup((name) => {
-      if (name === "red") return new KleurStruct(255, 0, 0);
+      if (name === "red") return new Color(255, 0, 0);
       return undefined;
     });
 
@@ -243,12 +243,12 @@ describe("object()", () => {
 
 describe("round-trip: hex(color.toHex())", () => {
   const colors = [
-    new KleurStruct(255, 0, 0),
-    new KleurStruct(0, 255, 0),
-    new KleurStruct(0, 0, 255),
-    new KleurStruct(66, 135, 245),
-    new KleurStruct(0, 0, 0),
-    new KleurStruct(255, 255, 255),
+    new Color(255, 0, 0),
+    new Color(0, 255, 0),
+    new Color(0, 0, 255),
+    new Color(66, 135, 245),
+    new Color(0, 0, 0),
+    new Color(255, 255, 255),
   ];
 
   for (const c of colors) {

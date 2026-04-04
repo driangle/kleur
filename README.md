@@ -37,7 +37,7 @@ const warm = color.warm(0.3);
 const faded = color.fade(0.5);
 
 // Analyze
-const ratio = KleurStruct.contrast(color, Kleur.create.rgb(255, 255, 255));
+const ratio = Color.contrast(color, Kleur.create.rgb(255, 255, 255));
 const isAccessible = ratio >= 4.5;
 
 // Harmony

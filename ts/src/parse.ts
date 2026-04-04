@@ -1,18 +1,18 @@
-import { KleurStruct } from "./kleur-struct.js";
+import { Color } from "./color.js";
 import { hslToRgb } from "./hsl.js";
 
 /**
  * Create a color from RGBA values.
  */
-export function rgb(r: number, g: number, b: number, a?: number): KleurStruct {
-  return new KleurStruct(r, g, b, a);
+export function rgb(r: number, g: number, b: number, a?: number): Color {
+  return new Color(r, g, b, a);
 }
 
 /**
  * Parse a hex color string. Requires `#` prefix.
  * Supports 3-digit (#abc) and 6-digit (#aabbcc) forms.
  */
-export function hex(hex: string): KleurStruct {
+export function hex(hex: string): Color {
   const s = hex.trim();
   if (!s.startsWith("#")) {
     throw new Error(`Invalid hex color: "${hex}" (must start with #)`);
@@ -23,14 +23,14 @@ export function hex(hex: string): KleurStruct {
     const r = parseInt(digits[0] + digits[0], 16);
     const g = parseInt(digits[1] + digits[1], 16);
     const b = parseInt(digits[2] + digits[2], 16);
-    return new KleurStruct(r, g, b);
+    return new Color(r, g, b);
   }
 
   if (digits.length === 6) {
     const r = parseInt(digits.slice(0, 2), 16);
     const g = parseInt(digits.slice(2, 4), 16);
     const b = parseInt(digits.slice(4, 6), 16);
-    return new KleurStruct(r, g, b);
+    return new Color(r, g, b);
   }
 
   throw new Error(`Invalid hex color: "${hex}" (must be 3 or 6 digits)`);
@@ -39,34 +39,34 @@ export function hex(hex: string): KleurStruct {
 /**
  * Create a color from HSL values with optional alpha.
  */
-export function hsl(h: number, s: number, l: number, a?: number): KleurStruct {
+export function hsl(h: number, s: number, l: number, a?: number): Color {
   const { r, g, b } = hslToRgb(h, s, l);
-  return new KleurStruct(r, g, b, a);
+  return new Color(r, g, b, a);
 }
 
 /**
  * Create a color from a 24-bit packed integer (0xRRGGBB).
  */
-export function number(n: number): KleurStruct {
+export function number(n: number): Color {
   const int = n >>> 0; // ensure unsigned 32-bit
   const r = (int >> 16) & 0xff;
   const g = (int >> 8) & 0xff;
   const b = int & 0xff;
-  return new KleurStruct(r, g, b);
+  return new Color(r, g, b);
 }
 
 /**
  * Create a grayscale color (r=g=b=value).
  */
-export function grayscale(value: number, alpha?: number): KleurStruct {
-  return new KleurStruct(value, value, value, alpha);
+export function grayscale(value: number, alpha?: number): Color {
+  return new Color(value, value, value, alpha);
 }
 
 /**
  * Parse a CSS color function string.
  * Supports: rgb(), rgba(), hsl(), hsla()
  */
-export function css(css: string): KleurStruct {
+export function css(css: string): Color {
   const s = css.trim().toLowerCase();
 
   const rgbaMatch = s.match(
@@ -77,7 +77,7 @@ export function css(css: string): KleurStruct {
     const g = parseFloat(rgbaMatch[2]);
     const b = parseFloat(rgbaMatch[3]);
     const a = rgbaMatch[4] !== undefined ? parseFloat(rgbaMatch[4]) : 1;
-    return new KleurStruct(r, g, b, a);
+    return new Color(r, g, b, a);
   }
 
   const hslaMatch = s.match(
@@ -89,14 +89,14 @@ export function css(css: string): KleurStruct {
     const l = parseFloat(hslaMatch[3]);
     const a = hslaMatch[4] !== undefined ? parseFloat(hslaMatch[4]) : 1;
     const { r, g, b } = hslToRgb(h, sat, l);
-    return new KleurStruct(r, g, b, a);
+    return new Color(r, g, b, a);
   }
 
   throw new Error(`Invalid CSS color: "${css}"`);
 }
 
 /** Lookup function for named colors */
-export type NamedColorLookup = (name: string) => KleurStruct | undefined;
+export type NamedColorLookup = (name: string) => Color | undefined;
 
 /** Default named color lookup (empty — use setNamedColorLookup to register) */
 let namedColorLookup: NamedColorLookup = () => undefined;
@@ -110,10 +110,10 @@ export function setNamedColorLookup(lookup: NamedColorLookup): void {
 }
 
 /**
- * Universal converter: accepts string (hex, CSS, named), number, or KleurStruct.
+ * Universal converter: accepts string (hex, CSS, named), number, or Color.
  */
-export function object(value: string | number | KleurStruct): KleurStruct {
-  if (value instanceof KleurStruct) {
+export function object(value: string | number | Color): Color {
+  if (value instanceof Color) {
     return value;
   }
 

@@ -1,6 +1,6 @@
 # Parsing & Creation
 
-Functions for creating `KleurStruct` instances from various input formats.
+Functions for creating `Color` instances from various input formats.
 
 ```ts
 import { rgb, hex, hsl, number, css, grayscale, object, random } from "@driangle/kleur";
@@ -12,7 +12,7 @@ import { Kleur } from "@driangle/kleur";
 ## rgb
 
 ```ts
-rgb(r: number, g: number, b: number, a?: number): KleurStruct
+rgb(r: number, g: number, b: number, a?: number): Color
 ```
 
 Create a color from RGBA values. Channels are clamped to 0-255, alpha to 0-1.
@@ -25,7 +25,7 @@ const semiTransparent = rgb(255, 0, 0, 0.5);
 ## hex
 
 ```ts
-hex(hex: string): KleurStruct
+hex(hex: string): Color
 ```
 
 Parse a hex color string. Requires `#` prefix. Supports 3-digit (`#abc`) and 6-digit (`#aabbcc`) forms.
@@ -40,7 +40,7 @@ Throws if the string is not a valid hex color.
 ## hsl
 
 ```ts
-hsl(h: number, s: number, l: number, a?: number): KleurStruct
+hsl(h: number, s: number, l: number, a?: number): Color
 ```
 
 Create a color from HSL values with optional alpha.
@@ -59,7 +59,7 @@ const orange = hsl(30, 100, 50);
 ## number
 
 ```ts
-number(n: number): KleurStruct
+number(n: number): Color
 ```
 
 Create a color from a 24-bit packed integer (`0xRRGGBB`).
@@ -72,7 +72,7 @@ const red = number(0xff0000);
 ## css
 
 ```ts
-css(css: string): KleurStruct
+css(css: string): Color
 ```
 
 Parse a CSS color function string. Supports `rgb()`, `rgba()`, `hsl()`, and `hsla()`.
@@ -88,7 +88,7 @@ Throws if the string cannot be parsed.
 ## grayscale
 
 ```ts
-grayscale(value: number, alpha?: number): KleurStruct
+grayscale(value: number, alpha?: number): Color
 ```
 
 Create a grayscale color where `r = g = b = value`.
@@ -101,7 +101,7 @@ const shadow = grayscale(0, 0.3);  // semi-transparent black
 ## object
 
 ```ts
-object(value: string | number | KleurStruct): KleurStruct
+object(value: string | number | Color): Color
 ```
 
 Universal converter that accepts any supported color format:
@@ -109,7 +109,7 @@ Universal converter that accepts any supported color format:
 - CSS function strings (`"rgb(255, 102, 0)"`)
 - Named colors (`"coral"`)
 - Packed integers (`0xff6600`)
-- Existing `KleurStruct` instances (passthrough)
+- Existing `Color` instances (passthrough)
 
 ```ts
 const a = object("#ff6600");
@@ -122,7 +122,7 @@ Throws if the value cannot be resolved to a color.
 ## random
 
 ```ts
-random(options?: RandomOptions): KleurStruct
+random(options?: RandomOptions): Color
 ```
 
 Generate a random color with optional constraints.

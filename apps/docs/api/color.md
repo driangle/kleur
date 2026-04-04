@@ -1,15 +1,15 @@
-# KleurStruct
+# Color
 
 The core immutable color class. Stores RGBA internally with derived HSL access. All mutation methods return a new instance.
 
 ```ts
-import { KleurStruct } from "@driangle/kleur";
+import { Color } from "@driangle/kleur";
 ```
 
 ## Constructor
 
 ```ts
-new KleurStruct(r: number, g: number, b: number, a?: number)
+new Color(r: number, g: number, b: number, a?: number)
 ```
 
 | Param | Type | Description |
@@ -37,7 +37,7 @@ You rarely need to call the constructor directly. Use creation functions like `h
 
 ## Immutable Setters
 
-Each returns a **new** `KleurStruct` with the specified channel replaced:
+Each returns a **new** `Color` with the specified channel replaced:
 
 | Method | Param | Description |
 |--------|-------|-------------|
@@ -70,7 +70,7 @@ const blue = red.withHue(240); // same saturation/lightness, different hue
 
 ## Color Adjustments
 
-All adjustment methods return a new `KleurStruct`.
+All adjustment methods return a new `Color`.
 
 ### Lightness & Brightness
 
@@ -118,8 +118,8 @@ color.fade(0.5).alpha();       // 0.5
 ## Interpolation
 
 ```ts
-interpolate(target: KleurStruct, t?: number, ease?: (t: number) => number): KleurStruct
-lerp(target: KleurStruct, t?: number, ease?: (t: number) => number): KleurStruct
+interpolate(target: Color, t?: number, ease?: (t: number) => number): Color
+lerp(target: Color, t?: number, ease?: (t: number) => number): Color
 ```
 
 Linear interpolation in RGB space between `this` and `target`. `t=0` returns `this`, `t=1` returns `target`. The optional `ease` function remaps `t` before interpolation.

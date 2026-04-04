@@ -5,21 +5,21 @@ import type {
   GradientStop,
   KleurFill,
 } from "./types.js";
-import { KleurStruct } from "./kleur-struct.js";
+import { Color } from "./color.js";
 
 const clampOffset = (v: number): number => Math.min(1, Math.max(0, v));
 
 /**
  * Create a clamped gradient stop.
  */
-export function colorStop(offset: number, color: KleurStruct): GradientStop {
+export function colorStop(offset: number, color: Color): GradientStop {
   return { offset: clampOffset(offset), color };
 }
 
 /**
  * Create a solid fill.
  */
-export function solid(color: KleurStruct): SolidKleur {
+export function solid(color: Color): SolidKleur {
   return { type: "solid", color };
 }
 
