@@ -25,15 +25,18 @@ You rarely need to call the constructor directly. Use creation functions like `h
 
 ## Channel Getters
 
-| Method | Returns | Description |
+| Getter | Returns | Description |
 |--------|---------|-------------|
-| `red()` | `number` | Red channel (0-255) |
-| `green()` | `number` | Green channel (0-255) |
-| `blue()` | `number` | Blue channel (0-255) |
-| `hue()` | `number` | Hue (0-360) |
-| `saturation()` | `number` | Saturation (0-100) |
-| `lightness()` | `number` | Lightness (0-100) |
-| `alpha()` | `number` | Alpha (0-1) |
+| `red` | `number` | Red channel (0-255) |
+| `green` | `number` | Green channel (0-255) |
+| `blue` | `number` | Blue channel (0-255) |
+| `hue` | `number` | Hue (0-360) |
+| `saturation` | `number` | Saturation (0-100) |
+| `lightness` | `number` | HSL lightness (0-100) |
+| `brightness` | `number` | HSB brightness (0-100) |
+| `alpha` | `number` | Alpha (0-1) |
+| `hsl` | `Hsl` | `{ h, s, l }` object |
+| `hsb` | `Hsb` | `{ h, s, b }` object |
 
 ## Immutable Setters
 
@@ -78,7 +81,7 @@ All adjustment methods return a new `Color`.
 |--------|-------|-------------|
 | `lighten(amount)` | `number` (0-1) | Increase lightness. `0.3` = 30% toward white. |
 | `darken(amount)` | `number` (0-1) | Decrease lightness. `0.3` = 30% toward black. |
-| `brightness(factor)` | `number` | Multiply lightness by factor. `1.5` = 50% brighter. |
+| `scaleLightness(factor)` | `number` | Multiply lightness by factor. `1.5` = 50% brighter. |
 
 ### Saturation
 
