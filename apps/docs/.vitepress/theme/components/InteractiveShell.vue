@@ -5,6 +5,7 @@ import { hex as parseHex, type KleurStruct } from "kleur";
 interface Operation {
   method: string;
   arg: number;
+  enabled: boolean;
 }
 
 const METHODS = [
@@ -19,7 +20,7 @@ const METHODS = [
 ] as const;
 
 const inputColor = ref("#ff7f50");
-const operations = ref<Operation[]>([{ method: "lighten", arg: 0.2 }]);
+const operations = ref<Operation[]>([{ method: "lighten", arg: 0.2, enabled: true }]);
 
 const baseColor = computed(() => {
   try {
@@ -34,6 +35,7 @@ const resultColor = computed(() => {
   try {
     let color: KleurStruct = baseColor.value;
     for (const op of operations.value) {
+      if (!op.enabled) continue;
       const fn = color[op.method as keyof KleurStruct];
       if (typeof fn === "function") {
         color = (fn as (arg: number) => KleurStruct).call(color, op.arg);
@@ -66,6 +68,7 @@ function addOperation() {
     operations.value.push({
       method: available.name,
       arg: available.default,
+      enabled: true,
     });
   }
 }
@@ -104,26 +107,16 @@ function textColorStrong(hex: string): string {
 
       <!-- Code display -->
       <div class="kl-shell-line">
-        <code class="kl-shell-snippet">
-          <span class="kl-kw">const</span> result =
-          <span class="kl-fn">kleur</span>(<span
-            class="kl-str"
-            :style="{ color: inputColor }"
-            >"{{ inputColor }}"</span
-          >)<template v-for="(op, i) in operations" :key="i"
-            >.<span class="kl-fn">{{ op.method }}</span
-            >(<span class="kl-num">{{ op.arg }}</span
-            >)</template
-          >.<span class="kl-fn">hex</span>()
-        </code>
+        <pre class="kl-shell-snippet"><span class="kl-kw">const</span> result = <span class="kl-fn">kleur</span>(<span class="kl-str" :style="{ color: inputColor }">"{{ inputColor }}"</span>)
+<template v-for="(op, i) in operations" :key="i"><span :class="{ 'kl-disabled': !op.enabled }">  <span v-if="!op.enabled" class="kl-comment">// </span>.<span class="kl-fn">{{ op.method }}</span>(<span class="kl-num">{{ op.arg }}</span>)</span>
+</template>  .<span class="kl-fn">hex</span>()</pre>
       </div>
 
       <!-- Controls -->
       <div class="kl-shell-controls">
         <!-- Color input -->
         <div class="kl-control-row">
-          <label class="kl-control-label">Color</label>
-          <div class="kl-color-input-wrap">
+          <div class="kl-row-left">
             <input
               type="color"
               v-model="inputColor"
@@ -145,22 +138,24 @@ function textColorStrong(hex: string): string {
           :key="i"
           class="kl-control-row"
         >
-          <div class="kl-control-method">
+          <div class="kl-row-left">
+            <button
+              class="kl-toggle-btn"
+              :class="{ 'kl-toggle-off': !op.enabled }"
+              @click="op.enabled = !op.enabled"
+              :aria-label="op.enabled ? 'Disable operation' : 'Enable operation'"
+            >
+              <span class="kl-toggle-track">
+                <span class="kl-toggle-thumb"></span>
+              </span>
+            </button>
             <select v-model="op.method" class="kl-method-select" @change="op.arg = getMethodConfig(op.method).default">
               <option v-for="m in METHODS" :key="m.name" :value="m.name">
                 .{{ m.name }}()
               </option>
             </select>
-            <button
-              v-if="operations.length > 1"
-              class="kl-remove-btn"
-              @click="removeOperation(i)"
-              aria-label="Remove operation"
-            >
-              &times;
-            </button>
           </div>
-          <div class="kl-slider-wrap">
+          <div class="kl-row-right" :class="{ 'kl-slider-disabled': !op.enabled }">
             <input
               type="range"
               :min="getMethodConfig(op.method).min"
@@ -170,6 +165,14 @@ function textColorStrong(hex: string): string {
               class="kl-slider"
             />
             <span class="kl-slider-value">{{ op.arg }}</span>
+            <button
+              v-if="operations.length > 1"
+              class="kl-remove-btn"
+              @click="removeOperation(i)"
+              aria-label="Remove operation"
+            >
+              &times;
+            </button>
           </div>
         </div>
 
@@ -233,14 +236,14 @@ function textColorStrong(hex: string): string {
 
 @media (min-width: 768px) {
   .kl-shell {
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 60% 40%;
   }
 }
 
 /* ── Code panel ── */
 .kl-shell-code {
   background: #0e0e0e;
-  padding: 32px 40px;
+  padding: 28px 32px;
   border-left: 1px solid rgba(71, 71, 71, 0.3);
   border-top: 1px solid rgba(71, 71, 71, 0.3);
 }
@@ -249,7 +252,7 @@ function textColorStrong(hex: string): string {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .kl-dot {
@@ -268,7 +271,7 @@ function textColorStrong(hex: string): string {
 }
 
 .kl-shell-line {
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   overflow-x: auto;
 }
 
@@ -277,24 +280,30 @@ function textColorStrong(hex: string): string {
   font-size: clamp(0.8rem, 1.5vw, 1rem) !important;
   line-height: 1.8;
   color: #919191 !important;
-  display: block;
-  white-space: nowrap;
   background: none !important;
   padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  white-space: pre;
+  overflow-x: auto;
 }
 
 .kl-kw { color: #666; }
 .kl-fn { color: #e5e2e1; }
 .kl-str { transition: color 0.2s; }
 .kl-num { color: #e5e2e1; }
+.kl-comment { color: #474747; }
+.kl-disabled { opacity: 0.35; }
+.kl-disabled .kl-fn,
+.kl-disabled .kl-num { color: #666; }
 
 /* ── Controls ── */
 .kl-shell-controls {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   border-top: 1px solid #1c1b1b;
-  padding-top: 20px;
+  padding-top: 16px;
 }
 
 .kl-control-row {
@@ -303,30 +312,32 @@ function textColorStrong(hex: string): string {
   gap: 12px;
 }
 
-.kl-control-label {
-  font-size: 0.625rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #666;
-  width: 130px;
-  flex-shrink: 0;
-  font-weight: 600;
-}
-
-.kl-color-input-wrap {
+/* Shared left column — fixed width for alignment */
+.kl-row-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  width: 148px;
+  flex-shrink: 0;
+}
+
+/* Shared right column — fills remaining space */
+.kl-row-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   flex: 1;
+  min-width: 0;
 }
 
 .kl-color-picker {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #474747;
+  width: 26px;
+  height: 26px;
+  border: 1px solid #353534;
   background: none;
   cursor: pointer;
   padding: 0;
+  flex-shrink: 0;
   -webkit-appearance: none;
   appearance: none;
 }
@@ -341,12 +352,12 @@ function textColorStrong(hex: string): string {
 
 .kl-color-text {
   font-family: var(--vp-font-family-mono);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   background: #1c1b1b;
   border: 1px solid #353534;
   color: #e5e2e1;
-  padding: 6px 10px;
-  width: 100px;
+  padding: 5px 8px;
+  width: 96px;
   outline: none;
   transition: border-color 0.2s;
 }
@@ -355,12 +366,49 @@ function textColorStrong(hex: string): string {
   border-color: #919191;
 }
 
-.kl-control-method {
+/* ── Toggle switch ── */
+.kl-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 4px;
-  width: 130px;
-  flex-shrink: 0;
+}
+
+.kl-toggle-track {
+  display: block;
+  width: 24px;
+  height: 12px;
+  background: #e5e2e1;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.kl-toggle-thumb {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: #0e0e0e;
+  position: absolute;
+  top: 2px;
+  left: 14px;
+  transition: left 0.2s;
+}
+
+.kl-toggle-off .kl-toggle-track {
+  background: #353534;
+}
+
+.kl-toggle-off .kl-toggle-thumb {
+  left: 2px;
+  background: #666;
+}
+
+.kl-slider-disabled {
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .kl-method-select {
@@ -383,31 +431,23 @@ function textColorStrong(hex: string): string {
 
 .kl-remove-btn {
   background: none;
-  border: 1px solid #353534;
-  color: #666;
-  width: 24px;
-  height: 24px;
+  border: none;
+  color: #353534;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1;
   padding: 0;
   flex-shrink: 0;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.15s;
 }
 
 .kl-remove-btn:hover {
-  color: #e5e2e1;
-  border-color: #919191;
-}
-
-.kl-slider-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
+  color: #919191;
 }
 
 .kl-slider {
@@ -441,7 +481,8 @@ function textColorStrong(hex: string): string {
   font-family: var(--vp-font-family-mono);
   font-size: 0.75rem;
   color: #919191;
-  min-width: 40px;
+  width: 48px;
+  flex-shrink: 0;
   text-align: right;
 }
 

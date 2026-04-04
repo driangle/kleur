@@ -167,6 +167,11 @@
   border-right: 1px solid var(--kl-outline-variant) !important;
 }
 
+/* Inset the entire sidebar nav group */
+.VPSidebar .nav {
+  padding: 0 16px 0 20px !important;
+}
+
 /* Sidebar group headings */
 .VPSidebarItem.level-0 > .item > .text {
   font-size: 0.6875rem !important;
@@ -174,10 +179,12 @@
   letter-spacing: 0.06em;
   font-weight: 700 !important;
   color: var(--kl-on-surface) !important;
+  padding-left: 8px !important;
 }
 
-/* Sidebar links */
+/* Sidebar links — consistent inner padding */
 .VPSidebarItem .link {
+  padding: 6px 8px !important;
   transition: background-color 0.15s, color 0.15s;
 }
 
@@ -191,7 +198,7 @@
   font-weight: 600 !important;
 }
 
-.VPSidebarItem.is-active > .item {
+.VPSidebarItem.is-active > .item > .link {
   background: var(--kl-surface-highest) !important;
 }
 
