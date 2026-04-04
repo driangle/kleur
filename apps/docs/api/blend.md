@@ -3,10 +3,10 @@
 Functions for blending and interpolating between colors.
 
 ```ts
+import { kleur } from "@driangle/kleur";
+// kleur.blend(...), kleur.mix(...), etc.
+// or import individual functions:
 import { blend, mix, lerp } from "@driangle/kleur";
-// or
-import { Kleur } from "@driangle/kleur";
-// Kleur.combine.blend(...), Kleur.combine.mix(...), etc.
 ```
 
 ## blend
@@ -28,8 +28,8 @@ Blend two colors using the specified blend mode. Operates per-channel in normali
 | `"subtract"` | `max(0, base - overlay)` | Darkens subtractively |
 
 ```ts
-const a = hex("#ff6600");
-const b = hex("#0066ff");
+const a = kleur("#ff6600");
+const b = kleur("#0066ff");
 
 blend(a, b, "multiply").toHex();
 blend(a, b, "screen").toHex();
@@ -47,8 +47,8 @@ Interpolate between two colors in RGB space. `t=0` returns `a`, `t=1` returns `b
 The optional `ease` function remaps `t` before interpolation, allowing non-linear blending.
 
 ```ts
-const red = hex("#ff0000");
-const blue = hex("#0000ff");
+const red = kleur("#ff0000");
+const blue = kleur("#0000ff");
 
 mix(red, blue);           // 50% blend
 mix(red, blue, 0.25);     // 25% toward blue

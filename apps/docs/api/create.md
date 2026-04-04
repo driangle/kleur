@@ -3,10 +3,10 @@
 Functions for creating `Color` instances from various input formats.
 
 ```ts
-import { kleur, rgb, hex, hsl, number, css, grayscale, random } from "@driangle/kleur";
-// or
-import { Kleur } from "@driangle/kleur";
-// Kleur.create.rgb(...), Kleur.create.hex(...), etc.
+import { kleur } from "@driangle/kleur";
+// kleur.rgb(...), kleur.hex(...), etc.
+// or import individual functions:
+import { rgb, hex, hsl, number, css, grayscale, random } from "@driangle/kleur";
 ```
 
 ## rgb

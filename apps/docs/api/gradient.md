@@ -3,11 +3,11 @@
 Functions for creating gradient and solid fill objects, plus type guards for discriminating between fill types.
 
 ```ts
+import { kleur } from "@driangle/kleur";
+// kleur.linearGradient(...), kleur.isSolid(...), etc.
+// or import individual functions:
 import { colorStop, solid, linearGradient, radialGradient } from "@driangle/kleur";
 import { isSolid, isLinearGradient, isRadialGradient, isGradient } from "@driangle/kleur";
-// or
-import { Kleur } from "@driangle/kleur";
-// Kleur.gradient.linearGradient(...), Kleur.gradient.isSolid(...), etc.
 ```
 
 ## colorStop
@@ -19,7 +19,7 @@ colorStop(offset: number, color: Color): GradientStop
 Create a gradient stop. The offset is clamped to 0-1.
 
 ```ts
-const stop = colorStop(0.5, hex("#ff6600"));
+const stop = colorStop(0.5, kleur("#ff6600"));
 ```
 
 ## solid
@@ -31,7 +31,7 @@ solid(color: Color): SolidKleur
 Create a solid fill from a single color.
 
 ```ts
-const fill = solid(hex("#ff6600"));
+const fill = solid(kleur("#ff6600"));
 fill.type;  // "solid"
 fill.color; // Color
 ```
@@ -56,8 +56,8 @@ const gradient = linearGradient({
   x0: 0, y0: 0,
   x1: 100, y1: 0,
   stops: [
-    colorStop(0, hex("#ff0000")),
-    colorStop(1, hex("#0000ff")),
+    colorStop(0, kleur("#ff0000")),
+    colorStop(1, kleur("#0000ff")),
   ],
 });
 ```
@@ -84,8 +84,8 @@ const gradient = radialGradient({
   x0: 50, y0: 50, r0: 0,
   x1: 50, y1: 50, r1: 50,
   stops: [
-    colorStop(0, hex("#ffffff")),
-    colorStop(1, hex("#000000")),
+    colorStop(0, kleur("#ffffff")),
+    colorStop(1, kleur("#000000")),
   ],
 });
 ```

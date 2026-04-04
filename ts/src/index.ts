@@ -1,10 +1,10 @@
 // kleur - color manipulation library
 
-export { Kleur } from "./kleur.js";
+export { Kleur, kleur } from "./kleur.js";
+export type { KleurFn, KleurApi } from "./kleur.js";
 export type { Color } from "./color.js";
 export { rgbToHsl, hslToRgb } from "./hsl.js";
 export {
-  kleur,
   rgb,
   hex,
   hsl,

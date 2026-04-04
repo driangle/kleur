@@ -6,7 +6,7 @@ The core immutable color class. Stores RGBA internally with derived HSL access. 
 import type { Color } from "@driangle/kleur";
 ```
 
-`Color` is exported as a **type only** — use the creation functions (`hex()`, `rgb()`, `hsl()`, `kleur()`, etc.) to create instances. See [Parsing & Creation](/api/create) for the full list.
+`Color` is exported as a **type only** — use `kleur()` or the individual creation functions (`hex()`, `rgb()`, `hsl()`, etc.) to create instances. See [Parsing & Creation](/api/create) for the full list.
 
 ## Channel Getters
 
@@ -38,7 +38,7 @@ Each returns a **new** `Color` with the specified channel replaced:
 | `withLightness(v)` | `number` (0-100) | Set lightness |
 
 ```ts
-const red = hex("#ff0000");
+const red = kleur("#ff0000");
 const blue = red.withHue(240); // same saturation/lightness, different hue
 ```
 
@@ -95,7 +95,7 @@ All adjustment methods return a new `Color`.
 | `invert()` | — | Invert RGB channels (255 - value). |
 
 ```ts
-const color = hex("#ff6600");
+const color = kleur("#ff6600");
 
 color.lighten(0.3).toHex();   // lighter orange
 color.rotate(120).toHex();     // shifted 120° on the wheel
@@ -115,8 +115,8 @@ Linear interpolation in RGB space between `this` and `target`. `t=0` returns `th
 `lerp()` is an alias for `interpolate()`.
 
 ```ts
-const a = hex("#ff0000");
-const b = hex("#0000ff");
+const a = kleur("#ff0000");
+const b = kleur("#0000ff");
 
 a.interpolate(b, 0.5).toHex(); // midpoint between red and blue
 a.lerp(b, 0.25).toHex();       // 25% toward blue
