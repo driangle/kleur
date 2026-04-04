@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
-  Color, hex, hsl, css, number, object,
+  Color, hex, hsl, css, number, kleur as kleurFn,
   luminance, isLight, contrast, distance,
   blend, triadic, tetradic, analogous,
 } from "../src/index.js";
@@ -58,8 +58,8 @@ describe("cross-language test vectors", () => {
 
   describe("parsing: named", () => {
     for (const v of vectors.parsing.named) {
-      it(`object("${v.input}")`, () => {
-        const c = object(v.input);
+      it(`kleurFn("${v.input}")`, () => {
+        const c = kleurFn(v.input);
         expect(c.r).toBe(v.expected.r);
         expect(c.g).toBe(v.expected.g);
         expect(c.b).toBe(v.expected.b);

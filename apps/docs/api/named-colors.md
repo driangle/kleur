@@ -52,10 +52,10 @@ contrast(white, black); // 21
 
 ## Named Color Lookup Integration
 
-Named colors are automatically registered when you import from `kleur`. This means `object("coral")` works out of the box:
+Named colors are automatically registered when you import from `@driangle/kleur`. This means `kleur("coral")` works out of the box:
 
 ```ts
-import { object } from "@driangle/kleur";
+import { kleur } from "@driangle/kleur";
 
-const coral = object("coral"); // resolves via named color lookup
+const coral = kleur("coral"); // resolves via named color lookup
 ```

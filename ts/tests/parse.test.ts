@@ -7,7 +7,7 @@ import {
   number,
   css,
   grayscale,
-  object,
+  kleur as kleurFn,
   setNamedColorLookup,
 } from "../src/parse.js";
 
@@ -185,26 +185,26 @@ describe("grayscale()", () => {
   });
 });
 
-describe("object()", () => {
+describe("kleur()", () => {
   it("passes through Color instances", () => {
     const c = new Color(255, 0, 0);
-    expect(object(c)).toBe(c);
+    expect(kleurFn(c)).toBe(c);
   });
 
   it("parses hex strings", () => {
-    const c = object("#ff0000");
+    const c = kleurFn("#ff0000");
     expect(c.r).toBe(255);
     expect(c.g).toBe(0);
     expect(c.b).toBe(0);
   });
 
   it("parses CSS strings", () => {
-    const c = object("rgb(0,255,0)");
+    const c = kleurFn("rgb(0,255,0)");
     expect(c.g).toBe(255);
   });
 
   it("parses numbers", () => {
-    const c = object(0xff0000);
+    const c = kleurFn(0xff0000);
     expect(c.r).toBe(255);
   });
 
@@ -214,7 +214,7 @@ describe("object()", () => {
       return undefined;
     });
 
-    const c = object("red");
+    const c = kleurFn("red");
     expect(c.r).toBe(255);
     expect(c.g).toBe(0);
     expect(c.b).toBe(0);
@@ -225,7 +225,7 @@ describe("object()", () => {
 
   it("throws for unknown named colors", () => {
     setNamedColorLookup(() => undefined);
-    expect(() => object("notacolor")).toThrow("Unknown color");
+    expect(() => kleurFn("notacolor")).toThrow("Unknown color");
   });
 
   it("is case-insensitive for named colors", () => {
@@ -234,7 +234,7 @@ describe("object()", () => {
       return undefined;
     });
 
-    const c = object("RED");
+    const c = kleurFn("RED");
     expect(c.r).toBe(255);
 
     setNamedColorLookup(() => undefined);

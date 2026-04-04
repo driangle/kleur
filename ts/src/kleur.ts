@@ -3,7 +3,7 @@
  *
  * Usage: import { Kleur } from "kleur";
  */
-import { rgb, hex, hsl, number, css, grayscale, object } from "./parse.js";
+import { kleur as kleurFactory, rgb, hex, hsl, number, css, grayscale } from "./parse.js";
 import { luminance, isLight, isDark, contrast, distance } from "./analysis.js";
 import { blend, mix, lerp } from "./blend.js";
 import { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "./harmony.js";
@@ -12,7 +12,7 @@ import { getNamedColor, white, black, red, green, blue, yellow, cyan, magenta, o
 import { colorStop, solid, linearGradient, radialGradient, isSolid, isLinearGradient, isRadialGradient, isGradient } from "./gradient.js";
 
 export const Kleur = {
-  create: { rgb, hex, hsl, number, css, object, random, grayscale },
+  create: { kleur: kleurFactory, rgb, hex, hsl, number, css, random, grayscale },
   analyze: { luminance, isLight, isDark, contrast, distance },
   combine: { lerp, blend, mix },
   harmony: { triadic, tetradic, analogous, splitComplement, tints, shades, tones },

@@ -3,7 +3,7 @@
 Functions for creating `Color` instances from various input formats.
 
 ```ts
-import { rgb, hex, hsl, number, css, grayscale, object, random } from "@driangle/kleur";
+import { kleur, rgb, hex, hsl, number, css, grayscale, random } from "@driangle/kleur";
 // or
 import { Kleur } from "@driangle/kleur";
 // Kleur.create.rgb(...), Kleur.create.hex(...), etc.
@@ -98,23 +98,26 @@ const gray = grayscale(128);       // mid-gray
 const shadow = grayscale(0, 0.3);  // semi-transparent black
 ```
 
-## object
+## kleur
 
 ```ts
-object(value: string | number | Color): Color
+kleur(value: string | number | Color): Color
+kleur(r: number, g: number, b: number, a?: number): Color
 ```
 
-Universal converter that accepts any supported color format:
+Universal factory that accepts any supported color format:
 - Hex strings (`"#ff6600"`)
 - CSS function strings (`"rgb(255, 102, 0)"`)
 - Named colors (`"coral"`)
 - Packed integers (`0xff6600`)
 - Existing `Color` instances (passthrough)
+- Explicit RGBA values (`255, 102, 0`)
 
 ```ts
-const a = object("#ff6600");
-const b = object("coral");
-const c = object(0xff6600);
+const a = kleur("#ff6600");
+const b = kleur("coral");
+const c = kleur(0xff6600);
+const d = kleur(255, 102, 0);
 ```
 
 Throws if the value cannot be resolved to a color.

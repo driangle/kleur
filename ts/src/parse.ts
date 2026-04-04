@@ -110,9 +110,26 @@ export function setNamedColorLookup(lookup: NamedColorLookup): void {
 }
 
 /**
- * Universal converter: accepts string (hex, CSS, named), number, or Color.
+ * Universal factory: create a color from any supported input.
+ *
+ * Accepts: hex string, CSS string, named color, packed number, Color instance,
+ * or explicit (r, g, b, a?) values.
  */
-export function object(value: string | number | Color): Color {
+export function kleur(r: number, g: number, b: number, a?: number): Color;
+export function kleur(value: string | number | Color): Color;
+export function kleur(
+  valueOrR: string | number | Color,
+  g?: number,
+  b?: number,
+  a?: number,
+): Color {
+  if (typeof valueOrR === "number" && g !== undefined && b !== undefined) {
+    return rgb(valueOrR, g, b, a);
+  }
+  return _resolve(valueOrR);
+}
+
+function _resolve(value: string | number | Color): Color {
   if (value instanceof Color) {
     return value;
   }

@@ -4,13 +4,13 @@ export { Kleur } from "./kleur.js";
 export { Color } from "./color.js";
 export { rgbToHsl, hslToRgb } from "./hsl.js";
 export {
+  kleur,
   rgb,
   hex,
   hsl,
   number,
   css,
   grayscale,
-  object,
   setNamedColorLookup,
 } from "./parse.js";
 export type { NamedColorLookup } from "./parse.js";

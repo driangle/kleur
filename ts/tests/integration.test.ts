@@ -11,7 +11,7 @@ describe("public API integration", () => {
     expect(typeof Kleur.create.hsl).toBe("function");
     expect(typeof Kleur.create.number).toBe("function");
     expect(typeof Kleur.create.css).toBe("function");
-    expect(typeof Kleur.create.object).toBe("function");
+    expect(typeof Kleur.create.kleur).toBe("function");
     expect(typeof Kleur.create.random).toBe("function");
     expect(typeof Kleur.create.grayscale).toBe("function");
 
@@ -71,17 +71,17 @@ describe("public API integration", () => {
   });
 
   it("exports factory functions directly", async () => {
-    const { hex, rgb, object, mix } = await import("../src/index.js");
+    const { hex, rgb, kleur, mix } = await import("../src/index.js");
     expect(hex("#ff0000").r).toBe(255);
     expect(rgb(0, 255, 0).g).toBe(255);
-    expect(object("#0000ff").b).toBe(255);
+    expect(kleur("#0000ff").b).toBe(255);
     const mid = mix(hex("#000000"), hex("#ffffff"), 0.5);
     expect(mid.r).toBe(128);
   });
 
-  it("Kleur.create.object resolves named colors", async () => {
+  it("Kleur.create.kleur resolves named colors", async () => {
     const { Kleur } = await import("../src/index.js");
-    const c = Kleur.create.object("cornflowerblue");
+    const c = Kleur.create.kleur("cornflowerblue");
     expect(c.r).toBe(100);
     expect(c.g).toBe(149);
     expect(c.b).toBe(237);
