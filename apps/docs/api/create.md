@@ -3,9 +3,9 @@
 Functions for creating `KleurStruct` instances from various input formats.
 
 ```ts
-import { rgb, hex, hsl, number, css, grayscale, object, random } from "kleur";
+import { rgb, hex, hsl, number, css, grayscale, object, random } from "@driangle/kleur";
 // or
-import { Kleur } from "kleur";
+import { Kleur } from "@driangle/kleur";
 // Kleur.create.rgb(...), Kleur.create.hex(...), etc.
 ```
 

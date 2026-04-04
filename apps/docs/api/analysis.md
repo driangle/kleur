@@ -3,9 +3,9 @@
 Functions for measuring color properties and accessibility metrics.
 
 ```ts
-import { luminance, isLight, isDark, contrast } from "kleur";
+import { luminance, isLight, isDark, contrast } from "@driangle/kleur";
 // or
-import { Kleur } from "kleur";
+import { Kleur } from "@driangle/kleur";
 // Kleur.analyze.luminance(...), Kleur.analyze.contrast(...), etc.
 ```
 

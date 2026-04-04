@@ -5,7 +5,7 @@
 The simplest way to create a color is from a hex string:
 
 ```ts
-import { hex } from "kleur";
+import { hex } from "@driangle/kleur";
 
 const coral = hex("#ff7f50");
 ```
@@ -13,7 +13,7 @@ const coral = hex("#ff7f50");
 You can also use the `Kleur` namespace:
 
 ```ts
-import { Kleur } from "kleur";
+import { Kleur } from "@driangle/kleur";
 
 const coral = Kleur.create.hex("#ff7f50");
 ```
@@ -51,7 +51,7 @@ coral.toNormalized(); // [1, 0.498, 0.314, 1]
 Create color harmonies from any base color:
 
 ```ts
-import { triadic, tints, shades } from "kleur";
+import { triadic, tints, shades } from "@driangle/kleur";
 
 const [base, second, third] = triadic(coral);
 const lightVariations = tints(coral, 5);
@@ -63,7 +63,7 @@ const darkVariations = shades(coral, 5);
 Measure contrast and luminance for WCAG compliance:
 
 ```ts
-import { hex, contrast, isLight } from "kleur";
+import { hex, contrast, isLight } from "@driangle/kleur";
 
 const bg = hex("#1a1a2e");
 const fg = hex("#ffffff");
@@ -80,7 +80,7 @@ isLight(bg); // false
 Mix and blend colors together:
 
 ```ts
-import { hex, mix, blend } from "kleur";
+import { hex, mix, blend } from "@driangle/kleur";
 
 const a = hex("#ff0000");
 const b = hex("#0000ff");

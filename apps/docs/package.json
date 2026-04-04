@@ -1,5 +1,5 @@
 {
-  "name": "@kleur/docs",
+  "name": "@driangle/kleur-docs",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,7 @@
     "preview": "vitepress preview"
   },
   "dependencies": {
-    "kleur": "file:../../ts"
+    "@driangle/kleur": "file:../../ts"
   },
   "devDependencies": {
     "vitepress": "^1.6.3",

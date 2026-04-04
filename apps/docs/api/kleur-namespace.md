@@ -3,7 +3,7 @@
 The `Kleur` object groups the entire public API into semantic namespaces. It's a convenient alternative to importing individual functions.
 
 ```ts
-import { Kleur } from "kleur";
+import { Kleur } from "@driangle/kleur";
 ```
 
 ## Namespaces

@@ -3,9 +3,9 @@
 Compute the perceptual or mathematical distance between two colors using configurable color spaces and distance methods.
 
 ```ts
-import { distance } from "kleur";
+import { distance } from "@driangle/kleur";
 // or
-import { Kleur } from "kleur";
+import { Kleur } from "@driangle/kleur";
 // Kleur.analyze.distance(...)
 ```
 

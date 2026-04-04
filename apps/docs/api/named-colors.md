@@ -3,9 +3,9 @@
 Lookup and constants for CSS Color Level 4 named colors.
 
 ```ts
-import { getNamedColor, white, black, red, green, blue } from "kleur";
+import { getNamedColor, white, black, red, green, blue } from "@driangle/kleur";
 // or
-import { Kleur } from "kleur";
+import { Kleur } from "@driangle/kleur";
 // Kleur.named.get("coral"), Kleur.named.white, etc.
 ```
 
@@ -45,7 +45,7 @@ Pre-defined `KleurStruct` instances for common colors:
 | `transparent` | `rgba(0,0,0,0)` |
 
 ```ts
-import { white, black, contrast } from "kleur";
+import { white, black, contrast } from "@driangle/kleur";
 
 contrast(white, black); // 21
 ```
@@ -55,7 +55,7 @@ contrast(white, black); // 21
 Named colors are automatically registered when you import from `kleur`. This means `object("coral")` works out of the box:
 
 ```ts
-import { object } from "kleur";
+import { object } from "@driangle/kleur";
 
 const coral = object("coral"); // resolves via named color lookup
 ```

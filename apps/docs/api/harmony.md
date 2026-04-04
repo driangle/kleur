@@ -3,9 +3,9 @@
 Functions for generating color palettes based on color theory relationships.
 
 ```ts
-import { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "kleur";
+import { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "@driangle/kleur";
 // or
-import { Kleur } from "kleur";
+import { Kleur } from "@driangle/kleur";
 // Kleur.harmony.triadic(...), Kleur.harmony.tints(...), etc.
 ```
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { hex as parseHex, type KleurStruct } from "kleur";
+import { hex as parseHex, type KleurStruct } from "@driangle/kleur";
 
 interface Operation {
   method: string;

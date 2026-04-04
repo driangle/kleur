@@ -3,9 +3,9 @@
 Functions for blending and interpolating between colors.
 
 ```ts
-import { blend, mix, lerp } from "kleur";
+import { blend, mix, lerp } from "@driangle/kleur";
 // or
-import { Kleur } from "kleur";
+import { Kleur } from "@driangle/kleur";
 // Kleur.combine.blend(...), Kleur.combine.mix(...), etc.
 ```
 

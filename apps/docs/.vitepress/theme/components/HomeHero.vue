@@ -5,7 +5,7 @@ import InteractiveShell from "./InteractiveShell.vue";
 const copied = ref(false);
 
 function copyInstall() {
-  navigator.clipboard.writeText("npm install kleur");
+  navigator.clipboard.writeText("npm install @driangle/kleur");
   copied.value = true;
   setTimeout(() => (copied.value = false), 2000);
 }
@@ -114,7 +114,7 @@ onMounted(() => {
     <!-- Install CTA -->
     <section class="kl-install">
       <button class="kl-install-btn" @click="copyInstall">
-        <span class="kl-install-cmd">npm install kleur</span>
+        <span class="kl-install-cmd">npm install @driangle/kleur</span>
         <span class="kl-install-copy">{{ copied ? "Copied!" : "Copy" }}</span>
       </button>
     </section>

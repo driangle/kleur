@@ -1,5 +1,5 @@
 {
-  "name": "kleur",
+  "name": "@driangle/kleur",
   "version": "0.1.0",
   "description": "A cross-language color manipulation library",
   "type": "module",

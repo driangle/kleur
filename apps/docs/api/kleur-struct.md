@@ -3,7 +3,7 @@
 The core immutable color class. Stores RGBA internally with derived HSL access. All mutation methods return a new instance.
 
 ```ts
-import { KleurStruct } from "kleur";
+import { KleurStruct } from "@driangle/kleur";
 ```
 
 ## Constructor

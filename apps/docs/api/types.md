@@ -8,7 +8,7 @@ import type {
   SolidKleur, LinearGradient, RadialGradient, GradientStop, KleurFill,
   KleurValue, DistancePreset, DistanceOptions,
   BlendMode, EasingFn, RandomOptions, NamedColorLookup,
-} from "kleur";
+} from "@driangle/kleur";
 ```
 
 ## Color Channel Types
