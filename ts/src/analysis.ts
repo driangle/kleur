@@ -18,14 +18,14 @@ export function luminance(color: Color): number {
  * True if lightness > 50.
  */
 export function isLight(color: Color): boolean {
-  return color.lightness() > 50;
+  return color.lightness > 50;
 }
 
 /**
  * True if lightness <= 50.
  */
 export function isDark(color: Color): boolean {
-  return color.lightness() <= 50;
+  return color.lightness <= 50;
 }
 
 /**

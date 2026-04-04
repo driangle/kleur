@@ -136,10 +136,10 @@ describe("cross-language test vectors", () => {
           expect(result.g).toBe(exp.g);
           expect(result.b).toBe(exp.b);
         }
-        if ("expected_lightness" in v) expect(result.lightness()).toBe(v.expected_lightness);
-        if ("expected_saturation" in v) expect(result.saturation()).toBe(v.expected_saturation);
-        if ("expected_hue" in v) expect(result.hue()).toBe(v.expected_hue);
-        if ("expected_alpha" in v) expect(result.alpha()).toBeCloseTo(v.expected_alpha as number, 2);
+        if ("expected_lightness" in v) expect(result.lightness).toBe(v.expected_lightness);
+        if ("expected_saturation" in v) expect(result.saturation).toBe(v.expected_saturation);
+        if ("expected_hue" in v) expect(result.hue).toBe(v.expected_hue);
+        if ("expected_alpha" in v) expect(result.alpha).toBeCloseTo(v.expected_alpha as number, 2);
       });
     }
   });
@@ -157,7 +157,7 @@ describe("cross-language test vectors", () => {
         }
         expect(result).toHaveLength(v.expected_count);
         for (let i = 0; i < v.expected_hues.length; i++) {
-          expect(result[i].hue()).toBe(v.expected_hues[i]);
+          expect(result[i].hue).toBe(v.expected_hues[i]);
         }
       });
     }

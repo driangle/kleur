@@ -6,19 +6,19 @@ describe("color adjustments", () => {
     it("lighten(1) produces white", () => {
       const c = new Color(100, 50, 50);
       const light = c.lighten(1);
-      expect(light.lightness()).toBe(100);
+      expect(light.lightness).toBe(100);
     });
 
     it("lighten(0) is a no-op", () => {
       const c = new Color(255, 0, 0);
       const same = c.lighten(0);
-      expect(same.lightness()).toBe(c.lightness());
+      expect(same.lightness).toBe(c.lightness);
     });
 
     it("lighten(0.5) increases lightness by half the remaining range", () => {
       const c = new Color(255, 0, 0); // l=50
       const lighter = c.lighten(0.5);
-      expect(lighter.lightness()).toBe(75);
+      expect(lighter.lightness).toBe(75);
     });
 
     it("returns a new instance", () => {
@@ -31,33 +31,33 @@ describe("color adjustments", () => {
     it("darken(1) produces black", () => {
       const c = new Color(100, 150, 200);
       const dark = c.darken(1);
-      expect(dark.lightness()).toBe(0);
+      expect(dark.lightness).toBe(0);
     });
 
     it("darken(0) is a no-op", () => {
       const c = new Color(255, 0, 0);
       const same = c.darken(0);
-      expect(same.lightness()).toBe(c.lightness());
+      expect(same.lightness).toBe(c.lightness);
     });
 
     it("darken(0.5) halves the lightness", () => {
       const c = new Color(255, 0, 0); // l=50
       const darker = c.darken(0.5);
-      expect(darker.lightness()).toBe(25);
+      expect(darker.lightness).toBe(25);
     });
   });
 
-  describe("brightness()", () => {
-    it("brightness(2) doubles lightness", () => {
+  describe("scaleLightness()", () => {
+    it("scaleLightness(2) doubles lightness", () => {
       const c = new Color(255, 0, 0); // l=50
-      const bright = c.brightness(2);
-      expect(bright.lightness()).toBe(100);
+      const bright = c.scaleLightness(2);
+      expect(bright.lightness).toBe(100);
     });
 
-    it("brightness(0) produces black", () => {
+    it("scaleLightness(0) produces black", () => {
       const c = new Color(255, 0, 0);
-      const dark = c.brightness(0);
-      expect(dark.lightness()).toBe(0);
+      const dark = c.scaleLightness(0);
+      expect(dark.lightness).toBe(0);
     });
   });
 
@@ -65,65 +65,65 @@ describe("color adjustments", () => {
     it("saturate(1) fully saturates", () => {
       const c = new Color(128, 100, 100); // partially saturated
       const sat = c.saturate(1);
-      expect(sat.saturation()).toBe(100);
+      expect(sat.saturation).toBe(100);
     });
 
     it("saturate(0) is a no-op", () => {
       const c = new Color(255, 0, 0);
-      expect(c.saturate(0).saturation()).toBe(c.saturation());
+      expect(c.saturate(0).saturation).toBe(c.saturation);
     });
   });
 
   describe("desaturate()", () => {
     it("desaturate(1) removes all saturation", () => {
       const c = new Color(255, 0, 0);
-      expect(c.desaturate(1).saturation()).toBe(0);
+      expect(c.desaturate(1).saturation).toBe(0);
     });
 
     it("desaturate(0) is a no-op", () => {
       const c = new Color(255, 0, 0);
-      expect(c.desaturate(0).saturation()).toBe(c.saturation());
+      expect(c.desaturate(0).saturation).toBe(c.saturation);
     });
   });
 
   describe("grayscale()", () => {
     it("produces a color with saturation = 0", () => {
       const c = new Color(255, 0, 0);
-      expect(c.grayscale().saturation()).toBe(0);
+      expect(c.grayscale().saturation).toBe(0);
     });
 
     it("preserves lightness", () => {
       const c = new Color(255, 0, 0);
-      expect(c.grayscale().lightness()).toBe(c.lightness());
+      expect(c.grayscale().lightness).toBe(c.lightness);
     });
 
     it("preserves alpha", () => {
       const c = new Color(255, 0, 0, 0.5);
-      expect(c.grayscale().alpha()).toBe(0.5);
+      expect(c.grayscale().alpha).toBe(0.5);
     });
   });
 
   describe("rotate()", () => {
     it("rotates hue by given degrees", () => {
       const c = new Color(255, 0, 0); // hue=0
-      expect(c.rotate(120).hue()).toBe(120);
+      expect(c.rotate(120).hue).toBe(120);
     });
 
     it("wraps around 360", () => {
       const c = new Color(255, 0, 0); // hue=0
-      expect(c.rotate(400).hue()).toBe(40);
+      expect(c.rotate(400).hue).toBe(40);
     });
 
     it("handles negative rotation", () => {
       const c = new Color(255, 0, 0); // hue=0
-      expect(c.rotate(-30).hue()).toBe(330);
+      expect(c.rotate(-30).hue).toBe(330);
     });
   });
 
   describe("complement()", () => {
     it("rotates hue by 180 degrees", () => {
       const c = new Color(255, 0, 0); // hue=0
-      expect(c.complement().hue()).toBe(180);
+      expect(c.complement().hue).toBe(180);
     });
 
     it("is equivalent to rotate(180)", () => {
@@ -141,7 +141,7 @@ describe("color adjustments", () => {
       const blue = new Color(0, 0, 255); // hue=240
       const warmed = blue.warm(0.5);
       // Should move from 240 toward 30 (shortest path is via 0/360)
-      const warmHue = warmed.hue();
+      const warmHue = warmed.hue;
       // Hue should be closer to 30 than 240
       expect(warmHue).not.toBe(240);
     });
@@ -149,7 +149,7 @@ describe("color adjustments", () => {
     it("defaults amount to 0.2", () => {
       const c = new Color(0, 0, 255);
       const warmed = c.warm();
-      expect(warmed.hue()).not.toBe(c.hue());
+      expect(warmed.hue).not.toBe(c.hue);
     });
   });
 
@@ -157,7 +157,7 @@ describe("color adjustments", () => {
     it("shifts hue toward blue (240°)", () => {
       const red = new Color(255, 0, 0); // hue=0
       const cooled = red.cool(0.5);
-      const coolHue = cooled.hue();
+      const coolHue = cooled.hue;
       // Should move toward 240
       expect(coolHue).toBeGreaterThan(0);
     });
@@ -165,7 +165,7 @@ describe("color adjustments", () => {
     it("defaults amount to 0.2", () => {
       const c = new Color(255, 0, 0);
       const cooled = c.cool();
-      expect(cooled.hue()).not.toBe(c.hue());
+      expect(cooled.hue).not.toBe(c.hue);
     });
   });
 
@@ -187,7 +187,7 @@ describe("color adjustments", () => {
 
     it("preserves alpha", () => {
       const c = new Color(255, 0, 0, 0.3);
-      expect(c.invert().alpha()).toBe(0.3);
+      expect(c.invert().alpha).toBe(0.3);
     });
 
     it("double invert returns original", () => {
@@ -202,13 +202,13 @@ describe("color adjustments", () => {
   describe("opacity()", () => {
     it("sets alpha to given value", () => {
       const c = new Color(255, 0, 0);
-      expect(c.opacity(0.5).alpha()).toBe(0.5);
+      expect(c.opacity(0.5).alpha).toBe(0.5);
     });
 
     it("clamps alpha", () => {
       const c = new Color(255, 0, 0);
-      expect(c.opacity(1.5).alpha()).toBe(1);
-      expect(c.opacity(-0.5).alpha()).toBe(0);
+      expect(c.opacity(1.5).alpha).toBe(1);
+      expect(c.opacity(-0.5).alpha).toBe(0);
     });
 
     it("preserves RGB", () => {
@@ -223,24 +223,24 @@ describe("color adjustments", () => {
   describe("fade()", () => {
     it("reduces alpha by percentage", () => {
       const c = new Color(255, 0, 0, 1);
-      expect(c.fade(0.5).alpha()).toBe(0.5);
+      expect(c.fade(0.5).alpha).toBe(0.5);
     });
 
     it("fade(1) makes fully transparent", () => {
       const c = new Color(255, 0, 0, 0.8);
-      expect(c.fade(1).alpha()).toBe(0);
+      expect(c.fade(1).alpha).toBe(0);
     });
 
     it("fade(0) is a no-op", () => {
       const c = new Color(255, 0, 0, 0.7);
-      expect(c.fade(0).alpha()).toBe(0.7);
+      expect(c.fade(0).alpha).toBe(0.7);
     });
   });
 
   describe("opaque()", () => {
     it("sets alpha to exactly 1", () => {
       const c = new Color(255, 0, 0, 0.3);
-      expect(c.opaque().alpha()).toBe(1);
+      expect(c.opaque().alpha).toBe(1);
     });
 
     it("preserves RGB", () => {
@@ -258,7 +258,7 @@ describe("color adjustments", () => {
       const methods = [
         () => c.lighten(0.5),
         () => c.darken(0.5),
-        () => c.brightness(1.5),
+        () => c.scaleLightness(1.5),
         () => c.saturate(0.5),
         () => c.desaturate(0.5),
         () => c.grayscale(),

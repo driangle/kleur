@@ -26,6 +26,13 @@ export interface Hsla extends Hsl {
   a: number;
 }
 
+/** HSB (HSV) channels object */
+export interface Hsb {
+  h: number;
+  s: number;
+  b: number;
+}
+
 /** A solid color fill */
 export interface SolidKleur {
   type: "solid";

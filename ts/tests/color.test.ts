@@ -57,32 +57,32 @@ describe("Color", () => {
   describe("channel getters", () => {
     it("returns RGB channels", () => {
       const c = new Color(10, 20, 30, 0.8);
-      expect(c.red()).toBe(10);
-      expect(c.green()).toBe(20);
-      expect(c.blue()).toBe(30);
-      expect(c.alpha()).toBe(0.8);
+      expect(c.red).toBe(10);
+      expect(c.green).toBe(20);
+      expect(c.blue).toBe(30);
+      expect(c.alpha).toBe(0.8);
     });
 
     it("returns HSL channels for a known color", () => {
       // Pure red: h=0, s=100, l=50
       const red = new Color(255, 0, 0);
-      expect(red.hue()).toBe(0);
-      expect(red.saturation()).toBe(100);
-      expect(red.lightness()).toBe(50);
+      expect(red.hue).toBe(0);
+      expect(red.saturation).toBe(100);
+      expect(red.lightness).toBe(50);
     });
 
     it("returns HSL for pure green", () => {
       const green = new Color(0, 128, 0);
-      expect(green.hue()).toBe(120);
-      expect(green.saturation()).toBe(100);
-      expect(green.lightness()).toBe(25);
+      expect(green.hue).toBe(120);
+      expect(green.saturation).toBe(100);
+      expect(green.lightness).toBe(25);
     });
 
     it("returns HSL for pure blue", () => {
       const blue = new Color(0, 0, 255);
-      expect(blue.hue()).toBe(240);
-      expect(blue.saturation()).toBe(100);
-      expect(blue.lightness()).toBe(50);
+      expect(blue.hue).toBe(240);
+      expect(blue.saturation).toBe(100);
+      expect(blue.lightness).toBe(50);
     });
   });
 
@@ -132,35 +132,35 @@ describe("Color", () => {
       const red = new Color(255, 0, 0);
       const rotated = red.withHue(120);
       // Hue 120 = green area
-      expect(rotated.hue()).toBe(120);
-      expect(red.hue()).toBe(0);
+      expect(rotated.hue).toBe(120);
+      expect(red.hue).toBe(0);
       expect(rotated).not.toBe(red);
     });
 
     it("withSaturation returns new instance", () => {
       const c = new Color(255, 0, 0);
       const desat = c.withSaturation(50);
-      expect(desat.saturation()).toBe(50);
-      expect(c.saturation()).toBe(100);
+      expect(desat.saturation).toBe(50);
+      expect(c.saturation).toBe(100);
     });
 
     it("withLightness returns new instance", () => {
       const c = new Color(255, 0, 0);
       const lighter = c.withLightness(75);
-      expect(lighter.lightness()).toBe(75);
-      expect(c.lightness()).toBe(50);
+      expect(lighter.lightness).toBe(75);
+      expect(c.lightness).toBe(50);
     });
 
     it("withSaturation clamps to 0-100", () => {
       const c = new Color(255, 0, 0);
-      expect(c.withSaturation(-10).saturation()).toBe(0);
-      expect(c.withSaturation(200).saturation()).toBe(100);
+      expect(c.withSaturation(-10).saturation).toBe(0);
+      expect(c.withSaturation(200).saturation).toBe(100);
     });
 
     it("withLightness clamps to 0-100", () => {
       const c = new Color(255, 0, 0);
-      expect(c.withLightness(-10).lightness()).toBe(0);
-      expect(c.withLightness(200).lightness()).toBe(100);
+      expect(c.withLightness(-10).lightness).toBe(0);
+      expect(c.withLightness(200).lightness).toBe(100);
     });
   });
 
@@ -170,8 +170,8 @@ describe("Color", () => {
       expect(black.r).toBe(0);
       expect(black.g).toBe(0);
       expect(black.b).toBe(0);
-      expect(black.lightness()).toBe(0);
-      expect(black.saturation()).toBe(0);
+      expect(black.lightness).toBe(0);
+      expect(black.saturation).toBe(0);
     });
 
     it("pure white", () => {
@@ -179,20 +179,20 @@ describe("Color", () => {
       expect(white.r).toBe(255);
       expect(white.g).toBe(255);
       expect(white.b).toBe(255);
-      expect(white.lightness()).toBe(100);
-      expect(white.saturation()).toBe(0);
+      expect(white.lightness).toBe(100);
+      expect(white.saturation).toBe(0);
     });
 
     it("fully transparent", () => {
       const transparent = new Color(255, 0, 0, 0);
       expect(transparent.a).toBe(0);
-      expect(transparent.alpha()).toBe(0);
+      expect(transparent.alpha).toBe(0);
       expect(transparent.r).toBe(255);
     });
 
     it("gray has zero saturation", () => {
       const gray = new Color(128, 128, 128);
-      expect(gray.saturation()).toBe(0);
+      expect(gray.saturation).toBe(0);
     });
   });
 
@@ -213,9 +213,9 @@ describe("Color", () => {
     for (const { name, r, g, b } of testCases) {
       it(`round-trips ${name} within +/-1`, () => {
         const original = new Color(r, g, b);
-        const h = original.hue();
-        const s = original.saturation();
-        const l = original.lightness();
+        const h = original.hue;
+        const s = original.saturation;
+        const l = original.lightness;
         const rgb = hslToRgb(h, s, l);
         const roundTripped = new Color(rgb.r, rgb.g, rgb.b);
 
@@ -230,19 +230,19 @@ describe("Color", () => {
     it("withHue wraps negative values", () => {
       const c = new Color(255, 0, 0);
       const wrapped = c.withHue(-30);
-      expect(wrapped.hue()).toBe(330);
+      expect(wrapped.hue).toBe(330);
     });
 
     it("withHue wraps values above 360", () => {
       const c = new Color(255, 0, 0);
       const wrapped = c.withHue(390);
-      expect(wrapped.hue()).toBe(30);
+      expect(wrapped.hue).toBe(30);
     });
 
     it("withHue 360 wraps to 0", () => {
       const c = new Color(255, 0, 0);
       const wrapped = c.withHue(360);
-      expect(wrapped.hue()).toBe(0);
+      expect(wrapped.hue).toBe(0);
     });
   });
 });

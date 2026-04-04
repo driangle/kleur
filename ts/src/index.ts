@@ -51,6 +51,7 @@ export type {
   Rgba,
   Hsl,
   Hsla,
+  Hsb,
   SolidKleur,
   LinearGradient,
   RadialGradient,
