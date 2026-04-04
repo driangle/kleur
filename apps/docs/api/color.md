@@ -3,25 +3,10 @@
 The core immutable color class. Stores RGBA internally with derived HSL access. All mutation methods return a new instance.
 
 ```ts
-import { Color } from "@driangle/kleur";
+import type { Color } from "@driangle/kleur";
 ```
 
-## Constructor
-
-```ts
-new Color(r: number, g: number, b: number, a?: number)
-```
-
-| Param | Type | Description |
-|-------|------|-------------|
-| `r` | `number` | Red channel (0-255, clamped) |
-| `g` | `number` | Green channel (0-255, clamped) |
-| `b` | `number` | Blue channel (0-255, clamped) |
-| `a` | `number` | Alpha (0-1, default `1`) |
-
-::: tip
-You rarely need to call the constructor directly. Use creation functions like `hex()`, `rgb()`, or `Kleur.create.*` instead.
-:::
+`Color` is exported as a **type only** — use the creation functions (`hex()`, `rgb()`, `hsl()`, `kleur()`, etc.) to create instances. See [Parsing & Creation](/api/create) for the full list.
 
 ## Channel Getters
 

@@ -1,12 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { Color } from "../src/color.js";
+import { rgb } from "../src/parse.js";
 
 describe("output format conversions", () => {
-  const red = new Color(255, 0, 0);
-  const blue = new Color(0, 0, 255, 0.5);
-  const cornflower = new Color(100, 149, 237);
-  const black = new Color(0, 0, 0);
-  const white = new Color(255, 255, 255);
+  const red = rgb(255, 0, 0);
+  const blue = rgb(0, 0, 255, 0.5);
+  const cornflower = rgb(100, 149, 237);
+  const black = rgb(0, 0, 0);
+  const white = rgb(255, 255, 255);
 
   describe("toHex()", () => {
     it("returns lowercase 6-digit hex with # prefix", () => {
@@ -18,7 +18,7 @@ describe("output format conversions", () => {
     });
 
     it("pads single-digit hex values", () => {
-      const dark = new Color(1, 2, 3);
+      const dark = rgb(1, 2, 3);
       expect(dark.toHex()).toBe("#010203");
     });
   });

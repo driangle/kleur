@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Color } from "../src/color.js";
+import { rgb } from "../src/parse.js";
 import {
   colorStop,
   solid,
@@ -11,8 +11,8 @@ import {
   isGradient,
 } from "../src/gradient.js";
 
-const red = new Color(255, 0, 0);
-const blue = new Color(0, 0, 255);
+const red = rgb(255, 0, 0);
+const blue = rgb(0, 0, 255);
 
 describe("colorStop()", () => {
   it("creates a stop with clamped offset", () => {

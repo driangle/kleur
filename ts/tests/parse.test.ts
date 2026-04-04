@@ -1,5 +1,4 @@
 import { describe, it, expect } from "vitest";
-import { Color } from "../src/color.js";
 import {
   rgb,
   hex,
@@ -187,7 +186,7 @@ describe("grayscale()", () => {
 
 describe("kleur()", () => {
   it("passes through Color instances", () => {
-    const c = new Color(255, 0, 0);
+    const c = rgb(255, 0, 0);
     expect(kleurFn(c)).toBe(c);
   });
 
@@ -210,7 +209,7 @@ describe("kleur()", () => {
 
   it("looks up named colors when registered", () => {
     setNamedColorLookup((name) => {
-      if (name === "red") return new Color(255, 0, 0);
+      if (name === "red") return rgb(255, 0, 0);
       return undefined;
     });
 
@@ -230,7 +229,7 @@ describe("kleur()", () => {
 
   it("is case-insensitive for named colors", () => {
     setNamedColorLookup((name) => {
-      if (name === "red") return new Color(255, 0, 0);
+      if (name === "red") return rgb(255, 0, 0);
       return undefined;
     });
 
@@ -243,12 +242,12 @@ describe("kleur()", () => {
 
 describe("round-trip: hex(color.toHex())", () => {
   const colors = [
-    new Color(255, 0, 0),
-    new Color(0, 255, 0),
-    new Color(0, 0, 255),
-    new Color(66, 135, 245),
-    new Color(0, 0, 0),
-    new Color(255, 255, 255),
+    rgb(255, 0, 0),
+    rgb(0, 255, 0),
+    rgb(0, 0, 255),
+    rgb(66, 135, 245),
+    rgb(0, 0, 0),
+    rgb(255, 255, 255),
   ];
 
   for (const c of colors) {

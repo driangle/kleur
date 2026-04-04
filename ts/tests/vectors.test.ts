@@ -1,14 +1,15 @@
 import { describe, it, expect } from "vitest";
 import {
-  Color, hex, hsl, css, number, kleur as kleurFn,
+  rgb, hex, hsl, css, number, kleur as kleurFn,
   luminance, isLight, contrast, distance,
   blend, triadic, tetradic, analogous,
 } from "../src/index.js";
+import type { Color } from "../src/index.js";
 import type { BlendMode } from "../src/blend.js";
 import vectors from "./vectors/test-vectors.json";
 
 type RGBA = { r: number; g: number; b: number; a?: number };
-const toColor = (c: RGBA) => new Color(c.r, c.g, c.b, c.a ?? 1);
+const toColor = (c: RGBA) => rgb(c.r, c.g, c.b, c.a ?? 1);
 
 describe("cross-language test vectors", () => {
   describe("parsing: hex", () => {

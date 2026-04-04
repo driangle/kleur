@@ -1,13 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { Color } from "../src/color.js";
+import { rgb } from "../src/parse.js";
 import { distance } from "../src/distance.js";
 import type { DistanceOptions } from "../src/types.js";
 
-const red = new Color(255, 0, 0);
-const blue = new Color(0, 0, 255);
-const white = new Color(255, 255, 255);
-const black = new Color(0, 0, 0);
-const green = new Color(0, 128, 0);
+const red = rgb(255, 0, 0);
+const blue = rgb(0, 0, 255);
+const white = rgb(255, 255, 255);
+const black = rgb(0, 0, 0);
+const green = rgb(0, 128, 0);
 
 describe("distance() with options", () => {
   describe("backward compatibility", () => {
@@ -142,8 +142,8 @@ describe("distance() with options", () => {
     });
 
     it("perceptually similar colors have small deltaE", () => {
-      const c1 = new Color(100, 100, 100);
-      const c2 = new Color(102, 100, 98);
+      const c1 = rgb(100, 100, 100);
+      const c2 = rgb(102, 100, 98);
       const d = distance(c1, c2, { preset: "accurate" });
       expect(d).toBeLessThan(2);
     });

@@ -1,13 +1,14 @@
 import { describe, it, expect } from "vitest";
-import { Color } from "../src/color.js";
+import { rgb } from "../src/parse.js";
+import type { Color } from "../src/color.js";
 import { luminance, isLight, isDark, contrast, distance } from "../src/analysis.js";
 
-const white = new Color(255, 255, 255);
-const black = new Color(0, 0, 0);
-const red = new Color(255, 0, 0);
-const green = new Color(0, 128, 0);
-const blue = new Color(0, 0, 255);
-const gray = new Color(128, 128, 128);
+const white = rgb(255, 255, 255);
+const black = rgb(0, 0, 0);
+const red = rgb(255, 0, 0);
+const green = rgb(0, 128, 0);
+const blue = rgb(0, 0, 255);
+const gray = rgb(128, 128, 128);
 
 describe("luminance()", () => {
   it("white luminance = 1.0", () => {
@@ -62,7 +63,7 @@ describe("isLight() / isDark()", () => {
   });
 
   it("light color (l > 50) is light", () => {
-    const light = new Color(200, 200, 200); // l=78
+    const light = rgb(200, 200, 200); // l=78
     expect(isLight(light)).toBe(true);
   });
 });

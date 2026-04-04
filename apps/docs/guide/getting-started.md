@@ -18,7 +18,7 @@ import { Kleur } from "@driangle/kleur";
 const coral = Kleur.create.hex("#ff7f50");
 ```
 
-Other creation methods include `rgb()`, `hsl()`, `css()`, `number()`, and `object()`. See [Parsing & Creation](/api/create) for the full list.
+Other creation methods include `rgb()`, `hsl()`, `css()`, `number()`, and `kleur()`. See [Parsing & Creation](/api/create) for the full list.
 
 ## Manipulate Colors
 
