@@ -7,7 +7,7 @@ import type {
   Rgb, Rgba, Hsl, Hsla,
   SolidKleur, LinearGradient, RadialGradient, GradientStop, KleurFill,
   KleurValue, DistancePreset, DistanceOptions,
-  BlendMode, EasingFn, RandomOptions, NamedColorLookup,
+  BlendFn, BlendMode, KleurEaseFn, RandomOptions, NamedColorLookup,
 } from "@driangle/kleur";
 ```
 
@@ -142,16 +142,31 @@ type DistanceOptions =
 
 ## Blend Types
 
+### BlendFn
+
+```ts
+type BlendFn = (base: Color, overlay: Color) => Color;
+```
+
+A custom blend function that receives both full Color objects and returns a blended Color.
+
 ### BlendMode
 
 ```ts
-type BlendMode = "multiply" | "screen" | "overlay" | "add" | "subtract";
+type BlendMode =
+  | "multiply" | "screen" | "overlay"
+  | "darken" | "lighten"
+  | "colorDodge" | "colorBurn"
+  | "hardLight" | "softLight"
+  | "difference" | "exclusion"
+  | "add" | "subtract"
+  | BlendFn;
 ```
 
-### EasingFn
+### KleurEaseFn
 
 ```ts
-type EasingFn = (t: number) => number;
+type KleurEaseFn = (t: number) => number;
 ```
 
 ## Random Types

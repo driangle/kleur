@@ -21,6 +21,14 @@ Blend two colors using the specified blend mode. Operates per-channel in normali
 | `"multiply"` | `base * overlay` | Darkens — produces darker results |
 | `"screen"` | `1 - (1 - base)(1 - overlay)` | Lightens — produces lighter results |
 | `"overlay"` | Multiply if dark, screen if light | Increases contrast |
+| `"darken"` | `min(base, overlay)` | Keeps the darker value per channel |
+| `"lighten"` | `max(base, overlay)` | Keeps the lighter value per channel |
+| `"colorDodge"` | `base / (1 - overlay)` | Brightens by decreasing contrast |
+| `"colorBurn"` | `1 - (1 - base) / overlay` | Darkens by increasing contrast |
+| `"hardLight"` | Overlay with roles swapped | Overlay controls multiply vs screen |
+| `"softLight"` | W3C formula | Gentle, diffused contrast adjustment |
+| `"difference"` | `abs(base - overlay)` | Shows difference; identical = black |
+| `"exclusion"` | `base + overlay - 2 * base * overlay` | Like difference but softer |
 | `"add"` | `min(1, base + overlay)` | Brightens additively |
 | `"subtract"` | `max(0, base - overlay)` | Darkens subtractively |
 
@@ -31,12 +39,17 @@ const b = kleur("#0066ff");
 kleur.blend(a, b, "multiply").toHex();
 kleur.blend(a, b, "screen").toHex();
 kleur.blend(a, b, "overlay").toHex();
+
+// Custom blend function — receives both Color objects
+kleur.blend(a, b, (base, overlay) =>
+  kleur.rgb((base.r + overlay.r) / 2, (base.g + overlay.g) / 2, (base.b + overlay.b) / 2)
+);
 ```
 
 ## mix
 
 ```ts
-kleur.mix(a: Color, b: Color, t?: number, ease?: EasingFn): Color
+kleur.mix(a: Color, b: Color, t?: number, ease?: KleurEaseFn): Color
 ```
 
 Interpolate between two colors in RGB space. `t=0` returns `a`, `t=1` returns `b`. Default `t` is `0.5` (midpoint).
@@ -55,6 +68,14 @@ kleur.mix(red, blue, 0.5, t => t * t); // ease-in quadratic
 ## Types
 
 ```ts
-type BlendMode = "multiply" | "screen" | "overlay" | "add" | "subtract";
-type EasingFn = (t: number) => number;
+type BlendFn = (base: Color, overlay: Color) => Color;
+type BlendMode =
+  | "multiply" | "screen" | "overlay"
+  | "darken" | "lighten"
+  | "colorDodge" | "colorBurn"
+  | "hardLight" | "softLight"
+  | "difference" | "exclusion"
+  | "add" | "subtract"
+  | BlendFn;
+type KleurEaseFn = (t: number) => number;
 ```

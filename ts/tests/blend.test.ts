@@ -90,6 +90,148 @@ describe("blend()", () => {
     });
   });
 
+  describe("darken", () => {
+    it("keeps the darker channel value", () => {
+      const result = blend(mid, black, "darken");
+      expect(result.r).toBe(0);
+      expect(result.g).toBe(0);
+      expect(result.b).toBe(0);
+    });
+
+    it("darken with white is identity", () => {
+      const result = blend(mid, white, "darken");
+      expect(result.r).toBe(128);
+    });
+  });
+
+  describe("lighten", () => {
+    it("keeps the lighter channel value", () => {
+      const result = blend(mid, white, "lighten");
+      expect(result.r).toBe(255);
+      expect(result.g).toBe(255);
+      expect(result.b).toBe(255);
+    });
+
+    it("lighten with black is identity", () => {
+      const result = blend(mid, black, "lighten");
+      expect(result.r).toBe(128);
+    });
+  });
+
+  describe("colorDodge", () => {
+    it("dodge with black base returns 0", () => {
+      const result = blend(black, mid, "colorDodge");
+      expect(result.r).toBe(0);
+    });
+
+    it("dodge with white overlay returns white", () => {
+      const result = blend(mid, white, "colorDodge");
+      expect(result.r).toBe(255);
+    });
+
+    it("dodge brightens", () => {
+      const result = blend(mid, mid, "colorDodge");
+      expect(result.r).toBeGreaterThan(128);
+    });
+  });
+
+  describe("colorBurn", () => {
+    it("burn with white base returns white", () => {
+      const result = blend(white, mid, "colorBurn");
+      expect(result.r).toBe(255);
+    });
+
+    it("burn with black overlay returns 0", () => {
+      const result = blend(mid, black, "colorBurn");
+      expect(result.r).toBe(0);
+    });
+
+    it("burn darkens", () => {
+      const result = blend(mid, mid, "colorBurn");
+      expect(result.r).toBeLessThan(128);
+    });
+  });
+
+  describe("hardLight", () => {
+    it("dark overlay multiplies", () => {
+      const dark = rgb(50, 50, 50);
+      const result = blend(mid, dark, "hardLight");
+      expect(result.r).toBeLessThanOrEqual(50);
+    });
+
+    it("light overlay screens", () => {
+      const light = rgb(200, 200, 200);
+      const result = blend(mid, light, "hardLight");
+      expect(result.r).toBeGreaterThanOrEqual(200);
+    });
+  });
+
+  describe("softLight", () => {
+    it("mid on mid produces a result near mid", () => {
+      const result = blend(mid, mid, "softLight");
+      expect(result.r).toBeCloseTo(128, -1);
+    });
+
+    it("white overlay lightens", () => {
+      const result = blend(mid, white, "softLight");
+      expect(result.r).toBeGreaterThan(128);
+    });
+
+    it("black overlay darkens", () => {
+      const result = blend(mid, black, "softLight");
+      expect(result.r).toBeLessThan(128);
+    });
+  });
+
+  describe("difference", () => {
+    it("identical colors produce black", () => {
+      const result = blend(mid, mid, "difference");
+      expect(result.r).toBeCloseTo(0);
+    });
+
+    it("black and white produce white", () => {
+      const result = blend(black, white, "difference");
+      expect(result.r).toBe(255);
+    });
+  });
+
+  describe("exclusion", () => {
+    it("identical colors produce gray", () => {
+      // b + b - 2*b*b at 0.5 => 0.5
+      const result = blend(mid, mid, "exclusion");
+      expect(result.r).toBeCloseTo(128, -1);
+    });
+
+    it("exclusion with black is identity", () => {
+      const result = blend(mid, black, "exclusion");
+      expect(result.r).toBeCloseTo(128, 0);
+    });
+  });
+
+  describe("custom function", () => {
+    it("receives both full Color objects", () => {
+      const result = blend(red, mid, (base, overlay) => {
+        return rgb(
+          (base.r + overlay.r) / 2,
+          (base.g + overlay.g) / 2,
+          (base.b + overlay.b) / 2,
+        );
+      });
+      expect(result.r).toBeCloseTo(192, 0);
+      expect(result.g).toBeCloseTo(64, 0);
+      expect(result.b).toBeCloseTo(64, 0);
+    });
+
+    it("can use alpha from either color", () => {
+      const a = rgb(255, 0, 0, 0.3);
+      const b = rgb(0, 0, 255, 0.9);
+      const result = blend(a, b, (base, overlay) => {
+        return rgb(overlay.r, overlay.g, overlay.b, overlay.a);
+      });
+      expect(result.a).toBeCloseTo(0.9);
+    });
+  });
+
   it("preserves base alpha", () => {
     const base = rgb(128, 128, 128, 0.7);
     const result = blend(base, white, "multiply");
