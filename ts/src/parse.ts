@@ -75,13 +75,20 @@ export function grayscale(value: number, alpha?: number): Color {
 /**
  * Parse a CSS color function string.
  * Supports: rgb(), rgba(), hsl(), hsla()
+ * Both comma-separated and space-separated (CSS Color Level 4) syntax.
+ * Hue values can be negative.
  */
 export function css(css: string): Color {
   const s = css.trim().toLowerCase();
 
+  // Comma-separated: rgb(255, 128, 0) or rgba(255, 128, 0, 0.5)
+  // Space-separated (CSS Level 4): rgb(255 128 0) or rgb(255 128 0 / 0.5)
   const rgbaMatch = s.match(
-    /^rgba?\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)(?:\s*,\s*(\d+(?:\.\d+)?))?\s*\)$/,
-  );
+    /^rgba?\(\s*(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)(?:\s*\/\s*(\d+(?:\.\d+)?))?\s*\)$/,
+  ) ??
+    s.match(
+      /^rgba?\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)(?:\s*,\s*(\d+(?:\.\d+)?))?\s*\)$/,
+    );
   if (rgbaMatch) {
     const r = parseFloat(rgbaMatch[1]);
     const g = parseFloat(rgbaMatch[2]);
@@ -90,9 +97,21 @@ export function css(css: string): Color {
     return new Color(r, g, b, a);
   }
 
+  // Comma-separated: hsl(120, 50%, 50%) or hsla(120, 50%, 50%, 0.5)
+  // Space-separated (CSS Level 4): hsl(120 50% 50%) or hsl(120 50% 50% / 0.5)
+  // Hue can be negative: hsl(-30 100% 50%)
+  const NUM = "-?\\d+(?:\\.\\d+)?";
+  const PCT = "-?\\d+(?:\\.\\d+)?%?";
   const hslaMatch = s.match(
-    /^hsla?\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)%?\s*,\s*(\d+(?:\.\d+)?)%?(?:\s*,\s*(\d+(?:\.\d+)?))?\s*\)$/,
-  );
+    new RegExp(
+      `^hsla?\\(\\s*(${NUM})\\s+(${PCT})\\s+(${PCT})(?:\\s*/\\s*(${NUM}))?\\s*\\)$`,
+    ),
+  ) ??
+    s.match(
+      new RegExp(
+        `^hsla?\\(\\s*(${NUM})\\s*,\\s*(${PCT})\\s*,\\s*(${PCT})(?:\\s*,\\s*(${NUM}))?\\s*\\)$`,
+      ),
+    );
   if (hslaMatch) {
     const h = parseFloat(hslaMatch[1]);
     const sat = parseFloat(hslaMatch[2]);

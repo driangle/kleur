@@ -188,6 +188,52 @@ describe("css()", () => {
     expect(() => css("not-a-color")).toThrow(InvalidCssColorError);
     expect(() => css("not-a-color")).toThrow("Invalid CSS color");
   });
+
+  it("parses space-separated rgb() (CSS Color Level 4)", () => {
+    const c = css("rgb(255 128 0)");
+    expect(c.red).toBe(255);
+    expect(c.green).toBe(128);
+    expect(c.blue).toBe(0);
+    expect(c.alpha).toBe(1);
+  });
+
+  it("parses space-separated rgb() with slash alpha", () => {
+    const c = css("rgb(255 128 0 / 0.5)");
+    expect(c.red).toBe(255);
+    expect(c.green).toBe(128);
+    expect(c.blue).toBe(0);
+    expect(c.alpha).toBe(0.5);
+  });
+
+  it("parses space-separated hsl() (CSS Color Level 4)", () => {
+    const c = css("hsl(0 100% 50%)");
+    expect(c.red).toBe(255);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(0);
+    expect(c.alpha).toBe(1);
+  });
+
+  it("parses space-separated hsl() with slash alpha", () => {
+    const c = css("hsl(240 100% 50% / 0.8)");
+    expect(c.red).toBe(0);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(255);
+    expect(c.alpha).toBe(0.8);
+  });
+
+  it("parses negative hue values in hsl()", () => {
+    const c = css("hsl(-120, 100%, 50%)");
+    expect(c.red).toBe(0);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(255);
+  });
+
+  it("parses negative hue in space-separated hsl()", () => {
+    const c = css("hsl(-120 100% 50%)");
+    expect(c.red).toBe(0);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(255);
+  });
 });
 
 describe("grayscale()", () => {

@@ -75,12 +75,18 @@ const red = kleur.number(0xff0000);
 css(css: string): Color
 ```
 
-Parse a CSS color function string. Supports `rgb()`, `rgba()`, `hsl()`, and `hsla()`.
+Parse a CSS color function string. Supports `rgb()`, `rgba()`, `hsl()`, and `hsla()` in both comma-separated and space-separated (CSS Color Level 4) syntax. Hue values can be negative.
 
 ```ts
+// Comma-separated (legacy)
 const a = kleur.css("rgb(255, 127, 80)");
 const b = kleur.css("rgba(255, 127, 80, 0.5)");
 const c = kleur.css("hsl(16, 100%, 66%)");
+
+// Space-separated (CSS Color Level 4)
+const d = kleur.css("rgb(255 127 80)");
+const e = kleur.css("rgb(255 127 80 / 0.5)");
+const f = kleur.css("hsl(-30 100% 50% / 0.8)");
 ```
 
 Throws if the string cannot be parsed.
