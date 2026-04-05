@@ -97,7 +97,11 @@ const blendModes: Record<string, BlendFn> = {
 };
 
 /** Blend two colors using the specified blend mode or a custom blend function. */
-export function blend(base: KleurValue, overlay: KleurValue, mode: BlendMode): Color {
+export function blend(
+  base: KleurValue,
+  overlay: KleurValue,
+  mode: BlendMode,
+): Color {
   const fn = typeof mode === "function" ? mode : blendModes[mode];
   if (!fn) {
     throw new InvalidBlendModeError(mode as string, Object.keys(blendModes));
@@ -111,7 +115,12 @@ export type KleurEaseFn = (t: number) => number;
  * Interpolate between two colors in RGB space.
  * t=0 returns a, t=1 returns b. An optional easing function remaps t before interpolation.
  */
-export function mix(a: KleurValue, b: KleurValue, t = 0.5, ease?: KleurEaseFn): Color {
+export function mix(
+  a: KleurValue,
+  b: KleurValue,
+  t = 0.5,
+  ease?: KleurEaseFn,
+): Color {
   const ca = resolve(a);
   const cb = resolve(b);
   const et = ease ? ease(t) : t;

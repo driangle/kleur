@@ -77,7 +77,9 @@ describe("color adjustments", () => {
   describe("adjustSaturationHsl()", () => {
     it("adds to HSL saturation in absolute channel units", () => {
       const c = rgb(128, 100, 100);
-      expect(c.adjustSaturationHsl(10).saturationHsl).toBe(c.saturationHsl + 10);
+      expect(c.adjustSaturationHsl(10).saturationHsl).toBe(
+        c.saturationHsl + 10,
+      );
     });
 
     it("clamps to the valid range", () => {
@@ -90,7 +92,9 @@ describe("color adjustments", () => {
   describe("scaleSaturationHsl()", () => {
     it("multiplies HSL saturation", () => {
       const c = rgb(128, 100, 100);
-      expect(c.scaleSaturationHsl(0.5).saturationHsl).toBe(Math.round(c.saturationHsl * 0.5));
+      expect(c.scaleSaturationHsl(0.5).saturationHsl).toBe(
+        Math.round(c.saturationHsl * 0.5),
+      );
     });
   });
 
@@ -164,7 +168,9 @@ describe("color adjustments", () => {
   describe("adjustSaturationHsb()", () => {
     it("adds to HSB saturation in absolute channel units", () => {
       const c = rgb(128, 64, 64);
-      expect(c.adjustSaturationHsb(10).saturationHsb).toBe(c.saturationHsb + 10);
+      expect(c.adjustSaturationHsb(10).saturationHsb).toBe(
+        c.saturationHsb + 10,
+      );
     });
 
     it("clamps to the valid range", () => {
@@ -190,7 +196,9 @@ describe("color adjustments", () => {
   describe("scaleSaturationHsb()", () => {
     it("multiplies HSB saturation", () => {
       const c = rgb(128, 64, 64);
-      expect(c.scaleSaturationHsb(0.5).saturationHsb).toBe(Math.round(c.saturationHsb * 0.5));
+      expect(c.scaleSaturationHsb(0.5).saturationHsb).toBe(
+        Math.round(c.saturationHsb * 0.5),
+      );
     });
   });
 
@@ -342,8 +350,12 @@ describe("color adjustments", () => {
       //           darken(0.5)  → 66 - 66*0.5 = 33
       const lightened = c.lighten(0.5);
       const darkened = c.darken(0.5);
-      expect(lightened.lightness).toBe(Math.round(66.07843137254902 + (100 - 66.07843137254902) * 0.5));
-      expect(darkened.lightness).toBe(Math.round(66.07843137254902 - 66.07843137254902 * 0.5));
+      expect(lightened.lightness).toBe(
+        Math.round(66.07843137254902 + (100 - 66.07843137254902) * 0.5),
+      );
+      expect(darkened.lightness).toBe(
+        Math.round(66.07843137254902 - 66.07843137254902 * 0.5),
+      );
     });
 
     it("lighten(1) reaches white, darken(1) reaches black", () => {
@@ -359,7 +371,9 @@ describe("color adjustments", () => {
       const s = c.saturationHsl;
       // saturateHsl(0.5) moves toward 100: s + (100-s)*0.5
       // desaturateHsl(0.5) moves toward 0: s - s*0.5
-      expect(c.saturateHsl(0.5).saturationHsl).toBe(Math.round(s + (100 - s) * 0.5));
+      expect(c.saturateHsl(0.5).saturationHsl).toBe(
+        Math.round(s + (100 - s) * 0.5),
+      );
       expect(c.desaturateHsl(0.5).saturationHsl).toBe(Math.round(s - s * 0.5));
     });
 

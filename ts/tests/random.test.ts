@@ -30,7 +30,11 @@ describe("random()", () => {
   it("respects hue: 'cool' constraint", () => {
     for (let i = 0; i < ITERATIONS; i++) {
       // Use high saturation so hue is meaningful after round-trip
-      const c = random({ hue: "cool", saturation: [50, 100], lightness: [30, 70] });
+      const c = random({
+        hue: "cool",
+        saturation: [50, 100],
+        lightness: [30, 70],
+      });
       const h = c.hue;
       // Cool: 90-330 (HSL round-trip can shift hue by a few degrees)
       expect(h).toBeGreaterThanOrEqual(85);
@@ -41,7 +45,11 @@ describe("random()", () => {
   it("respects hue: [min, max] constraint", () => {
     for (let i = 0; i < ITERATIONS; i++) {
       // Use high saturation so hue is meaningful after round-trip
-      const c = random({ hue: [200, 250], saturation: [50, 100], lightness: [30, 70] });
+      const c = random({
+        hue: [200, 250],
+        saturation: [50, 100],
+        lightness: [30, 70],
+      });
       const h = c.hue;
       // HSL round-trip rounding can shift hue by a few degrees
       expect(h).toBeGreaterThanOrEqual(195);

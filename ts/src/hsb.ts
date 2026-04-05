@@ -25,19 +25,38 @@ export function rgbToHsb(r: number, g: number, b: number): Hsb {
   return { h, s, b: Math.round(max * 100) };
 }
 
-export function hsbToRgb(h: number, s: number, b: number): { r: number; g: number; b: number } {
+export function hsbToRgb(
+  h: number,
+  s: number,
+  b: number,
+): { r: number; g: number; b: number } {
   const sp = s / 100;
   const bp = b / 100;
   const c = bp * sp;
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
   const m = bp - c;
-  let rp = 0, gp = 0, bprime = 0;
-  if (h < 60) { rp = c; gp = x; }
-  else if (h < 120) { rp = x; gp = c; }
-  else if (h < 180) { gp = c; bprime = x; }
-  else if (h < 240) { gp = x; bprime = c; }
-  else if (h < 300) { rp = x; bprime = c; }
-  else { rp = c; bprime = x; }
+  let rp = 0,
+    gp = 0,
+    bprime = 0;
+  if (h < 60) {
+    rp = c;
+    gp = x;
+  } else if (h < 120) {
+    rp = x;
+    gp = c;
+  } else if (h < 180) {
+    gp = c;
+    bprime = x;
+  } else if (h < 240) {
+    gp = x;
+    bprime = c;
+  } else if (h < 300) {
+    rp = x;
+    bprime = c;
+  } else {
+    rp = c;
+    bprime = x;
+  }
   return {
     r: Math.round((rp + m) * 255),
     g: Math.round((gp + m) * 255),

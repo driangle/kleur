@@ -52,19 +52,28 @@ describe("distance() with options", () => {
 
     it("perceptual preset uses Lab deltaE94", () => {
       const preset = distance(red, green, { preset: "perceptual" });
-      const explicit = distance(red, green, { space: "lab", method: "deltaE94" });
+      const explicit = distance(red, green, {
+        space: "lab",
+        method: "deltaE94",
+      });
       expect(preset).toBe(explicit);
     });
 
     it("accurate preset uses Lab deltaE2000", () => {
       const preset = distance(red, green, { preset: "accurate" });
-      const explicit = distance(red, green, { space: "lab", method: "deltaE2000" });
+      const explicit = distance(red, green, {
+        space: "lab",
+        method: "deltaE2000",
+      });
       expect(preset).toBe(explicit);
     });
 
     it("modern preset uses OKLab deltaEOK", () => {
       const preset = distance(red, green, { preset: "modern" });
-      const explicit = distance(red, green, { space: "oklab", method: "deltaEOK" });
+      const explicit = distance(red, green, {
+        space: "oklab",
+        method: "deltaEOK",
+      });
       expect(preset).toBe(explicit);
     });
   });
@@ -104,7 +113,8 @@ describe("distance() with options", () => {
       ];
       for (const opts of configs) {
         expect(distance(red, blue, opts)).toBeCloseTo(
-          distance(blue, red, opts), 5,
+          distance(blue, red, opts),
+          5,
         );
       }
     });
@@ -112,12 +122,12 @@ describe("distance() with options", () => {
 
   describe("validation", () => {
     it("throws for an unknown preset", () => {
-      expect(() =>
-        distance(red, blue, { preset: "legacy" as never }),
-      ).toThrow(UnknownDistancePresetError);
-      expect(() =>
-        distance(red, blue, { preset: "legacy" as never }),
-      ).toThrow('Unknown distance preset "legacy"');
+      expect(() => distance(red, blue, { preset: "legacy" as never })).toThrow(
+        UnknownDistancePresetError,
+      );
+      expect(() => distance(red, blue, { preset: "legacy" as never })).toThrow(
+        'Unknown distance preset "legacy"',
+      );
     });
 
     it("throws for an unknown space", () => {

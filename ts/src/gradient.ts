@@ -86,6 +86,8 @@ export function isRadialGradient(fill: KleurFill): fill is RadialGradient {
   return fill.type === "radial";
 }
 
-export function isGradient(fill: KleurFill): fill is LinearGradient | RadialGradient {
+export function isGradient(
+  fill: KleurFill,
+): fill is LinearGradient | RadialGradient {
   return fill.type === "linear" || fill.type === "radial";
 }

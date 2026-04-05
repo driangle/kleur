@@ -240,8 +240,12 @@ describe("blend()", () => {
   });
 
   it("throws InvalidBlendModeError for unknown mode string", () => {
-    expect(() => blend(red, mid, "dissolve" as never)).toThrow(InvalidBlendModeError);
-    expect(() => blend(red, mid, "dissolve" as never)).toThrow('Unknown blend mode "dissolve"');
+    expect(() => blend(red, mid, "dissolve" as never)).toThrow(
+      InvalidBlendModeError,
+    );
+    expect(() => blend(red, mid, "dissolve" as never)).toThrow(
+      'Unknown blend mode "dissolve"',
+    );
   });
 
   it("results are clamped", () => {
@@ -299,7 +303,6 @@ describe("mix()", () => {
     const result = mix(black, white, 0.5, easeInQuad);
     expect(result.red).toBeCloseTo(64, 0);
   });
-
 });
 
 describe("Color.mix()", () => {

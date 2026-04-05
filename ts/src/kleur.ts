@@ -10,13 +10,52 @@
  *   kleur.triadic(color);              // harmony
  */
 import type { Color } from "./color.js";
-import { kleur as kleurFactory, rgb, hex, hsl, number, css, grayscale } from "./parse.js";
+import {
+  kleur as kleurFactory,
+  rgb,
+  hex,
+  hsl,
+  number,
+  css,
+  grayscale,
+} from "./parse.js";
 import { luminance, isLight, isDark, contrast, distance } from "./analysis.js";
 import { blend, mix } from "./blend.js";
-import { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "./harmony.js";
+import {
+  triadic,
+  tetradic,
+  analogous,
+  splitComplement,
+  tints,
+  shades,
+  tones,
+} from "./harmony.js";
 import { random } from "./random.js";
-import { white, black, red, green, blue, yellow, cyan, magenta, orange, purple, pink, lime, transparent } from "./named-colors.js";
-import { colorStop, solid, linearGradient, radialGradient, isSolid, isLinearGradient, isRadialGradient, isGradient } from "./gradient.js";
+import {
+  white,
+  black,
+  red,
+  green,
+  blue,
+  yellow,
+  cyan,
+  magenta,
+  orange,
+  purple,
+  pink,
+  lime,
+  transparent,
+} from "./named-colors.js";
+import {
+  colorStop,
+  solid,
+  linearGradient,
+  radialGradient,
+  isSolid,
+  isLinearGradient,
+  isRadialGradient,
+  isGradient,
+} from "./gradient.js";
 
 /** All properties available on the `kleur` function object. */
 export interface KleurApi {

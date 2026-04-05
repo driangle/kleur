@@ -117,14 +117,29 @@ describe("cross-language test vectors", () => {
         const c = toColor(v.input);
         let result: Color;
         switch (v.op) {
-          case "lighten": result = c.lighten(v.args!.amount); break;
-          case "darken": result = c.darken(v.args!.amount); break;
-          case "grayscale": result = c.grayscale(); break;
-          case "invert": result = c.invert(); break;
-          case "complement": result = c.complement(); break;
-          case "rotate": result = c.rotate(v.args!.degrees); break;
-          case "opaque": result = c.opaque(); break;
-          default: throw new Error(`Unknown op: ${v.op}`);
+          case "lighten":
+            result = c.lighten(v.args!.amount);
+            break;
+          case "darken":
+            result = c.darken(v.args!.amount);
+            break;
+          case "grayscale":
+            result = c.grayscale();
+            break;
+          case "invert":
+            result = c.invert();
+            break;
+          case "complement":
+            result = c.complement();
+            break;
+          case "rotate":
+            result = c.rotate(v.args!.degrees);
+            break;
+          case "opaque":
+            result = c.opaque();
+            break;
+          default:
+            throw new Error(`Unknown op: ${v.op}`);
         }
         if ("expected" in v && v.expected) {
           const exp = v.expected as { r: number; g: number; b: number };
@@ -132,10 +147,13 @@ describe("cross-language test vectors", () => {
           expect(result.green).toBe(exp.g);
           expect(result.blue).toBe(exp.b);
         }
-        if ("expected_lightness" in v) expect(result.lightness).toBe(v.expected_lightness);
-        if ("expected_saturation" in v) expect(result.hsl.s).toBe(v.expected_saturation);
+        if ("expected_lightness" in v)
+          expect(result.lightness).toBe(v.expected_lightness);
+        if ("expected_saturation" in v)
+          expect(result.hsl.s).toBe(v.expected_saturation);
         if ("expected_hue" in v) expect(result.hue).toBe(v.expected_hue);
-        if ("expected_alpha" in v) expect(result.alpha).toBeCloseTo(v.expected_alpha as number, 2);
+        if ("expected_alpha" in v)
+          expect(result.alpha).toBeCloseTo(v.expected_alpha as number, 2);
       });
     }
   });
@@ -146,10 +164,17 @@ describe("cross-language test vectors", () => {
         const c = toColor(v.input);
         let result: Color[];
         switch (v.op) {
-          case "triadic": result = kleur.triadic(c); break;
-          case "tetradic": result = kleur.tetradic(c); break;
-          case "analogous": result = kleur.analogous(c, v.args?.angle); break;
-          default: throw new Error(`Unknown op: ${v.op}`);
+          case "triadic":
+            result = kleur.triadic(c);
+            break;
+          case "tetradic":
+            result = kleur.tetradic(c);
+            break;
+          case "analogous":
+            result = kleur.analogous(c, v.args?.angle);
+            break;
+          default:
+            throw new Error(`Unknown op: ${v.op}`);
         }
         expect(result).toHaveLength(v.expected_count);
         for (let i = 0; i < v.expected_hues.length; i++) {
@@ -162,11 +187,21 @@ describe("cross-language test vectors", () => {
   describe("blending", () => {
     for (const v of vectors.blending) {
       it(`${v.op}: ${v.note || ""}`, () => {
-        const result = kleur.blend(toColor(v.base), toColor(v.overlay), v.op as BlendMode);
+        const result = kleur.blend(
+          toColor(v.base),
+          toColor(v.overlay),
+          v.op as BlendMode,
+        );
         const tol = ("tolerance" in v ? v.tolerance : 0) as number;
-        expect(Math.abs(result.red - v.expected.r)).toBeLessThanOrEqual(tol + 1);
-        expect(Math.abs(result.green - v.expected.g)).toBeLessThanOrEqual(tol + 1);
-        expect(Math.abs(result.blue - v.expected.b)).toBeLessThanOrEqual(tol + 1);
+        expect(Math.abs(result.red - v.expected.r)).toBeLessThanOrEqual(
+          tol + 1,
+        );
+        expect(Math.abs(result.green - v.expected.g)).toBeLessThanOrEqual(
+          tol + 1,
+        );
+        expect(Math.abs(result.blue - v.expected.b)).toBeLessThanOrEqual(
+          tol + 1,
+        );
       });
     }
   });
@@ -175,7 +210,10 @@ describe("cross-language test vectors", () => {
     for (const v of vectors.analysis.luminance) {
       it(`luminance of rgb(${v.input.r},${v.input.g},${v.input.b})`, () => {
         const tol = v.tolerance || 0.001;
-        expect(kleur.luminance(toColor(v.input))).toBeCloseTo(v.expected, -Math.log10(tol));
+        expect(kleur.luminance(toColor(v.input))).toBeCloseTo(
+          v.expected,
+          -Math.log10(tol),
+        );
       });
     }
   });
@@ -183,7 +221,10 @@ describe("cross-language test vectors", () => {
   describe("analysis: contrast", () => {
     for (const v of vectors.analysis.contrast) {
       it(`contrast`, () => {
-        expect(kleur.contrast(toColor(v.a), toColor(v.b))).toBeCloseTo(v.expected, 0);
+        expect(kleur.contrast(toColor(v.a), toColor(v.b))).toBeCloseTo(
+          v.expected,
+          0,
+        );
       });
     }
   });
@@ -191,7 +232,10 @@ describe("cross-language test vectors", () => {
   describe("analysis: distance", () => {
     for (const v of vectors.analysis.distance) {
       it(`distance`, () => {
-        expect(kleur.distance(toColor(v.a), toColor(v.b))).toBeCloseTo(v.expected, 1);
+        expect(kleur.distance(toColor(v.a), toColor(v.b))).toBeCloseTo(
+          v.expected,
+          1,
+        );
       });
     }
   });

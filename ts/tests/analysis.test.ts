@@ -1,7 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { rgb } from "../src/parse.js";
 import type { Color } from "../src/color.js";
-import { luminance, isLight, isDark, contrast, distance } from "../src/analysis.js";
+import {
+  luminance,
+  isLight,
+  isDark,
+  contrast,
+  distance,
+} from "../src/analysis.js";
 
 const white = rgb(255, 255, 255);
 const black = rgb(0, 0, 0);

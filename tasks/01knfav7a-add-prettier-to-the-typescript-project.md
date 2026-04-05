@@ -1,7 +1,7 @@
 ---
 title: "Add Prettier to the TypeScript project"
 id: "01knfav7a"
-status: pending
+status: completed
 priority: medium
 type: chore
 tags: ["formatting", "dx"]
@@ -16,14 +16,14 @@ Add Prettier as the code formatter for the TypeScript project to ensure consiste
 
 ## Tasks
 
-- [ ] Install Prettier as a dev dependency
-- [ ] Create a `.prettierrc` config file with project-appropriate settings
-- [ ] Add `eslint-config-prettier` to disable ESLint rules that conflict with Prettier
-- [ ] Add a `format` script to `package.json`
-- [ ] Run Prettier on the entire codebase
-- [ ] Check how many files fail the ESLint `max-lines` rule after formatting
-- [ ] If too many files fail `max-lines`, increase the limit to 300 in the ESLint config
-- [ ] Ensure `make check` passes after all changes
+- [x] Install Prettier as a dev dependency
+- [x] Create a `.prettierrc` config file with project-appropriate settings
+- [x] Add `eslint-config-prettier` to disable ESLint rules that conflict with Prettier
+- [x] Add a `format` script to `package.json`
+- [x] Run Prettier on the entire codebase
+- [x] Check how many files fail the ESLint `max-lines` rule after formatting
+- [x] If too many files fail `max-lines`, increase the limit to 300 in the ESLint config
+- [x] Ensure `make check` passes after all changes
 
 ## Acceptance Criteria
 

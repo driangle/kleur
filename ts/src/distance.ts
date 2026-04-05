@@ -10,11 +10,20 @@ import {
 } from "./errors.js";
 import type { DistanceOptions, KleurValue } from "./types.js";
 import { resolve } from "./parse.js";
-import { rgbToLab, rgbToOklab, labToLch, oklabToOklch } from "./color-spaces.js";
+import {
+  rgbToLab,
+  rgbToOklab,
+  labToLch,
+  oklabToOklch,
+} from "./color-spaces.js";
 import { rgbToHsl } from "./hsl.js";
 import {
   type Triple,
-  euclidean, deltaE76, deltaE94, deltaE2000, deltaEOK,
+  euclidean,
+  deltaE76,
+  deltaE94,
+  deltaE2000,
+  deltaEOK,
 } from "./delta-e.js";
 
 // --- Preset mappings ---
@@ -30,14 +39,23 @@ const PRESETS: Record<string, { space: string; method: string }> = {
 
 const SPACE_CONVERTERS: Record<string, (c: Color) => Triple> = {
   rgb: (c) => [c.red, c.green, c.blue],
-  hsl: (c) => { const { h, s, l } = rgbToHsl(c.red, c.green, c.blue); return [h, s, l]; },
-  lab: (c) => { const { l, a, b } = rgbToLab(c.red, c.green, c.blue); return [l, a, b]; },
+  hsl: (c) => {
+    const { h, s, l } = rgbToHsl(c.red, c.green, c.blue);
+    return [h, s, l];
+  },
+  lab: (c) => {
+    const { l, a, b } = rgbToLab(c.red, c.green, c.blue);
+    return [l, a, b];
+  },
   lch: (c) => {
     const lab = rgbToLab(c.red, c.green, c.blue);
     const { l, c: ch, h } = labToLch(lab.l, lab.a, lab.b);
     return [l, ch, h];
   },
-  oklab: (c) => { const { l, a, b } = rgbToOklab(c.red, c.green, c.blue); return [l, a, b]; },
+  oklab: (c) => {
+    const { l, a, b } = rgbToOklab(c.red, c.green, c.blue);
+    return [l, a, b];
+  },
   oklch: (c) => {
     const ok = rgbToOklab(c.red, c.green, c.blue);
     const { l, c: ch, h } = oklabToOklch(ok.l, ok.a, ok.b);
@@ -48,7 +66,11 @@ const SPACE_CONVERTERS: Record<string, (c: Color) => Triple> = {
 // --- Distance method dispatch ---
 
 const DISTANCE_METHODS: Record<string, (a: Triple, b: Triple) => number> = {
-  euclidean, deltaE76, deltaE94, deltaE2000, deltaEOK,
+  euclidean,
+  deltaE76,
+  deltaE94,
+  deltaE2000,
+  deltaEOK,
 };
 
 const VALID_COMBINATIONS: Record<string, Set<string>> = {
@@ -61,13 +83,19 @@ const VALID_COMBINATIONS: Record<string, Set<string>> = {
 
 // --- Public API ---
 
-function resolveOptions(options?: DistanceOptions): { space: string; method: string } {
+function resolveOptions(options?: DistanceOptions): {
+  space: string;
+  method: string;
+} {
   if (!options) return { space: "rgb", method: "euclidean" };
 
   if ("preset" in options) {
     const resolved = PRESETS[options.preset];
     if (!resolved) {
-      throw new UnknownDistancePresetError(options.preset, Object.keys(PRESETS));
+      throw new UnknownDistancePresetError(
+        options.preset,
+        Object.keys(PRESETS),
+      );
     }
     return resolved;
   }

@@ -41,7 +41,10 @@ describe("solid()", () => {
 describe("linearGradient()", () => {
   it("creates a linear gradient with clamped stops", () => {
     const g = linearGradient({
-      x0: 0, y0: 0, x1: 100, y1: 0,
+      x0: 0,
+      y0: 0,
+      x1: 100,
+      y1: 0,
       stops: [
         { offset: -0.1, color: red },
         { offset: 1.5, color: blue },
@@ -56,7 +59,10 @@ describe("linearGradient()", () => {
 
   it("supports globalAlpha", () => {
     const g = linearGradient({
-      x0: 0, y0: 0, x1: 100, y1: 0,
+      x0: 0,
+      y0: 0,
+      x1: 100,
+      y1: 0,
       stops: [{ offset: 0, color: red }],
       globalAlpha: 0.5,
     });
@@ -67,8 +73,12 @@ describe("linearGradient()", () => {
 describe("radialGradient()", () => {
   it("creates a radial gradient with clamped stops", () => {
     const g = radialGradient({
-      x0: 50, y0: 50, r0: 0,
-      x1: 50, y1: 50, r1: 100,
+      x0: 50,
+      y0: 50,
+      r0: 0,
+      x1: 50,
+      y1: 50,
+      r1: 100,
       stops: [
         { offset: 0, color: red },
         { offset: 2, color: blue },
@@ -84,11 +94,19 @@ describe("radialGradient()", () => {
 describe("type guards", () => {
   const s = solid(red);
   const lg = linearGradient({
-    x0: 0, y0: 0, x1: 100, y1: 0,
+    x0: 0,
+    y0: 0,
+    x1: 100,
+    y1: 0,
     stops: [{ offset: 0, color: red }],
   });
   const rg = radialGradient({
-    x0: 50, y0: 50, r0: 0, x1: 50, y1: 50, r1: 100,
+    x0: 50,
+    y0: 50,
+    r0: 0,
+    x1: 50,
+    y1: 50,
+    r1: 100,
     stops: [{ offset: 0, color: red }],
   });
 

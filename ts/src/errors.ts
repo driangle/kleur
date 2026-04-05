@@ -13,7 +13,10 @@ export class InvalidHexColorError extends KleurError {
   readonly input: string;
   readonly reason: "missing-prefix" | "invalid-length" | "invalid-digits";
 
-  constructor(input: string, reason: "missing-prefix" | "invalid-length" | "invalid-digits") {
+  constructor(
+    input: string,
+    reason: "missing-prefix" | "invalid-length" | "invalid-digits",
+  ) {
     const messages: Record<typeof reason, string> = {
       "missing-prefix": `Invalid hex color: "${input}" (must start with #)`,
       "invalid-length": `Invalid hex color: "${input}" (must be 3 or 6 digits)`,
@@ -62,7 +65,9 @@ export class UnknownDistancePresetError extends KleurError {
   readonly validPresets: readonly string[];
 
   constructor(preset: string, validPresets: readonly string[]) {
-    super(`Unknown distance preset "${preset}". Valid presets: ${validPresets.join(", ")}`);
+    super(
+      `Unknown distance preset "${preset}". Valid presets: ${validPresets.join(", ")}`,
+    );
     this.name = "UnknownDistancePresetError";
     this.preset = preset;
     this.validPresets = validPresets;
@@ -74,7 +79,9 @@ export class UnknownColorSpaceError extends KleurError {
   readonly validSpaces: readonly string[];
 
   constructor(space: string, validSpaces: readonly string[]) {
-    super(`Unknown color space "${space}". Valid spaces: ${validSpaces.join(", ")}`);
+    super(
+      `Unknown color space "${space}". Valid spaces: ${validSpaces.join(", ")}`,
+    );
     this.name = "UnknownColorSpaceError";
     this.space = space;
     this.validSpaces = validSpaces;
@@ -86,7 +93,9 @@ export class UnknownDistanceMethodError extends KleurError {
   readonly validMethods: readonly string[];
 
   constructor(method: string, validMethods: readonly string[]) {
-    super(`Unknown distance method "${method}". Valid methods: ${validMethods.join(", ")}`);
+    super(
+      `Unknown distance method "${method}". Valid methods: ${validMethods.join(", ")}`,
+    );
     this.name = "UnknownDistanceMethodError";
     this.method = method;
     this.validMethods = validMethods;
@@ -98,7 +107,9 @@ export class InvalidBlendModeError extends KleurError {
   readonly validModes: readonly string[];
 
   constructor(mode: string, validModes: readonly string[]) {
-    super(`Unknown blend mode "${mode}". Valid modes: ${validModes.join(", ")}`);
+    super(
+      `Unknown blend mode "${mode}". Valid modes: ${validModes.join(", ")}`,
+    );
     this.name = "InvalidBlendModeError";
     this.mode = mode;
     this.validModes = validModes;
@@ -121,7 +132,9 @@ export class InvalidDistanceCombinationError extends KleurError {
   readonly validSpaces: readonly string[];
 
   constructor(method: string, space: string, validSpaces: readonly string[]) {
-    super(`Method "${method}" is not valid for space "${space}". Valid spaces for ${method}: ${validSpaces.join(", ")}`);
+    super(
+      `Method "${method}" is not valid for space "${space}". Valid spaces for ${method}: ${validSpaces.join(", ")}`,
+    );
     this.name = "InvalidDistanceCombinationError";
     this.method = method;
     this.space = space;

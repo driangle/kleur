@@ -19,14 +19,20 @@ export function tetradic(color: KleurValue): [Color, Color, Color, Color] {
 /**
  * Return 3 adjacent colors. Default angle: 30 degrees.
  */
-export function analogous(color: KleurValue, angle = 30): [Color, Color, Color] {
+export function analogous(
+  color: KleurValue,
+  angle = 30,
+): [Color, Color, Color] {
   return resolve(color).analogous(angle);
 }
 
 /**
  * Return 3 colors: base + two at 180 +/- angle.
  */
-export function splitComplement(color: KleurValue, angle = 30): [Color, Color, Color] {
+export function splitComplement(
+  color: KleurValue,
+  angle = 30,
+): [Color, Color, Color] {
   return resolve(color).splitComplement(angle);
 }
 

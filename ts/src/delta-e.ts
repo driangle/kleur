@@ -8,7 +8,9 @@
 export type Triple = [number, number, number];
 
 export function euclidean(a: Triple, b: Triple): number {
-  return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2);
+  return Math.sqrt(
+    (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2,
+  );
 }
 
 /** CIE76: Euclidean distance in Lab space */
@@ -35,9 +37,7 @@ export function deltaE94(a: Triple, b: Triple): number {
   const sC = 1 + 0.045 * c1;
   const sH = 1 + 0.015 * c1;
 
-  return Math.sqrt(
-    (dL / sL) ** 2 + (dC / sC) ** 2 + (dH / sH) ** 2,
-  );
+  return Math.sqrt((dL / sL) ** 2 + (dC / sC) ** 2 + (dH / sH) ** 2);
 }
 
 /** CIEDE2000 color difference */
@@ -75,9 +75,9 @@ export function deltaE2000(a: Triple, b: Triple): number {
   const t =
     1 -
     0.17 * Math.cos(((hBarP - 30) * Math.PI) / 180) +
-    0.24 * Math.cos(((2 * hBarP) * Math.PI) / 180) +
+    0.24 * Math.cos((2 * hBarP * Math.PI) / 180) +
     0.32 * Math.cos(((3 * hBarP + 6) * Math.PI) / 180) -
-    0.20 * Math.cos(((4 * hBarP - 63) * Math.PI) / 180);
+    0.2 * Math.cos(((4 * hBarP - 63) * Math.PI) / 180);
 
   let dhP: number;
   if (Math.abs(h2p - h1p) <= 180) {
@@ -90,7 +90,7 @@ export function deltaE2000(a: Triple, b: Triple): number {
 
   const dLp = l2 - l1;
   const dCp = c2p - c1p;
-  const dHp = 2 * Math.sqrt(c1p * c2p) * Math.sin((dhP / 2) * Math.PI / 180);
+  const dHp = 2 * Math.sqrt(c1p * c2p) * Math.sin(((dhP / 2) * Math.PI) / 180);
 
   const sL = 1 + (0.015 * (lBar - 50) ** 2) / Math.sqrt(20 + (lBar - 50) ** 2);
   const sC = 1 + 0.045 * cBarP;
@@ -104,9 +104,9 @@ export function deltaE2000(a: Triple, b: Triple): number {
 
   return Math.sqrt(
     (dLp / sL) ** 2 +
-    (dCp / sC) ** 2 +
-    (dHp / sH) ** 2 +
-    rT * (dCp / sC) * (dHp / sH),
+      (dCp / sC) ** 2 +
+      (dHp / sH) ** 2 +
+      rT * (dCp / sC) * (dHp / sH),
   );
 }
 
