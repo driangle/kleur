@@ -55,7 +55,7 @@ contrast(white, black); // 21
 Named colors are automatically registered when you import from `@driangle/kleur`. This means `kleur("coral")` works out of the box:
 
 ```ts
-import { kleur } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
 
 const coral = kleur("coral"); // resolves via named color lookup
 ```

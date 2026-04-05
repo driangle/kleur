@@ -151,7 +151,7 @@ export class Color {
   opaque(): Color { return new Color(this.r, this.g, this.b, 1); }
 
   // --- Interpolation ---
-  interpolate(target: Color, t = 0.5, ease?: (t: number) => number): Color {
+  mix(target: Color, t = 0.5, ease?: (t: number) => number): Color {
     const et = ease ? ease(t) : t;
     return new Color(
       this.r + (target.r - this.r) * et,
@@ -160,6 +160,4 @@ export class Color {
       this.a + (target.a - this.a) * et,
     );
   }
-
-  lerp(target: Color, t = 0.5, ease?: (t: number) => number): Color { return this.interpolate(target, t, ease); }
 }

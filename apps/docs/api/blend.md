@@ -3,16 +3,13 @@
 Functions for blending and interpolating between colors.
 
 ```ts
-import { kleur } from "@driangle/kleur";
-// kleur.blend(...), kleur.mix(...), etc.
-// or import individual functions:
-import { blend, mix, lerp } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
 ```
 
 ## blend
 
 ```ts
-blend(base: Color, overlay: Color, mode: BlendMode): Color
+kleur.blend(base: Color, overlay: Color, mode: BlendMode): Color
 ```
 
 Blend two colors using the specified blend mode. Operates per-channel in normalized (0-1) space. The result uses the base color's alpha.
@@ -31,15 +28,15 @@ Blend two colors using the specified blend mode. Operates per-channel in normali
 const a = kleur("#ff6600");
 const b = kleur("#0066ff");
 
-blend(a, b, "multiply").toHex();
-blend(a, b, "screen").toHex();
-blend(a, b, "overlay").toHex();
+kleur.blend(a, b, "multiply").toHex();
+kleur.blend(a, b, "screen").toHex();
+kleur.blend(a, b, "overlay").toHex();
 ```
 
 ## mix
 
 ```ts
-mix(a: Color, b: Color, t?: number, ease?: EasingFn): Color
+kleur.mix(a: Color, b: Color, t?: number, ease?: EasingFn): Color
 ```
 
 Interpolate between two colors in RGB space. `t=0` returns `a`, `t=1` returns `b`. Default `t` is `0.5` (midpoint).
@@ -50,18 +47,10 @@ The optional `ease` function remaps `t` before interpolation, allowing non-linea
 const red = kleur("#ff0000");
 const blue = kleur("#0000ff");
 
-mix(red, blue);           // 50% blend
-mix(red, blue, 0.25);     // 25% toward blue
-mix(red, blue, 0.5, t => t * t); // ease-in quadratic
+kleur.mix(red, blue);           // 50% blend
+kleur.mix(red, blue, 0.25);     // 25% toward blue
+kleur.mix(red, blue, 0.5, t => t * t); // ease-in quadratic
 ```
-
-## lerp
-
-```ts
-lerp(a: Color, b: Color, t?: number, ease?: EasingFn): Color
-```
-
-Alias for `mix`. Identical behavior.
 
 ## Types
 

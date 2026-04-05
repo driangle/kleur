@@ -3,7 +3,7 @@
 Functions for creating gradient and solid fill objects, plus type guards for discriminating between fill types.
 
 ```ts
-import { kleur } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
 // kleur.linearGradient(...), kleur.isSolid(...), etc.
 // or import individual functions:
 import { colorStop, solid, linearGradient, radialGradient } from "@driangle/kleur";

@@ -2,7 +2,7 @@
  * kleur — callable universal factory with the full API as properties.
  *
  * Usage:
- *   import { kleur } from "@driangle/kleur";
+ *   import kleur from "@driangle/kleur";
  *   const color = kleur("#ff6600");    // factory call
  *   const c = kleur.hex("#ff6600");    // named creator
  *   kleur.luminance(color);            // analysis
@@ -12,7 +12,7 @@
 import type { Color } from "./color.js";
 import { kleur as kleurFactory, rgb, hex, hsl, number, css, grayscale } from "./parse.js";
 import { luminance, isLight, isDark, contrast, distance } from "./analysis.js";
-import { blend, mix, lerp } from "./blend.js";
+import { blend, mix } from "./blend.js";
 import { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "./harmony.js";
 import { random } from "./random.js";
 import { getNamedColor, white, black, red, green, blue, yellow, cyan, magenta, orange, purple, pink, lime, transparent } from "./named-colors.js";
@@ -39,7 +39,6 @@ export interface KleurApi {
   // Combine
   blend: typeof blend;
   mix: typeof mix;
-  lerp: typeof lerp;
 
   // Harmony
   triadic: typeof triadic;
@@ -104,7 +103,6 @@ kleur.distance = distance;
 // Combine
 kleur.blend = blend;
 kleur.mix = mix;
-kleur.lerp = lerp;
 
 // Harmony
 kleur.triadic = triadic;
@@ -140,13 +138,13 @@ kleur.pink = pink;
 kleur.lime = lime;
 kleur.transparent = transparent;
 
-export { kleur };
+export default kleur;
 
 /** Legacy grouped namespace. */
 export const Kleur = {
   create: { kleur: kleurFactory, rgb, hex, hsl, number, css, random, grayscale },
   analyze: { luminance, isLight, isDark, contrast, distance },
-  combine: { lerp, blend, mix },
+  combine: { blend, mix },
   harmony: { triadic, tetradic, analogous, splitComplement, tints, shades, tones },
   gradient: { colorStop, solid, linearGradient, radialGradient, isSolid, isLinearGradient, isRadialGradient, isGradient },
   named: { get: getNamedColor, white, black, red, green, blue, yellow, cyan, magenta, orange, purple, pink, lime, transparent },

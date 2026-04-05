@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
+import kleurFn from "../src/index.js";
 import {
-  rgb, hex, hsl, css, number, kleur as kleurFn,
+  rgb, hex, hsl, css, number,
   luminance, isLight, contrast, distance,
   blend, triadic, tetradic, analogous,
 } from "../src/index.js";

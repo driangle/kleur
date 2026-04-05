@@ -3,7 +3,7 @@
 The `kleur` export is both a universal color factory and a namespace carrying the full API. Import it once to access everything:
 
 ```ts
-import { kleur } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
 
 // Factory — create colors from any format
 const color = kleur("#ff6600");
@@ -64,7 +64,6 @@ See [Blending & Mixing](/api/blend).
 | Function | Description |
 |----------|-------------|
 | `kleur.mix(a, b, t?, ease?)` | Interpolate between two colors |
-| `kleur.lerp(a, b, t?, ease?)` | Alias for `mix` |
 | `kleur.blend(base, overlay, mode)` | Blend with a blend mode |
 
 ### Color Harmonies

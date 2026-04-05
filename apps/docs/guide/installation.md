@@ -27,7 +27,7 @@ Kleur ships with full TypeScript types and supports both ESM and CommonJS.
 Import `kleur` for a single entry point to all functionality — it works as both a factory and a namespace:
 
 ```ts
-import { kleur } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
 
 const color = kleur("#ff6600");
 const lighter = color.lighten(0.2);

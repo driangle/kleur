@@ -3,7 +3,7 @@
 Functions for creating `Color` instances from various input formats.
 
 ```ts
-import { kleur } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
 // kleur.rgb(...), kleur.hex(...), etc.
 // or import individual functions:
 import { rgb, hex, hsl, number, css, grayscale, random } from "@driangle/kleur";

@@ -44,6 +44,3 @@ export function mix(a: Color, b: Color, t = 0.5, ease?: EasingFn): Color {
   const alpha = a.a + (b.a - a.a) * et;
   return new Color(r, g, bl, alpha);
 }
-
-/** Alias for mix. */
-export const lerp = mix;

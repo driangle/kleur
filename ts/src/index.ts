@@ -1,6 +1,7 @@
 // kleur - color manipulation library
 
-export { Kleur, kleur } from "./kleur.js";
+export { default } from "./kleur.js";
+export { Kleur } from "./kleur.js";
 export type { KleurFn, KleurApi } from "./kleur.js";
 export type { Color } from "./color.js";
 export { rgbToHsl, hslToRgb } from "./hsl.js";
@@ -16,7 +17,7 @@ export {
 export type { NamedColorLookup } from "./parse.js";
 export { luminance, isLight, isDark, contrast, distance } from "./analysis.js";
 export { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "./harmony.js";
-export { blend, mix, lerp } from "./blend.js";
+export { blend, mix } from "./blend.js";
 export type { BlendMode, EasingFn } from "./blend.js";
 export {
   getNamedColor,

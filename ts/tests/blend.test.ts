@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { rgb } from "../src/parse.js";
-import { blend, mix, lerp } from "../src/blend.js";
+import { blend, mix } from "../src/blend.js";
 
 const white = rgb(255, 255, 255);
 const black = rgb(0, 0, 0);
@@ -104,7 +104,7 @@ describe("blend()", () => {
   });
 });
 
-describe("mix() / lerp()", () => {
+describe("mix()", () => {
   it("mix(a, b, 0) returns a", () => {
     const result = mix(red, black, 0);
     expect(result.r).toBe(255);
@@ -152,23 +152,15 @@ describe("mix() / lerp()", () => {
     expect(result.r).toBeCloseTo(64, 0);
   });
 
-  it("lerp is an alias for mix", () => {
-    const m = mix(red, black, 0.3);
-    const l = lerp(red, black, 0.3);
-    expect(l.r).toBe(m.r);
-    expect(l.g).toBe(m.g);
-    expect(l.b).toBe(m.b);
-    expect(l.a).toBe(m.a);
-  });
 });
 
-describe("Color.interpolate()", () => {
+describe("Color.mix()", () => {
   it("works equivalently to static mix()", () => {
     const a = rgb(100, 50, 200, 0.8);
     const b = rgb(200, 150, 50, 0.4);
 
     const staticResult = mix(a, b, 0.3);
-    const instanceResult = a.interpolate(b, 0.3);
+    const instanceResult = a.mix(b, 0.3);
 
     expect(instanceResult.r).toBe(staticResult.r);
     expect(instanceResult.g).toBe(staticResult.g);
@@ -176,27 +168,17 @@ describe("Color.interpolate()", () => {
     expect(instanceResult.a).toBeCloseTo(staticResult.a);
   });
 
-  it("instance lerp delegates to interpolate", () => {
-    const a = rgb(255, 0, 0);
-    const b = rgb(0, 0, 255);
-    const interp = a.interpolate(b, 0.5);
-    const lerpResult = a.lerp(b, 0.5);
-    expect(lerpResult.r).toBe(interp.r);
-    expect(lerpResult.g).toBe(interp.g);
-    expect(lerpResult.b).toBe(interp.b);
-  });
-
   it("applies easing function", () => {
     const a = rgb(0, 0, 0);
     const b = rgb(255, 255, 255);
-    const result = a.interpolate(b, 0.5, (t) => t * t);
+    const result = a.mix(b, 0.5, (t) => t * t);
     expect(result.r).toBeCloseTo(64, 0);
   });
 
   it("returns new instance", () => {
     const a = rgb(255, 0, 0);
     const b = rgb(0, 0, 255);
-    expect(a.interpolate(b, 0.5)).not.toBe(a);
-    expect(a.interpolate(b, 0.5)).not.toBe(b);
+    expect(a.mix(b, 0.5)).not.toBe(a);
+    expect(a.mix(b, 0.5)).not.toBe(b);
   });
 });

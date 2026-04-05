@@ -5,7 +5,7 @@
 The simplest way to create a color is from a hex string:
 
 ```ts
-import { kleur } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
 
 const coral = kleur("#ff7f50");
 ```
@@ -63,7 +63,7 @@ const darkVariations = shades(coral, 5);
 Measure contrast and luminance for WCAG compliance:
 
 ```ts
-import { kleur } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
 
 const bg = kleur("#1a1a2e");
 const fg = kleur("#ffffff");
@@ -80,7 +80,7 @@ kleur.isLight(bg); // false
 Mix and blend colors together:
 
 ```ts
-import { kleur } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
 
 const a = kleur("#ff0000");
 const b = kleur("#0000ff");

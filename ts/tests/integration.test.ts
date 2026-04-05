@@ -25,7 +25,6 @@ describe("public API integration", () => {
     // Combine
     expect(typeof Kleur.combine.blend).toBe("function");
     expect(typeof Kleur.combine.mix).toBe("function");
-    expect(typeof Kleur.combine.lerp).toBe("function");
 
     // Harmony
     expect(typeof Kleur.harmony.triadic).toBe("function");
@@ -71,7 +70,7 @@ describe("public API integration", () => {
   });
 
   it("exports factory functions directly", async () => {
-    const { hex, rgb, kleur, mix } = await import("../src/index.js");
+    const { default: kleur, hex, rgb, mix } = await import("../src/index.js");
     expect(hex("#ff0000").r).toBe(255);
     expect(rgb(0, 255, 0).g).toBe(255);
     expect(kleur("#0000ff").b).toBe(255);
@@ -88,7 +87,7 @@ describe("public API integration", () => {
   });
 
   it("kleur is callable and carries all API methods", async () => {
-    const { kleur } = await import("../src/index.js");
+    const { default: kleur } = await import("../src/index.js");
 
     // Callable as universal factory
     expect(kleur("#ff0000").r).toBe(255);
@@ -117,7 +116,6 @@ describe("public API integration", () => {
     const blue = kleur.hex("#0000ff");
     expect(kleur.mix(red, blue, 0.5).r).toBe(128);
     expect(typeof kleur.blend).toBe("function");
-    expect(typeof kleur.lerp).toBe("function");
 
     // Harmony
     expect(kleur.triadic(red)).toHaveLength(3);
