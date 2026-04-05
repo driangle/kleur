@@ -106,18 +106,37 @@ color.fade(0.5).alpha();       // 0.5
 ## Interpolation
 
 ```ts
-interpolate(target: Color, t?: number, ease?: (t: number) => number): Color
-lerp(target: Color, t?: number, ease?: (t: number) => number): Color
+mix(target: Color, t?: number, ease?: (t: number) => number): Color
 ```
 
 Linear interpolation in RGB space between `this` and `target`. `t=0` returns `this`, `t=1` returns `target`. The optional `ease` function remaps `t` before interpolation.
-
-`lerp()` is an alias for `interpolate()`.
 
 ```ts
 const a = kleur("#ff0000");
 const b = kleur("#0000ff");
 
-a.interpolate(b, 0.5).toHex(); // midpoint between red and blue
-a.lerp(b, 0.25).toHex();       // 25% toward blue
+a.mix(b, 0.5).toHex(); // midpoint between red and blue
+a.mix(b, 0.25).toHex(); // 25% toward blue
+```
+
+## Harmony
+
+These methods are convenience shortcuts for the [harmony functions](/api/harmony) available on the `kleur` namespace. They return the same results but can be called directly on a `Color` instance.
+
+| Method | Returns | Description |
+|--------|---------|-------------|
+| `triadic()` | `[Color, Color, Color]` | 3 colors, 120 degrees apart |
+| `tetradic()` | `[Color, Color, Color, Color]` | 4 colors, 90 degrees apart |
+| `analogous(angle?)` | `[Color, Color, Color]` | 3 adjacent colors (default 30°) |
+| `splitComplement(angle?)` | `[Color, Color, Color]` | Base + two near the complement (default 30°) |
+| `tints(count)` | `Color[]` | Progressively lighter variations |
+| `shades(count)` | `Color[]` | Progressively darker variations |
+| `tones(count)` | `Color[]` | Progressively desaturated variations |
+
+```ts
+const coral = kleur("#ff6347");
+
+const [base, second, third] = coral.triadic();
+const lighter = coral.tints(5);
+const darker = coral.shades(3);
 ```

@@ -160,4 +160,39 @@ export class Color {
       this.a + (target.a - this.a) * et,
     );
   }
+
+  // --- Harmony ---
+  triadic(): [Color, Color, Color] {
+    return [this, this.rotate(120), this.rotate(240)];
+  }
+
+  tetradic(): [Color, Color, Color, Color] {
+    return [this, this.rotate(90), this.rotate(180), this.rotate(270)];
+  }
+
+  analogous(angle = 30): [Color, Color, Color] {
+    return [this.rotate(-angle), this, this.rotate(angle)];
+  }
+
+  splitComplement(angle = 30): [Color, Color, Color] {
+    return [this, this.rotate(180 - angle), this.rotate(180 + angle)];
+  }
+
+  tints(count: number): Color[] {
+    const result: Color[] = [];
+    for (let i = 1; i <= count; i++) result.push(this.lighten(i / (count + 1)));
+    return result;
+  }
+
+  shades(count: number): Color[] {
+    const result: Color[] = [];
+    for (let i = 1; i <= count; i++) result.push(this.darken(i / (count + 1)));
+    return result;
+  }
+
+  tones(count: number): Color[] {
+    const result: Color[] = [];
+    for (let i = 1; i <= count; i++) result.push(this.desaturate(i / (count + 1)));
+    return result;
+  }
 }
