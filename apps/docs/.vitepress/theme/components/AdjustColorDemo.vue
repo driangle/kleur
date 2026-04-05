@@ -10,7 +10,7 @@ type Operation =
   | "saturateHsl"
   | "desaturateHsl"
   | "rotate"
-  | "fade"
+  | "scaleAlpha"
   | "warm"
   | "cool";
 
@@ -41,8 +41,8 @@ const after = computed(() => {
       return color.desaturateHsl(amount.value);
     case "rotate":
       return color.rotate(amount.value);
-    case "fade":
-      return color.fade(amount.value);
+    case "scaleAlpha":
+      return color.scaleAlpha(amount.value);
     case "warm":
       return color.warm(amount.value);
     case "cool":
@@ -76,7 +76,7 @@ const code = computed(() => `const result = kleur("${base.value}").${operation.v
             <option value="saturateHsl">saturateHsl()</option>
             <option value="desaturateHsl">desaturateHsl()</option>
             <option value="rotate">rotate()</option>
-            <option value="fade">fade()</option>
+            <option value="scaleAlpha">scaleAlpha()</option>
             <option value="warm">warm()</option>
             <option value="cool">cool()</option>
           </select>

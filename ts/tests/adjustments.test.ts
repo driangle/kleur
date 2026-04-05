@@ -280,24 +280,15 @@ describe("color adjustments", () => {
     });
   });
 
-  describe("opacity()", () => {
-    it("sets alpha to given value", () => {
+  describe("alpha API surface uses only with/adjust/scale pattern", () => {
+    it("does not expose opacity() (use withAlpha instead)", () => {
       const c = rgb(255, 0, 0);
-      expect(c.opacity(0.5).alpha).toBe(0.5);
+      expect(c).not.toHaveProperty("opacity");
     });
 
-    it("clamps alpha", () => {
+    it("does not expose fade() (use scaleAlpha instead)", () => {
       const c = rgb(255, 0, 0);
-      expect(c.opacity(1.5).alpha).toBe(1);
-      expect(c.opacity(-0.5).alpha).toBe(0);
-    });
-
-    it("preserves RGB", () => {
-      const c = rgb(100, 150, 200);
-      const o = c.opacity(0.3);
-      expect(o.r).toBe(100);
-      expect(o.g).toBe(150);
-      expect(o.b).toBe(200);
+      expect(c).not.toHaveProperty("fade");
     });
   });
 
@@ -311,23 +302,6 @@ describe("color adjustments", () => {
       const c = rgb(255, 0, 0, 0.4);
       expect(c.adjustAlpha(1).alpha).toBe(1);
       expect(c.adjustAlpha(-1).alpha).toBe(0);
-    });
-  });
-
-  describe("fade()", () => {
-    it("reduces alpha by percentage", () => {
-      const c = rgb(255, 0, 0, 1);
-      expect(c.fade(0.5).alpha).toBe(0.5);
-    });
-
-    it("fade(1) makes fully transparent", () => {
-      const c = rgb(255, 0, 0, 0.8);
-      expect(c.fade(1).alpha).toBe(0);
-    });
-
-    it("fade(0) is a no-op", () => {
-      const c = rgb(255, 0, 0, 0.7);
-      expect(c.fade(0).alpha).toBe(0.7);
     });
   });
 
@@ -454,8 +428,6 @@ describe("color adjustments", () => {
         () => c.cool(),
         () => c.invert(),
         () => c.adjustAlpha(0.1),
-        () => c.opacity(0.5),
-        () => c.fade(0.5),
         () => c.scaleAlpha(0.5),
         () => c.opaque(),
       ];

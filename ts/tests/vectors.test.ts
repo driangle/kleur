@@ -124,7 +124,6 @@ describe("cross-language test vectors", () => {
           case "complement": result = c.complement(); break;
           case "rotate": result = c.rotate(v.args!.degrees); break;
           case "opaque": result = c.opaque(); break;
-          case "fade": result = c.fade(v.args!.amount); break;
           default: throw new Error(`Unknown op: ${v.op}`);
         }
         if ("expected" in v && v.expected) {

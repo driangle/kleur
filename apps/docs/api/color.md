@@ -128,8 +128,6 @@ All adjustment methods return a new `Color`.
 | Method | Param | Description |
 |--------|-------|-------------|
 | `adjustAlpha(delta)` | `number` | Add to alpha, clamped to 0-1. |
-| `opacity(value)` | `number` (0-1) | Set alpha to an absolute value. |
-| `fade(amount)` | `number` (0-1) | Reduce alpha by a fraction. `0.5` = half current alpha. |
 | `scaleAlpha(factor)` | `number` | Multiply alpha by factor, clamped to 0-1. |
 | `opaque()` | — | Set alpha to 1. |
 | `invert()` | — | Invert RGB channels (255 - value). |
@@ -140,7 +138,7 @@ const color = kleur("#ff6600");
 color.lighten(0.3).toHex();   // lighter orange
 color.rotate(120).toHex();     // shifted 120° on the wheel
 color.warm(0.3).toHex();       // warmer tone
-color.fade(0.5).alpha;         // 0.5
+color.scaleAlpha(0.5).alpha;   // 0.5
 ```
 
 ## Interpolation

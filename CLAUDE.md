@@ -1,6 +1,7 @@
 ## Workflow
 
 - After finishing a task, run `make check` to verify lint, tests, and build all pass.
+- After any API update or behavior change, update the docs (`apps/docs`).
 
 ## Coding Principles
 

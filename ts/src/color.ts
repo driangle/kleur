@@ -107,8 +107,6 @@ export class Color {
   warm(amount = 0.2): Color { return this.adjustHue((((30 - this.hue + 540) % 360) - 180) * amount); }
   cool(amount = 0.2): Color { return this.adjustHue((((240 - this.hue + 540) % 360) - 180) * amount); }
   invert(): Color { return new Color(255 - this.r, 255 - this.g, 255 - this.b, this.a); }
-  opacity(value: number): Color { return this.withAlpha(value); }
-  fade(amount: number): Color { return this.scaleAlpha(1 - amount); }
   opaque(): Color { return this.withAlpha(1); }
 
   // --- Interpolation ---
