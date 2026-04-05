@@ -359,6 +359,43 @@ describe("color adjustments", () => {
     });
   });
 
+  describe("lighten/darken symmetry", () => {
+    it("lighten and darken use the same remaining-space model toward opposite boundaries", () => {
+      const c = rgb(100, 149, 237); // l ≈ 66
+      // lighten(t) moves toward 100 by fraction t of remaining space
+      // darken(t) moves toward 0 by fraction t of remaining space
+      // For l=66: lighten(0.5) → 66 + (100-66)*0.5 = 83
+      //           darken(0.5)  → 66 - 66*0.5 = 33
+      const lightened = c.lighten(0.5);
+      const darkened = c.darken(0.5);
+      expect(lightened.lightness).toBe(Math.round(66.07843137254902 + (100 - 66.07843137254902) * 0.5));
+      expect(darkened.lightness).toBe(Math.round(66.07843137254902 - 66.07843137254902 * 0.5));
+    });
+
+    it("lighten(1) reaches white, darken(1) reaches black", () => {
+      const c = rgb(100, 149, 237);
+      expect(c.lighten(1).lightness).toBe(100);
+      expect(c.darken(1).lightness).toBe(0);
+    });
+  });
+
+  describe("saturateHsl/desaturateHsl symmetry", () => {
+    it("saturateHsl and desaturateHsl use the same remaining-space model toward opposite boundaries", () => {
+      const c = rgb(128, 100, 100); // partially saturated
+      const s = c.saturationHsl;
+      // saturateHsl(0.5) moves toward 100: s + (100-s)*0.5
+      // desaturateHsl(0.5) moves toward 0: s - s*0.5
+      expect(c.saturateHsl(0.5).saturationHsl).toBe(Math.round(s + (100 - s) * 0.5));
+      expect(c.desaturateHsl(0.5).saturationHsl).toBe(Math.round(s - s * 0.5));
+    });
+
+    it("saturateHsl(1) fully saturates, desaturateHsl(1) fully desaturates", () => {
+      const c = rgb(128, 100, 100);
+      expect(c.saturateHsl(1).saturationHsl).toBe(100);
+      expect(c.desaturateHsl(1).saturationHsl).toBe(0);
+    });
+  });
+
   describe("HSL round-trip fidelity", () => {
     it("lighten(0) preserves exact RGB values", () => {
       const c = rgb(100, 149, 237); // cornflower blue — not on a clean HSL boundary

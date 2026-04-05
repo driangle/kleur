@@ -98,9 +98,9 @@ export class Color {
     const { h, s, l } = this._hsl();
     return this.fromHsl(h, s, l + (100 - l) * amount);
   }
-  darken(amount: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s, l: l * (1 - amount) })); }
+  darken(amount: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s, l: l - l * amount })); }
   saturateHsl(amount: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s: s + (100 - s) * amount, l })); }
-  desaturateHsl(amount: number): Color { return this.scaleSaturationHsl(1 - amount); }
+  desaturateHsl(amount: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s: s - s * amount, l })); }
   grayscale(): Color { return this.withSaturationHsl(0); }
   rotate(degrees: number): Color { return this.adjustHue(degrees); }
   complement(): Color { return this.rotate(180); }
