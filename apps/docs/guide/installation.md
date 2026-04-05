@@ -22,7 +22,7 @@ pnpm add @driangle/kleur
 
 Kleur ships with full TypeScript types and supports both ESM and CommonJS.
 
-### Single Import
+### Default Import
 
 Import `kleur` for a single entry point to all functionality — it works as both a factory and a namespace:
 
@@ -35,16 +35,10 @@ const lum = kleur.luminance(color);
 const palette = kleur.triadic(color);
 ```
 
-### Named Imports
+### Type Imports
 
-Import individual functions directly:
+Types can be imported as named exports:
 
 ```ts
-import { hex, luminance, triadic } from "@driangle/kleur";
-
-const color = hex("#ff6600");
-const lum = luminance(color);
-const palette = triadic(color);
+import type { Color } from "@driangle/kleur";
 ```
-
-Both styles are equivalent — choose whichever reads best in your codebase.

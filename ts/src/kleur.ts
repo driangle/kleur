@@ -15,7 +15,7 @@ import { luminance, isLight, isDark, contrast, distance } from "./analysis.js";
 import { blend, mix } from "./blend.js";
 import { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "./harmony.js";
 import { random } from "./random.js";
-import { getNamedColor, white, black, red, green, blue, yellow, cyan, magenta, orange, purple, pink, lime, transparent } from "./named-colors.js";
+import { white, black, red, green, blue, yellow, cyan, magenta, orange, purple, pink, lime, transparent } from "./named-colors.js";
 import { colorStop, solid, linearGradient, radialGradient, isSolid, isLinearGradient, isRadialGradient, isGradient } from "./gradient.js";
 
 /** All properties available on the `kleur` function object. */
@@ -139,13 +139,3 @@ kleur.lime = lime;
 kleur.transparent = transparent;
 
 export default kleur;
-
-/** Legacy grouped namespace. */
-export const Kleur = {
-  create: { kleur: kleurFactory, rgb, hex, hsl, number, css, random, grayscale },
-  analyze: { luminance, isLight, isDark, contrast, distance },
-  combine: { blend, mix },
-  harmony: { triadic, tetradic, analogous, splitComplement, tints, shades, tones },
-  gradient: { colorStop, solid, linearGradient, radialGradient, isSolid, isLinearGradient, isRadialGradient, isGradient },
-  named: { get: getNamedColor, white, black, red, green, blue, yellow, cyan, magenta, orange, purple, pink, lime, transparent },
-} as const;

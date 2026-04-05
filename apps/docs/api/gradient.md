@@ -5,9 +5,6 @@ Functions for creating gradient and solid fill objects, plus type guards for dis
 ```ts
 import kleur from "@driangle/kleur";
 // kleur.linearGradient(...), kleur.isSolid(...), etc.
-// or import individual functions:
-import { colorStop, solid, linearGradient, radialGradient } from "@driangle/kleur";
-import { isSolid, isLinearGradient, isRadialGradient, isGradient } from "@driangle/kleur";
 ```
 
 ## colorStop
@@ -19,7 +16,7 @@ colorStop(offset: number, color: Color): GradientStop
 Create a gradient stop. The offset is clamped to 0-1.
 
 ```ts
-const stop = colorStop(0.5, kleur("#ff6600"));
+const stop = kleur.colorStop(0.5, kleur("#ff6600"));
 ```
 
 ## solid
@@ -31,7 +28,7 @@ solid(color: Color): SolidKleur
 Create a solid fill from a single color.
 
 ```ts
-const fill = solid(kleur("#ff6600"));
+const fill = kleur.solid(kleur("#ff6600"));
 fill.type;  // "solid"
 fill.color; // Color
 ```
@@ -52,12 +49,12 @@ linearGradient(config: {
 Create a linear gradient fill. Coordinates define the gradient line; stops define color transitions.
 
 ```ts
-const gradient = linearGradient({
+const gradient = kleur.linearGradient({
   x0: 0, y0: 0,
   x1: 100, y1: 0,
   stops: [
-    colorStop(0, kleur("#ff0000")),
-    colorStop(1, kleur("#0000ff")),
+    kleur.colorStop(0, kleur("#ff0000")),
+    kleur.colorStop(1, kleur("#0000ff")),
   ],
 });
 ```
@@ -80,12 +77,12 @@ radialGradient(config: {
 Create a radial gradient fill. Defines two circles (start and end) with color stops.
 
 ```ts
-const gradient = radialGradient({
+const gradient = kleur.radialGradient({
   x0: 50, y0: 50, r0: 0,
   x1: 50, y1: 50, r1: 50,
   stops: [
-    colorStop(0, kleur("#ffffff")),
-    colorStop(1, kleur("#000000")),
+    kleur.colorStop(0, kleur("#ffffff")),
+    kleur.colorStop(1, kleur("#000000")),
   ],
 });
 ```
@@ -103,11 +100,11 @@ isGradient(fill: KleurFill): fill is LinearGradient | RadialGradient
 
 ```ts
 function render(fill: KleurFill) {
-  if (isSolid(fill)) {
+  if (kleur.isSolid(fill)) {
     // fill.color is Color
-  } else if (isLinearGradient(fill)) {
+  } else if (kleur.isLinearGradient(fill)) {
     // fill.x0, fill.y0, fill.x1, fill.y1, fill.stops
-  } else if (isRadialGradient(fill)) {
+  } else if (kleur.isRadialGradient(fill)) {
     // fill.x0, fill.y0, fill.r0, fill.x1, fill.y1, fill.r1, fill.stops
   }
 }

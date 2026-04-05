@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { hex as parseHex, type Color } from "@driangle/kleur";
+import kleur from "@driangle/kleur";
+import type { Color } from "@driangle/kleur";
 
 interface Operation {
   method: string;
@@ -24,7 +25,7 @@ const operations = ref<Operation[]>([{ method: "lighten", arg: 0.2, enabled: tru
 
 const baseColor = computed(() => {
   try {
-    return parseHex(inputColor.value);
+    return kleur.hex(inputColor.value);
   } catch {
     return null;
   }

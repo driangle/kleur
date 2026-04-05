@@ -5,8 +5,6 @@ Functions for measuring color properties and accessibility metrics.
 ```ts
 import kleur from "@driangle/kleur";
 // kleur.luminance(...), kleur.contrast(...), etc.
-// or import individual functions:
-import { luminance, isLight, isDark, contrast } from "@driangle/kleur";
 ```
 
 ## luminance
@@ -18,8 +16,8 @@ luminance(color: Color): number
 Compute the WCAG 2.1 relative luminance of a color. Returns a value between 0 (black) and 1 (white).
 
 ```ts
-luminance(white); // 1
-luminance(black); // 0
+kleur.luminance(kleur.white); // 1
+kleur.luminance(kleur.black); // 0
 ```
 
 ## isLight
@@ -31,8 +29,8 @@ isLight(color: Color): boolean
 Returns `true` if the color's HSL lightness is greater than 50.
 
 ```ts
-isLight(kleur("#ffffff")); // true
-isLight(kleur("#333333")); // false
+kleur.isLight(kleur("#ffffff")); // true
+kleur.isLight(kleur("#333333")); // false
 ```
 
 ## isDark
@@ -44,8 +42,8 @@ isDark(color: Color): boolean
 Returns `true` if the color's HSL lightness is 50 or less.
 
 ```ts
-isDark(kleur("#1a1a2e")); // true
-isDark(kleur("#f0f0f0")); // false
+kleur.isDark(kleur("#1a1a2e")); // true
+kleur.isDark(kleur("#f0f0f0")); // false
 ```
 
 ## contrast
@@ -68,7 +66,7 @@ Use this to check accessibility compliance:
 const bg = kleur("#1a1a2e");
 const fg = kleur("#ffffff");
 
-const ratio = contrast(bg, fg); // ~15.3
+const ratio = kleur.contrast(bg, fg); // ~15.3
 ratio >= 4.5; // true — passes WCAG AA
 ratio >= 7;   // true — passes WCAG AAA
 ```

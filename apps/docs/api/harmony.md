@@ -5,8 +5,6 @@ Functions for generating color palettes based on color theory relationships.
 ```ts
 import kleur from "@driangle/kleur";
 // kleur.triadic(...), kleur.tints(...), etc.
-// or import individual functions:
-import { triadic, tetradic, analogous, splitComplement, tints, shades, tones } from "@driangle/kleur";
 ```
 
 ## triadic
@@ -18,7 +16,7 @@ triadic(color: Color): [Color, Color, Color]
 Returns 3 colors evenly spaced 120 degrees apart on the color wheel. The first element is the original color.
 
 ```ts
-const [base, second, third] = triadic(kleur("#ff0000"));
+const [base, second, third] = kleur.triadic(kleur("#ff0000"));
 // base = red, second = green, third = blue
 ```
 
@@ -31,7 +29,7 @@ tetradic(color: Color): [Color, Color, Color, Color]
 Returns 4 colors evenly spaced 90 degrees apart (square harmony). The first element is the original color.
 
 ```ts
-const [a, b, c, d] = tetradic(kleur("#ff0000"));
+const [a, b, c, d] = kleur.tetradic(kleur("#ff0000"));
 ```
 
 ## analogous
@@ -43,8 +41,8 @@ analogous(color: Color, angle?: number): [Color, Color, Color]
 Returns 3 adjacent colors. The center color is the original, flanked by colors at +/- `angle` degrees. Default angle is `30`.
 
 ```ts
-const [left, center, right] = analogous(kleur("#ff6600"));
-const wider = analogous(kleur("#ff6600"), 45);
+const [left, center, right] = kleur.analogous(kleur("#ff6600"));
+const wider = kleur.analogous(kleur("#ff6600"), 45);
 ```
 
 ## splitComplement
@@ -56,7 +54,7 @@ splitComplement(color: Color, angle?: number): [Color, Color, Color]
 Returns 3 colors: the original plus two colors near its complement (180 degrees +/- `angle`). Default angle is `30`.
 
 ```ts
-const [base, a, b] = splitComplement(kleur("#ff6600"));
+const [base, a, b] = kleur.splitComplement(kleur("#ff6600"));
 ```
 
 ## tints
@@ -68,7 +66,7 @@ tints(color: Color, count: number): Color[]
 Returns `count` progressively lighter variations of the color.
 
 ```ts
-const lightVariations = tints(kleur("#ff6600"), 5);
+const lightVariations = kleur.tints(kleur("#ff6600"), 5);
 // 5 colors, each lighter than the previous
 ```
 
@@ -81,7 +79,7 @@ shades(color: Color, count: number): Color[]
 Returns `count` progressively darker variations of the color.
 
 ```ts
-const darkVariations = shades(kleur("#ff6600"), 5);
+const darkVariations = kleur.shades(kleur("#ff6600"), 5);
 // 5 colors, each darker than the previous
 ```
 
@@ -94,6 +92,6 @@ tones(color: Color, count: number): Color[]
 Returns `count` progressively desaturated variations of the color.
 
 ```ts
-const mutedVariations = tones(kleur("#ff6600"), 5);
+const mutedVariations = kleur.tones(kleur("#ff6600"), 5);
 // 5 colors, each more muted than the previous
 ```

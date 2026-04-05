@@ -27,7 +27,7 @@ kleur.triadic(color);
 
 ## API Reference
 
-All functions listed below are properties of `kleur`. They are also available as individual named imports.
+All functions listed below are properties of `kleur`.
 
 ### Color Creation
 

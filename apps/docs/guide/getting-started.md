@@ -10,15 +10,13 @@ import kleur from "@driangle/kleur";
 const coral = kleur("#ff7f50");
 ```
 
-You can also use the individual factory functions directly:
+You can also use the named creation functions on `kleur`:
 
 ```ts
-import { hex } from "@driangle/kleur";
-
-const coral = hex("#ff7f50");
+const coral = kleur.hex("#ff7f50");
 ```
 
-Other creation methods include `rgb()`, `hsl()`, `css()`, `number()`, and `kleur()`. See [Parsing & Creation](/api/create) for the full list.
+Other creation methods include `kleur.rgb()`, `kleur.hsl()`, `kleur.css()`, `kleur.number()`, and `kleur()`. See [Parsing & Creation](/api/create) for the full list.
 
 ## Manipulate Colors
 
@@ -51,11 +49,9 @@ coral.toNormalized(); // [1, 0.498, 0.314, 1]
 Create color harmonies from any base color:
 
 ```ts
-import { triadic, tints, shades } from "@driangle/kleur";
-
-const [base, second, third] = triadic(coral);
-const lightVariations = tints(coral, 5);
-const darkVariations = shades(coral, 5);
+const [base, second, third] = kleur.triadic(coral);
+const lightVariations = kleur.tints(coral, 5);
+const darkVariations = kleur.shades(coral, 5);
 ```
 
 ## Check Accessibility
