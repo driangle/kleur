@@ -15,13 +15,14 @@ import type { Color } from "@driangle/kleur";
 | `red` | `number` | Red channel (0-255) |
 | `green` | `number` | Green channel (0-255) |
 | `blue` | `number` | Blue channel (0-255) |
-| `hue` | `number` | Hue (0-360) |
-| `saturation` | `number` | Saturation (0-100) |
+| `hue` | `number` | Hue (0-360, same in HSL and HSB) |
+| `saturationHsl` | `number` | HSL saturation (0-100) |
 | `lightness` | `number` | HSL lightness (0-100) |
+| `saturationHsb` | `number` | HSB saturation (0-100) |
 | `brightness` | `number` | HSB brightness (0-100) |
 | `alpha` | `number` | Alpha (0-1) |
-| `hsl` | `Hsl` | `{ h, s, l }` object |
-| `hsb` | `Hsb` | `{ h, s, b }` object |
+| `hsl` | `Hsl` | `{ h, s, l }` |
+| `hsb` | `Hsb` | `{ h, s, b }` |
 
 ## Immutable Setters
 
@@ -34,8 +35,10 @@ Each returns a **new** `Color` with the specified channel replaced:
 | `withBlue(v)` | `number` (0-255) | Set blue channel |
 | `withAlpha(v)` | `number` (0-1) | Set alpha |
 | `withHue(v)` | `number` (0-360) | Set hue |
-| `withSaturation(v)` | `number` (0-100) | Set saturation |
+| `withSaturationHsl(v)` | `number` (0-100) | Set HSL saturation |
+| `withSaturationHsb(v)` | `number` (0-100) | Set HSB saturation |
 | `withLightness(v)` | `number` (0-100) | Set lightness |
+| `withBrightness(v)` | `number` (0-100) | Set HSB brightness |
 
 ```ts
 const red = kleur("#ff0000");
@@ -72,9 +75,9 @@ All adjustment methods return a new `Color`.
 
 | Method | Param | Description |
 |--------|-------|-------------|
-| `saturate(amount)` | `number` (0-1) | Increase saturation toward 100. |
-| `desaturate(amount)` | `number` (0-1) | Decrease saturation toward 0. |
-| `grayscale()` | — | Remove all saturation (equivalent to `desaturate(1)`). |
+| `saturateHsl(amount)` | `number` (0-1) | Increase HSL saturation toward 100. |
+| `desaturateHsl(amount)` | `number` (0-1) | Decrease HSL saturation toward 0. |
+| `grayscale()` | — | Remove all HSL saturation (equivalent to `desaturateHsl(1)`). |
 
 ### Hue
 

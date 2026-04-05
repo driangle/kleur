@@ -67,22 +67,32 @@ describe("Color", () => {
       // Pure red: h=0, s=100, l=50
       const red = rgb(255, 0, 0);
       expect(red.hue).toBe(0);
-      expect(red.saturation).toBe(100);
+      expect(red.saturationHsl).toBe(100);
+      expect(red.hsl.s).toBe(100);
       expect(red.lightness).toBe(50);
     });
 
     it("returns HSL for pure green", () => {
       const green = rgb(0, 128, 0);
       expect(green.hue).toBe(120);
-      expect(green.saturation).toBe(100);
+      expect(green.saturationHsl).toBe(100);
+      expect(green.hsl.s).toBe(100);
       expect(green.lightness).toBe(25);
     });
 
     it("returns HSL for pure blue", () => {
       const blue = rgb(0, 0, 255);
       expect(blue.hue).toBe(240);
-      expect(blue.saturation).toBe(100);
+      expect(blue.saturationHsl).toBe(100);
+      expect(blue.hsl.s).toBe(100);
       expect(blue.lightness).toBe(50);
+    });
+
+    it("returns HSB channels for a known color", () => {
+      const red = rgb(255, 0, 0);
+      expect(red.saturationHsb).toBe(100);
+      expect(red.hsb.s).toBe(100);
+      expect(red.brightness).toBe(100);
     });
   });
 
@@ -139,9 +149,9 @@ describe("Color", () => {
 
     it("withSaturation returns new instance", () => {
       const c = rgb(255, 0, 0);
-      const desat = c.withSaturation(50);
-      expect(desat.saturation).toBe(50);
-      expect(c.saturation).toBe(100);
+      const desat = c.withSaturationHsl(50);
+      expect(desat.hsl.s).toBe(50);
+      expect(c.hsl.s).toBe(100);
     });
 
     it("withLightness returns new instance", () => {
@@ -153,8 +163,8 @@ describe("Color", () => {
 
     it("withSaturation clamps to 0-100", () => {
       const c = rgb(255, 0, 0);
-      expect(c.withSaturation(-10).saturation).toBe(0);
-      expect(c.withSaturation(200).saturation).toBe(100);
+      expect(c.withSaturationHsl(-10).hsl.s).toBe(0);
+      expect(c.withSaturationHsl(200).hsl.s).toBe(100);
     });
 
     it("withLightness clamps to 0-100", () => {
@@ -171,7 +181,7 @@ describe("Color", () => {
       expect(black.g).toBe(0);
       expect(black.b).toBe(0);
       expect(black.lightness).toBe(0);
-      expect(black.saturation).toBe(0);
+      expect(black.hsl.s).toBe(0);
     });
 
     it("pure white", () => {
@@ -180,7 +190,7 @@ describe("Color", () => {
       expect(white.g).toBe(255);
       expect(white.b).toBe(255);
       expect(white.lightness).toBe(100);
-      expect(white.saturation).toBe(0);
+      expect(white.hsl.s).toBe(0);
     });
 
     it("fully transparent", () => {
@@ -192,7 +202,10 @@ describe("Color", () => {
 
     it("gray has zero saturation", () => {
       const gray = rgb(128, 128, 128);
-      expect(gray.saturation).toBe(0);
+      expect(gray.saturationHsl).toBe(0);
+      expect(gray.saturationHsb).toBe(0);
+      expect(gray.hsl.s).toBe(0);
+      expect(gray.hsb.s).toBe(0);
     });
   });
 
@@ -214,7 +227,7 @@ describe("Color", () => {
       it(`round-trips ${name} within +/-1`, () => {
         const original = rgb(r, g, b);
         const h = original.hue;
-        const s = original.saturation;
+        const s = original.hsl.s;
         const l = original.lightness;
         const converted = hslToRgb(h, s, l);
         const roundTripped = rgb(converted.r, converted.g, converted.b);

@@ -1,4 +1,5 @@
 import { rgbToHsl, hslToRgb } from "./hsl.js";
+import { rgbToHsb, hsbToRgb } from "./hsb.js";
 import type { Rgb, Rgba, Hsl, Hsla, Hsb } from "./types.js";
 
 const clampByte = (v: number): number => Math.round(Math.min(255, Math.max(0, v)));
@@ -20,30 +21,16 @@ export class Color {
     this.a = clampAlpha(a);
   }
 
-  private _hsl(): { h: number; s: number; l: number } {
-    return rgbToHsl(this.r, this.g, this.b);
-  }
-
-  private _hsb(): Hsb {
-    const r = this.r / 255;
-    const g = this.g / 255;
-    const b = this.b / 255;
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    const d = max - min;
-    let h = 0;
-    if (d !== 0) {
-      if (max === r) h = ((g - b) / d + 6) % 6;
-      else if (max === g) h = (b - r) / d + 2;
-      else h = (r - g) / d + 4;
-      h = Math.round(h * 60);
-    }
-    const s = max === 0 ? 0 : Math.round((d / max) * 100);
-    return { h, s, b: Math.round(max * 100) };
-  }
+  private _hsl(): { h: number; s: number; l: number } { return rgbToHsl(this.r, this.g, this.b); }
+  private _hsb(): Hsb { return rgbToHsb(this.r, this.g, this.b); }
 
   private fromHsl(h: number, s: number, l: number): Color {
     const rgb = hslToRgb(h, clampPercent(s), clampPercent(l));
+    return new Color(rgb.r, rgb.g, rgb.b, this.a);
+  }
+
+  private fromHsb(h: number, s: number, b: number): Color {
+    const rgb = hsbToRgb(h, clampPercent(s), clampPercent(b));
     return new Color(rgb.r, rgb.g, rgb.b, this.a);
   }
 
@@ -52,9 +39,10 @@ export class Color {
   get green(): number { return this.g; }
   get blue(): number { return this.b; }
   get hue(): number { return this._hsl().h; }
-  get saturation(): number { return this._hsl().s; }
+  get saturationHsl(): number { return this._hsl().s; }
   get lightness(): number { return this._hsl().l; }
   get alpha(): number { return this.a; }
+  get saturationHsb(): number { return this._hsb().s; }
   get brightness(): number { return this._hsb().b; }
   get hsl(): Hsl { return this._hsl(); }
   get hsb(): Hsb { return this._hsb(); }
@@ -70,9 +58,19 @@ export class Color {
     return this.fromHsl(clampHue(v), s, l);
   }
 
-  withSaturation(v: number): Color {
+  withSaturationHsl(v: number): Color {
     const { h, l } = this._hsl();
     return this.fromHsl(h, clampPercent(v), l);
+  }
+
+  withSaturationHsb(v: number): Color {
+    const { h, b } = this._hsb();
+    return this.fromHsb(h, clampPercent(v), b);
+  }
+
+  withBrightness(v: number): Color {
+    const { h, s } = this._hsb();
+    return this.fromHsb(h, s, clampPercent(v));
   }
 
   withLightness(v: number): Color {
@@ -111,12 +109,12 @@ export class Color {
     return this.fromHsl(h, s, l * factor);
   }
 
-  saturate(amount: number): Color {
+  saturateHsl(amount: number): Color {
     const { h, s, l } = this._hsl();
     return this.fromHsl(h, s + (100 - s) * amount, l);
   }
 
-  desaturate(amount: number): Color {
+  desaturateHsl(amount: number): Color {
     const { h, s, l } = this._hsl();
     return this.fromHsl(h, s * (1 - amount), l);
   }
@@ -192,7 +190,7 @@ export class Color {
 
   tones(count: number): Color[] {
     const result: Color[] = [];
-    for (let i = 1; i <= count; i++) result.push(this.desaturate(i / (count + 1)));
+    for (let i = 1; i <= count; i++) result.push(this.desaturateHsl(i / (count + 1)));
     return result;
   }
 }

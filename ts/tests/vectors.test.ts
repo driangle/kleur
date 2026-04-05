@@ -134,7 +134,7 @@ describe("cross-language test vectors", () => {
           expect(result.b).toBe(exp.b);
         }
         if ("expected_lightness" in v) expect(result.lightness).toBe(v.expected_lightness);
-        if ("expected_saturation" in v) expect(result.saturation).toBe(v.expected_saturation);
+        if ("expected_saturation" in v) expect(result.hsl.s).toBe(v.expected_saturation);
         if ("expected_hue" in v) expect(result.hue).toBe(v.expected_hue);
         if ("expected_alpha" in v) expect(result.alpha).toBeCloseTo(v.expected_alpha as number, 2);
       });

@@ -127,14 +127,14 @@ describe("tones()", () => {
   it("each tone is less saturated than the previous", () => {
     const t = tones(red, 5);
     for (let i = 1; i < t.length; i++) {
-      expect(t[i].saturation).toBeLessThan(t[i - 1].saturation);
+      expect(t[i].hsl.s).toBeLessThan(t[i - 1].hsl.s);
     }
   });
 
   it("all tones are less saturated than the original", () => {
     const t = tones(red, 3);
     for (const c of t) {
-      expect(c.saturation).toBeLessThan(red.saturation);
+      expect(c.hsl.s).toBeLessThan(red.hsl.s);
     }
   });
 });

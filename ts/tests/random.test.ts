@@ -53,7 +53,7 @@ describe("random()", () => {
     for (let i = 0; i < ITERATIONS; i++) {
       // Constrain lightness to mid-range so saturation is meaningful after round-trip
       const c = random({ saturation: [80, 100], lightness: [30, 70] });
-      const s = c.saturation;
+      const s = c.hsl.s;
       expect(s).toBeGreaterThanOrEqual(75);
       expect(s).toBeLessThanOrEqual(100);
     }
@@ -86,7 +86,7 @@ describe("random()", () => {
       });
       const h = c.hue;
       expect(h <= 90 || h >= 330).toBe(true);
-      expect(c.saturation).toBeGreaterThanOrEqual(79);
+      expect(c.hsl.s).toBeGreaterThanOrEqual(79);
       expect(c.lightness).toBeGreaterThanOrEqual(39);
       expect(c.lightness).toBeLessThanOrEqual(61);
       expect(c.a).toBe(0.8);

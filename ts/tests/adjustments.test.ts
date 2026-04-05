@@ -61,35 +61,35 @@ describe("color adjustments", () => {
     });
   });
 
-  describe("saturate()", () => {
-    it("saturate(1) fully saturates", () => {
+  describe("saturateHsl()", () => {
+    it("saturateHsl(1) fully saturates", () => {
       const c = rgb(128, 100, 100); // partially saturated
-      const sat = c.saturate(1);
-      expect(sat.saturation).toBe(100);
+      const sat = c.saturateHsl(1);
+      expect(sat.hsl.s).toBe(100);
     });
 
-    it("saturate(0) is a no-op", () => {
+    it("saturateHsl(0) is a no-op", () => {
       const c = rgb(255, 0, 0);
-      expect(c.saturate(0).saturation).toBe(c.saturation);
+      expect(c.saturateHsl(0).hsl.s).toBe(c.hsl.s);
     });
   });
 
-  describe("desaturate()", () => {
-    it("desaturate(1) removes all saturation", () => {
+  describe("desaturateHsl()", () => {
+    it("desaturateHsl(1) removes all saturation", () => {
       const c = rgb(255, 0, 0);
-      expect(c.desaturate(1).saturation).toBe(0);
+      expect(c.desaturateHsl(1).hsl.s).toBe(0);
     });
 
-    it("desaturate(0) is a no-op", () => {
+    it("desaturateHsl(0) is a no-op", () => {
       const c = rgb(255, 0, 0);
-      expect(c.desaturate(0).saturation).toBe(c.saturation);
+      expect(c.desaturateHsl(0).hsl.s).toBe(c.hsl.s);
     });
   });
 
   describe("grayscale()", () => {
     it("produces a color with saturation = 0", () => {
       const c = rgb(255, 0, 0);
-      expect(c.grayscale().saturation).toBe(0);
+      expect(c.grayscale().hsl.s).toBe(0);
     });
 
     it("preserves lightness", () => {
@@ -259,8 +259,8 @@ describe("color adjustments", () => {
         () => c.lighten(0.5),
         () => c.darken(0.5),
         () => c.scaleLightness(1.5),
-        () => c.saturate(0.5),
-        () => c.desaturate(0.5),
+        () => c.saturateHsl(0.5),
+        () => c.desaturateHsl(0.5),
         () => c.grayscale(),
         () => c.rotate(90),
         () => c.complement(),
