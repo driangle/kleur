@@ -9,6 +9,12 @@ export default tseslint.config(
   {
     files: ["src/**/*.ts"],
     rules: {
+      "max-lines": ["error", { max: 200, skipBlankLines: false, skipComments: false }],
+    },
+  },
+  {
+    files: ["src/color.ts"],
+    rules: {
       "max-lines": ["error", { max: 350, skipBlankLines: false, skipComments: false }],
     },
   },

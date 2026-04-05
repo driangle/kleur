@@ -66,10 +66,28 @@ export function deltaE2000(a: Triple, b: Triple): number {
   if (h2p < 0) h2p += 360;
 
   let hBarP: number;
-  if (Math.abs(h1p - h2p) > 180) {
-    hBarP = (h1p + h2p + 360) / 2;
+  let dhP: number;
+
+  if (c1p * c2p === 0) {
+    // Achromatic guard: when either color is achromatic
+    hBarP = h1p + h2p;
+    dhP = 0;
   } else {
-    hBarP = (h1p + h2p) / 2;
+    if (Math.abs(h1p - h2p) <= 180) {
+      hBarP = (h1p + h2p) / 2;
+    } else if (h1p + h2p < 360) {
+      hBarP = (h1p + h2p + 360) / 2;
+    } else {
+      hBarP = (h1p + h2p - 360) / 2;
+    }
+
+    if (Math.abs(h2p - h1p) <= 180) {
+      dhP = h2p - h1p;
+    } else if (h2p - h1p > 180) {
+      dhP = h2p - h1p - 360;
+    } else {
+      dhP = h2p - h1p + 360;
+    }
   }
 
   const t =
@@ -78,15 +96,6 @@ export function deltaE2000(a: Triple, b: Triple): number {
     0.24 * Math.cos((2 * hBarP * Math.PI) / 180) +
     0.32 * Math.cos(((3 * hBarP + 6) * Math.PI) / 180) -
     0.2 * Math.cos(((4 * hBarP - 63) * Math.PI) / 180);
-
-  let dhP: number;
-  if (Math.abs(h2p - h1p) <= 180) {
-    dhP = h2p - h1p;
-  } else if (h2p - h1p > 180) {
-    dhP = h2p - h1p - 360;
-  } else {
-    dhP = h2p - h1p + 360;
-  }
 
   const dLp = l2 - l1;
   const dCp = c2p - c1p;
