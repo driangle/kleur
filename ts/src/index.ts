@@ -13,6 +13,7 @@ export {
   InvalidCssColorError,
   UnknownColorError,
   InvalidColorValueError,
+  InvalidCountError,
   UnknownDistancePresetError,
   UnknownColorSpaceError,
   UnknownDistanceMethodError,

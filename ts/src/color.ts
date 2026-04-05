@@ -10,7 +10,16 @@ import type {
   KleurValue,
   BlendMode,
 } from "./types.js";
-import { MissingRegistrationError } from "./errors.js";
+import {
+  InvalidCountError,
+  MissingRegistrationError,
+} from "./errors.js";
+
+function validateCount(count: number): void {
+  if (!Number.isInteger(count) || count < 0) {
+    throw new InvalidCountError(count);
+  }
+}
 
 const clampByte = (v: number): number =>
   Math.round(Math.min(255, Math.max(0, v)));
@@ -299,18 +308,21 @@ export class Color {
   }
 
   tints(count: number): Color[] {
+    validateCount(count);
     const result: Color[] = [];
     for (let i = 1; i <= count; i++) result.push(this.lighten(i / (count + 1)));
     return result;
   }
 
   shades(count: number): Color[] {
+    validateCount(count);
     const result: Color[] = [];
     for (let i = 1; i <= count; i++) result.push(this.darken(i / (count + 1)));
     return result;
   }
 
   tones(count: number): Color[] {
+    validateCount(count);
     const result: Color[] = [];
     for (let i = 1; i <= count; i++)
       result.push(this.desaturateHsl(i / (count + 1)));

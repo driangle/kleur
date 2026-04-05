@@ -126,6 +126,18 @@ export class MissingRegistrationError extends KleurError {
   }
 }
 
+export class InvalidCountError extends KleurError {
+  readonly value: number;
+
+  constructor(value: number) {
+    super(
+      `Invalid count: ${value}. Count must be a non-negative finite integer.`,
+    );
+    this.name = "InvalidCountError";
+    this.value = value;
+  }
+}
+
 export class InvalidDistanceCombinationError extends KleurError {
   readonly method: string;
   readonly space: string;

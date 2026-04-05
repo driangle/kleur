@@ -9,6 +9,7 @@ import {
   shades,
   tones,
 } from "../src/harmony.js";
+import { InvalidCountError } from "../src/errors.js";
 
 const red = rgb(255, 0, 0); // hue=0, s=100, l=50
 
@@ -77,6 +78,40 @@ describe("splitComplement()", () => {
     expect(left.hue).toBe(150); // 180 - 30
     expect(right.hue).toBe(210); // 180 + 30
   });
+});
+
+describe("count validation", () => {
+  const cases = [
+    { name: "tints", fn: (n: number) => tints(red, n) },
+    { name: "shades", fn: (n: number) => shades(red, n) },
+    { name: "tones", fn: (n: number) => tones(red, n) },
+  ];
+
+  for (const { name, fn } of cases) {
+    it(`${name}(Infinity) throws InvalidCountError`, () => {
+      expect(() => fn(Infinity)).toThrow(InvalidCountError);
+    });
+
+    it(`${name}(-Infinity) throws InvalidCountError`, () => {
+      expect(() => fn(-Infinity)).toThrow(InvalidCountError);
+    });
+
+    it(`${name}(NaN) throws InvalidCountError`, () => {
+      expect(() => fn(NaN)).toThrow(InvalidCountError);
+    });
+
+    it(`${name}(-1) throws InvalidCountError`, () => {
+      expect(() => fn(-1)).toThrow(InvalidCountError);
+    });
+
+    it(`${name}(1.5) throws InvalidCountError`, () => {
+      expect(() => fn(1.5)).toThrow(InvalidCountError);
+    });
+
+    it(`${name}(0) returns empty array`, () => {
+      expect(fn(0)).toEqual([]);
+    });
+  }
 });
 
 describe("tints()", () => {
