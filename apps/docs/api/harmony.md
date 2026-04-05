@@ -2,6 +2,8 @@
 
 Functions for generating color palettes based on color theory relationships. All harmony functions are available both on the `kleur` namespace (accepts any color input) and as methods on `Color` instances.
 
+All harmony functions return a [`Palette`](/api/palette) instance, which supports iteration, destructuring, and bulk color operations.
+
 ```ts
 import kleur from "@driangle/kleur";
 
@@ -11,6 +13,10 @@ const [base, second, third] = kleur.triadic("#ff0000");
 // Method style — on a Color instance
 const coral = kleur("#ff6347");
 const [base, second, third] = coral.triadic();
+
+// Palette operations — transform all colors at once
+const muted = kleur.triadic("#ff0000").desaturate(0.3);
+const lighter = kleur.shades("#ff6600", 5).lighten(0.1);
 ```
 
 <PaletteDemo />
@@ -18,7 +24,7 @@ const [base, second, third] = coral.triadic();
 ## triadic
 
 ```ts
-kleur.triadic(color: KleurValue): [Color, Color, Color]
+kleur.triadic(color: KleurValue): Palette
 color.triadic(): [Color, Color, Color]
 ```
 
@@ -32,7 +38,7 @@ const [base, second, third] = kleur.triadic("#ff0000");
 ## tetradic
 
 ```ts
-kleur.tetradic(color: KleurValue): [Color, Color, Color, Color]
+kleur.tetradic(color: KleurValue): Palette
 color.tetradic(): [Color, Color, Color, Color]
 ```
 
@@ -45,7 +51,7 @@ const [a, b, c, d] = kleur.tetradic("#ff0000");
 ## analogous
 
 ```ts
-kleur.analogous(color: KleurValue, angle?): [Color, Color, Color]
+kleur.analogous(color: KleurValue, angle?): Palette
 color.analogous(angle?): [Color, Color, Color]
 ```
 
@@ -59,7 +65,7 @@ const wider = kleur("#ff6600").analogous(45);
 ## splitComplement
 
 ```ts
-kleur.splitComplement(color: KleurValue, angle?): [Color, Color, Color]
+kleur.splitComplement(color: KleurValue, angle?): Palette
 color.splitComplement(angle?): [Color, Color, Color]
 ```
 
@@ -72,7 +78,7 @@ const [base, a, b] = kleur.splitComplement("#ff6600");
 ## tints
 
 ```ts
-kleur.tints(color: KleurValue, count): Color[]
+kleur.tints(color: KleurValue, count): Palette
 color.tints(count): Color[]
 ```
 
@@ -86,7 +92,7 @@ const lightVariations = kleur.tints("#ff6600", 5);
 ## shades
 
 ```ts
-kleur.shades(color: KleurValue, count): Color[]
+kleur.shades(color: KleurValue, count): Palette
 color.shades(count): Color[]
 ```
 
@@ -100,7 +106,7 @@ const darkVariations = kleur.shades("#ff6600", 5);
 ## tones
 
 ```ts
-kleur.tones(color: KleurValue, count): Color[]
+kleur.tones(color: KleurValue, count): Palette
 color.tones(count): Color[]
 ```
 

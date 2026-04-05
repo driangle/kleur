@@ -83,7 +83,10 @@ export default defineConfig({
         },
         {
           text: "Harmony",
-          items: [{ text: "Color Harmonies", link: "/api/harmony" }],
+          items: [
+            { text: "Color Harmonies", link: "/api/harmony" },
+            { text: "Palette", link: "/api/palette" },
+          ],
         },
         {
           text: "Gradient",

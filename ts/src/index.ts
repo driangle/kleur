@@ -6,6 +6,7 @@ export type { Color } from "./color.js";
 export type { BlendFn, BlendMode, KleurEaseFn } from "./blend.js";
 export { resolve } from "./parse.js";
 export type { RandomOptions } from "./random.js";
+export { Palette } from "./palette.js";
 export {
   KleurError,
   ParseError,

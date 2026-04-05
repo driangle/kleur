@@ -9,9 +9,40 @@ import {
   shades,
   tones,
 } from "../src/harmony.js";
+import { Palette } from "../src/palette.js";
 import { InvalidCountError } from "../src/errors.js";
 
 const red = rgb(255, 0, 0); // hue=0, s=100, l=50
+
+describe("harmony functions return Palette", () => {
+  it("triadic returns a Palette", () => {
+    expect(triadic(red)).toBeInstanceOf(Palette);
+  });
+
+  it("tetradic returns a Palette", () => {
+    expect(tetradic(red)).toBeInstanceOf(Palette);
+  });
+
+  it("analogous returns a Palette", () => {
+    expect(analogous(red)).toBeInstanceOf(Palette);
+  });
+
+  it("splitComplement returns a Palette", () => {
+    expect(splitComplement(red)).toBeInstanceOf(Palette);
+  });
+
+  it("tints returns a Palette", () => {
+    expect(tints(red, 3)).toBeInstanceOf(Palette);
+  });
+
+  it("shades returns a Palette", () => {
+    expect(shades(red, 3)).toBeInstanceOf(Palette);
+  });
+
+  it("tones returns a Palette", () => {
+    expect(tones(red, 3)).toBeInstanceOf(Palette);
+  });
+});
 
 describe("triadic()", () => {
   it("returns exactly 3 colors", () => {
@@ -108,8 +139,8 @@ describe("count validation", () => {
       expect(() => fn(1.5)).toThrow(InvalidCountError);
     });
 
-    it(`${name}(0) returns empty array`, () => {
-      expect(fn(0)).toEqual([]);
+    it(`${name}(0) returns empty palette`, () => {
+      expect(fn(0).length).toBe(0);
     });
   }
 });
@@ -120,15 +151,14 @@ describe("tints()", () => {
   });
 
   it("each tint is lighter than the previous", () => {
-    const t = tints(red, 5);
+    const t = [...tints(red, 5)];
     for (let i = 1; i < t.length; i++) {
       expect(t[i].lightness).toBeGreaterThan(t[i - 1].lightness);
     }
   });
 
   it("all tints are lighter than the original", () => {
-    const t = tints(red, 3);
-    for (const c of t) {
+    for (const c of tints(red, 3)) {
       expect(c.lightness).toBeGreaterThan(red.lightness);
     }
   });
@@ -140,15 +170,14 @@ describe("shades()", () => {
   });
 
   it("each shade is darker than the previous", () => {
-    const s = shades(red, 5);
+    const s = [...shades(red, 5)];
     for (let i = 1; i < s.length; i++) {
       expect(s[i].lightness).toBeLessThan(s[i - 1].lightness);
     }
   });
 
   it("all shades are darker than the original", () => {
-    const s = shades(red, 3);
-    for (const c of s) {
+    for (const c of shades(red, 3)) {
       expect(c.lightness).toBeLessThan(red.lightness);
     }
   });
@@ -160,15 +189,14 @@ describe("tones()", () => {
   });
 
   it("each tone is less saturated than the previous", () => {
-    const t = tones(red, 5);
+    const t = [...tones(red, 5)];
     for (let i = 1; i < t.length; i++) {
       expect(t[i].hsl.s).toBeLessThan(t[i - 1].hsl.s);
     }
   });
 
   it("all tones are less saturated than the original", () => {
-    const t = tones(red, 3);
-    for (const c of t) {
+    for (const c of tones(red, 3)) {
       expect(c.hsl.s).toBeLessThan(red.hsl.s);
     }
   });

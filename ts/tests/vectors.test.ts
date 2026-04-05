@@ -177,8 +177,9 @@ describe("cross-language test vectors", () => {
             throw new Error(`Unknown op: ${v.op}`);
         }
         expect(result).toHaveLength(v.expected_count);
+        const colors = [...result];
         for (let i = 0; i < v.expected_hues.length; i++) {
-          expect(result[i].hue).toBeCloseTo(v.expected_hues[i], 0);
+          expect(colors[i].hue).toBeCloseTo(v.expected_hues[i], 0);
         }
       });
     }

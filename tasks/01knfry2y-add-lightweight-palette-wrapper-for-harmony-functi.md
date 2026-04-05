@@ -1,7 +1,7 @@
 ---
 title: "Add lightweight Palette wrapper for harmony function results"
 id: "01knfry2y"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["api", "harmony"]
@@ -18,15 +18,15 @@ Harmony functions (`triadic()`, `tetradic()`, `tints()`, `shades()`, etc.) curre
 
 ## Tasks
 
-- [ ] Design the `Palette` class API (methods like `map`, `forEach`, `filter`, `toArray`, plus color-specific helpers like `lightenAll`, `saturateAll`)
-- [ ] Implement the `Palette` class in a new `ts/src/palette.ts` module
-- [ ] Make `Palette` iterable (support `for...of` and spread syntax)
-- [ ] Update harmony functions to return `Palette` instances instead of raw arrays
-- [ ] Ensure backward compatibility — `Palette` should work wherever arrays were expected (via iteration protocol and `toArray()`)
-- [ ] Add tests for `Palette` collection operations
-- [ ] Add tests for harmony functions returning `Palette`
-- [ ] Export `Palette` from the package public API
-- [ ] Update docs (`apps/docs`) with `Palette` usage examples
+- [x] Design the `Palette` class API (methods like `map`, `forEach`, `filter`, `toArray`, plus color-specific helpers like `lightenAll`, `saturateAll`)
+- [x] Implement the `Palette` class in a new `ts/src/palette.ts` module
+- [x] Make `Palette` iterable (support `for...of` and spread syntax)
+- [x] Update harmony functions to return `Palette` instances instead of raw arrays
+- [x] Ensure backward compatibility — `Palette` should work wherever arrays were expected (via iteration protocol and `toArray()`)
+- [x] Add tests for `Palette` collection operations
+- [x] Add tests for harmony functions returning `Palette`
+- [x] Export `Palette` from the package public API
+- [x] Update docs (`apps/docs`) with `Palette` usage examples
 
 ## Acceptance Criteria
 
