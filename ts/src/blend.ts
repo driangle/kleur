@@ -1,24 +1,9 @@
-import { Color } from "./color.js";
+import { Color, registerBlend } from "./color.js";
 import { InvalidBlendModeError } from "./errors.js";
 import { resolve } from "./parse.js";
-import type { KleurValue } from "./types.js";
+import type { KleurValue, BlendFn, BlendMode } from "./types.js";
 
-export type BlendFn = (base: Color, overlay: Color) => Color;
-export type BlendMode =
-  | "multiply"
-  | "screen"
-  | "overlay"
-  | "darken"
-  | "lighten"
-  | "colorDodge"
-  | "colorBurn"
-  | "hardLight"
-  | "softLight"
-  | "difference"
-  | "exclusion"
-  | "add"
-  | "subtract"
-  | BlendFn;
+export type { BlendFn, BlendMode };
 
 function perChannel(
   base: Color,
@@ -136,3 +121,6 @@ export function mix(a: KleurValue, b: KleurValue, t = 0.5, ease?: KleurEaseFn): 
   const alpha = ca.alpha + (cb.alpha - ca.alpha) * et;
   return new Color(r, g, bl, alpha);
 }
+
+// Register blend on Color so the instance method works without circular imports.
+registerBlend(blend);

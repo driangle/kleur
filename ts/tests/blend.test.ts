@@ -346,3 +346,39 @@ describe("Color.mix()", () => {
     expect(result.blue).toBe(128);
   });
 });
+
+describe("Color.blend()", () => {
+  it("works equivalently to standalone blend()", () => {
+    const base = rgb(100, 50, 200);
+    const overlay = rgb(200, 150, 50);
+
+    const standaloneResult = blend(base, overlay, "multiply");
+    const instanceResult = base.blend(overlay, "multiply");
+
+    expect(instanceResult.red).toBe(standaloneResult.red);
+    expect(instanceResult.green).toBe(standaloneResult.green);
+    expect(instanceResult.blue).toBe(standaloneResult.blue);
+  });
+
+  it("accepts KleurValue (string) as overlay", () => {
+    const base = rgb(128, 128, 128);
+    const result = base.blend("#ffffff", "screen");
+    expect(result.red).toBe(255);
+    expect(result.green).toBe(255);
+    expect(result.blue).toBe(255);
+  });
+
+  it("accepts custom blend function", () => {
+    const base = rgb(100, 100, 100);
+    const overlay = rgb(200, 200, 200);
+    const result = base.blend(overlay, (b, o) => o);
+    expect(result.red).toBe(200);
+  });
+
+  it("returns new instance", () => {
+    const base = rgb(255, 0, 0);
+    const overlay = rgb(0, 0, 255);
+    expect(base.blend(overlay, "multiply")).not.toBe(base);
+    expect(base.blend(overlay, "multiply")).not.toBe(overlay);
+  });
+});

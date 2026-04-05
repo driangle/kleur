@@ -47,6 +47,13 @@ kleur.blend("#ff6600", "#0066ff", (base, overlay) =>
 );
 ```
 
+Also available as an [instance method on Color](/api/color#interpolation-blending):
+
+```ts
+const base = kleur("#ff6600");
+base.blend("#0066ff", "multiply").toHex();
+```
+
 ## mix
 
 ```ts

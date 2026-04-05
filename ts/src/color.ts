@@ -1,24 +1,38 @@
 import { rgbToHsl, hslToRgb } from "./hsl.js";
 import { rgbToHsb, hsbToRgb } from "./hsb.js";
-import type { Rgb, Rgba, Hsl, Hsla, Hsb, KleurValue } from "./types.js";
+import type { Rgb, Rgba, Hsl, Hsla, Hsb, KleurValue, BlendMode } from "./types.js";
+import { MissingRegistrationError } from "./errors.js";
 
 const clampByte = (v: number): number => Math.round(Math.min(255, Math.max(0, v)));
 const clampAlpha = (v: number): number => Math.min(1, Math.max(0, v));
 const clampHue = (v: number): number => ((v % 360) + 360) % 360;
 const clampPercent = (v: number): number => Math.min(100, Math.max(0, v));
 
-/** Resolver function registered by parse.ts to break the circular dependency. */
+// --- Registration pattern for circular dependency resolution ---
+//
+// Color.mix() and Color.blend() accept KleurValue (string | number | Color),
+// which requires resolve() from parse.ts and blend() from blend.ts. Those
+// modules in turn import Color, creating a circular dependency.
+//
+// To break the cycle, parse.ts and blend.ts register their functions here at
+// import time. The public entry point (index.ts) imports both modules, so
+// registration is guaranteed before any user code runs.
+
+let _blend: ((base: KleurValue, overlay: KleurValue, mode: BlendMode) => Color) | undefined;
+
+export function registerBlend(fn: (base: KleurValue, overlay: KleurValue, mode: BlendMode) => Color): void {
+  _blend = fn;
+}
+
 let _resolve: ((value: KleurValue) => Color) | undefined;
 
-/** Register the resolve function (called by parse.ts at import time). */
 export function registerResolver(fn: (value: KleurValue) => Color): void {
   _resolve = fn;
 }
 
-/** Resolve a KleurValue to a Color, passing through if already a Color. */
 function resolveValue(value: KleurValue): Color {
   if (value instanceof Color) return value;
-  if (!_resolve) throw new Error("Color resolver not registered. Import parse.js first.");
+  if (!_resolve) throw new MissingRegistrationError("Color resolver");
   return _resolve(value);
 }
 
@@ -134,6 +148,11 @@ export class Color {
       this.#b + (b.#b - this.#b) * et,
       this.#a + (b.#a - this.#a) * et,
     );
+  }
+
+  blend(overlay: KleurValue, mode: BlendMode): Color {
+    if (!_blend) throw new MissingRegistrationError("Blend");
+    return _blend(this, overlay, mode);
   }
 
   // --- Harmony ---

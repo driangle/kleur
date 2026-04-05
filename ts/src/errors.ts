@@ -105,6 +105,16 @@ export class InvalidBlendModeError extends KleurError {
   }
 }
 
+export class MissingRegistrationError extends KleurError {
+  readonly module: string;
+
+  constructor(module: string) {
+    super(`${module} not registered. Import ${module.toLowerCase()}.js first.`);
+    this.name = "MissingRegistrationError";
+    this.module = module;
+  }
+}
+
 export class InvalidDistanceCombinationError extends KleurError {
   readonly method: string;
   readonly space: string;

@@ -86,6 +86,26 @@ export type DistanceOptions =
       method: "euclidean" | "deltaE76" | "deltaE94" | "deltaE2000" | "deltaEOK";
     };
 
+/** A function that blends two colors channel-by-channel. */
+export type BlendFn = (base: Color, overlay: Color) => Color;
+
+/** A preset blend mode name or a custom blend function. */
+export type BlendMode =
+  | "multiply"
+  | "screen"
+  | "overlay"
+  | "darken"
+  | "lighten"
+  | "colorDodge"
+  | "colorBurn"
+  | "hardLight"
+  | "softLight"
+  | "difference"
+  | "exclusion"
+  | "add"
+  | "subtract"
+  | BlendFn;
+
 // Forward reference — resolved at runtime via the actual class
 import type { Color } from "./color.js";
 export type { Color };

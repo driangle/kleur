@@ -141,7 +141,7 @@ color.warm(0.3).toHex();       // warmer tone
 color.scaleAlpha(0.5).alpha;   // 0.5
 ```
 
-## Interpolation
+## Interpolation & Blending
 
 ```ts
 mix(target: Color, t?: number, ease?: (t: number) => number): Color
@@ -155,6 +155,20 @@ const b = kleur("#0000ff");
 
 a.mix(b, 0.5).toHex(); // midpoint between red and blue
 a.mix(b, 0.25).toHex(); // 25% toward blue
+```
+
+```ts
+blend(overlay: KleurValue, mode: BlendMode): Color
+```
+
+Blend `this` color with `overlay` using the specified [blend mode](/api/blend#blend-modes). Instance shorthand for `kleur.blend(this, overlay, mode)`.
+
+```ts
+const base = kleur("#ff6600");
+
+base.blend("#0066ff", "multiply").toHex();
+base.blend("#0066ff", "screen").toHex();
+base.blend("#ffffff", (b, o) => kleur.rgb(b.red, o.green, b.blue));
 ```
 
 ## Harmony
