@@ -211,9 +211,9 @@ describe("color adjustments", () => {
       const c = rgb(100, 149, 237);
       const comp = c.complement();
       const rotated = c.rotate(180);
-      expect(comp.r).toBe(rotated.r);
-      expect(comp.g).toBe(rotated.g);
-      expect(comp.b).toBe(rotated.b);
+      expect(comp.red).toBe(rotated.red);
+      expect(comp.green).toBe(rotated.green);
+      expect(comp.blue).toBe(rotated.blue);
     });
   });
 
@@ -254,9 +254,9 @@ describe("color adjustments", () => {
     it("inverts pure red to cyan", () => {
       const red = rgb(255, 0, 0);
       const inverted = red.invert();
-      expect(inverted.r).toBe(0);
-      expect(inverted.g).toBe(255);
-      expect(inverted.b).toBe(255);
+      expect(inverted.red).toBe(0);
+      expect(inverted.green).toBe(255);
+      expect(inverted.blue).toBe(255);
       expect(inverted.toHex()).toBe("#00ffff");
     });
 
@@ -274,9 +274,9 @@ describe("color adjustments", () => {
     it("double invert returns original", () => {
       const c = rgb(100, 149, 237);
       const double = c.invert().invert();
-      expect(double.r).toBe(c.r);
-      expect(double.g).toBe(c.g);
-      expect(double.b).toBe(c.b);
+      expect(double.red).toBe(c.red);
+      expect(double.green).toBe(c.green);
+      expect(double.blue).toBe(c.blue);
     });
   });
 
@@ -327,9 +327,9 @@ describe("color adjustments", () => {
     it("preserves RGB", () => {
       const c = rgb(100, 150, 200, 0.5);
       const o = c.opaque();
-      expect(o.r).toBe(100);
-      expect(o.g).toBe(150);
-      expect(o.b).toBe(200);
+      expect(o.red).toBe(100);
+      expect(o.green).toBe(150);
+      expect(o.blue).toBe(200);
     });
   });
 
@@ -374,33 +374,33 @@ describe("color adjustments", () => {
     it("lighten(0) preserves exact RGB values", () => {
       const c = rgb(100, 149, 237); // cornflower blue — not on a clean HSL boundary
       const same = c.lighten(0);
-      expect(same.r).toBe(100);
-      expect(same.g).toBe(149);
-      expect(same.b).toBe(237);
+      expect(same.red).toBe(100);
+      expect(same.green).toBe(149);
+      expect(same.blue).toBe(237);
     });
 
     it("darken(0) preserves exact RGB values", () => {
       const c = rgb(100, 149, 237);
       const same = c.darken(0);
-      expect(same.r).toBe(100);
-      expect(same.g).toBe(149);
-      expect(same.b).toBe(237);
+      expect(same.red).toBe(100);
+      expect(same.green).toBe(149);
+      expect(same.blue).toBe(237);
     });
 
     it("rotate(0) preserves exact RGB values", () => {
       const c = rgb(100, 149, 237);
       const same = c.rotate(0);
-      expect(same.r).toBe(100);
-      expect(same.g).toBe(149);
-      expect(same.b).toBe(237);
+      expect(same.red).toBe(100);
+      expect(same.green).toBe(149);
+      expect(same.blue).toBe(237);
     });
 
     it("saturateHsl(0) preserves exact RGB values", () => {
       const c = rgb(100, 149, 237);
       const same = c.saturateHsl(0);
-      expect(same.r).toBe(100);
-      expect(same.g).toBe(149);
-      expect(same.b).toBe(237);
+      expect(same.red).toBe(100);
+      expect(same.green).toBe(149);
+      expect(same.blue).toBe(237);
     });
   });
 

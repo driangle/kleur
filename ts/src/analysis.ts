@@ -10,9 +10,9 @@ export { distance } from "./distance.js";
 export function luminance(color: KleurValue): number {
   const c = resolve(color);
   return (
-    0.2126 * linearize(c.r) +
-    0.7152 * linearize(c.g) +
-    0.0722 * linearize(c.b)
+    0.2126 * linearize(c.red) +
+    0.7152 * linearize(c.green) +
+    0.0722 * linearize(c.blue)
   );
 }
 

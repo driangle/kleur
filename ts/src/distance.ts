@@ -29,17 +29,17 @@ const PRESETS: Record<string, { space: string; method: string }> = {
 // --- Space converters (Color → 3-component tuple) ---
 
 const SPACE_CONVERTERS: Record<string, (c: Color) => Triple> = {
-  rgb: (c) => [c.r, c.g, c.b],
-  hsl: (c) => { const { h, s, l } = rgbToHsl(c.r, c.g, c.b); return [h, s, l]; },
-  lab: (c) => { const { l, a, b } = rgbToLab(c.r, c.g, c.b); return [l, a, b]; },
+  rgb: (c) => [c.red, c.green, c.blue],
+  hsl: (c) => { const { h, s, l } = rgbToHsl(c.red, c.green, c.blue); return [h, s, l]; },
+  lab: (c) => { const { l, a, b } = rgbToLab(c.red, c.green, c.blue); return [l, a, b]; },
   lch: (c) => {
-    const lab = rgbToLab(c.r, c.g, c.b);
+    const lab = rgbToLab(c.red, c.green, c.blue);
     const { l, c: ch, h } = labToLch(lab.l, lab.a, lab.b);
     return [l, ch, h];
   },
-  oklab: (c) => { const { l, a, b } = rgbToOklab(c.r, c.g, c.b); return [l, a, b]; },
+  oklab: (c) => { const { l, a, b } = rgbToOklab(c.red, c.green, c.blue); return [l, a, b]; },
   oklch: (c) => {
-    const ok = rgbToOklab(c.r, c.g, c.b);
+    const ok = rgbToOklab(c.red, c.green, c.blue);
     const { l, c: ch, h } = oklabToOklch(ok.l, ok.a, ok.b);
     return [l, ch, h];
   },

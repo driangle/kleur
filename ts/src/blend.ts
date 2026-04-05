@@ -25,10 +25,10 @@ function perChannel(
   overlay: Color,
   fn: (b: number, o: number) => number,
 ): Color {
-  const r = fn(base.r / 255, overlay.r / 255) * 255;
-  const g = fn(base.g / 255, overlay.g / 255) * 255;
-  const b = fn(base.b / 255, overlay.b / 255) * 255;
-  return new Color(r, g, b, base.a);
+  const r = fn(base.red / 255, overlay.red / 255) * 255;
+  const g = fn(base.green / 255, overlay.green / 255) * 255;
+  const b = fn(base.blue / 255, overlay.blue / 255) * 255;
+  return new Color(r, g, b, base.alpha);
 }
 
 function multiply(base: Color, overlay: Color): Color {
@@ -130,9 +130,9 @@ export function mix(a: KleurValue, b: KleurValue, t = 0.5, ease?: KleurEaseFn): 
   const ca = resolve(a);
   const cb = resolve(b);
   const et = ease ? ease(t) : t;
-  const r = ca.r + (cb.r - ca.r) * et;
-  const g = ca.g + (cb.g - ca.g) * et;
-  const bl = ca.b + (cb.b - ca.b) * et;
-  const alpha = ca.a + (cb.a - ca.a) * et;
+  const r = ca.red + (cb.red - ca.red) * et;
+  const g = ca.green + (cb.green - ca.green) * et;
+  const bl = ca.blue + (cb.blue - ca.blue) * et;
+  const alpha = ca.alpha + (cb.alpha - ca.alpha) * et;
   return new Color(r, g, bl, alpha);
 }

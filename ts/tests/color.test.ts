@@ -6,51 +6,51 @@ describe("Color", () => {
   describe("construction and clamping", () => {
     it("stores RGBA values", () => {
       const c = rgb(66, 135, 245);
-      expect(c.r).toBe(66);
-      expect(c.g).toBe(135);
-      expect(c.b).toBe(245);
-      expect(c.a).toBe(1);
+      expect(c.red).toBe(66);
+      expect(c.green).toBe(135);
+      expect(c.blue).toBe(245);
+      expect(c.alpha).toBe(1);
     });
 
     it("defaults alpha to 1", () => {
       const c = rgb(0, 0, 0);
-      expect(c.a).toBe(1);
+      expect(c.alpha).toBe(1);
     });
 
     it("accepts explicit alpha", () => {
       const c = rgb(0, 0, 0, 0.5);
-      expect(c.a).toBe(0.5);
+      expect(c.alpha).toBe(0.5);
     });
 
     it("clamps RGB below 0", () => {
       const c = rgb(-10, -1, -255);
-      expect(c.r).toBe(0);
-      expect(c.g).toBe(0);
-      expect(c.b).toBe(0);
+      expect(c.red).toBe(0);
+      expect(c.green).toBe(0);
+      expect(c.blue).toBe(0);
     });
 
     it("clamps RGB above 255", () => {
       const c = rgb(300, 256, 999);
-      expect(c.r).toBe(255);
-      expect(c.g).toBe(255);
-      expect(c.b).toBe(255);
+      expect(c.red).toBe(255);
+      expect(c.green).toBe(255);
+      expect(c.blue).toBe(255);
     });
 
     it("rounds fractional RGB values", () => {
       const c = rgb(66.7, 135.2, 244.5);
-      expect(c.r).toBe(67);
-      expect(c.g).toBe(135);
-      expect(c.b).toBe(245);
+      expect(c.red).toBe(67);
+      expect(c.green).toBe(135);
+      expect(c.blue).toBe(245);
     });
 
     it("clamps alpha below 0", () => {
       const c = rgb(0, 0, 0, -0.5);
-      expect(c.a).toBe(0);
+      expect(c.alpha).toBe(0);
     });
 
     it("clamps alpha above 1", () => {
       const c = rgb(0, 0, 0, 1.5);
-      expect(c.a).toBe(1);
+      expect(c.alpha).toBe(1);
     });
   });
 
@@ -101,41 +101,41 @@ describe("Color", () => {
 
     it("withRed returns new instance", () => {
       const changed = base.withRed(50);
-      expect(changed.r).toBe(50);
-      expect(changed.g).toBe(150);
-      expect(changed.b).toBe(200);
-      expect(changed.a).toBe(0.9);
+      expect(changed.red).toBe(50);
+      expect(changed.green).toBe(150);
+      expect(changed.blue).toBe(200);
+      expect(changed.alpha).toBe(0.9);
       // original unchanged
-      expect(base.r).toBe(100);
+      expect(base.red).toBe(100);
       expect(changed).not.toBe(base);
     });
 
     it("withGreen returns new instance", () => {
       const changed = base.withGreen(50);
-      expect(changed.g).toBe(50);
-      expect(base.g).toBe(150);
+      expect(changed.green).toBe(50);
+      expect(base.green).toBe(150);
     });
 
     it("withBlue returns new instance", () => {
       const changed = base.withBlue(50);
-      expect(changed.b).toBe(50);
-      expect(base.b).toBe(200);
+      expect(changed.blue).toBe(50);
+      expect(base.blue).toBe(200);
     });
 
     it("withAlpha returns new instance", () => {
       const changed = base.withAlpha(0.3);
-      expect(changed.a).toBe(0.3);
-      expect(base.a).toBe(0.9);
+      expect(changed.alpha).toBe(0.3);
+      expect(base.alpha).toBe(0.9);
     });
 
     it("withAlpha clamps values", () => {
-      expect(base.withAlpha(-1).a).toBe(0);
-      expect(base.withAlpha(2).a).toBe(1);
+      expect(base.withAlpha(-1).alpha).toBe(0);
+      expect(base.withAlpha(2).alpha).toBe(1);
     });
 
     it("withRed clamps values", () => {
-      expect(base.withRed(-10).r).toBe(0);
-      expect(base.withRed(999).r).toBe(255);
+      expect(base.withRed(-10).red).toBe(0);
+      expect(base.withRed(999).red).toBe(255);
     });
 
     it("withHue returns new instance with updated hue", () => {
@@ -174,30 +174,48 @@ describe("Color", () => {
     });
   });
 
+  describe("public API surface", () => {
+    it("does not expose short-form r/g/b/a properties", () => {
+      const c = rgb(66, 135, 245, 0.8);
+      // Short-form properties should not be part of the public API
+      expect("r" in c).toBe(false);
+      expect("g" in c).toBe(false);
+      expect("b" in c).toBe(false);
+      expect("a" in c).toBe(false);
+    });
+
+    it("exposes long-form red/green/blue/alpha getters", () => {
+      const c = rgb(66, 135, 245, 0.8);
+      expect(c.red).toBe(66);
+      expect(c.green).toBe(135);
+      expect(c.blue).toBe(245);
+      expect(c.alpha).toBe(0.8);
+    });
+  });
+
   describe("edge cases", () => {
     it("pure black", () => {
       const black = rgb(0, 0, 0);
-      expect(black.r).toBe(0);
-      expect(black.g).toBe(0);
-      expect(black.b).toBe(0);
+      expect(black.red).toBe(0);
+      expect(black.green).toBe(0);
+      expect(black.blue).toBe(0);
       expect(black.lightness).toBe(0);
       expect(black.hsl.s).toBe(0);
     });
 
     it("pure white", () => {
       const white = rgb(255, 255, 255);
-      expect(white.r).toBe(255);
-      expect(white.g).toBe(255);
-      expect(white.b).toBe(255);
+      expect(white.red).toBe(255);
+      expect(white.green).toBe(255);
+      expect(white.blue).toBe(255);
       expect(white.lightness).toBe(100);
       expect(white.hsl.s).toBe(0);
     });
 
     it("fully transparent", () => {
       const transparent = rgb(255, 0, 0, 0);
-      expect(transparent.a).toBe(0);
       expect(transparent.alpha).toBe(0);
-      expect(transparent.r).toBe(255);
+      expect(transparent.red).toBe(255);
     });
 
     it("gray has zero saturation", () => {
@@ -232,9 +250,9 @@ describe("Color", () => {
         const converted = hslToRgb(h, s, l);
         const roundTripped = rgb(converted.r, converted.g, converted.b);
 
-        expect(Math.abs(roundTripped.r - r)).toBeLessThanOrEqual(1);
-        expect(Math.abs(roundTripped.g - g)).toBeLessThanOrEqual(1);
-        expect(Math.abs(roundTripped.b - b)).toBeLessThanOrEqual(1);
+        expect(Math.abs(roundTripped.red - r)).toBeLessThanOrEqual(1);
+        expect(Math.abs(roundTripped.green - g)).toBeLessThanOrEqual(1);
+        expect(Math.abs(roundTripped.blue - b)).toBeLessThanOrEqual(1);
       });
     }
   });

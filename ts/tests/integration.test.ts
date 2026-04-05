@@ -4,16 +4,16 @@ import kleur from "../src/index.js";
 describe("public API integration", () => {
   it("kleur is callable and carries all API methods", () => {
     // Callable as universal factory
-    expect(kleur("#ff0000").r).toBe(255);
-    expect(kleur(255, 0, 0).r).toBe(255);
+    expect(kleur("#ff0000").red).toBe(255);
+    expect(kleur(255, 0, 0).red).toBe(255);
 
     // Create
-    expect(kleur.hex("#ff0000").r).toBe(255);
-    expect(kleur.rgb(0, 255, 0).g).toBe(255);
-    expect(kleur.hsl(0, 100, 50).r).toBe(255);
-    expect(kleur.number(0xff0000).r).toBe(255);
-    expect(kleur.css("rgb(255,0,0)").r).toBe(255);
-    expect(kleur.grayscale(128).r).toBe(128);
+    expect(kleur.hex("#ff0000").red).toBe(255);
+    expect(kleur.rgb(0, 255, 0).green).toBe(255);
+    expect(kleur.hsl(0, 100, 50).red).toBe(255);
+    expect(kleur.number(0xff0000).red).toBe(255);
+    expect(kleur.css("rgb(255,0,0)").red).toBe(255);
+    expect(kleur.grayscale(128).red).toBe(128);
     expect(typeof kleur.random).toBe("function");
 
     // Analyze
@@ -28,7 +28,7 @@ describe("public API integration", () => {
     // Combine
     const red = kleur.hex("#ff0000");
     const blue = kleur.hex("#0000ff");
-    expect(kleur.mix(red, blue, 0.5).r).toBe(128);
+    expect(kleur.mix(red, blue, 0.5).red).toBe(128);
     expect(typeof kleur.blend).toBe("function");
 
     // Harmony
@@ -51,16 +51,16 @@ describe("public API integration", () => {
     expect(typeof kleur.isGradient).toBe("function");
 
     // Named colors
-    expect(kleur.white.r).toBe(255);
-    expect(kleur.black.r).toBe(0);
-    expect(kleur.red.r).toBe(255);
-    expect(kleur.transparent.a).toBe(0);
+    expect(kleur.white.red).toBe(255);
+    expect(kleur.black.red).toBe(0);
+    expect(kleur.red.red).toBe(255);
+    expect(kleur.transparent.alpha).toBe(0);
   });
 
   it("kleur resolves named colors", () => {
     const c = kleur("cornflowerblue");
-    expect(c.r).toBe(100);
-    expect(c.g).toBe(149);
-    expect(c.b).toBe(237);
+    expect(c.red).toBe(100);
+    expect(c.green).toBe(149);
+    expect(c.blue).toBe(237);
   });
 });

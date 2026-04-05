@@ -43,7 +43,7 @@ kleur.blend("#ff6600", "#0066ff", "overlay").toHex();
 
 // Custom blend function — receives both Color objects
 kleur.blend("#ff6600", "#0066ff", (base, overlay) =>
-  kleur.rgb((base.r + overlay.r) / 2, (base.g + overlay.g) / 2, (base.b + overlay.b) / 2)
+  kleur.rgb((base.red + overlay.red) / 2, (base.green + overlay.green) / 2, (base.blue + overlay.blue) / 2)
 );
 ```
 

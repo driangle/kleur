@@ -7,13 +7,13 @@ describe("random()", () => {
   it("returns a valid color with no options", () => {
     for (let i = 0; i < ITERATIONS; i++) {
       const c = random();
-      expect(c.r).toBeGreaterThanOrEqual(0);
-      expect(c.r).toBeLessThanOrEqual(255);
-      expect(c.g).toBeGreaterThanOrEqual(0);
-      expect(c.g).toBeLessThanOrEqual(255);
-      expect(c.b).toBeGreaterThanOrEqual(0);
-      expect(c.b).toBeLessThanOrEqual(255);
-      expect(c.a).toBe(1);
+      expect(c.red).toBeGreaterThanOrEqual(0);
+      expect(c.red).toBeLessThanOrEqual(255);
+      expect(c.green).toBeGreaterThanOrEqual(0);
+      expect(c.green).toBeLessThanOrEqual(255);
+      expect(c.blue).toBeGreaterThanOrEqual(0);
+      expect(c.blue).toBeLessThanOrEqual(255);
+      expect(c.alpha).toBe(1);
     }
   });
 
@@ -72,7 +72,7 @@ describe("random()", () => {
   it("respects alpha option", () => {
     for (let i = 0; i < ITERATIONS; i++) {
       const c = random({ alpha: 0.5 });
-      expect(c.a).toBe(0.5);
+      expect(c.alpha).toBe(0.5);
     }
   });
 
@@ -89,7 +89,7 @@ describe("random()", () => {
       expect(c.hsl.s).toBeGreaterThanOrEqual(79);
       expect(c.lightness).toBeGreaterThanOrEqual(39);
       expect(c.lightness).toBeLessThanOrEqual(61);
-      expect(c.a).toBe(0.8);
+      expect(c.alpha).toBe(0.8);
     }
   });
 });

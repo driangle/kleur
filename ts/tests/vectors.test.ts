@@ -12,9 +12,9 @@ describe("cross-language test vectors", () => {
     for (const v of vectors.parsing.hex) {
       it(`hex("${v.input}")`, () => {
         const c = kleur.hex(v.input);
-        expect(c.r).toBe(v.expected.r);
-        expect(c.g).toBe(v.expected.g);
-        expect(c.b).toBe(v.expected.b);
+        expect(c.red).toBe(v.expected.r);
+        expect(c.green).toBe(v.expected.g);
+        expect(c.blue).toBe(v.expected.b);
       });
     }
   });
@@ -23,9 +23,9 @@ describe("cross-language test vectors", () => {
     for (const v of vectors.parsing.hsl) {
       it(`hsl(${v.input.h}, ${v.input.s}, ${v.input.l})`, () => {
         const c = kleur.hsl(v.input.h, v.input.s, v.input.l);
-        expect(c.r).toBe(v.expected.r);
-        expect(c.g).toBe(v.expected.g);
-        expect(c.b).toBe(v.expected.b);
+        expect(c.red).toBe(v.expected.r);
+        expect(c.green).toBe(v.expected.g);
+        expect(c.blue).toBe(v.expected.b);
       });
     }
   });
@@ -34,10 +34,10 @@ describe("cross-language test vectors", () => {
     for (const v of vectors.parsing.css) {
       it(`css("${v.input}")`, () => {
         const c = kleur.css(v.input);
-        expect(c.r).toBe(v.expected.r);
-        expect(c.g).toBe(v.expected.g);
-        expect(c.b).toBe(v.expected.b);
-        expect(c.a).toBeCloseTo(v.expected.a, 2);
+        expect(c.red).toBe(v.expected.r);
+        expect(c.green).toBe(v.expected.g);
+        expect(c.blue).toBe(v.expected.b);
+        expect(c.alpha).toBeCloseTo(v.expected.a, 2);
       });
     }
   });
@@ -46,9 +46,9 @@ describe("cross-language test vectors", () => {
     for (const v of vectors.parsing.integer) {
       it(`number(${v.input})`, () => {
         const c = kleur.number(v.input);
-        expect(c.r).toBe(v.expected.r);
-        expect(c.g).toBe(v.expected.g);
-        expect(c.b).toBe(v.expected.b);
+        expect(c.red).toBe(v.expected.r);
+        expect(c.green).toBe(v.expected.g);
+        expect(c.blue).toBe(v.expected.b);
       });
     }
   });
@@ -57,10 +57,10 @@ describe("cross-language test vectors", () => {
     for (const v of vectors.parsing.named) {
       it(`kleur("${v.input}")`, () => {
         const c = kleur(v.input);
-        expect(c.r).toBe(v.expected.r);
-        expect(c.g).toBe(v.expected.g);
-        expect(c.b).toBe(v.expected.b);
-        expect(c.a).toBe(v.expected.a);
+        expect(c.red).toBe(v.expected.r);
+        expect(c.green).toBe(v.expected.g);
+        expect(c.blue).toBe(v.expected.b);
+        expect(c.alpha).toBe(v.expected.a);
       });
     }
   });
@@ -128,9 +128,9 @@ describe("cross-language test vectors", () => {
         }
         if ("expected" in v && v.expected) {
           const exp = v.expected as { r: number; g: number; b: number };
-          expect(result.r).toBe(exp.r);
-          expect(result.g).toBe(exp.g);
-          expect(result.b).toBe(exp.b);
+          expect(result.red).toBe(exp.r);
+          expect(result.green).toBe(exp.g);
+          expect(result.blue).toBe(exp.b);
         }
         if ("expected_lightness" in v) expect(result.lightness).toBe(v.expected_lightness);
         if ("expected_saturation" in v) expect(result.hsl.s).toBe(v.expected_saturation);
@@ -164,9 +164,9 @@ describe("cross-language test vectors", () => {
       it(`${v.op}: ${v.note || ""}`, () => {
         const result = kleur.blend(toColor(v.base), toColor(v.overlay), v.op as BlendMode);
         const tol = ("tolerance" in v ? v.tolerance : 0) as number;
-        expect(Math.abs(result.r - v.expected.r)).toBeLessThanOrEqual(tol + 1);
-        expect(Math.abs(result.g - v.expected.g)).toBeLessThanOrEqual(tol + 1);
-        expect(Math.abs(result.b - v.expected.b)).toBeLessThanOrEqual(tol + 1);
+        expect(Math.abs(result.red - v.expected.r)).toBeLessThanOrEqual(tol + 1);
+        expect(Math.abs(result.green - v.expected.g)).toBeLessThanOrEqual(tol + 1);
+        expect(Math.abs(result.blue - v.expected.b)).toBeLessThanOrEqual(tol + 1);
       });
     }
   });

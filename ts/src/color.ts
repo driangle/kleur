@@ -9,27 +9,27 @@ const clampPercent = (v: number): number => Math.min(100, Math.max(0, v));
 
 /** Immutable RGBA color with derived HSL access. All mutation methods return a new instance. */
 export class Color {
-  readonly r: number;
-  readonly g: number;
-  readonly b: number;
-  readonly a: number;
+  readonly #r: number;
+  readonly #g: number;
+  readonly #b: number;
+  readonly #a: number;
 
   constructor(r: number, g: number, b: number, a = 1) {
-    this.r = clampByte(r);
-    this.g = clampByte(g);
-    this.b = clampByte(b);
-    this.a = clampAlpha(a);
+    this.#r = clampByte(r);
+    this.#g = clampByte(g);
+    this.#b = clampByte(b);
+    this.#a = clampAlpha(a);
   }
 
-  private _hsl(): { h: number; s: number; l: number } { return rgbToHsl(this.r, this.g, this.b); }
-  private _hsb(): Hsb { return rgbToHsb(this.r, this.g, this.b); }
+  private _hsl(): { h: number; s: number; l: number } { return rgbToHsl(this.#r, this.#g, this.#b); }
+  private _hsb(): Hsb { return rgbToHsb(this.#r, this.#g, this.#b); }
   private fromHsl(h: number, s: number, l: number): Color {
     const rgb = hslToRgb(h, clampPercent(s), clampPercent(l));
-    return new Color(rgb.r, rgb.g, rgb.b, this.a);
+    return new Color(rgb.r, rgb.g, rgb.b, this.#a);
   }
   private fromHsb(h: number, s: number, b: number): Color {
     const rgb = hsbToRgb(h, clampPercent(s), clampPercent(b));
-    return new Color(rgb.r, rgb.g, rgb.b, this.a);
+    return new Color(rgb.r, rgb.g, rgb.b, this.#a);
   }
   private mapHsl(mapper: (hsl: Hsl) => Hsl): Color {
     const { h, s, l } = mapper(this._hsl());
@@ -41,13 +41,13 @@ export class Color {
   }
 
   // --- Channel getters ---
-  get red(): number { return this.r; }
-  get green(): number { return this.g; }
-  get blue(): number { return this.b; }
+  get red(): number { return this.#r; }
+  get green(): number { return this.#g; }
+  get blue(): number { return this.#b; }
   get hue(): number { return Math.round(this._hsl().h); }
   get saturationHsl(): number { return Math.round(this._hsl().s); }
   get lightness(): number { return Math.round(this._hsl().l); }
-  get alpha(): number { return this.a; }
+  get alpha(): number { return this.#a; }
   get saturationHsb(): number { return this._hsb().s; }
   get brightness(): number { return this._hsb().b; }
   get hsl(): Hsl {
@@ -57,22 +57,22 @@ export class Color {
   get hsb(): Hsb { return this._hsb(); }
 
   // --- Immutable setters ---
-  withRed(v: number): Color { return new Color(v, this.g, this.b, this.a); }
-  withGreen(v: number): Color { return new Color(this.r, v, this.b, this.a); }
-  withBlue(v: number): Color { return new Color(this.r, this.g, v, this.a); }
-  withAlpha(v: number): Color { return new Color(this.r, this.g, this.b, v); }
+  withRed(v: number): Color { return new Color(v, this.#g, this.#b, this.#a); }
+  withGreen(v: number): Color { return new Color(this.#r, v, this.#b, this.#a); }
+  withBlue(v: number): Color { return new Color(this.#r, this.#g, v, this.#a); }
+  withAlpha(v: number): Color { return new Color(this.#r, this.#g, this.#b, v); }
   withHue(v: number): Color { return this.mapHsl(({ s, l }) => ({ h: v, s, l })); }
   withSaturationHsl(v: number): Color { return this.mapHsl(({ h, l }) => ({ h, s: v, l })); }
   withSaturationHsb(v: number): Color { return this.mapHsb(({ h, b }) => ({ h, s: v, b })); }
   withBrightness(v: number): Color { return this.mapHsb(({ h, s }) => ({ h, s, b: v })); }
   withLightness(v: number): Color { return this.mapHsl(({ h, s }) => ({ h, s, l: v })); }
-  adjustAlpha(delta: number): Color { return this.withAlpha(this.a + delta); }
+  adjustAlpha(delta: number): Color { return this.withAlpha(this.#a + delta); }
   adjustHue(delta: number): Color { return this.mapHsl(({ h, s, l }) => ({ h: h + delta, s, l })); }
   adjustSaturationHsl(delta: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s: s + delta, l })); }
   adjustSaturationHsb(delta: number): Color { return this.mapHsb(({ h, s, b }) => ({ h, s: s + delta, b })); }
   adjustBrightness(delta: number): Color { return this.mapHsb(({ h, s, b }) => ({ h, s, b: b + delta })); }
   adjustLightness(delta: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s, l: l + delta })); }
-  scaleAlpha(factor: number): Color { return this.withAlpha(this.a * factor); }
+  scaleAlpha(factor: number): Color { return this.withAlpha(this.#a * factor); }
   scaleSaturationHsl(factor: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s: s * factor, l })); }
   scaleSaturationHsb(factor: number): Color { return this.mapHsb(({ h, s, b }) => ({ h, s: s * factor, b })); }
   scaleBrightness(factor: number): Color { return this.mapHsb(({ h, s, b }) => ({ h, s, b: b * factor })); }
@@ -81,16 +81,16 @@ export class Color {
   // --- Output formats ---
   toHex(): string {
     const hex = (n: number): string => n.toString(16).padStart(2, "0");
-    return `#${hex(this.r)}${hex(this.g)}${hex(this.b)}`;
+    return `#${hex(this.#r)}${hex(this.#g)}${hex(this.#b)}`;
   }
 
-  toCss(): string { return `rgba(${this.r},${this.g},${this.b},${this.a})`; }
-  toRgb(): Rgb { return { r: this.r, g: this.g, b: this.b }; }
-  toRgba(): Rgba { return { r: this.r, g: this.g, b: this.b, a: this.a }; }
+  toCss(): string { return `rgba(${this.#r},${this.#g},${this.#b},${this.#a})`; }
+  toRgb(): Rgb { return { r: this.#r, g: this.#g, b: this.#b }; }
+  toRgba(): Rgba { return { r: this.#r, g: this.#g, b: this.#b, a: this.#a }; }
   toHsl(): Hsl { return this.hsl; }
-  toHsla(): Hsla { return { ...this.hsl, a: this.a }; }
-  toArray(): [number, number, number, number] { return [this.r, this.g, this.b, this.a]; }
-  toNormalized(): [number, number, number, number] { return [this.r / 255, this.g / 255, this.b / 255, this.a]; }
+  toHsla(): Hsla { return { ...this.hsl, a: this.#a }; }
+  toArray(): [number, number, number, number] { return [this.#r, this.#g, this.#b, this.#a]; }
+  toNormalized(): [number, number, number, number] { return [this.#r / 255, this.#g / 255, this.#b / 255, this.#a]; }
   toString(): string { return this.toCss(); }
 
   // --- Color adjustments ---
@@ -106,17 +106,17 @@ export class Color {
   complement(): Color { return this.rotate(180); }
   warm(amount = 0.2): Color { return this.adjustHue((((30 - this.hue + 540) % 360) - 180) * amount); }
   cool(amount = 0.2): Color { return this.adjustHue((((240 - this.hue + 540) % 360) - 180) * amount); }
-  invert(): Color { return new Color(255 - this.r, 255 - this.g, 255 - this.b, this.a); }
+  invert(): Color { return new Color(255 - this.#r, 255 - this.#g, 255 - this.#b, this.#a); }
   opaque(): Color { return this.withAlpha(1); }
 
   // --- Interpolation ---
   mix(target: Color, t = 0.5, ease?: (t: number) => number): Color {
     const et = ease ? ease(t) : t;
     return new Color(
-      this.r + (target.r - this.r) * et,
-      this.g + (target.g - this.g) * et,
-      this.b + (target.b - this.b) * et,
-      this.a + (target.a - this.a) * et,
+      this.#r + (target.#r - this.#r) * et,
+      this.#g + (target.#g - this.#g) * et,
+      this.#b + (target.#b - this.#b) * et,
+      this.#a + (target.#a - this.#a) * et,
     );
   }
 

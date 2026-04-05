@@ -26,9 +26,9 @@ describe("triadic()", () => {
 
   it("first color is the original", () => {
     const [c1] = triadic(red);
-    expect(c1.r).toBe(red.r);
-    expect(c1.g).toBe(red.g);
-    expect(c1.b).toBe(red.b);
+    expect(c1.red).toBe(red.red);
+    expect(c1.green).toBe(red.green);
+    expect(c1.blue).toBe(red.blue);
   });
 });
 
