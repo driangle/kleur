@@ -1,7 +1,7 @@
 ---
 title: "Add type-level safety for valid distance space+method combinations"
 id: "01knfrz1g"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["api", "types", "distance"]
@@ -18,14 +18,14 @@ The distance API currently accepts a `{ space, method }` options object where `s
 
 ## Tasks
 
-- [ ] Audit existing distance methods and catalog which methods are valid for which color spaces
-- [ ] Define a type-level mapping of valid `(space, method)` combinations (e.g., using conditional types or a discriminated union)
-- [ ] Update the `DistanceOptions` type (or equivalent) to enforce valid combinations
-- [ ] Update `distance()` function signature with overloads or constrained generics as needed
-- [ ] Ensure invalid combinations produce clear compile-time errors (not just `never`)
-- [ ] Verify that valid combinations continue to work without requiring explicit type annotations at call sites
-- [ ] Add type-level tests (e.g., `@ts-expect-error` assertions) for invalid combinations
-- [ ] Update docs (`apps/docs`) if the distance API usage examples need adjustment
+- [x] Audit existing distance methods and catalog which methods are valid for which color spaces
+- [x] Define a type-level mapping of valid `(space, method)` combinations (e.g., using conditional types or a discriminated union)
+- [x] Update the `DistanceOptions` type (or equivalent) to enforce valid combinations
+- [x] Update `distance()` function signature with overloads or constrained generics as needed
+- [x] Ensure invalid combinations produce clear compile-time errors (not just `never`)
+- [x] Verify that valid combinations continue to work without requiring explicit type annotations at call sites
+- [x] Add type-level tests (e.g., `@ts-expect-error` assertions) for invalid combinations
+- [x] Update docs (`apps/docs`) if the distance API usage examples need adjustment
 
 ## Acceptance Criteria
 

@@ -67,17 +67,22 @@ kleur.distance("#ff6600", "#0066ff", { space: "lab", method: "deltaE2000" });
 | `"deltaE2000"` | `lab` | CIEDE2000 — modern standard |
 | `"deltaEOK"` | `oklab` | Euclidean in OKLab |
 
-Not all combinations are valid. Using an unsupported space/method pair throws an error.
+Not all combinations are valid. Invalid space/method pairs are caught at compile time by TypeScript and also throw at runtime.
 
 ## Types
 
 ```ts
 type DistancePreset = "fast" | "perceptual" | "accurate" | "modern";
 
-type DistanceOptions =
-  | { preset: DistancePreset }
-  | {
-      space: "rgb" | "hsl" | "lab" | "lch" | "oklab" | "oklch";
-      method: "euclidean" | "deltaE76" | "deltaE94" | "deltaE2000" | "deltaEOK";
-    };
+type DistanceSpace = "rgb" | "hsl" | "lab" | "lch" | "oklab" | "oklch";
+
+type DistanceMethod = "euclidean" | "deltaE76" | "deltaE94" | "deltaE2000" | "deltaEOK";
+
+// Only valid space+method combinations are accepted:
+type DistanceSpaceMethod =
+  | { space: DistanceSpace; method: "euclidean" }        // euclidean works with any space
+  | { space: "lab"; method: "deltaE76" | "deltaE94" | "deltaE2000" }  // deltaE* require lab
+  | { space: "oklab"; method: "deltaEOK" };              // deltaEOK requires oklab
+
+type DistanceOptions = { preset: DistancePreset } | DistanceSpaceMethod;
 ```

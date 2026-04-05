@@ -30,6 +30,9 @@ export type {
   KleurFill,
   KleurValue,
   DistancePreset,
+  DistanceSpace,
+  DistanceMethod,
+  DistanceSpaceMethod,
   DistanceOptions,
 } from "./types.js";
 

@@ -83,13 +83,31 @@ export type KleurValue = string | number | Color;
 /** Preset name for common distance strategies */
 export type DistancePreset = "fast" | "perceptual" | "accurate" | "modern";
 
+/** All supported color spaces for distance computation */
+export type DistanceSpace = "rgb" | "hsl" | "lab" | "lch" | "oklab" | "oklch";
+
+/** All supported distance methods */
+export type DistanceMethod =
+  | "euclidean"
+  | "deltaE76"
+  | "deltaE94"
+  | "deltaE2000"
+  | "deltaEOK";
+
+/**
+ * Valid space+method combinations for the distance() function.
+ *
+ * - euclidean works with any color space
+ * - deltaE76, deltaE94, deltaE2000 require "lab"
+ * - deltaEOK requires "oklab"
+ */
+export type DistanceSpaceMethod =
+  | { space: DistanceSpace; method: "euclidean" }
+  | { space: "lab"; method: "deltaE76" | "deltaE94" | "deltaE2000" }
+  | { space: "oklab"; method: "deltaEOK" };
+
 /** Options for the distance() function — either a preset or explicit space+method */
-export type DistanceOptions =
-  | { preset: DistancePreset }
-  | {
-      space: "rgb" | "hsl" | "lab" | "lch" | "oklab" | "oklch";
-      method: "euclidean" | "deltaE76" | "deltaE94" | "deltaE2000" | "deltaEOK";
-    };
+export type DistanceOptions = { preset: DistancePreset } | DistanceSpaceMethod;
 
 /** A function that blends two colors channel-by-channel. */
 export type BlendFn = (base: Color, overlay: Color) => Color;
