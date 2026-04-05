@@ -7,6 +7,7 @@ import {
 } from "./errors.js";
 import { parseCssFunction, parseNumericToken } from "./css-function.js";
 import { hslToRgb } from "./hsl.js";
+import { CSS_COLORS } from "./css-color-data.js";
 
 /**
  * Create a color from RGBA values.
@@ -109,19 +110,6 @@ export function css(css: string): Color {
   throw new InvalidCssColorError(css);
 }
 
-/** Lookup function for named colors */
-export type NamedColorLookup = (name: string) => Color | undefined;
-
-/** Default named color lookup (empty — use setNamedColorLookup to register) */
-let namedColorLookup: NamedColorLookup = () => undefined;
-
-/**
- * Register a named color lookup function.
- * Called by the named colors module when it loads.
- */
-export function setNamedColorLookup(lookup: NamedColorLookup): void {
-  namedColorLookup = lookup;
-}
 
 /**
  * Universal factory: create a color from any supported input.
@@ -167,9 +155,13 @@ export function resolve(value: string | number | Color): Color {
     }
 
     // Named color lookup
-    const named = namedColorLookup(s.toLowerCase());
-    if (named) {
-      return named;
+    const lower = s.toLowerCase();
+    if (lower === "transparent") {
+      return new Color(0, 0, 0, 0);
+    }
+    const namedHex = CSS_COLORS[lower];
+    if (namedHex) {
+      return hex(namedHex);
     }
 
     throw new UnknownColorError(value);

@@ -7,7 +7,7 @@ import type {
   Rgb, Rgba, Hsl, Hsla,
   SolidKleur, LinearGradient, RadialGradient, GradientStop, KleurFill,
   KleurValue, DistancePreset, DistanceOptions,
-  BlendFn, BlendMode, KleurEaseFn, RandomOptions, NamedColorLookup,
+  BlendFn, BlendMode, KleurEaseFn, RandomOptions,
 } from "@driangle/kleur";
 ```
 
@@ -119,12 +119,6 @@ type KleurValue = string | number | Color;
 kleur.isLight("#ffffff");           // string
 kleur.luminance(0xff6600);          // packed number
 kleur.contrast("#000", kleur.white); // mix of string and Color
-```
-
-### NamedColorLookup
-
-```ts
-type NamedColorLookup = (name: string) => Color | undefined;
 ```
 
 ## Distance Types

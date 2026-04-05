@@ -13,7 +13,6 @@ import {
   css,
   grayscale,
   kleur as kleurFn,
-  setNamedColorLookup,
 } from "../src/parse.js";
 
 describe("rgb()", () => {
@@ -274,37 +273,26 @@ describe("kleur()", () => {
     expect(c.red).toBe(255);
   });
 
-  it("looks up named colors when registered", () => {
-    setNamedColorLookup((name) => {
-      if (name === "red") return rgb(255, 0, 0);
-      return undefined;
-    });
-
+  it("resolves named CSS colors without any setup", () => {
     const c = kleurFn("red");
     expect(c.red).toBe(255);
     expect(c.green).toBe(0);
     expect(c.blue).toBe(0);
-
-    // Clean up
-    setNamedColorLookup(() => undefined);
   });
 
   it("throws for unknown named colors", () => {
-    setNamedColorLookup(() => undefined);
     expect(() => kleurFn("notacolor")).toThrow(UnknownColorError);
     expect(() => kleurFn("notacolor")).toThrow("Unknown color");
   });
 
   it("is case-insensitive for named colors", () => {
-    setNamedColorLookup((name) => {
-      if (name === "red") return rgb(255, 0, 0);
-      return undefined;
-    });
-
     const c = kleurFn("RED");
     expect(c.red).toBe(255);
+  });
 
-    setNamedColorLookup(() => undefined);
+  it("resolves transparent", () => {
+    const c = kleurFn("transparent");
+    expect(c.alpha).toBe(0);
   });
 
   it("throws a library error for invalid non-color values", () => {
