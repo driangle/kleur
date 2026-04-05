@@ -1,7 +1,7 @@
 ---
 id: "01kn905nq"
 title: "Publish v0.1.0 to npm"
-status: in-progress
+status: blocked
 priority: medium
 effort: small
 type: chore
