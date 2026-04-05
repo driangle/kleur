@@ -1,10 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  InvalidColorValueError,
-  InvalidCssColorError,
-  InvalidHexColorError,
-  UnknownColorError,
-} from "../src/index.js";
+import { ParseError } from "../src/index.js";
 import {
   rgb,
   hex,
@@ -62,12 +57,12 @@ describe("hex()", () => {
   });
 
   it("throws for missing #", () => {
-    expect(() => hex("ff0000")).toThrow(InvalidHexColorError);
+    expect(() => hex("ff0000")).toThrow(ParseError);
     expect(() => hex("ff0000")).toThrow("must start with #");
   });
 
   it("throws for invalid length", () => {
-    expect(() => hex("#abcd")).toThrow(InvalidHexColorError);
+    expect(() => hex("#abcd")).toThrow(ParseError);
     expect(() => hex("#abcd")).toThrow("must be 3 or 6 digits");
   });
 
@@ -77,15 +72,15 @@ describe("hex()", () => {
   });
 
   it("throws for invalid hex digits (6-digit)", () => {
-    expect(() => hex("#gggggg")).toThrow(InvalidHexColorError);
+    expect(() => hex("#gggggg")).toThrow(ParseError);
   });
 
   it("throws for invalid hex digits (3-digit)", () => {
-    expect(() => hex("#ggg")).toThrow(InvalidHexColorError);
+    expect(() => hex("#ggg")).toThrow(ParseError);
   });
 
   it("throws for mixed valid/invalid hex digits", () => {
-    expect(() => hex("#ff00gg")).toThrow(InvalidHexColorError);
+    expect(() => hex("#ff00gg")).toThrow(ParseError);
   });
 });
 
@@ -184,7 +179,7 @@ describe("css()", () => {
   });
 
   it("throws for invalid CSS", () => {
-    expect(() => css("not-a-color")).toThrow(InvalidCssColorError);
+    expect(() => css("not-a-color")).toThrow(ParseError);
     expect(() => css("not-a-color")).toThrow("Invalid CSS color");
   });
 
@@ -281,7 +276,7 @@ describe("kleur()", () => {
   });
 
   it("throws for unknown named colors", () => {
-    expect(() => kleurFn("notacolor")).toThrow(UnknownColorError);
+    expect(() => kleurFn("notacolor")).toThrow(ParseError);
     expect(() => kleurFn("notacolor")).toThrow("Unknown color");
   });
 
@@ -296,7 +291,7 @@ describe("kleur()", () => {
   });
 
   it("throws a library error for invalid non-color values", () => {
-    expect(() => kleurFn(true as never)).toThrow(InvalidColorValueError);
+    expect(() => kleurFn(true as never)).toThrow(ParseError);
     expect(() => kleurFn(true as never)).toThrow("Invalid color value: true");
   });
 });

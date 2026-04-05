@@ -1,10 +1,5 @@
 import { Color, registerResolver } from "./color.js";
-import {
-  InvalidColorValueError,
-  InvalidCssColorError,
-  InvalidHexColorError,
-  UnknownColorError,
-} from "./errors.js";
+import { ParseError } from "./errors.js";
 import { parseCssFunction, parseNumericToken } from "./css-function.js";
 import { hslToRgb } from "./hsl.js";
 import { CSS_COLORS } from "./css-color-data.js";
@@ -23,12 +18,12 @@ export function rgb(r: number, g: number, b: number, a?: number): Color {
 export function hex(hex: string): Color {
   const s = hex.trim();
   if (!s.startsWith("#")) {
-    throw new InvalidHexColorError(hex, "missing-prefix");
+    throw new ParseError("hex", hex, "missing-prefix");
   }
 
   const digits = s.slice(1);
   if (!/^[0-9a-fA-F]+$/.test(digits)) {
-    throw new InvalidHexColorError(hex, "invalid-digits");
+    throw new ParseError("hex", hex, "invalid-digits");
   }
 
   if (digits.length === 3) {
@@ -45,7 +40,7 @@ export function hex(hex: string): Color {
     return new Color(r, g, b);
   }
 
-  throw new InvalidHexColorError(hex, "invalid-length");
+  throw new ParseError("hex", hex, "invalid-length");
 }
 
 /**
@@ -82,32 +77,32 @@ export function grayscale(value: number, alpha?: number): Color {
  */
 export function css(css: string): Color {
   const parsed = parseCssFunction(css.trim().toLowerCase());
-  if (!parsed) throw new InvalidCssColorError(css);
+  if (!parsed) throw new ParseError("css", css);
 
   const [name, ...args] = parsed;
 
   if (name === "rgb" || name === "rgba") {
-    if (args.length < 3 || args.length > 4) throw new InvalidCssColorError(css);
+    if (args.length < 3 || args.length > 4) throw new ParseError("css", css);
     const r = parseNumericToken(args[0]);
     const g = parseNumericToken(args[1]);
     const b = parseNumericToken(args[2]);
     const a = args[3] !== undefined ? parseNumericToken(args[3]) : 1;
-    if ([r, g, b, a].some(Number.isNaN)) throw new InvalidCssColorError(css);
+    if ([r, g, b, a].some(Number.isNaN)) throw new ParseError("css", css);
     return new Color(r, g, b, a);
   }
 
   if (name === "hsl" || name === "hsla") {
-    if (args.length < 3 || args.length > 4) throw new InvalidCssColorError(css);
+    if (args.length < 3 || args.length > 4) throw new ParseError("css", css);
     const h = parseNumericToken(args[0]);
     const sat = parseNumericToken(args[1]);
     const l = parseNumericToken(args[2]);
     const a = args[3] !== undefined ? parseNumericToken(args[3]) : 1;
-    if ([h, sat, l, a].some(Number.isNaN)) throw new InvalidCssColorError(css);
+    if ([h, sat, l, a].some(Number.isNaN)) throw new ParseError("css", css);
     const { r, g, b } = hslToRgb(h, sat, l);
     return new Color(r, g, b, a);
   }
 
-  throw new InvalidCssColorError(css);
+  throw new ParseError("css", css);
 }
 
 
@@ -164,10 +159,10 @@ export function resolve(value: string | number | Color): Color {
       return hex(namedHex);
     }
 
-    throw new UnknownColorError(value);
+    throw new ParseError("named", value);
   }
 
-  throw new InvalidColorValueError(value);
+  throw new ParseError("value", value);
 }
 
 // Register the resolver so Color methods can resolve KleurValue without circular imports.

@@ -1,7 +1,7 @@
 ---
 title: "Consolidate error classes from 11 to 5"
 id: "01knfpjqt"
-status: pending
+status: completed
 priority: medium
 type: chore
 tags: ["errors", "refactor"]
@@ -30,13 +30,13 @@ KleurError (base)
 
 ## Tasks
 
-- [ ] Consolidate the 4 parsing error classes into `ParseError` with a `kind` discriminator
-- [ ] Consolidate the 4 lookup error classes into `UnknownOptionError` with a `kind` discriminator
-- [ ] Update all throw sites in `parse.ts`, `distance.ts`, `blend.ts`, `color.ts`
-- [ ] Update all tests to use the new error classes
-- [ ] Update `ts/src/index.ts` exports (remove old, add new)
-- [ ] Update CLAUDE.md error guidance to be generic (e.g. "use the consolidated error classes with appropriate `kind` values") without naming specific error types
-- [ ] Run `make check` to verify lint, tests, and build pass
+- [x] Consolidate the 4 parsing error classes into `ParseError` with a `kind` discriminator
+- [x] Consolidate the 4 lookup error classes into `UnknownOptionError` with a `kind` discriminator
+- [x] Update all throw sites in `parse.ts`, `distance.ts`, `blend.ts`, `color.ts`
+- [x] Update all tests to use the new error classes
+- [x] Update `ts/src/index.ts` exports (remove old, add new)
+- [x] Update CLAUDE.md error guidance to be generic (e.g. "use the consolidated error classes with appropriate `kind` values") without naming specific error types
+- [x] Run `make check` to verify lint, tests, and build pass
 
 ## Acceptance Criteria
 

@@ -1,9 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   InvalidDistanceCombinationError,
-  UnknownColorSpaceError,
-  UnknownDistanceMethodError,
-  UnknownDistancePresetError,
+  UnknownOptionError,
 } from "../src/index.js";
 import { rgb } from "../src/parse.js";
 import { distance } from "../src/distance.js";
@@ -123,7 +121,7 @@ describe("distance() with options", () => {
   describe("validation", () => {
     it("throws for an unknown preset", () => {
       expect(() => distance(red, blue, { preset: "legacy" as never })).toThrow(
-        UnknownDistancePresetError,
+        UnknownOptionError,
       );
       expect(() => distance(red, blue, { preset: "legacy" as never })).toThrow(
         'Unknown distance preset "legacy"',
@@ -133,7 +131,7 @@ describe("distance() with options", () => {
     it("throws for an unknown space", () => {
       expect(() =>
         distance(red, blue, { space: "xyz" as never, method: "euclidean" }),
-      ).toThrow(UnknownColorSpaceError);
+      ).toThrow(UnknownOptionError);
       expect(() =>
         distance(red, blue, { space: "xyz" as never, method: "euclidean" }),
       ).toThrow('Unknown color space "xyz"');
@@ -142,7 +140,7 @@ describe("distance() with options", () => {
     it("throws for an unknown method", () => {
       expect(() =>
         distance(red, blue, { space: "lab", method: "deltaE42" as never }),
-      ).toThrow(UnknownDistanceMethodError);
+      ).toThrow(UnknownOptionError);
       expect(() =>
         distance(red, blue, { space: "lab", method: "deltaE42" as never }),
       ).toThrow('Unknown distance method "deltaE42"');

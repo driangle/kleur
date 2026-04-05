@@ -11,7 +11,7 @@
 - **Single responsibility** — each module/function does one thing well.
 - **Composition over inheritance** — compose behavior from small pieces.
 - **Explicit interfaces and contracts** — make inputs, outputs, and assumptions clear.
-- **Use package error types** — library-thrown errors must use custom error classes declared in this package. Always throw an appropriate custom error class, never plain `Error`.
+- **Use package error types** — library-thrown errors must use the consolidated error classes in `errors.ts` with an appropriate `kind` discriminator. Never throw plain `Error`.
 
 - **Test behavior, not implementation** — focus on critical paths and edge cases.
 - **Test all new behavior** — every new feature or functionality must have a corresponding test.

@@ -4,9 +4,7 @@
 import type { Color } from "./color.js";
 import {
   InvalidDistanceCombinationError,
-  UnknownColorSpaceError,
-  UnknownDistanceMethodError,
-  UnknownDistancePresetError,
+  UnknownOptionError,
 } from "./errors.js";
 import type { DistanceOptions, KleurValue } from "./types.js";
 import { resolve } from "./parse.js";
@@ -92,7 +90,8 @@ function resolveOptions(options?: DistanceOptions): {
   if ("preset" in options) {
     const resolved = PRESETS[options.preset];
     if (!resolved) {
-      throw new UnknownDistancePresetError(
+      throw new UnknownOptionError(
+        "distancePreset",
         options.preset,
         Object.keys(PRESETS),
       );
@@ -120,12 +119,12 @@ export function distance(
 
   const converter = SPACE_CONVERTERS[space];
   if (!converter) {
-    throw new UnknownColorSpaceError(space, Object.keys(SPACE_CONVERTERS));
+    throw new UnknownOptionError("colorSpace", space, Object.keys(SPACE_CONVERTERS));
   }
 
   const distanceFn = DISTANCE_METHODS[method];
   if (!distanceFn) {
-    throw new UnknownDistanceMethodError(method, Object.keys(DISTANCE_METHODS));
+    throw new UnknownOptionError("distanceMethod", method, Object.keys(DISTANCE_METHODS));
   }
 
   const validSpaces = VALID_COMBINATIONS[method];

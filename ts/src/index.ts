@@ -8,17 +8,13 @@ export { resolve } from "./parse.js";
 export type { RandomOptions } from "./random.js";
 export {
   KleurError,
-  InvalidHexColorError,
-  InvalidCssColorError,
-  UnknownColorError,
-  InvalidColorValueError,
+  ParseError,
+  UnknownOptionError,
   InvalidCountError,
-  UnknownDistancePresetError,
-  UnknownColorSpaceError,
-  UnknownDistanceMethodError,
-  InvalidBlendModeError,
   InvalidDistanceCombinationError,
+  MissingRegistrationError,
 } from "./errors.js";
+export type { ParseErrorKind, UnknownOptionKind } from "./errors.js";
 export type {
   Rgb,
   Rgba,

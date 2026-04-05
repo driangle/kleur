@@ -9,111 +9,96 @@ export class KleurError extends Error {
   }
 }
 
-export class InvalidHexColorError extends KleurError {
-  readonly input: string;
-  readonly reason: "missing-prefix" | "invalid-length" | "invalid-digits";
+export type ParseErrorKind = "hex" | "css" | "named" | "value";
+
+export class ParseError extends KleurError {
+  readonly kind: ParseErrorKind;
+  readonly input: unknown;
+  readonly reason?: "missing-prefix" | "invalid-length" | "invalid-digits";
 
   constructor(
+    kind: "hex",
     input: string,
     reason: "missing-prefix" | "invalid-length" | "invalid-digits",
+  );
+  constructor(kind: "css", input: string);
+  constructor(kind: "named", input: string);
+  constructor(kind: "value", input: unknown);
+  constructor(
+    kind: ParseErrorKind,
+    input: unknown,
+    reason?: "missing-prefix" | "invalid-length" | "invalid-digits",
   ) {
-    const messages: Record<typeof reason, string> = {
-      "missing-prefix": `Invalid hex color: "${input}" (must start with #)`,
-      "invalid-length": `Invalid hex color: "${input}" (must be 3 or 6 digits)`,
-      "invalid-digits": `Invalid hex color: "${input}" (contains non-hex characters)`,
-    };
-    const message = messages[reason];
+    const message = buildParseMessage(kind, input, reason);
     super(message);
-    this.name = "InvalidHexColorError";
+    this.name = "ParseError";
+    this.kind = kind;
     this.input = input;
     this.reason = reason;
   }
 }
 
-export class InvalidCssColorError extends KleurError {
-  readonly input: string;
-
-  constructor(input: string) {
-    super(`Invalid CSS color: "${input}"`);
-    this.name = "InvalidCssColorError";
-    this.input = input;
+function buildParseMessage(
+  kind: ParseErrorKind,
+  input: unknown,
+  reason?: string,
+): string {
+  switch (kind) {
+    case "hex": {
+      const messages: Record<string, string> = {
+        "missing-prefix": `Invalid hex color: "${input}" (must start with #)`,
+        "invalid-length": `Invalid hex color: "${input}" (must be 3 or 6 digits)`,
+        "invalid-digits": `Invalid hex color: "${input}" (contains non-hex characters)`,
+      };
+      return messages[reason!];
+    }
+    case "css":
+      return `Invalid CSS color: "${input}"`;
+    case "named":
+      return `Unknown color: "${input}"`;
+    case "value":
+      return `Invalid color value: ${String(input)}`;
   }
 }
 
-export class UnknownColorError extends KleurError {
-  readonly input: string;
+export type UnknownOptionKind =
+  | "distancePreset"
+  | "colorSpace"
+  | "distanceMethod"
+  | "blendMode";
 
-  constructor(input: string) {
-    super(`Unknown color: "${input}"`);
-    this.name = "UnknownColorError";
-    this.input = input;
-  }
-}
+export class UnknownOptionError extends KleurError {
+  readonly kind: UnknownOptionKind;
+  readonly value: string;
+  readonly validOptions: readonly string[];
 
-export class InvalidColorValueError extends KleurError {
-  readonly value: unknown;
-
-  constructor(value: unknown) {
-    super(`Invalid color value: ${String(value)}`);
-    this.name = "InvalidColorValueError";
+  constructor(
+    kind: UnknownOptionKind,
+    value: string,
+    validOptions: readonly string[],
+  ) {
+    const message = buildUnknownOptionMessage(kind, value, validOptions);
+    super(message);
+    this.name = "UnknownOptionError";
+    this.kind = kind;
     this.value = value;
+    this.validOptions = validOptions;
   }
 }
 
-export class UnknownDistancePresetError extends KleurError {
-  readonly preset: string;
-  readonly validPresets: readonly string[];
-
-  constructor(preset: string, validPresets: readonly string[]) {
-    super(
-      `Unknown distance preset "${preset}". Valid presets: ${validPresets.join(", ")}`,
-    );
-    this.name = "UnknownDistancePresetError";
-    this.preset = preset;
-    this.validPresets = validPresets;
-  }
-}
-
-export class UnknownColorSpaceError extends KleurError {
-  readonly space: string;
-  readonly validSpaces: readonly string[];
-
-  constructor(space: string, validSpaces: readonly string[]) {
-    super(
-      `Unknown color space "${space}". Valid spaces: ${validSpaces.join(", ")}`,
-    );
-    this.name = "UnknownColorSpaceError";
-    this.space = space;
-    this.validSpaces = validSpaces;
-  }
-}
-
-export class UnknownDistanceMethodError extends KleurError {
-  readonly method: string;
-  readonly validMethods: readonly string[];
-
-  constructor(method: string, validMethods: readonly string[]) {
-    super(
-      `Unknown distance method "${method}". Valid methods: ${validMethods.join(", ")}`,
-    );
-    this.name = "UnknownDistanceMethodError";
-    this.method = method;
-    this.validMethods = validMethods;
-  }
-}
-
-export class InvalidBlendModeError extends KleurError {
-  readonly mode: string;
-  readonly validModes: readonly string[];
-
-  constructor(mode: string, validModes: readonly string[]) {
-    super(
-      `Unknown blend mode "${mode}". Valid modes: ${validModes.join(", ")}`,
-    );
-    this.name = "InvalidBlendModeError";
-    this.mode = mode;
-    this.validModes = validModes;
-  }
+function buildUnknownOptionMessage(
+  kind: UnknownOptionKind,
+  value: string,
+  validOptions: readonly string[],
+): string {
+  const labels: Record<UnknownOptionKind, string> = {
+    distancePreset: "distance preset",
+    colorSpace: "color space",
+    distanceMethod: "distance method",
+    blendMode: "blend mode",
+  };
+  const label = labels[kind];
+  return `Unknown ${label} "${value}". Valid ${label}s: ${validOptions.join(", ")}`;
 }
 
 export class MissingRegistrationError extends KleurError {

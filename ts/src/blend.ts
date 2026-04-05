@@ -1,5 +1,5 @@
 import { Color, registerBlend } from "./color.js";
-import { InvalidBlendModeError } from "./errors.js";
+import { UnknownOptionError } from "./errors.js";
 import { resolve } from "./parse.js";
 import type { KleurValue, BlendFn, BlendMode } from "./types.js";
 
@@ -104,7 +104,7 @@ export function blend(
 ): Color {
   const fn = typeof mode === "function" ? mode : blendModes[mode];
   if (!fn) {
-    throw new InvalidBlendModeError(mode as string, Object.keys(blendModes));
+    throw new UnknownOptionError("blendMode", mode as string, Object.keys(blendModes));
   }
   return fn(resolve(base), resolve(overlay));
 }
