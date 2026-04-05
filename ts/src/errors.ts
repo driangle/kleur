@@ -93,6 +93,18 @@ export class UnknownDistanceMethodError extends KleurError {
   }
 }
 
+export class InvalidBlendModeError extends KleurError {
+  readonly mode: string;
+  readonly validModes: readonly string[];
+
+  constructor(mode: string, validModes: readonly string[]) {
+    super(`Unknown blend mode "${mode}". Valid modes: ${validModes.join(", ")}`);
+    this.name = "InvalidBlendModeError";
+    this.mode = mode;
+    this.validModes = validModes;
+  }
+}
+
 export class InvalidDistanceCombinationError extends KleurError {
   readonly method: string;
   readonly space: string;

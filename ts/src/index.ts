@@ -16,6 +16,7 @@ export {
   UnknownDistancePresetError,
   UnknownColorSpaceError,
   UnknownDistanceMethodError,
+  InvalidBlendModeError,
   InvalidDistanceCombinationError,
 } from "./errors.js";
 export type {

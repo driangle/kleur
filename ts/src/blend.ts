@@ -1,4 +1,5 @@
 import { Color } from "./color.js";
+import { InvalidBlendModeError } from "./errors.js";
 import { resolve } from "./parse.js";
 import type { KleurValue } from "./types.js";
 
@@ -113,6 +114,9 @@ const blendModes: Record<string, BlendFn> = {
 /** Blend two colors using the specified blend mode or a custom blend function. */
 export function blend(base: KleurValue, overlay: KleurValue, mode: BlendMode): Color {
   const fn = typeof mode === "function" ? mode : blendModes[mode];
+  if (!fn) {
+    throw new InvalidBlendModeError(mode as string, Object.keys(blendModes));
+  }
   return fn(resolve(base), resolve(overlay));
 }
 

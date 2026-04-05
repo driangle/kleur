@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { rgb } from "../src/parse.js";
 import { blend, mix } from "../src/blend.js";
+import { InvalidBlendModeError } from "../src/errors.js";
 
 const white = rgb(255, 255, 255);
 const black = rgb(0, 0, 0);
@@ -236,6 +237,11 @@ describe("blend()", () => {
     const base = rgb(128, 128, 128, 0.7);
     const result = blend(base, white, "multiply");
     expect(result.a).toBe(0.7);
+  });
+
+  it("throws InvalidBlendModeError for unknown mode string", () => {
+    expect(() => blend(red, mid, "dissolve" as never)).toThrow(InvalidBlendModeError);
+    expect(() => blend(red, mid, "dissolve" as never)).toThrow('Unknown blend mode "dissolve"');
   });
 
   it("results are clamped", () => {
