@@ -1,5 +1,7 @@
 # Getting Started
 
+> Examples gain interactive demos when changing the input reveals meaningful visual or numeric behavior. Reference tables and type-only examples stay static so the docs stay focused.
+
 ## Create a Color
 
 The simplest way to create a color is from a hex string:
@@ -18,6 +20,8 @@ const coral = kleur.hex("#ff7f50");
 
 Other creation methods include `kleur.rgb()`, `kleur.hsl()`, `kleur.css()`, `kleur.number()`, and `kleur()`. See [Parsing & Creation](/api/create) for the full list.
 
+<CreateColorDemo />
+
 ## Manipulate Colors
 
 All operations are immutable — they return a new color and leave the original unchanged:
@@ -30,6 +34,8 @@ const complement = coral.complement();
 // Chain operations
 const muted = coral.desaturateHsl(0.4).darken(0.1);
 ```
+
+<AdjustColorDemo />
 
 ## Output Formats
 
@@ -54,6 +60,8 @@ const lightVariations = kleur.tints(coral, 5);
 const darkVariations = kleur.shades(coral, 5);
 ```
 
+<PaletteDemo />
+
 ## Check Accessibility
 
 Measure contrast and luminance for WCAG compliance:
@@ -71,6 +79,8 @@ kleur.isLight(fg); // true
 kleur.isLight(bg); // false
 ```
 
+<ContrastDemo />
+
 ## Blend Colors
 
 Mix and blend colors together:
@@ -84,6 +94,8 @@ const b = kleur("#0000ff");
 const purple = kleur.mix(a, b, 0.5);           // midpoint blend
 const overlay = kleur.blend(a, b, "screen");    // screen blend mode
 ```
+
+<BlendDemo />
 
 ## Next Steps
 

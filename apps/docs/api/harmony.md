@@ -13,6 +13,8 @@ const coral = kleur("#ff6347");
 const [base, second, third] = coral.triadic();
 ```
 
+<PaletteDemo />
+
 ## triadic
 
 ```ts

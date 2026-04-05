@@ -1,4 +1,10 @@
 import { describe, it, expect } from "vitest";
+import {
+  InvalidDistanceCombinationError,
+  UnknownColorSpaceError,
+  UnknownDistanceMethodError,
+  UnknownDistancePresetError,
+} from "../src/index.js";
 import { rgb } from "../src/parse.js";
 import { distance } from "../src/distance.js";
 import type { DistanceOptions } from "../src/types.js";
@@ -105,7 +111,37 @@ describe("distance() with options", () => {
   });
 
   describe("validation", () => {
+    it("throws for an unknown preset", () => {
+      expect(() =>
+        distance(red, blue, { preset: "legacy" as never }),
+      ).toThrow(UnknownDistancePresetError);
+      expect(() =>
+        distance(red, blue, { preset: "legacy" as never }),
+      ).toThrow('Unknown distance preset "legacy"');
+    });
+
+    it("throws for an unknown space", () => {
+      expect(() =>
+        distance(red, blue, { space: "xyz" as never, method: "euclidean" }),
+      ).toThrow(UnknownColorSpaceError);
+      expect(() =>
+        distance(red, blue, { space: "xyz" as never, method: "euclidean" }),
+      ).toThrow('Unknown color space "xyz"');
+    });
+
+    it("throws for an unknown method", () => {
+      expect(() =>
+        distance(red, blue, { space: "lab", method: "deltaE42" as never }),
+      ).toThrow(UnknownDistanceMethodError);
+      expect(() =>
+        distance(red, blue, { space: "lab", method: "deltaE42" as never }),
+      ).toThrow('Unknown distance method "deltaE42"');
+    });
+
     it("throws for invalid space+method combination", () => {
+      expect(() =>
+        distance(red, blue, { space: "rgb", method: "deltaE2000" }),
+      ).toThrow(InvalidDistanceCombinationError);
       expect(() =>
         distance(red, blue, { space: "rgb", method: "deltaE2000" }),
       ).toThrow('Method "deltaE2000" is not valid for space "rgb"');
@@ -114,10 +150,16 @@ describe("distance() with options", () => {
     it("throws for deltaE94 on non-lab space", () => {
       expect(() =>
         distance(red, blue, { space: "oklab", method: "deltaE94" }),
+      ).toThrow(InvalidDistanceCombinationError);
+      expect(() =>
+        distance(red, blue, { space: "oklab", method: "deltaE94" }),
       ).toThrow('not valid for space "oklab"');
     });
 
     it("throws for deltaEOK on non-oklab space", () => {
+      expect(() =>
+        distance(red, blue, { space: "lab", method: "deltaEOK" }),
+      ).toThrow(InvalidDistanceCombinationError);
       expect(() =>
         distance(red, blue, { space: "lab", method: "deltaEOK" }),
       ).toThrow('not valid for space "lab"');

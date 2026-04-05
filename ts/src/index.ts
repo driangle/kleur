@@ -6,6 +6,17 @@ export type { Color } from "./color.js";
 export type { BlendFn, BlendMode, KleurEaseFn } from "./blend.js";
 export type { NamedColorLookup } from "./parse.js";
 export type { RandomOptions } from "./random.js";
+export {
+  KleurError,
+  InvalidHexColorError,
+  InvalidCssColorError,
+  UnknownColorError,
+  InvalidColorValueError,
+  UnknownDistancePresetError,
+  UnknownColorSpaceError,
+  UnknownDistanceMethodError,
+  InvalidDistanceCombinationError,
+} from "./errors.js";
 export type {
   Rgb,
   Rgba,

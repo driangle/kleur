@@ -2,6 +2,12 @@
  * Color distance computation with configurable space and method.
  */
 import type { Color } from "./color.js";
+import {
+  InvalidDistanceCombinationError,
+  UnknownColorSpaceError,
+  UnknownDistanceMethodError,
+  UnknownDistancePresetError,
+} from "./errors.js";
 import type { DistanceOptions } from "./types.js";
 import { rgbToLab, rgbToOklab, labToLch, oklabToOklch } from "./color-spaces.js";
 import { rgbToHsl } from "./hsl.js";
@@ -60,9 +66,7 @@ function resolveOptions(options?: DistanceOptions): { space: string; method: str
   if ("preset" in options) {
     const resolved = PRESETS[options.preset];
     if (!resolved) {
-      throw new Error(
-        `Unknown distance preset "${options.preset}". Valid presets: ${Object.keys(PRESETS).join(", ")}`,
-      );
+      throw new UnknownDistancePresetError(options.preset, Object.keys(PRESETS));
     }
     return resolved;
   }
@@ -85,23 +89,17 @@ export function distance(
 
   const converter = SPACE_CONVERTERS[space];
   if (!converter) {
-    throw new Error(
-      `Unknown color space "${space}". Valid spaces: ${Object.keys(SPACE_CONVERTERS).join(", ")}`,
-    );
+    throw new UnknownColorSpaceError(space, Object.keys(SPACE_CONVERTERS));
   }
 
   const distanceFn = DISTANCE_METHODS[method];
   if (!distanceFn) {
-    throw new Error(
-      `Unknown distance method "${method}". Valid methods: ${Object.keys(DISTANCE_METHODS).join(", ")}`,
-    );
+    throw new UnknownDistanceMethodError(method, Object.keys(DISTANCE_METHODS));
   }
 
   const validSpaces = VALID_COMBINATIONS[method];
   if (validSpaces && !validSpaces.has(space)) {
-    throw new Error(
-      `Method "${method}" is not valid for space "${space}". Valid spaces for ${method}: ${[...validSpaces].join(", ")}`,
-    );
+    throw new InvalidDistanceCombinationError(method, space, [...validSpaces]);
   }
 
   return distanceFn(converter(a), converter(b));

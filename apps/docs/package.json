@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
+    "test": "node ./scripts/check-interactive-demos.mjs",
     "preview": "vitepress preview"
   },
   "dependencies": {

@@ -1,0 +1,105 @@
+/**
+ * Library-specific runtime errors exposed as part of the public API.
+ */
+
+export class KleurError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "KleurError";
+  }
+}
+
+export class InvalidHexColorError extends KleurError {
+  readonly input: string;
+  readonly reason: "missing-prefix" | "invalid-length";
+
+  constructor(input: string, reason: "missing-prefix" | "invalid-length") {
+    const message = reason === "missing-prefix"
+      ? `Invalid hex color: "${input}" (must start with #)`
+      : `Invalid hex color: "${input}" (must be 3 or 6 digits)`;
+    super(message);
+    this.name = "InvalidHexColorError";
+    this.input = input;
+    this.reason = reason;
+  }
+}
+
+export class InvalidCssColorError extends KleurError {
+  readonly input: string;
+
+  constructor(input: string) {
+    super(`Invalid CSS color: "${input}"`);
+    this.name = "InvalidCssColorError";
+    this.input = input;
+  }
+}
+
+export class UnknownColorError extends KleurError {
+  readonly input: string;
+
+  constructor(input: string) {
+    super(`Unknown color: "${input}"`);
+    this.name = "UnknownColorError";
+    this.input = input;
+  }
+}
+
+export class InvalidColorValueError extends KleurError {
+  readonly value: unknown;
+
+  constructor(value: unknown) {
+    super(`Invalid color value: ${String(value)}`);
+    this.name = "InvalidColorValueError";
+    this.value = value;
+  }
+}
+
+export class UnknownDistancePresetError extends KleurError {
+  readonly preset: string;
+  readonly validPresets: readonly string[];
+
+  constructor(preset: string, validPresets: readonly string[]) {
+    super(`Unknown distance preset "${preset}". Valid presets: ${validPresets.join(", ")}`);
+    this.name = "UnknownDistancePresetError";
+    this.preset = preset;
+    this.validPresets = validPresets;
+  }
+}
+
+export class UnknownColorSpaceError extends KleurError {
+  readonly space: string;
+  readonly validSpaces: readonly string[];
+
+  constructor(space: string, validSpaces: readonly string[]) {
+    super(`Unknown color space "${space}". Valid spaces: ${validSpaces.join(", ")}`);
+    this.name = "UnknownColorSpaceError";
+    this.space = space;
+    this.validSpaces = validSpaces;
+  }
+}
+
+export class UnknownDistanceMethodError extends KleurError {
+  readonly method: string;
+  readonly validMethods: readonly string[];
+
+  constructor(method: string, validMethods: readonly string[]) {
+    super(`Unknown distance method "${method}". Valid methods: ${validMethods.join(", ")}`);
+    this.name = "UnknownDistanceMethodError";
+    this.method = method;
+    this.validMethods = validMethods;
+  }
+}
+
+export class InvalidDistanceCombinationError extends KleurError {
+  readonly method: string;
+  readonly space: string;
+  readonly validSpaces: readonly string[];
+
+  constructor(method: string, space: string, validSpaces: readonly string[]) {
+    super(`Method "${method}" is not valid for space "${space}". Valid spaces for ${method}: ${validSpaces.join(", ")}`);
+    this.name = "InvalidDistanceCombinationError";
+    this.method = method;
+    this.space = space;
+    this.validSpaces = validSpaces;
+  }
+}

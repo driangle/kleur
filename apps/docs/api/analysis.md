@@ -7,6 +7,8 @@ import kleur from "@driangle/kleur";
 // kleur.luminance(...), kleur.contrast(...), etc.
 ```
 
+<ContrastDemo />
+
 ## luminance
 
 ```ts

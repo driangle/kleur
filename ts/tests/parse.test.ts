@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
 import {
+  InvalidColorValueError,
+  InvalidCssColorError,
+  InvalidHexColorError,
+  UnknownColorError,
+} from "../src/index.js";
+import {
   rgb,
   hex,
   hsl,
@@ -57,10 +63,12 @@ describe("hex()", () => {
   });
 
   it("throws for missing #", () => {
+    expect(() => hex("ff0000")).toThrow(InvalidHexColorError);
     expect(() => hex("ff0000")).toThrow("must start with #");
   });
 
   it("throws for invalid length", () => {
+    expect(() => hex("#abcd")).toThrow(InvalidHexColorError);
     expect(() => hex("#abcd")).toThrow("must be 3 or 6 digits");
   });
 
@@ -165,6 +173,7 @@ describe("css()", () => {
   });
 
   it("throws for invalid CSS", () => {
+    expect(() => css("not-a-color")).toThrow(InvalidCssColorError);
     expect(() => css("not-a-color")).toThrow("Invalid CSS color");
   });
 });
@@ -224,6 +233,7 @@ describe("kleur()", () => {
 
   it("throws for unknown named colors", () => {
     setNamedColorLookup(() => undefined);
+    expect(() => kleurFn("notacolor")).toThrow(UnknownColorError);
     expect(() => kleurFn("notacolor")).toThrow("Unknown color");
   });
 
@@ -237,6 +247,11 @@ describe("kleur()", () => {
     expect(c.r).toBe(255);
 
     setNamedColorLookup(() => undefined);
+  });
+
+  it("throws a library error for invalid non-color values", () => {
+    expect(() => kleurFn(true as never)).toThrow(InvalidColorValueError);
+    expect(() => kleurFn(true as never)).toThrow("Invalid color value: true");
   });
 });
 

@@ -10,6 +10,7 @@
 - **Single responsibility** — each module/function does one thing well.
 - **Composition over inheritance** — compose behavior from small pieces.
 - **Explicit interfaces and contracts** — make inputs, outputs, and assumptions clear.
+- **Use package error types** — library-thrown errors must use custom error classes declared in this package.
 - **Test behavior, not implementation** — focus on critical paths and edge cases.
 - **Test all new behavior** — every new feature or functionality must have a corresponding test.
 - **One responsibility per file** — split by concept, not size.

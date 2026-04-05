@@ -7,6 +7,8 @@ import kleur from "@driangle/kleur";
 // kleur.distance(...)
 ```
 
+<DistanceDemo />
+
 ## distance
 
 ```ts

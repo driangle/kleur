@@ -8,6 +8,8 @@ import type { Color } from "@driangle/kleur";
 
 `Color` is exported as a **type only** — use `kleur()` or the creation functions (`kleur.hex()`, `kleur.rgb()`, `kleur.hsl()`, etc.) to create instances. See [Parsing & Creation](/api/create) for the full list.
 
+<AdjustColorDemo />
+
 ## Channel Getters
 
 | Getter | Returns | Description |

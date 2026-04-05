@@ -6,6 +6,8 @@ Functions for blending and interpolating between colors.
 import kleur from "@driangle/kleur";
 ```
 
+<BlendDemo />
+
 ## blend
 
 ```ts

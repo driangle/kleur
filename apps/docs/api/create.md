@@ -7,6 +7,8 @@ import kleur from "@driangle/kleur";
 // kleur.rgb(...), kleur.hex(...), etc.
 ```
 
+<CreateColorDemo />
+
 ## rgb
 
 ```ts

@@ -1,4 +1,10 @@
 import { Color } from "./color.js";
+import {
+  InvalidColorValueError,
+  InvalidCssColorError,
+  InvalidHexColorError,
+  UnknownColorError,
+} from "./errors.js";
 import { hslToRgb } from "./hsl.js";
 
 /**
@@ -15,7 +21,7 @@ export function rgb(r: number, g: number, b: number, a?: number): Color {
 export function hex(hex: string): Color {
   const s = hex.trim();
   if (!s.startsWith("#")) {
-    throw new Error(`Invalid hex color: "${hex}" (must start with #)`);
+    throw new InvalidHexColorError(hex, "missing-prefix");
   }
 
   const digits = s.slice(1);
@@ -33,7 +39,7 @@ export function hex(hex: string): Color {
     return new Color(r, g, b);
   }
 
-  throw new Error(`Invalid hex color: "${hex}" (must be 3 or 6 digits)`);
+  throw new InvalidHexColorError(hex, "invalid-length");
 }
 
 /**
@@ -92,7 +98,7 @@ export function css(css: string): Color {
     return new Color(r, g, b, a);
   }
 
-  throw new Error(`Invalid CSS color: "${css}"`);
+  throw new InvalidCssColorError(css);
 }
 
 /** Lookup function for named colors */
@@ -157,8 +163,8 @@ function _resolve(value: string | number | Color): Color {
       return named;
     }
 
-    throw new Error(`Unknown color: "${value}"`);
+    throw new UnknownColorError(value);
   }
 
-  throw new Error(`Invalid color value: ${value}`);
+  throw new InvalidColorValueError(value);
 }
