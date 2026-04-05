@@ -4,7 +4,7 @@ import kleur from "@driangle/kleur";
 import DocsDemo from "./DocsDemo.vue";
 import { formatColorOutputs, readableTextColor, tryParseColor } from "../lib/demo";
 
-type Mode = "factory" | "hex" | "css" | "rgb" | "hsl" | "number";
+type Mode = "factory" | "hex" | "css" | "rgb" | "hsl" | "int";
 
 const mode = ref<Mode>("factory");
 const textInput = ref("#ff7f50");
@@ -25,8 +25,8 @@ const result = computed(() => {
         return kleur.rgb(rgb.value.r, rgb.value.g, rgb.value.b, rgb.value.a);
       case "hsl":
         return kleur.hsl(hsl.value.h, hsl.value.s, hsl.value.l, hsl.value.a);
-      case "number":
-        return kleur.number(Number(packedNumber.value));
+      case "int":
+        return kleur.int(Number(packedNumber.value));
     }
   } catch {
     return null;
@@ -61,8 +61,8 @@ const code = computed(() => {
         `  ${hsl.value.a}`,
         ");",
       ].join("\n");
-    case "number":
-      return `const color = kleur.number(${packedNumber.value})`;
+    case "int":
+      return `const color = kleur.int(${packedNumber.value})`;
   }
 });
 </script>
@@ -86,7 +86,7 @@ const code = computed(() => {
             <option value="css">kleur.css()</option>
             <option value="rgb">kleur.rgb()</option>
             <option value="hsl">kleur.hsl()</option>
-            <option value="number">kleur.number()</option>
+            <option value="int">kleur.int()</option>
           </select>
         </label>
 

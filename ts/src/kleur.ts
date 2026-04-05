@@ -15,7 +15,7 @@ import {
   rgb,
   hex,
   hsl,
-  number,
+  int,
   css,
   grayscale,
 } from "./parse.js";
@@ -63,7 +63,7 @@ export interface KleurApi {
   rgb: typeof rgb;
   hex: typeof hex;
   hsl: typeof hsl;
-  number: typeof number;
+  int: typeof int;
   css: typeof css;
   grayscale: typeof grayscale;
   random: typeof random;
@@ -127,7 +127,7 @@ const kleur = kleurFactory as KleurFn;
 kleur.rgb = rgb;
 kleur.hex = hex;
 kleur.hsl = hsl;
-kleur.number = number;
+kleur.int = int;
 kleur.css = css;
 kleur.grayscale = grayscale;
 kleur.random = random;

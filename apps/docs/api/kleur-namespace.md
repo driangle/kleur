@@ -40,7 +40,7 @@ See [Parsing & Creation](/api/create).
 | `kleur.rgb(r, g, b, a?)` | Create from RGBA values |
 | `kleur.hex(str)` | Parse hex string |
 | `kleur.hsl(h, s, l, a?)` | Create from HSL values |
-| `kleur.number(n)` | Create from packed integer (`0xRRGGBB`) |
+| `kleur.int(n)` | Create from packed integer (`0xRRGGBB`) |
 | `kleur.css(str)` | Parse CSS function string |
 | `kleur.random(options?)` | Generate a random color |
 | `kleur.grayscale(value, alpha?)` | Create a gray color |

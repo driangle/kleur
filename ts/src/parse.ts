@@ -58,7 +58,7 @@ export function hsl(h: number, s: number, l: number, a?: number): Color {
 /**
  * Create a color from a 24-bit packed integer (0xRRGGBB).
  */
-export function number(n: number): Color {
+export function int(n: number): Color {
   const int = n >>> 0; // ensure unsigned 32-bit
   const r = (int >> 16) & 0xff;
   const g = (int >> 8) & 0xff;
@@ -150,7 +150,7 @@ export function resolve(value: string | number | Color): Color {
   }
 
   if (typeof value === "number") {
-    return number(value);
+    return int(value);
   }
 
   if (typeof value === "string") {

@@ -9,7 +9,7 @@ import {
   rgb,
   hex,
   hsl,
-  number,
+  int,
   css,
   grayscale,
   kleur as kleurFn,
@@ -112,23 +112,23 @@ describe("hsl()", () => {
   });
 });
 
-describe("number()", () => {
+describe("int()", () => {
   it("parses 24-bit packed integer", () => {
-    const c = number(0x4287f5);
+    const c = int(0x4287f5);
     expect(c.red).toBe(66);
     expect(c.green).toBe(135);
     expect(c.blue).toBe(245);
   });
 
   it("parses 0x000000 as black", () => {
-    const c = number(0x000000);
+    const c = int(0x000000);
     expect(c.red).toBe(0);
     expect(c.green).toBe(0);
     expect(c.blue).toBe(0);
   });
 
   it("parses 0xffffff as white", () => {
-    const c = number(0xffffff);
+    const c = int(0xffffff);
     expect(c.red).toBe(255);
     expect(c.green).toBe(255);
     expect(c.blue).toBe(255);

@@ -11,7 +11,7 @@ describe("public API integration", () => {
     expect(kleur.hex("#ff0000").red).toBe(255);
     expect(kleur.rgb(0, 255, 0).green).toBe(255);
     expect(kleur.hsl(0, 100, 50).red).toBe(255);
-    expect(kleur.number(0xff0000).red).toBe(255);
+    expect(kleur.int(0xff0000).red).toBe(255);
     expect(kleur.css("rgb(255,0,0)").red).toBe(255);
     expect(kleur.grayscale(128).red).toBe(128);
     expect(typeof kleur.random).toBe("function");

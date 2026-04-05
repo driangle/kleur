@@ -18,7 +18,7 @@ You can also use the named creation functions on `kleur`:
 const coral = kleur.hex("#ff7f50");
 ```
 
-Other creation methods include `kleur.rgb()`, `kleur.hsl()`, `kleur.css()`, `kleur.number()`, and `kleur()`. See [Parsing & Creation](/api/create) for the full list.
+Other creation methods include `kleur.rgb()`, `kleur.hsl()`, `kleur.css()`, `kleur.int()`, and `kleur()`. See [Parsing & Creation](/api/create) for the full list.
 
 <CreateColorDemo />
 

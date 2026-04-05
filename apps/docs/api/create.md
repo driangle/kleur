@@ -56,17 +56,17 @@ Create a color from HSL values with optional alpha.
 const orange = kleur.hsl(30, 100, 50);
 ```
 
-## number
+## int
 
 ```ts
-number(n: number): Color
+int(n: number): Color
 ```
 
 Create a color from a 24-bit packed integer (`0xRRGGBB`).
 
 ```ts
-const white = kleur.number(0xffffff);
-const red = kleur.number(0xff0000);
+const white = kleur.int(0xffffff);
+const red = kleur.int(0xff0000);
 ```
 
 ## css

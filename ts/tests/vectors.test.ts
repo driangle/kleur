@@ -44,8 +44,8 @@ describe("cross-language test vectors", () => {
 
   describe("parsing: integer", () => {
     for (const v of vectors.parsing.integer) {
-      it(`number(${v.input})`, () => {
-        const c = kleur.number(v.input);
+      it(`int(${v.input})`, () => {
+        const c = kleur.int(v.input);
         expect(c.red).toBe(v.expected.r);
         expect(c.green).toBe(v.expected.g);
         expect(c.blue).toBe(v.expected.b);
