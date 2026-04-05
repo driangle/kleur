@@ -76,7 +76,8 @@ color.scaleLightness(1.2);
 
 | Method | Returns | Example |
 |--------|---------|---------|
-| `toHex()` | `string` | `"#ff7f50"` |
+| `toHex()` | `string` | `"#ff7f50"` (6-digit, no alpha) |
+| `toHex8()` | `string` | `"#ff7f50ff"` (8-digit, includes alpha) |
 | `toCss()` | `string` | `"rgba(255,127,80,1)"` |
 | `toRgb()` | `Rgb` | `{ r: 255, g: 127, b: 80 }` |
 | `toRgba()` | `Rgba` | `{ r: 255, g: 127, b: 80, a: 1 }` |

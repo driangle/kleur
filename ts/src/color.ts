@@ -190,6 +190,12 @@ export class Color {
     return `#${hex(this.#r)}${hex(this.#g)}${hex(this.#b)}`;
   }
 
+  toHex8(): string {
+    const hex = (n: number): string => n.toString(16).padStart(2, "0");
+    const alphaByte = Math.round(this.#a * 255);
+    return `#${hex(this.#r)}${hex(this.#g)}${hex(this.#b)}${hex(alphaByte)}`;
+  }
+
   toCss(): string {
     return `rgba(${this.#r},${this.#g},${this.#b},${this.#a})`;
   }

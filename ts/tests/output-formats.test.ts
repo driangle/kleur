@@ -23,6 +23,22 @@ describe("output format conversions", () => {
     });
   });
 
+  describe("toHex8()", () => {
+    it("returns 8-digit hex including alpha byte", () => {
+      expect(blue.toHex8()).toBe("#0000ff80");
+    });
+
+    it("returns ff alpha byte for fully opaque colors", () => {
+      expect(red.toHex8()).toBe("#ff0000ff");
+      expect(cornflower.toHex8()).toBe("#6495edff");
+    });
+
+    it("returns 00 alpha byte for fully transparent colors", () => {
+      const transparent = rgb(255, 0, 0, 0);
+      expect(transparent.toHex8()).toBe("#ff000000");
+    });
+  });
+
   describe("toCss()", () => {
     it("returns rgba() string", () => {
       expect(red.toCss()).toBe("rgba(255,0,0,1)");
