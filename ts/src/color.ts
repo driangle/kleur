@@ -245,11 +245,17 @@ export class Color {
   darken(amount: number): Color {
     return this.mapHsl(({ h, s, l }) => ({ h, s, l: l - l * amount }));
   }
-  saturateHsl(amount: number): Color {
+  saturate(amount: number): Color {
     return this.mapHsl(({ h, s, l }) => ({ h, s: s + (100 - s) * amount, l }));
   }
-  desaturateHsl(amount: number): Color {
+  saturateHsl(amount: number): Color {
+    return this.saturate(amount);
+  }
+  desaturate(amount: number): Color {
     return this.mapHsl(({ h, s, l }) => ({ h, s: s - s * amount, l }));
+  }
+  desaturateHsl(amount: number): Color {
+    return this.desaturate(amount);
   }
   grayscale(): Color {
     return this.withSaturationHsl(0);
@@ -325,7 +331,7 @@ export class Color {
     validateCount(count);
     const result: Color[] = [];
     for (let i = 1; i <= count; i++)
-      result.push(this.desaturateHsl(i / (count + 1)));
+      result.push(this.desaturate(i / (count + 1)));
     return result;
   }
 }

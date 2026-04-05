@@ -28,11 +28,11 @@ All operations are immutable — they return a new color and leave the original 
 
 ```ts
 const lighter = coral.lighten(0.3);
-const desaturated = coral.desaturateHsl(0.5);
+const desaturated = coral.desaturate(0.5);
 const complement = coral.complement();
 
 // Chain operations
-const muted = coral.desaturateHsl(0.4).darken(0.1);
+const muted = coral.desaturate(0.4).darken(0.1);
 ```
 
 <AdjustColorDemo />

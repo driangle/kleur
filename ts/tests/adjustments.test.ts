@@ -365,6 +365,28 @@ describe("color adjustments", () => {
     });
   });
 
+  describe("saturate() / desaturate() unqualified aliases", () => {
+    it("saturate() exists and behaves like saturateHsl()", () => {
+      const c = rgb(128, 100, 100);
+      expect(c.saturate(0.5).toHex()).toBe(c.saturateHsl(0.5).toHex());
+    });
+
+    it("desaturate() exists and behaves like desaturateHsl()", () => {
+      const c = rgb(255, 0, 0);
+      expect(c.desaturate(0.5).toHex()).toBe(c.desaturateHsl(0.5).toHex());
+    });
+
+    it("saturate(1) fully saturates", () => {
+      const c = rgb(128, 100, 100);
+      expect(c.saturate(1).saturationHsl).toBe(100);
+    });
+
+    it("desaturate(1) fully desaturates", () => {
+      const c = rgb(255, 0, 0);
+      expect(c.desaturate(1).saturationHsl).toBe(0);
+    });
+  });
+
   describe("saturateHsl/desaturateHsl symmetry", () => {
     it("saturateHsl and desaturateHsl use the same remaining-space model toward opposite boundaries", () => {
       const c = rgb(128, 100, 100); // partially saturated

@@ -107,12 +107,14 @@ All adjustment methods return a new `Color`.
 | Method | Param | Description |
 |--------|-------|-------------|
 | `adjustSaturationHsl(delta)` | `number` | Add to HSL saturation in channel units. |
-| `saturateHsl(amount)` | `number` (0-1) | Increase HSL saturation toward 100. |
-| `desaturateHsl(amount)` | `number` (0-1) | Decrease HSL saturation toward 0. |
+| `saturate(amount)` | `number` (0-1) | Increase HSL saturation toward 100. |
+| `saturateHsl(amount)` | `number` (0-1) | Alias for `saturate()`. |
+| `desaturate(amount)` | `number` (0-1) | Decrease HSL saturation toward 0. |
+| `desaturateHsl(amount)` | `number` (0-1) | Alias for `desaturate()`. |
 | `scaleSaturationHsl(factor)` | `number` | Multiply HSL saturation by factor. |
 | `adjustSaturationHsb(delta)` | `number` | Add to HSB saturation in channel units. |
 | `scaleSaturationHsb(factor)` | `number` | Multiply HSB saturation by factor. |
-| `grayscale()` | — | Remove all HSL saturation (equivalent to `desaturateHsl(1)`). |
+| `grayscale()` | — | Remove all HSL saturation (equivalent to `desaturate(1)`). |
 
 ### Hue
 

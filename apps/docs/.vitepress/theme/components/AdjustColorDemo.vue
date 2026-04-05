@@ -7,8 +7,8 @@ import kleur from "@driangle/kleur";
 type Operation =
   | "lighten"
   | "darken"
-  | "saturateHsl"
-  | "desaturateHsl"
+  | "saturate"
+  | "desaturate"
   | "rotate"
   | "scaleAlpha"
   | "warm"
@@ -35,10 +35,10 @@ const after = computed(() => {
       return color.lighten(amount.value);
     case "darken":
       return color.darken(amount.value);
-    case "saturateHsl":
-      return color.saturateHsl(amount.value);
-    case "desaturateHsl":
-      return color.desaturateHsl(amount.value);
+    case "saturate":
+      return color.saturate(amount.value);
+    case "desaturate":
+      return color.desaturate(amount.value);
     case "rotate":
       return color.rotate(amount.value);
     case "scaleAlpha":
@@ -73,8 +73,8 @@ const code = computed(() => `const result = kleur("${base.value}").${operation.v
           <select v-model="operation">
             <option value="lighten">lighten()</option>
             <option value="darken">darken()</option>
-            <option value="saturateHsl">saturateHsl()</option>
-            <option value="desaturateHsl">desaturateHsl()</option>
+            <option value="saturate">saturate()</option>
+            <option value="desaturate">desaturate()</option>
             <option value="rotate">rotate()</option>
             <option value="scaleAlpha">scaleAlpha()</option>
             <option value="warm">warm()</option>
