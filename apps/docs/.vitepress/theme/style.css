@@ -329,20 +329,70 @@
 
 /* Code blocks */
 .vp-doc div[class*='language-'] {
+  position: relative !important;
   background: var(--kl-surface-lowest) !important;
   border: 1px solid rgba(71, 71, 71, 0.3);
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 28px !important;
+  overflow: visible !important;
+}
+
+.vp-doc div[class*='language-'] > pre {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.vp-doc div[class*='language-'] > pre > code {
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
 }
 
 .vp-doc div[class*='language-'] > button.copy {
-  background: var(--kl-surface-high) !important;
+  background-color: var(--kl-surface-high) !important;
   border: 1px solid var(--kl-outline-variant) !important;
 }
 
 .vp-doc div[class*='language-'] > span.lang {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: auto !important;
+  transform: translateY(-100%);
   font-size: 0.625rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--kl-outline);
+  color: var(--kl-on-surface-variant);
+  background: var(--kl-surface-high);
+  padding: 4px 12px;
+  border: 1px solid rgba(71, 71, 71, 0.3);
+  border-bottom: none;
+  line-height: 1;
+  z-index: 1;
+  opacity: 1 !important;
+  transition: none !important;
+  font-size: 0 !important;
+}
+
+.vp-doc div[class*='language-'] > span.lang::after {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.vp-doc div.language-ts > span.lang::after,
+.vp-doc div.language-typescript > span.lang::after {
+  content: "TypeScript";
+}
+
+.vp-doc div.language-js > span.lang::after,
+.vp-doc div.language-javascript > span.lang::after {
+  content: "JavaScript";
+}
+
+.vp-doc div.language-sh > span.lang::after,
+.vp-doc div.language-bash > span.lang::after {
+  content: "Shell";
 }
 
 /* Tables */
