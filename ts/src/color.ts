@@ -44,13 +44,16 @@ export class Color {
   get red(): number { return this.r; }
   get green(): number { return this.g; }
   get blue(): number { return this.b; }
-  get hue(): number { return this._hsl().h; }
-  get saturationHsl(): number { return this._hsl().s; }
-  get lightness(): number { return this._hsl().l; }
+  get hue(): number { return Math.round(this._hsl().h); }
+  get saturationHsl(): number { return Math.round(this._hsl().s); }
+  get lightness(): number { return Math.round(this._hsl().l); }
   get alpha(): number { return this.a; }
   get saturationHsb(): number { return this._hsb().s; }
   get brightness(): number { return this._hsb().b; }
-  get hsl(): Hsl { return this._hsl(); }
+  get hsl(): Hsl {
+    const { h, s, l } = this._hsl();
+    return { h: Math.round(h), s: Math.round(s), l: Math.round(l) };
+  }
   get hsb(): Hsb { return this._hsb(); }
 
   // --- Immutable setters ---
@@ -84,8 +87,8 @@ export class Color {
   toCss(): string { return `rgba(${this.r},${this.g},${this.b},${this.a})`; }
   toRgb(): Rgb { return { r: this.r, g: this.g, b: this.b }; }
   toRgba(): Rgba { return { r: this.r, g: this.g, b: this.b, a: this.a }; }
-  toHsl(): Hsl { return this._hsl(); }
-  toHsla(): Hsla { return { ...this._hsl(), a: this.a }; }
+  toHsl(): Hsl { return this.hsl; }
+  toHsla(): Hsla { return { ...this.hsl, a: this.a }; }
   toArray(): [number, number, number, number] { return [this.r, this.g, this.b, this.a]; }
   toNormalized(): [number, number, number, number] { return [this.r / 255, this.g / 255, this.b / 255, this.a]; }
   toString(): string { return this.toCss(); }

@@ -35,9 +35,9 @@ export function rgbToHsl(
   }
 
   return {
-    h: Math.round(h) % 360,
-    s: Math.round(s * 100),
-    l: Math.round(l * 100),
+    h: h % 360,
+    s: s * 100,
+    l: l * 100,
   };
 }
 

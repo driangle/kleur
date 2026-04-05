@@ -25,19 +25,16 @@ describe("rgbToHsl", () => {
   it("converts gray", () => {
     const { h, s, l } = rgbToHsl(128, 128, 128);
     expect(s).toBe(0);
-    expect(l).toBe(50);
+    expect(l).toBeCloseTo(50.2, 0);
     expect(h).toBe(0);
   });
 
   it("converts a mid-range color", () => {
     // cornflower blue: rgb(100, 149, 237)
     const { h, s, l } = rgbToHsl(100, 149, 237);
-    expect(h).toBeGreaterThanOrEqual(218);
-    expect(h).toBeLessThanOrEqual(219);
-    expect(s).toBeGreaterThanOrEqual(79);
-    expect(s).toBeLessThanOrEqual(80);
-    expect(l).toBeGreaterThanOrEqual(65);
-    expect(l).toBeLessThanOrEqual(67);
+    expect(h).toBeCloseTo(218.4, 0);
+    expect(s).toBeCloseTo(79.4, 0);
+    expect(l).toBeCloseTo(66.1, 0);
   });
 });
 
@@ -85,13 +82,12 @@ describe("round-trip accuracy", () => {
   ] as const;
 
   for (const [r, g, b] of colors) {
-    it(`rgb(${r},${g},${b}) -> hsl -> rgb within +/-1`, () => {
+    it(`rgb(${r},${g},${b}) -> hsl -> rgb is exact`, () => {
       const hsl = rgbToHsl(r, g, b);
       const back = hslToRgb(hsl.h, hsl.s, hsl.l);
-      // Two rounding steps (rgb→hsl→rgb) can compound to +/-2
-      expect(Math.abs(back.r - r)).toBeLessThanOrEqual(2);
-      expect(Math.abs(back.g - g)).toBeLessThanOrEqual(2);
-      expect(Math.abs(back.b - b)).toBeLessThanOrEqual(2);
+      expect(back.r).toBe(r);
+      expect(back.g).toBe(g);
+      expect(back.b).toBe(b);
     });
   }
 });

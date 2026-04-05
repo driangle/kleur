@@ -359,6 +359,40 @@ describe("color adjustments", () => {
     });
   });
 
+  describe("HSL round-trip fidelity", () => {
+    it("lighten(0) preserves exact RGB values", () => {
+      const c = rgb(100, 149, 237); // cornflower blue — not on a clean HSL boundary
+      const same = c.lighten(0);
+      expect(same.r).toBe(100);
+      expect(same.g).toBe(149);
+      expect(same.b).toBe(237);
+    });
+
+    it("darken(0) preserves exact RGB values", () => {
+      const c = rgb(100, 149, 237);
+      const same = c.darken(0);
+      expect(same.r).toBe(100);
+      expect(same.g).toBe(149);
+      expect(same.b).toBe(237);
+    });
+
+    it("rotate(0) preserves exact RGB values", () => {
+      const c = rgb(100, 149, 237);
+      const same = c.rotate(0);
+      expect(same.r).toBe(100);
+      expect(same.g).toBe(149);
+      expect(same.b).toBe(237);
+    });
+
+    it("saturateHsl(0) preserves exact RGB values", () => {
+      const c = rgb(100, 149, 237);
+      const same = c.saturateHsl(0);
+      expect(same.r).toBe(100);
+      expect(same.g).toBe(149);
+      expect(same.b).toBe(237);
+    });
+  });
+
   describe("immutability", () => {
     it("all adjustment methods return new instances", () => {
       const c = rgb(255, 0, 0, 0.8);
