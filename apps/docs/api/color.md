@@ -45,6 +45,31 @@ const red = kleur("#ff0000");
 const blue = red.withHue(240); // same saturation/lightness, different hue
 ```
 
+## Systematic Channel Operations
+
+For channels that support multiple kinds of adjustment, the API follows a consistent pattern:
+
+- `withX(value)` sets an absolute value
+- `adjustX(delta)` adds a delta in channel units
+- `scaleX(factor)` multiplies the current value
+
+| Channel | Absolute | Additive | Multiplicative |
+|--------|----------|----------|----------------|
+| Alpha | `withAlpha(v)` | `adjustAlpha(delta)` | `scaleAlpha(factor)` |
+| Hue | `withHue(v)` | `adjustHue(delta)` | — |
+| HSL saturation | `withSaturationHsl(v)` | `adjustSaturationHsl(delta)` | `scaleSaturationHsl(factor)` |
+| HSB saturation | `withSaturationHsb(v)` | `adjustSaturationHsb(delta)` | `scaleSaturationHsb(factor)` |
+| Lightness | `withLightness(v)` | `adjustLightness(delta)` | `scaleLightness(factor)` |
+| Brightness | `withBrightness(v)` | `adjustBrightness(delta)` | `scaleBrightness(factor)` |
+
+```ts
+const color = kleur("#ff6600");
+
+color.withLightness(70);
+color.adjustLightness(10);
+color.scaleLightness(1.2);
+```
+
 ## Output Formats
 
 | Method | Returns | Example |
@@ -67,22 +92,30 @@ All adjustment methods return a new `Color`.
 
 | Method | Param | Description |
 |--------|-------|-------------|
+| `adjustLightness(delta)` | `number` | Add to HSL lightness in channel units. |
 | `lighten(amount)` | `number` (0-1) | Increase lightness. `0.3` = 30% toward white. |
 | `darken(amount)` | `number` (0-1) | Decrease lightness. `0.3` = 30% toward black. |
 | `scaleLightness(factor)` | `number` | Multiply lightness by factor. `1.5` = 50% brighter. |
+| `adjustBrightness(delta)` | `number` | Add to HSB brightness in channel units. |
+| `scaleBrightness(factor)` | `number` | Multiply brightness by factor. |
 
 ### Saturation
 
 | Method | Param | Description |
 |--------|-------|-------------|
+| `adjustSaturationHsl(delta)` | `number` | Add to HSL saturation in channel units. |
 | `saturateHsl(amount)` | `number` (0-1) | Increase HSL saturation toward 100. |
 | `desaturateHsl(amount)` | `number` (0-1) | Decrease HSL saturation toward 0. |
+| `scaleSaturationHsl(factor)` | `number` | Multiply HSL saturation by factor. |
+| `adjustSaturationHsb(delta)` | `number` | Add to HSB saturation in channel units. |
+| `scaleSaturationHsb(factor)` | `number` | Multiply HSB saturation by factor. |
 | `grayscale()` | — | Remove all HSL saturation (equivalent to `desaturateHsl(1)`). |
 
 ### Hue
 
 | Method | Param | Description |
 |--------|-------|-------------|
+| `adjustHue(delta)` | `number` | Add to hue and wrap around 360. |
 | `rotate(degrees)` | `number` | Rotate hue on the color wheel. |
 | `complement()` | — | Rotate hue by 180 degrees. |
 | `warm(amount?)` | `number` (default `0.2`) | Shift hue toward warm colors (yellow-red). |
@@ -92,8 +125,10 @@ All adjustment methods return a new `Color`.
 
 | Method | Param | Description |
 |--------|-------|-------------|
+| `adjustAlpha(delta)` | `number` | Add to alpha, clamped to 0-1. |
 | `opacity(value)` | `number` (0-1) | Set alpha to an absolute value. |
 | `fade(amount)` | `number` (0-1) | Reduce alpha by a fraction. `0.5` = half current alpha. |
+| `scaleAlpha(factor)` | `number` | Multiply alpha by factor, clamped to 0-1. |
 | `opaque()` | — | Set alpha to 1. |
 | `invert()` | — | Invert RGB channels (255 - value). |
 
@@ -103,7 +138,7 @@ const color = kleur("#ff6600");
 color.lighten(0.3).toHex();   // lighter orange
 color.rotate(120).toHex();     // shifted 120° on the wheel
 color.warm(0.3).toHex();       // warmer tone
-color.fade(0.5).alpha();       // 0.5
+color.fade(0.5).alpha;         // 0.5
 ```
 
 ## Interpolation

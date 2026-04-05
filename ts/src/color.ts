@@ -23,15 +23,21 @@ export class Color {
 
   private _hsl(): { h: number; s: number; l: number } { return rgbToHsl(this.r, this.g, this.b); }
   private _hsb(): Hsb { return rgbToHsb(this.r, this.g, this.b); }
-
   private fromHsl(h: number, s: number, l: number): Color {
     const rgb = hslToRgb(h, clampPercent(s), clampPercent(l));
     return new Color(rgb.r, rgb.g, rgb.b, this.a);
   }
-
   private fromHsb(h: number, s: number, b: number): Color {
     const rgb = hsbToRgb(h, clampPercent(s), clampPercent(b));
     return new Color(rgb.r, rgb.g, rgb.b, this.a);
+  }
+  private mapHsl(mapper: (hsl: Hsl) => Hsl): Color {
+    const { h, s, l } = mapper(this._hsl());
+    return this.fromHsl(clampHue(h), s, l);
+  }
+  private mapHsb(mapper: (hsb: Hsb) => Hsb): Color {
+    const { h, s, b } = mapper(this._hsb());
+    return this.fromHsb(clampHue(h), s, b);
   }
 
   // --- Channel getters ---
@@ -52,31 +58,22 @@ export class Color {
   withGreen(v: number): Color { return new Color(this.r, v, this.b, this.a); }
   withBlue(v: number): Color { return new Color(this.r, this.g, v, this.a); }
   withAlpha(v: number): Color { return new Color(this.r, this.g, this.b, v); }
-
-  withHue(v: number): Color {
-    const { s, l } = this._hsl();
-    return this.fromHsl(clampHue(v), s, l);
-  }
-
-  withSaturationHsl(v: number): Color {
-    const { h, l } = this._hsl();
-    return this.fromHsl(h, clampPercent(v), l);
-  }
-
-  withSaturationHsb(v: number): Color {
-    const { h, b } = this._hsb();
-    return this.fromHsb(h, clampPercent(v), b);
-  }
-
-  withBrightness(v: number): Color {
-    const { h, s } = this._hsb();
-    return this.fromHsb(h, s, clampPercent(v));
-  }
-
-  withLightness(v: number): Color {
-    const { h, s } = this._hsl();
-    return this.fromHsl(h, s, clampPercent(v));
-  }
+  withHue(v: number): Color { return this.mapHsl(({ s, l }) => ({ h: v, s, l })); }
+  withSaturationHsl(v: number): Color { return this.mapHsl(({ h, l }) => ({ h, s: v, l })); }
+  withSaturationHsb(v: number): Color { return this.mapHsb(({ h, b }) => ({ h, s: v, b })); }
+  withBrightness(v: number): Color { return this.mapHsb(({ h, s }) => ({ h, s, b: v })); }
+  withLightness(v: number): Color { return this.mapHsl(({ h, s }) => ({ h, s, l: v })); }
+  adjustAlpha(delta: number): Color { return this.withAlpha(this.a + delta); }
+  adjustHue(delta: number): Color { return this.mapHsl(({ h, s, l }) => ({ h: h + delta, s, l })); }
+  adjustSaturationHsl(delta: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s: s + delta, l })); }
+  adjustSaturationHsb(delta: number): Color { return this.mapHsb(({ h, s, b }) => ({ h, s: s + delta, b })); }
+  adjustBrightness(delta: number): Color { return this.mapHsb(({ h, s, b }) => ({ h, s, b: b + delta })); }
+  adjustLightness(delta: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s, l: l + delta })); }
+  scaleAlpha(factor: number): Color { return this.withAlpha(this.a * factor); }
+  scaleSaturationHsl(factor: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s: s * factor, l })); }
+  scaleSaturationHsb(factor: number): Color { return this.mapHsb(({ h, s, b }) => ({ h, s: s * factor, b })); }
+  scaleBrightness(factor: number): Color { return this.mapHsb(({ h, s, b }) => ({ h, s, b: b * factor })); }
+  scaleLightness(factor: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s, l: l * factor })); }
 
   // --- Output formats ---
   toHex(): string {
@@ -98,55 +95,18 @@ export class Color {
     const { h, s, l } = this._hsl();
     return this.fromHsl(h, s, l + (100 - l) * amount);
   }
-
-  darken(amount: number): Color {
-    const { h, s, l } = this._hsl();
-    return this.fromHsl(h, s, l * (1 - amount));
-  }
-
-  scaleLightness(factor: number): Color {
-    const { h, s, l } = this._hsl();
-    return this.fromHsl(h, s, l * factor);
-  }
-
-  saturateHsl(amount: number): Color {
-    const { h, s, l } = this._hsl();
-    return this.fromHsl(h, s + (100 - s) * amount, l);
-  }
-
-  desaturateHsl(amount: number): Color {
-    const { h, s, l } = this._hsl();
-    return this.fromHsl(h, s * (1 - amount), l);
-  }
-
-  grayscale(): Color {
-    const { h, l } = this._hsl();
-    return this.fromHsl(h, 0, l);
-  }
-
-  rotate(degrees: number): Color {
-    const { h, s, l } = this._hsl();
-    return this.fromHsl(clampHue(h + degrees), s, l);
-  }
-
+  darken(amount: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s, l: l * (1 - amount) })); }
+  saturateHsl(amount: number): Color { return this.mapHsl(({ h, s, l }) => ({ h, s: s + (100 - s) * amount, l })); }
+  desaturateHsl(amount: number): Color { return this.scaleSaturationHsl(1 - amount); }
+  grayscale(): Color { return this.withSaturationHsl(0); }
+  rotate(degrees: number): Color { return this.adjustHue(degrees); }
   complement(): Color { return this.rotate(180); }
-
-  warm(amount = 0.2): Color {
-    const { h, s, l } = this._hsl();
-    const diff = ((30 - h + 540) % 360) - 180;
-    return this.fromHsl(clampHue(h + diff * amount), s, l);
-  }
-
-  cool(amount = 0.2): Color {
-    const { h, s, l } = this._hsl();
-    const diff = ((240 - h + 540) % 360) - 180;
-    return this.fromHsl(clampHue(h + diff * amount), s, l);
-  }
-
+  warm(amount = 0.2): Color { return this.adjustHue((((30 - this.hue + 540) % 360) - 180) * amount); }
+  cool(amount = 0.2): Color { return this.adjustHue((((240 - this.hue + 540) % 360) - 180) * amount); }
   invert(): Color { return new Color(255 - this.r, 255 - this.g, 255 - this.b, this.a); }
-  opacity(value: number): Color { return new Color(this.r, this.g, this.b, value); }
-  fade(amount: number): Color { return new Color(this.r, this.g, this.b, this.a * (1 - amount)); }
-  opaque(): Color { return new Color(this.r, this.g, this.b, 1); }
+  opacity(value: number): Color { return this.withAlpha(value); }
+  fade(amount: number): Color { return this.scaleAlpha(1 - amount); }
+  opaque(): Color { return this.withAlpha(1); }
 
   // --- Interpolation ---
   mix(target: Color, t = 0.5, ease?: (t: number) => number): Color {

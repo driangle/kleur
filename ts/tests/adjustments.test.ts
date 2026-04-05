@@ -2,6 +2,19 @@ import { describe, it, expect } from "vitest";
 import { rgb } from "../src/parse.js";
 
 describe("color adjustments", () => {
+  describe("adjustLightness()", () => {
+    it("adds to lightness in absolute channel units", () => {
+      const c = rgb(255, 0, 0); // l=50
+      expect(c.adjustLightness(10).lightness).toBe(60);
+    });
+
+    it("clamps to the valid range", () => {
+      const c = rgb(255, 0, 0);
+      expect(c.adjustLightness(60).lightness).toBe(100);
+      expect(c.adjustLightness(-60).lightness).toBe(0);
+    });
+  });
+
   describe("lighten()", () => {
     it("lighten(1) produces white", () => {
       const c = rgb(100, 50, 50);
@@ -61,6 +74,26 @@ describe("color adjustments", () => {
     });
   });
 
+  describe("adjustSaturationHsl()", () => {
+    it("adds to HSL saturation in absolute channel units", () => {
+      const c = rgb(128, 100, 100);
+      expect(c.adjustSaturationHsl(10).saturationHsl).toBe(c.saturationHsl + 10);
+    });
+
+    it("clamps to the valid range", () => {
+      const c = rgb(255, 0, 0);
+      expect(c.adjustSaturationHsl(10).saturationHsl).toBe(100);
+      expect(c.adjustSaturationHsl(-120).saturationHsl).toBe(0);
+    });
+  });
+
+  describe("scaleSaturationHsl()", () => {
+    it("multiplies HSL saturation", () => {
+      const c = rgb(128, 100, 100);
+      expect(c.scaleSaturationHsl(0.5).saturationHsl).toBe(Math.round(c.saturationHsl * 0.5));
+    });
+  });
+
   describe("saturateHsl()", () => {
     it("saturateHsl(1) fully saturates", () => {
       const c = rgb(128, 100, 100); // partially saturated
@@ -117,6 +150,54 @@ describe("color adjustments", () => {
     it("handles negative rotation", () => {
       const c = rgb(255, 0, 0); // hue=0
       expect(c.rotate(-30).hue).toBe(330);
+    });
+  });
+
+  describe("adjustHue()", () => {
+    it("adds to hue and wraps", () => {
+      const c = rgb(255, 0, 0);
+      expect(c.adjustHue(30).hue).toBe(30);
+      expect(c.adjustHue(-30).hue).toBe(330);
+    });
+  });
+
+  describe("adjustSaturationHsb()", () => {
+    it("adds to HSB saturation in absolute channel units", () => {
+      const c = rgb(128, 64, 64);
+      expect(c.adjustSaturationHsb(10).saturationHsb).toBe(c.saturationHsb + 10);
+    });
+
+    it("clamps to the valid range", () => {
+      const c = rgb(255, 0, 0);
+      expect(c.adjustSaturationHsb(10).saturationHsb).toBe(100);
+      expect(c.adjustSaturationHsb(-120).saturationHsb).toBe(0);
+    });
+  });
+
+  describe("adjustBrightness()", () => {
+    it("adds to brightness in absolute channel units", () => {
+      const c = rgb(128, 0, 0);
+      expect(c.adjustBrightness(10).brightness).toBe(c.brightness + 10);
+    });
+
+    it("clamps to the valid range", () => {
+      const c = rgb(255, 0, 0);
+      expect(c.adjustBrightness(10).brightness).toBe(100);
+      expect(c.adjustBrightness(-120).brightness).toBe(0);
+    });
+  });
+
+  describe("scaleSaturationHsb()", () => {
+    it("multiplies HSB saturation", () => {
+      const c = rgb(128, 64, 64);
+      expect(c.scaleSaturationHsb(0.5).saturationHsb).toBe(Math.round(c.saturationHsb * 0.5));
+    });
+  });
+
+  describe("scaleBrightness()", () => {
+    it("multiplies brightness", () => {
+      const c = rgb(128, 0, 0);
+      expect(c.scaleBrightness(0.5).brightness).toBe(25);
     });
   });
 
@@ -220,6 +301,19 @@ describe("color adjustments", () => {
     });
   });
 
+  describe("adjustAlpha()", () => {
+    it("adds to alpha in absolute channel units", () => {
+      const c = rgb(255, 0, 0, 0.4);
+      expect(c.adjustAlpha(0.2).alpha).toBeCloseTo(0.6);
+    });
+
+    it("clamps alpha", () => {
+      const c = rgb(255, 0, 0, 0.4);
+      expect(c.adjustAlpha(1).alpha).toBe(1);
+      expect(c.adjustAlpha(-1).alpha).toBe(0);
+    });
+  });
+
   describe("fade()", () => {
     it("reduces alpha by percentage", () => {
       const c = rgb(255, 0, 0, 1);
@@ -234,6 +328,19 @@ describe("color adjustments", () => {
     it("fade(0) is a no-op", () => {
       const c = rgb(255, 0, 0, 0.7);
       expect(c.fade(0).alpha).toBe(0.7);
+    });
+  });
+
+  describe("scaleAlpha()", () => {
+    it("multiplies alpha", () => {
+      const c = rgb(255, 0, 0, 0.8);
+      expect(c.scaleAlpha(0.5).alpha).toBe(0.4);
+    });
+
+    it("clamps alpha", () => {
+      const c = rgb(255, 0, 0, 0.8);
+      expect(c.scaleAlpha(2).alpha).toBe(1);
+      expect(c.scaleAlpha(-1).alpha).toBe(0);
     });
   });
 
@@ -258,17 +365,27 @@ describe("color adjustments", () => {
       const methods = [
         () => c.lighten(0.5),
         () => c.darken(0.5),
+        () => c.adjustLightness(10),
         () => c.scaleLightness(1.5),
+        () => c.adjustSaturationHsl(10),
         () => c.saturateHsl(0.5),
         () => c.desaturateHsl(0.5),
+        () => c.scaleSaturationHsl(0.5),
         () => c.grayscale(),
+        () => c.adjustHue(90),
         () => c.rotate(90),
+        () => c.adjustSaturationHsb(10),
+        () => c.adjustBrightness(10),
+        () => c.scaleSaturationHsb(0.5),
+        () => c.scaleBrightness(0.5),
         () => c.complement(),
         () => c.warm(),
         () => c.cool(),
         () => c.invert(),
+        () => c.adjustAlpha(0.1),
         () => c.opacity(0.5),
         () => c.fade(0.5),
+        () => c.scaleAlpha(0.5),
         () => c.opaque(),
       ];
       for (const method of methods) {

@@ -35,6 +35,8 @@ import kleur from "@driangle/kleur";
 kleur.contrast(kleur.white, kleur.black); // 21
 ```
 
+`21` is correct here: `contrast()` returns the WCAG contrast ratio on a scale from `1` to `21`, and pure white against pure black is the maximum possible contrast.
+
 ## Named Color Lookup Integration
 
 Named colors are automatically registered when you import from `@driangle/kleur`. This means `kleur("coral")` works out of the box:
