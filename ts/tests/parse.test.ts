@@ -76,6 +76,18 @@ describe("hex()", () => {
     const c = hex("  #ff0000  ");
     expect(c.r).toBe(255);
   });
+
+  it("throws for invalid hex digits (6-digit)", () => {
+    expect(() => hex("#gggggg")).toThrow(InvalidHexColorError);
+  });
+
+  it("throws for invalid hex digits (3-digit)", () => {
+    expect(() => hex("#ggg")).toThrow(InvalidHexColorError);
+  });
+
+  it("throws for mixed valid/invalid hex digits", () => {
+    expect(() => hex("#ff00gg")).toThrow(InvalidHexColorError);
+  });
 });
 
 describe("hsl()", () => {

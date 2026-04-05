@@ -11,12 +11,15 @@ export class KleurError extends Error {
 
 export class InvalidHexColorError extends KleurError {
   readonly input: string;
-  readonly reason: "missing-prefix" | "invalid-length";
+  readonly reason: "missing-prefix" | "invalid-length" | "invalid-digits";
 
-  constructor(input: string, reason: "missing-prefix" | "invalid-length") {
-    const message = reason === "missing-prefix"
-      ? `Invalid hex color: "${input}" (must start with #)`
-      : `Invalid hex color: "${input}" (must be 3 or 6 digits)`;
+  constructor(input: string, reason: "missing-prefix" | "invalid-length" | "invalid-digits") {
+    const messages: Record<typeof reason, string> = {
+      "missing-prefix": `Invalid hex color: "${input}" (must start with #)`,
+      "invalid-length": `Invalid hex color: "${input}" (must be 3 or 6 digits)`,
+      "invalid-digits": `Invalid hex color: "${input}" (contains non-hex characters)`,
+    };
+    const message = messages[reason];
     super(message);
     this.name = "InvalidHexColorError";
     this.input = input;

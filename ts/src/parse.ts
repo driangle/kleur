@@ -25,6 +25,10 @@ export function hex(hex: string): Color {
   }
 
   const digits = s.slice(1);
+  if (!/^[0-9a-fA-F]+$/.test(digits)) {
+    throw new InvalidHexColorError(hex, "invalid-digits");
+  }
+
   if (digits.length === 3) {
     const r = parseInt(digits[0] + digits[0], 16);
     const g = parseInt(digits[1] + digits[1], 16);
