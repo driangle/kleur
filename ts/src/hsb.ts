@@ -19,10 +19,10 @@ export function rgbToHsb(r: number, g: number, b: number): Hsb {
     if (max === rn) h = ((gn - bn) / d + 6) % 6;
     else if (max === gn) h = (bn - rn) / d + 2;
     else h = (rn - gn) / d + 4;
-    h = Math.round(h * 60);
+    h = h * 60;
   }
-  const s = max === 0 ? 0 : Math.round((d / max) * 100);
-  return { h, s, b: Math.round(max * 100) };
+  const s = max === 0 ? 0 : (d / max) * 100;
+  return { h, s, b: max * 100 };
 }
 
 export function hsbToRgb(

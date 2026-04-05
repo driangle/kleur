@@ -63,9 +63,10 @@ describe("isLight() / isDark()", () => {
     }
   });
 
-  it("gray (l=50) is dark (<=50)", () => {
-    expect(isDark(gray)).toBe(true);
-    expect(isLight(gray)).toBe(false);
+  it("gray (128,128,128) is light (l > 50)", () => {
+    // rgb(128,128,128) has lightness ≈ 50.2 (unrounded), which is > 50
+    expect(isLight(gray)).toBe(true);
+    expect(isDark(gray)).toBe(false);
   });
 
   it("light color (l > 50) is light", () => {

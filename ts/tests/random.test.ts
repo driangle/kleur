@@ -21,8 +21,8 @@ describe("random()", () => {
     for (let i = 0; i < ITERATIONS; i++) {
       const c = random({ hue: "warm" });
       const h = c.hue;
-      // Warm: 0-90 or 330-360
-      const isWarm = h <= 90 || h >= 330;
+      // Warm: 0-90 or 330-360 (with tolerance for HSL round-trip)
+      const isWarm = h <= 91 || h >= 329;
       expect(isWarm).toBe(true);
     }
   });

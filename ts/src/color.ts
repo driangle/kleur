@@ -107,13 +107,13 @@ export class Color {
     return this.#b;
   }
   get hue(): number {
-    return Math.round(this._hsl().h);
+    return this._hsl().h;
   }
   get saturationHsl(): number {
-    return Math.round(this._hsl().s);
+    return this._hsl().s;
   }
   get lightness(): number {
-    return Math.round(this._hsl().l);
+    return this._hsl().l;
   }
   get alpha(): number {
     return this.#a;
@@ -125,8 +125,7 @@ export class Color {
     return this._hsb().b;
   }
   get hsl(): Hsl {
-    const { h, s, l } = this._hsl();
-    return { h: Math.round(h), s: Math.round(s), l: Math.round(l) };
+    return this._hsl();
   }
   get hsb(): Hsb {
     return this._hsb();

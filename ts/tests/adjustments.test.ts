@@ -5,7 +5,7 @@ describe("color adjustments", () => {
   describe("adjustLightness()", () => {
     it("adds to lightness in absolute channel units", () => {
       const c = rgb(255, 0, 0); // l=50
-      expect(c.adjustLightness(10).lightness).toBe(60);
+      expect(c.adjustLightness(10).lightness).toBeCloseTo(60, 0);
     });
 
     it("clamps to the valid range", () => {
@@ -31,7 +31,7 @@ describe("color adjustments", () => {
     it("lighten(0.5) increases lightness by half the remaining range", () => {
       const c = rgb(255, 0, 0); // l=50
       const lighter = c.lighten(0.5);
-      expect(lighter.lightness).toBe(75);
+      expect(lighter.lightness).toBeCloseTo(75, 0);
     });
 
     it("returns a new instance", () => {
@@ -56,7 +56,7 @@ describe("color adjustments", () => {
     it("darken(0.5) halves the lightness", () => {
       const c = rgb(255, 0, 0); // l=50
       const darker = c.darken(0.5);
-      expect(darker.lightness).toBe(25);
+      expect(darker.lightness).toBeCloseTo(25, 0);
     });
   });
 
@@ -77,8 +77,9 @@ describe("color adjustments", () => {
   describe("adjustSaturationHsl()", () => {
     it("adds to HSL saturation in absolute channel units", () => {
       const c = rgb(128, 100, 100);
-      expect(c.adjustSaturationHsl(10).saturationHsl).toBe(
+      expect(c.adjustSaturationHsl(10).saturationHsl).toBeCloseTo(
         c.saturationHsl + 10,
+        0,
       );
     });
 
@@ -92,8 +93,9 @@ describe("color adjustments", () => {
   describe("scaleSaturationHsl()", () => {
     it("multiplies HSL saturation", () => {
       const c = rgb(128, 100, 100);
-      expect(c.scaleSaturationHsl(0.5).saturationHsl).toBe(
-        Math.round(c.saturationHsl * 0.5),
+      expect(c.scaleSaturationHsl(0.5).saturationHsl).toBeCloseTo(
+        c.saturationHsl * 0.5,
+        0,
       );
     });
   });
@@ -131,7 +133,7 @@ describe("color adjustments", () => {
 
     it("preserves lightness", () => {
       const c = rgb(255, 0, 0);
-      expect(c.grayscale().lightness).toBe(c.lightness);
+      expect(c.grayscale().lightness).toBeCloseTo(c.lightness, 0);
     });
 
     it("preserves alpha", () => {
@@ -143,33 +145,34 @@ describe("color adjustments", () => {
   describe("rotate()", () => {
     it("rotates hue by given degrees", () => {
       const c = rgb(255, 0, 0); // hue=0
-      expect(c.rotate(120).hue).toBe(120);
+      expect(c.rotate(120).hue).toBeCloseTo(120, 0);
     });
 
     it("wraps around 360", () => {
       const c = rgb(255, 0, 0); // hue=0
-      expect(c.rotate(400).hue).toBe(40);
+      expect(c.rotate(400).hue).toBeCloseTo(40, 0);
     });
 
     it("handles negative rotation", () => {
       const c = rgb(255, 0, 0); // hue=0
-      expect(c.rotate(-30).hue).toBe(330);
+      expect(c.rotate(-30).hue).toBeCloseTo(330, 0);
     });
   });
 
   describe("adjustHue()", () => {
     it("adds to hue and wraps", () => {
       const c = rgb(255, 0, 0);
-      expect(c.adjustHue(30).hue).toBe(30);
-      expect(c.adjustHue(-30).hue).toBe(330);
+      expect(c.adjustHue(30).hue).toBeCloseTo(30, 0);
+      expect(c.adjustHue(-30).hue).toBeCloseTo(330, 0);
     });
   });
 
   describe("adjustSaturationHsb()", () => {
     it("adds to HSB saturation in absolute channel units", () => {
       const c = rgb(128, 64, 64);
-      expect(c.adjustSaturationHsb(10).saturationHsb).toBe(
+      expect(c.adjustSaturationHsb(10).saturationHsb).toBeCloseTo(
         c.saturationHsb + 10,
+        0,
       );
     });
 
@@ -183,7 +186,10 @@ describe("color adjustments", () => {
   describe("adjustBrightness()", () => {
     it("adds to brightness in absolute channel units", () => {
       const c = rgb(128, 0, 0);
-      expect(c.adjustBrightness(10).brightness).toBe(c.brightness + 10);
+      expect(c.adjustBrightness(10).brightness).toBeCloseTo(
+        c.brightness + 10,
+        0,
+      );
     });
 
     it("clamps to the valid range", () => {
@@ -196,8 +202,9 @@ describe("color adjustments", () => {
   describe("scaleSaturationHsb()", () => {
     it("multiplies HSB saturation", () => {
       const c = rgb(128, 64, 64);
-      expect(c.scaleSaturationHsb(0.5).saturationHsb).toBe(
-        Math.round(c.saturationHsb * 0.5),
+      expect(c.scaleSaturationHsb(0.5).saturationHsb).toBeCloseTo(
+        c.saturationHsb * 0.5,
+        0,
       );
     });
   });
@@ -205,14 +212,14 @@ describe("color adjustments", () => {
   describe("scaleBrightness()", () => {
     it("multiplies brightness", () => {
       const c = rgb(128, 0, 0);
-      expect(c.scaleBrightness(0.5).brightness).toBe(25);
+      expect(c.scaleBrightness(0.5).brightness).toBeCloseTo(25, 0);
     });
   });
 
   describe("complement()", () => {
     it("rotates hue by 180 degrees", () => {
       const c = rgb(255, 0, 0); // hue=0
-      expect(c.complement().hue).toBe(180);
+      expect(c.complement().hue).toBeCloseTo(180, 0);
     });
 
     it("is equivalent to rotate(180)", () => {
@@ -344,18 +351,13 @@ describe("color adjustments", () => {
   describe("lighten/darken symmetry", () => {
     it("lighten and darken use the same remaining-space model toward opposite boundaries", () => {
       const c = rgb(100, 149, 237); // l ≈ 66
+      const l = c.lightness;
       // lighten(t) moves toward 100 by fraction t of remaining space
       // darken(t) moves toward 0 by fraction t of remaining space
-      // For l=66: lighten(0.5) → 66 + (100-66)*0.5 = 83
-      //           darken(0.5)  → 66 - 66*0.5 = 33
       const lightened = c.lighten(0.5);
       const darkened = c.darken(0.5);
-      expect(lightened.lightness).toBe(
-        Math.round(66.07843137254902 + (100 - 66.07843137254902) * 0.5),
-      );
-      expect(darkened.lightness).toBe(
-        Math.round(66.07843137254902 - 66.07843137254902 * 0.5),
-      );
+      expect(lightened.lightness).toBeCloseTo(l + (100 - l) * 0.5, 0);
+      expect(darkened.lightness).toBeCloseTo(l - l * 0.5, 0);
     });
 
     it("lighten(1) reaches white, darken(1) reaches black", () => {
@@ -393,10 +395,11 @@ describe("color adjustments", () => {
       const s = c.saturationHsl;
       // saturateHsl(0.5) moves toward 100: s + (100-s)*0.5
       // desaturateHsl(0.5) moves toward 0: s - s*0.5
-      expect(c.saturateHsl(0.5).saturationHsl).toBe(
-        Math.round(s + (100 - s) * 0.5),
+      expect(c.saturateHsl(0.5).saturationHsl).toBeCloseTo(
+        s + (100 - s) * 0.5,
+        0,
       );
-      expect(c.desaturateHsl(0.5).saturationHsl).toBe(Math.round(s - s * 0.5));
+      expect(c.desaturateHsl(0.5).saturationHsl).toBeCloseTo(s - s * 0.5, 0);
     });
 
     it("saturateHsl(1) fully saturates, desaturateHsl(1) fully desaturates", () => {

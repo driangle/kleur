@@ -77,7 +77,7 @@ describe("Color", () => {
       expect(green.hue).toBe(120);
       expect(green.saturationHsl).toBe(100);
       expect(green.hsl.s).toBe(100);
-      expect(green.lightness).toBe(25);
+      expect(green.lightness).toBeCloseTo(25.1, 0);
     });
 
     it("returns HSL for pure blue", () => {
@@ -93,6 +93,18 @@ describe("Color", () => {
       expect(red.saturationHsb).toBe(100);
       expect(red.hsb.s).toBe(100);
       expect(red.brightness).toBe(100);
+    });
+
+    it("hsl and hsb object getters both return unrounded values", () => {
+      // rgb(0, 128, 0) produces fractional lightness (~25.098)
+      const c = rgb(0, 128, 0);
+      const hsl = c.hsl;
+      const hsb = c.hsb;
+
+      // HSB returns unrounded floats
+      expect(Number.isInteger(hsb.b)).toBe(false);
+      // HSL should also return unrounded floats (not rounded integers)
+      expect(Number.isInteger(hsl.l)).toBe(false);
     });
   });
 
@@ -150,14 +162,14 @@ describe("Color", () => {
     it("withSaturation returns new instance", () => {
       const c = rgb(255, 0, 0);
       const desat = c.withSaturationHsl(50);
-      expect(desat.hsl.s).toBe(50);
+      expect(desat.hsl.s).toBeCloseTo(50, 0);
       expect(c.hsl.s).toBe(100);
     });
 
     it("withLightness returns new instance", () => {
       const c = rgb(255, 0, 0);
       const lighter = c.withLightness(75);
-      expect(lighter.lightness).toBe(75);
+      expect(lighter.lightness).toBeCloseTo(75, 0);
       expect(c.lightness).toBe(50);
     });
 
@@ -261,13 +273,13 @@ describe("Color", () => {
     it("withHue wraps negative values", () => {
       const c = rgb(255, 0, 0);
       const wrapped = c.withHue(-30);
-      expect(wrapped.hue).toBe(330);
+      expect(wrapped.hue).toBeCloseTo(330, 0);
     });
 
     it("withHue wraps values above 360", () => {
       const c = rgb(255, 0, 0);
       const wrapped = c.withHue(390);
-      expect(wrapped.hue).toBe(30);
+      expect(wrapped.hue).toBeCloseTo(30, 0);
     });
 
     it("withHue 360 wraps to 0", () => {

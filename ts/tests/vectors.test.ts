@@ -85,9 +85,9 @@ describe("cross-language test vectors", () => {
     for (const v of vectors.output.toHsl) {
       it(`rgb(${v.input.r},${v.input.g},${v.input.b}).toHsl()`, () => {
         const hsl = toColor(v.input).toHsl();
-        expect(hsl.h).toBe(v.expected.h);
-        expect(hsl.s).toBe(v.expected.s);
-        expect(hsl.l).toBe(v.expected.l);
+        expect(hsl.h).toBeCloseTo(v.expected.h, 0);
+        expect(hsl.s).toBeCloseTo(v.expected.s, 0);
+        expect(hsl.l).toBeCloseTo(v.expected.l, 0);
       });
     }
   });
@@ -148,10 +148,10 @@ describe("cross-language test vectors", () => {
           expect(result.blue).toBe(exp.b);
         }
         if ("expected_lightness" in v)
-          expect(result.lightness).toBe(v.expected_lightness);
+          expect(result.lightness).toBeCloseTo(v.expected_lightness as number, 0);
         if ("expected_saturation" in v)
-          expect(result.hsl.s).toBe(v.expected_saturation);
-        if ("expected_hue" in v) expect(result.hue).toBe(v.expected_hue);
+          expect(result.hsl.s).toBeCloseTo(v.expected_saturation as number, 0);
+        if ("expected_hue" in v) expect(result.hue).toBeCloseTo(v.expected_hue as number, 0);
         if ("expected_alpha" in v)
           expect(result.alpha).toBeCloseTo(v.expected_alpha as number, 2);
       });
@@ -178,7 +178,7 @@ describe("cross-language test vectors", () => {
         }
         expect(result).toHaveLength(v.expected_count);
         for (let i = 0; i < v.expected_hues.length; i++) {
-          expect(result[i].hue).toBe(v.expected_hues[i]);
+          expect(result[i].hue).toBeCloseTo(v.expected_hues[i], 0);
         }
       });
     }

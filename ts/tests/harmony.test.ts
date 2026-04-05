@@ -41,9 +41,9 @@ describe("tetradic()", () => {
   it("has hues 90 degrees apart", () => {
     const [c1, c2, c3, c4] = tetradic(red);
     expect(c1.hue).toBe(0);
-    expect(c2.hue).toBe(90);
-    expect(c3.hue).toBe(180);
-    expect(c4.hue).toBe(270);
+    expect(c2.hue).toBeCloseTo(90, 0);
+    expect(c3.hue).toBeCloseTo(180, 0);
+    expect(c4.hue).toBeCloseTo(270, 0);
   });
 });
 
@@ -55,15 +55,15 @@ describe("analogous()", () => {
   it("defaults to 30 degree angle", () => {
     const [left, center, right] = analogous(red);
     expect(center.hue).toBe(0);
-    expect(left.hue).toBe(330); // -30 wraps
-    expect(right.hue).toBe(30);
+    expect(left.hue).toBeCloseTo(330, 0); // -30 wraps
+    expect(right.hue).toBeCloseTo(30, 0);
   });
 
   it("respects custom angle", () => {
     const [left, center, right] = analogous(red, 45);
     expect(center.hue).toBe(0);
-    expect(left.hue).toBe(315); // -45 wraps
-    expect(right.hue).toBe(45);
+    expect(left.hue).toBeCloseTo(315, 0); // -45 wraps
+    expect(right.hue).toBeCloseTo(45, 0);
   });
 });
 
@@ -75,8 +75,8 @@ describe("splitComplement()", () => {
   it("returns base + two colors at 180 +/- angle", () => {
     const [base, left, right] = splitComplement(red, 30);
     expect(base.hue).toBe(0);
-    expect(left.hue).toBe(150); // 180 - 30
-    expect(right.hue).toBe(210); // 180 + 30
+    expect(left.hue).toBeCloseTo(150, 0); // 180 - 30
+    expect(right.hue).toBeCloseTo(210, 0); // 180 + 30
   });
 });
 
