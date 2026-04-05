@@ -329,4 +329,20 @@ describe("Color.mix()", () => {
     expect(a.mix(b, 0.5)).not.toBe(a);
     expect(a.mix(b, 0.5)).not.toBe(b);
   });
+
+  it("accepts KleurValue (string) as target", () => {
+    const a = rgb(255, 0, 0);
+    const result = a.mix("#0000ff", 0.5);
+    expect(result.red).toBe(128);
+    expect(result.green).toBe(0);
+    expect(result.blue).toBe(128);
+  });
+
+  it("accepts KleurValue (number) as target", () => {
+    const a = rgb(255, 0, 0);
+    const result = a.mix(0x0000ff, 0.5);
+    expect(result.red).toBe(128);
+    expect(result.green).toBe(0);
+    expect(result.blue).toBe(128);
+  });
 });

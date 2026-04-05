@@ -1,11 +1,26 @@
 import { rgbToHsl, hslToRgb } from "./hsl.js";
 import { rgbToHsb, hsbToRgb } from "./hsb.js";
-import type { Rgb, Rgba, Hsl, Hsla, Hsb } from "./types.js";
+import type { Rgb, Rgba, Hsl, Hsla, Hsb, KleurValue } from "./types.js";
 
 const clampByte = (v: number): number => Math.round(Math.min(255, Math.max(0, v)));
 const clampAlpha = (v: number): number => Math.min(1, Math.max(0, v));
 const clampHue = (v: number): number => ((v % 360) + 360) % 360;
 const clampPercent = (v: number): number => Math.min(100, Math.max(0, v));
+
+/** Resolver function registered by parse.ts to break the circular dependency. */
+let _resolve: ((value: KleurValue) => Color) | undefined;
+
+/** Register the resolve function (called by parse.ts at import time). */
+export function registerResolver(fn: (value: KleurValue) => Color): void {
+  _resolve = fn;
+}
+
+/** Resolve a KleurValue to a Color, passing through if already a Color. */
+function resolveValue(value: KleurValue): Color {
+  if (value instanceof Color) return value;
+  if (!_resolve) throw new Error("Color resolver not registered. Import parse.js first.");
+  return _resolve(value);
+}
 
 /** Immutable RGBA color with derived HSL access. All mutation methods return a new instance. */
 export class Color {
@@ -110,13 +125,14 @@ export class Color {
   opaque(): Color { return this.withAlpha(1); }
 
   // --- Interpolation ---
-  mix(target: Color, t = 0.5, ease?: (t: number) => number): Color {
+  mix(target: KleurValue, t = 0.5, ease?: (t: number) => number): Color {
+    const b = resolveValue(target);
     const et = ease ? ease(t) : t;
     return new Color(
-      this.#r + (target.#r - this.#r) * et,
-      this.#g + (target.#g - this.#g) * et,
-      this.#b + (target.#b - this.#b) * et,
-      this.#a + (target.#a - this.#a) * et,
+      this.#r + (b.#r - this.#r) * et,
+      this.#g + (b.#g - this.#g) * et,
+      this.#b + (b.#b - this.#b) * et,
+      this.#a + (b.#a - this.#a) * et,
     );
   }
 

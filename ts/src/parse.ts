@@ -1,4 +1,4 @@
-import { Color } from "./color.js";
+import { Color, registerResolver } from "./color.js";
 import {
   InvalidColorValueError,
   InvalidCssColorError,
@@ -173,3 +173,6 @@ export function resolve(value: string | number | Color): Color {
 
   throw new InvalidColorValueError(value);
 }
+
+// Register the resolver so Color methods can resolve KleurValue without circular imports.
+registerResolver(resolve);
