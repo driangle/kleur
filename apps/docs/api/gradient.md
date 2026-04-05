@@ -10,25 +10,25 @@ import kleur from "@driangle/kleur";
 ## colorStop
 
 ```ts
-colorStop(offset: number, color: Color): GradientStop
+colorStop(offset: number, color: KleurValue): GradientStop
 ```
 
-Create a gradient stop. The offset is clamped to 0-1.
+Create a gradient stop. The offset is clamped to 0-1. Accepts any color input.
 
 ```ts
-const stop = kleur.colorStop(0.5, kleur("#ff6600"));
+const stop = kleur.colorStop(0.5, "#ff6600");
 ```
 
 ## solid
 
 ```ts
-solid(color: Color): SolidKleur
+solid(color: KleurValue): SolidKleur
 ```
 
-Create a solid fill from a single color.
+Create a solid fill from a single color. Accepts any color input.
 
 ```ts
-const fill = kleur.solid(kleur("#ff6600"));
+const fill = kleur.solid("#ff6600");
 fill.type;  // "solid"
 fill.color; // Color
 ```
@@ -53,8 +53,8 @@ const gradient = kleur.linearGradient({
   x0: 0, y0: 0,
   x1: 100, y1: 0,
   stops: [
-    kleur.colorStop(0, kleur("#ff0000")),
-    kleur.colorStop(1, kleur("#0000ff")),
+    kleur.colorStop(0, "#ff0000"),
+    kleur.colorStop(1, "#0000ff"),
   ],
 });
 ```
@@ -81,8 +81,8 @@ const gradient = kleur.radialGradient({
   x0: 50, y0: 50, r0: 0,
   x1: 50, y1: 50, r1: 50,
   stops: [
-    kleur.colorStop(0, kleur("#ffffff")),
-    kleur.colorStop(1, kleur("#000000")),
+    kleur.colorStop(0, "#ffffff"),
+    kleur.colorStop(1, "#000000"),
   ],
 });
 ```

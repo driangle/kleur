@@ -8,7 +8,15 @@ const a = ref("#ff6600");
 const b = ref("#ff5500");
 const preset = ref<"fast" | "perceptual" | "accurate" | "modern">("perceptual");
 const distance = computed(() => measureDistance(kleur(a.value), kleur(b.value), preset.value));
-const code = computed(() => `const delta = kleur.distance(kleur("${a.value}"), kleur("${b.value}"), { preset: "${preset.value}" })`);
+const code = computed(() =>
+  [
+    "const delta = kleur.distance(",
+    `  kleur("${a.value}"),`,
+    `  kleur("${b.value}"),`,
+    `  { preset: "${preset.value}" }`,
+    ");",
+  ].join("\n")
+);
 </script>
 
 <template>
@@ -63,7 +71,8 @@ const code = computed(() => `const delta = kleur.distance(kleur("${a.value}"), k
   padding: 14px 16px;
   background: var(--kl-surface-lowest);
   font-family: var(--vp-font-family-mono);
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .kl-controls,

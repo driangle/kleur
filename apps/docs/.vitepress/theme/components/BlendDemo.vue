@@ -12,8 +12,20 @@ const t = ref(0.5);
 const result = computed(() => blendColors(kleur(base.value), kleur(overlay.value), mode.value, t.value));
 const code = computed(() =>
   mode.value === "mix"
-    ? `const result = kleur.mix(kleur("${base.value}"), kleur("${overlay.value}"), ${t.value})`
-    : `const result = kleur.blend(kleur("${base.value}"), kleur("${overlay.value}"), "${mode.value}")`
+    ? [
+        "const result = kleur.mix(",
+        `  kleur("${base.value}"),`,
+        `  kleur("${overlay.value}"),`,
+        `  ${t.value}`,
+        ");",
+      ].join("\n")
+    : [
+        "const result = kleur.blend(",
+        `  kleur("${base.value}"),`,
+        `  kleur("${overlay.value}"),`,
+        `  "${mode.value}"`,
+        ");",
+      ].join("\n")
 );
 </script>
 
@@ -74,7 +86,8 @@ const code = computed(() =>
   padding: 14px 16px;
   background: var(--kl-surface-lowest);
   font-family: var(--vp-font-family-mono);
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .kl-controls {

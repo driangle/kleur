@@ -44,9 +44,23 @@ const code = computed(() => {
     case "css":
       return `const color = kleur.css("${textInput.value}")`;
     case "rgb":
-      return `const color = kleur.rgb(${rgb.value.r}, ${rgb.value.g}, ${rgb.value.b}, ${rgb.value.a})`;
+      return [
+        "const color = kleur.rgb(",
+        `  ${rgb.value.r},`,
+        `  ${rgb.value.g},`,
+        `  ${rgb.value.b},`,
+        `  ${rgb.value.a}`,
+        ");",
+      ].join("\n");
     case "hsl":
-      return `const color = kleur.hsl(${hsl.value.h}, ${hsl.value.s}, ${hsl.value.l}, ${hsl.value.a})`;
+      return [
+        "const color = kleur.hsl(",
+        `  ${hsl.value.h},`,
+        `  ${hsl.value.s},`,
+        `  ${hsl.value.l},`,
+        `  ${hsl.value.a}`,
+        ");",
+      ].join("\n");
     case "number":
       return `const color = kleur.number(${packedNumber.value})`;
   }
@@ -78,7 +92,18 @@ const code = computed(() => {
 
         <label v-if="mode === 'factory' || mode === 'hex' || mode === 'css'" class="kl-field">
           <span>Input</span>
-          <input v-model="textInput" type="text" spellcheck="false" />
+          <input
+            v-model="textInput"
+            type="text"
+            spellcheck="false"
+            :placeholder="
+              mode === 'hex'
+                ? '#ff7f50'
+                : mode === 'css'
+                  ? 'rgb(255, 127, 80)'
+                  : '#ff7f50, coral, or rgb(...)'
+            "
+          />
         </label>
 
         <div v-if="mode === 'rgb'" class="kl-grid">
@@ -97,7 +122,7 @@ const code = computed(() => {
 
         <label v-if="mode === 'number'" class="kl-field">
           <span>Packed Number</span>
-          <input v-model="packedNumber" type="text" spellcheck="false" />
+          <input v-model="packedNumber" type="text" spellcheck="false" placeholder="0xff7f50" />
         </label>
       </div>
     </template>
@@ -129,7 +154,8 @@ const code = computed(() => {
   margin: 0 0 18px;
   padding: 14px 16px;
   background: var(--kl-surface-lowest);
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .kl-controls,
@@ -155,6 +181,26 @@ const code = computed(() => {
 .kl-field input,
 .kl-field select {
   width: 100%;
+}
+
+.kl-field input[type="text"],
+.kl-field select {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--kl-outline);
+  background: var(--kl-surface-lowest);
+  color: var(--kl-on-surface);
+}
+
+.kl-field input[type="text"] {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.kl-field input[type="text"]:focus,
+.kl-field select:focus {
+  outline: none;
+  border-color: var(--kl-primary);
+  box-shadow: 0 0 0 1px var(--kl-primary);
 }
 
 .kl-preview {

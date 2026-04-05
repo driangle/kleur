@@ -13,11 +13,19 @@ const palette = computed(() => buildPalette(kleur(base.value), kind.value, { ang
 
 const code = computed(() => {
   if (kind.value === "analogous" || kind.value === "splitComplement") {
-    return `const palette = kleur("${base.value}").${kind.value}(${angle.value})`;
+    return [
+      `const palette = kleur("${base.value}").${kind.value}(`,
+      `  ${angle.value}`,
+      ");",
+    ].join("\n");
   }
 
   if (kind.value === "tints" || kind.value === "shades" || kind.value === "tones") {
-    return `const palette = kleur("${base.value}").${kind.value}(${count.value})`;
+    return [
+      `const palette = kleur("${base.value}").${kind.value}(`,
+      `  ${count.value}`,
+      ");",
+    ].join("\n");
   }
 
   return `const palette = kleur("${base.value}").${kind.value}()`;
@@ -83,7 +91,8 @@ const code = computed(() => {
   padding: 14px 16px;
   background: var(--kl-surface-lowest);
   font-family: var(--vp-font-family-mono);
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .kl-controls {

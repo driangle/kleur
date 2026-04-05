@@ -14,15 +14,15 @@ kleur.hex("#ff6600");
 kleur.rgb(255, 102, 0);
 kleur.hsl(24, 100, 50);
 
-// Analysis
-kleur.luminance(color);
-kleur.contrast(color, kleur.white);
+// Analysis — pass strings directly, no wrapping needed
+kleur.luminance("#ff6600");
+kleur.contrast("#ff6600", "#ffffff");
 
 // Blending
-kleur.mix(color, other, 0.5);
+kleur.mix("#ff0000", "#0000ff", 0.5);
 
 // Harmonies
-kleur.triadic(color);
+kleur.triadic("#ff0000");
 ```
 
 ## API Reference

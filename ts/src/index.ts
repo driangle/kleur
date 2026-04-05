@@ -5,6 +5,7 @@ export type { KleurFn, KleurApi } from "./kleur.js";
 export type { Color } from "./color.js";
 export type { BlendFn, BlendMode, KleurEaseFn } from "./blend.js";
 export type { NamedColorLookup } from "./parse.js";
+export { resolve } from "./parse.js";
 export type { RandomOptions } from "./random.js";
 export {
   KleurError,

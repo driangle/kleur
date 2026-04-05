@@ -2,6 +2,8 @@
 
 Functions for blending and interpolating between colors.
 
+All blending functions accept flexible color inputs — hex strings, CSS strings, packed numbers, or `Color` instances.
+
 ```ts
 import kleur from "@driangle/kleur";
 ```
@@ -11,7 +13,7 @@ import kleur from "@driangle/kleur";
 ## blend
 
 ```ts
-kleur.blend(base: Color, overlay: Color, mode: BlendMode): Color
+kleur.blend(base: KleurValue, overlay: KleurValue, mode: BlendMode): Color
 ```
 
 Blend two colors using the specified blend mode. Operates per-channel in normalized (0-1) space. The result uses the base color's alpha.
@@ -35,15 +37,12 @@ Blend two colors using the specified blend mode. Operates per-channel in normali
 | `"subtract"` | `max(0, base - overlay)` | Darkens subtractively |
 
 ```ts
-const a = kleur("#ff6600");
-const b = kleur("#0066ff");
-
-kleur.blend(a, b, "multiply").toHex();
-kleur.blend(a, b, "screen").toHex();
-kleur.blend(a, b, "overlay").toHex();
+kleur.blend("#ff6600", "#0066ff", "multiply").toHex();
+kleur.blend("#ff6600", "#0066ff", "screen").toHex();
+kleur.blend("#ff6600", "#0066ff", "overlay").toHex();
 
 // Custom blend function — receives both Color objects
-kleur.blend(a, b, (base, overlay) =>
+kleur.blend("#ff6600", "#0066ff", (base, overlay) =>
   kleur.rgb((base.r + overlay.r) / 2, (base.g + overlay.g) / 2, (base.b + overlay.b) / 2)
 );
 ```
@@ -51,7 +50,7 @@ kleur.blend(a, b, (base, overlay) =>
 ## mix
 
 ```ts
-kleur.mix(a: Color, b: Color, t?: number, ease?: KleurEaseFn): Color
+kleur.mix(a: KleurValue, b: KleurValue, t?: number, ease?: KleurEaseFn): Color
 ```
 
 Interpolate between two colors in RGB space. `t=0` returns `a`, `t=1` returns `b`. Default `t` is `0.5` (midpoint).
@@ -59,12 +58,9 @@ Interpolate between two colors in RGB space. `t=0` returns `a`, `t=1` returns `b
 The optional `ease` function remaps `t` before interpolation, allowing non-linear blending.
 
 ```ts
-const red = kleur("#ff0000");
-const blue = kleur("#0000ff");
-
-kleur.mix(red, blue);           // 50% blend
-kleur.mix(red, blue, 0.25);     // 25% toward blue
-kleur.mix(red, blue, 0.5, t => t * t); // ease-in quadratic
+kleur.mix("#ff0000", "#0000ff");           // 50% blend
+kleur.mix("#ff0000", "#0000ff", 0.25);     // 25% toward blue
+kleur.mix("#ff0000", "#0000ff", 0.5, t => t * t); // ease-in quadratic
 ```
 
 ## Types

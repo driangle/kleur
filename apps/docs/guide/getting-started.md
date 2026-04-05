@@ -52,31 +52,28 @@ coral.toNormalized(); // [1, 0.498, 0.314, 1]
 
 ## Generate Palettes
 
-Create color harmonies from any base color:
+Create color harmonies from any base color. All harmony functions accept strings, numbers, or `Color` instances directly:
 
 ```ts
-const [base, second, third] = kleur.triadic(coral);
-const lightVariations = kleur.tints(coral, 5);
-const darkVariations = kleur.shades(coral, 5);
+const [base, second, third] = kleur.triadic("#ff7f50");
+const lightVariations = kleur.tints("#ff7f50", 5);
+const darkVariations = kleur.shades("#ff7f50", 5);
 ```
 
 <PaletteDemo />
 
 ## Check Accessibility
 
-Measure contrast and luminance for WCAG compliance:
+Measure contrast and luminance for WCAG compliance. Pass colors directly as strings — no need to wrap them in `kleur()` first:
 
 ```ts
 import kleur from "@driangle/kleur";
 
-const bg = kleur("#1a1a2e");
-const fg = kleur("#ffffff");
+const ratio = kleur.contrast("#1a1a2e", "#ffffff"); // ~15.3
+const readable = ratio >= 4.5;                      // WCAG AA: true
 
-const ratio = kleur.contrast(bg, fg); // ~15.3
-const readable = ratio >= 4.5;        // WCAG AA: true
-
-kleur.isLight(fg); // true
-kleur.isLight(bg); // false
+kleur.isLight("#ffffff"); // true
+kleur.isLight("#1a1a2e"); // false
 ```
 
 <ContrastDemo />
@@ -88,11 +85,8 @@ Mix and blend colors together:
 ```ts
 import kleur from "@driangle/kleur";
 
-const a = kleur("#ff0000");
-const b = kleur("#0000ff");
-
-const purple = kleur.mix(a, b, 0.5);           // midpoint blend
-const overlay = kleur.blend(a, b, "screen");    // screen blend mode
+const purple = kleur.mix("#ff0000", "#0000ff", 0.5);        // midpoint blend
+const overlay = kleur.blend("#ff0000", "#0000ff", "screen"); // screen blend mode
 ```
 
 <BlendDemo />

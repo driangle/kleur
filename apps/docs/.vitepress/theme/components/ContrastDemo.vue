@@ -8,7 +8,14 @@ const foreground = ref("#ffffff");
 const background = ref("#1a1a2e");
 const summary = computed(() => describeContrast(kleur(foreground.value), kleur(background.value)));
 const sample = ref("The quick brown fox jumps over the lazy dog.");
-const code = computed(() => `const ratio = kleur.contrast(kleur("${background.value}"), kleur("${foreground.value}"))`);
+const code = computed(() =>
+  [
+    "const ratio = kleur.contrast(",
+    `  kleur("${background.value}"),`,
+    `  kleur("${foreground.value}")`,
+    ");",
+  ].join("\n")
+);
 </script>
 
 <template>
@@ -44,8 +51,34 @@ const code = computed(() => `const ratio = kleur.contrast(kleur("${background.va
         </div>
         <div class="kl-metrics">
           <div><span>Contrast</span><strong>{{ summary.ratio }}:1</strong></div>
-          <div><span>WCAG AA</span><strong>{{ summary.aa ? "Pass" : "Fail" }}</strong></div>
-          <div><span>WCAG AAA</span><strong>{{ summary.aaa ? "Pass" : "Fail" }}</strong></div>
+          <div
+            class="kl-metric-row"
+            tabindex="0"
+          >
+            <span>WCAG AA</span>
+            <strong class="kl-metric-value">{{ summary.aa ? "Pass" : "Fail" }}</strong>
+            <span class="kl-tooltip">
+              {{
+                summary.aa
+                  ? "Passes WCAG AA for normal text because the contrast ratio is at least 4.5:1."
+                  : "Fails WCAG AA for normal text because the contrast ratio is below 4.5:1."
+              }}
+            </span>
+          </div>
+          <div
+            class="kl-metric-row"
+            tabindex="0"
+          >
+            <span>WCAG AAA</span>
+            <strong class="kl-metric-value">{{ summary.aaa ? "Pass" : "Fail" }}</strong>
+            <span class="kl-tooltip">
+              {{
+                summary.aaa
+                  ? "Passes WCAG AAA for normal text because the contrast ratio is at least 7:1."
+                  : "Fails WCAG AAA for normal text because the contrast ratio is below 7:1."
+              }}
+            </span>
+          </div>
         </div>
       </div>
     </template>
@@ -58,7 +91,8 @@ const code = computed(() => `const ratio = kleur.contrast(kleur("${background.va
   padding: 14px 16px;
   background: var(--kl-surface-lowest);
   font-family: var(--vp-font-family-mono);
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .kl-controls,
@@ -96,6 +130,40 @@ const code = computed(() => `const ratio = kleur.contrast(kleur("${background.va
   display: flex;
   justify-content: space-between;
   gap: 16px;
+}
+
+.kl-metric-row {
+  position: relative;
+  cursor: help;
+}
+
+.kl-tooltip {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 1;
+  width: min(260px, 80vw);
+  padding: 10px 12px;
+  border: 1px solid var(--kl-outline);
+  background: var(--kl-surface-lowest);
+  color: var(--kl-on-surface);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.kl-metric-row:hover .kl-tooltip,
+.kl-metric-row:focus-visible .kl-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kl-metric-row:focus-visible {
+  outline: 1px solid var(--kl-primary);
+  outline-offset: 4px;
 }
 
 .kl-metrics strong {

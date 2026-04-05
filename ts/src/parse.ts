@@ -132,10 +132,11 @@ export function kleur(
   if (typeof valueOrR === "number" && g !== undefined && b !== undefined) {
     return rgb(valueOrR, g, b, a);
   }
-  return _resolve(valueOrR);
+  return resolve(valueOrR);
 }
 
-function _resolve(value: string | number | Color): Color {
+/** Resolve any supported color input to a Color instance. */
+export function resolve(value: string | number | Color): Color {
   if (value instanceof Color) {
     return value;
   }

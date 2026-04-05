@@ -115,7 +115,8 @@ const code = computed(() => `const result = kleur("${base.value}").${operation.v
   padding: 14px 16px;
   background: var(--kl-surface-lowest);
   font-family: var(--vp-font-family-mono);
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .kl-controls,

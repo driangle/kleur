@@ -4,23 +4,24 @@ import type {
   RadialGradient,
   GradientStop,
   KleurFill,
+  KleurValue,
 } from "./types.js";
-import { Color } from "./color.js";
+import { resolve } from "./parse.js";
 
 const clampOffset = (v: number): number => Math.min(1, Math.max(0, v));
 
 /**
  * Create a clamped gradient stop.
  */
-export function colorStop(offset: number, color: Color): GradientStop {
-  return { offset: clampOffset(offset), color };
+export function colorStop(offset: number, color: KleurValue): GradientStop {
+  return { offset: clampOffset(offset), color: resolve(color) };
 }
 
 /**
  * Create a solid fill.
  */
-export function solid(color: Color): SolidKleur {
-  return { type: "solid", color };
+export function solid(color: KleurValue): SolidKleur {
+  return { type: "solid", color: resolve(color) };
 }
 
 /**

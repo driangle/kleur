@@ -8,7 +8,8 @@ import {
   UnknownDistanceMethodError,
   UnknownDistancePresetError,
 } from "./errors.js";
-import type { DistanceOptions } from "./types.js";
+import type { DistanceOptions, KleurValue } from "./types.js";
+import { resolve } from "./parse.js";
 import { rgbToLab, rgbToOklab, labToLch, oklabToOklch } from "./color-spaces.js";
 import { rgbToHsl } from "./hsl.js";
 import {
@@ -81,10 +82,12 @@ function resolveOptions(options?: DistanceOptions): { space: string; method: str
  * Pass a preset or explicit {space, method} for perceptual distance metrics.
  */
 export function distance(
-  a: Color,
-  b: Color,
+  a: KleurValue,
+  b: KleurValue,
   options?: DistanceOptions,
 ): number {
+  const ca = resolve(a);
+  const cb = resolve(b);
   const { space, method } = resolveOptions(options);
 
   const converter = SPACE_CONVERTERS[space];
@@ -102,5 +105,5 @@ export function distance(
     throw new InvalidDistanceCombinationError(method, space, [...validSpaces]);
   }
 
-  return distanceFn(converter(a), converter(b));
+  return distanceFn(converter(ca), converter(cb));
 }

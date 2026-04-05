@@ -109,10 +109,16 @@ type KleurFill = SolidKleur | LinearGradient | RadialGradient;
 
 ### KleurValue
 
-Any value accepted as a color input by `object()`:
+Any value accepted as a color input. All public functions on the `kleur` namespace that take a color parameter accept `KleurValue`, so you can pass hex strings, CSS strings, packed numbers, or `Color` instances directly:
 
 ```ts
 type KleurValue = string | number | Color;
+```
+
+```ts
+kleur.isLight("#ffffff");           // string
+kleur.luminance(0xff6600);          // packed number
+kleur.contrast("#000", kleur.white); // mix of string and Color
 ```
 
 ### NamedColorLookup

@@ -1,4 +1,6 @@
 import { Color } from "./color.js";
+import { resolve } from "./parse.js";
+import type { KleurValue } from "./types.js";
 
 export type BlendFn = (base: Color, overlay: Color) => Color;
 export type BlendMode =
@@ -109,9 +111,9 @@ const blendModes: Record<string, BlendFn> = {
 };
 
 /** Blend two colors using the specified blend mode or a custom blend function. */
-export function blend(base: Color, overlay: Color, mode: BlendMode): Color {
+export function blend(base: KleurValue, overlay: KleurValue, mode: BlendMode): Color {
   const fn = typeof mode === "function" ? mode : blendModes[mode];
-  return fn(base, overlay);
+  return fn(resolve(base), resolve(overlay));
 }
 
 export type KleurEaseFn = (t: number) => number;
@@ -120,11 +122,13 @@ export type KleurEaseFn = (t: number) => number;
  * Interpolate between two colors in RGB space.
  * t=0 returns a, t=1 returns b. An optional easing function remaps t before interpolation.
  */
-export function mix(a: Color, b: Color, t = 0.5, ease?: KleurEaseFn): Color {
+export function mix(a: KleurValue, b: KleurValue, t = 0.5, ease?: KleurEaseFn): Color {
+  const ca = resolve(a);
+  const cb = resolve(b);
   const et = ease ? ease(t) : t;
-  const r = a.r + (b.r - a.r) * et;
-  const g = a.g + (b.g - a.g) * et;
-  const bl = a.b + (b.b - a.b) * et;
-  const alpha = a.a + (b.a - a.a) * et;
+  const r = ca.r + (cb.r - ca.r) * et;
+  const g = ca.g + (cb.g - ca.g) * et;
+  const bl = ca.b + (cb.b - ca.b) * et;
+  const alpha = ca.a + (cb.a - ca.a) * et;
   return new Color(r, g, bl, alpha);
 }

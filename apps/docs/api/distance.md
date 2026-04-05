@@ -2,6 +2,8 @@
 
 Compute the perceptual or mathematical distance between two colors using configurable color spaces and distance methods.
 
+All distance functions accept flexible color inputs — hex strings, CSS strings, packed numbers, or `Color` instances.
+
 ```ts
 import kleur from "@driangle/kleur";
 // kleur.distance(...)
@@ -12,7 +14,7 @@ import kleur from "@driangle/kleur";
 ## distance
 
 ```ts
-distance(a: Color, b: Color, options?: DistanceOptions): number
+distance(a: KleurValue, b: KleurValue, options?: DistanceOptions): number
 ```
 
 Without options, returns Euclidean distance in RGB space. Pass a preset or explicit `{space, method}` for perceptual distance metrics.
@@ -22,10 +24,10 @@ Without options, returns Euclidean distance in RGB space. Pass a preset or expli
 Use a preset for common strategies:
 
 ```ts
-kleur.distance(a, b, { preset: "fast" });       // Euclidean in RGB
-kleur.distance(a, b, { preset: "perceptual" }); // deltaE94 in Lab
-kleur.distance(a, b, { preset: "accurate" });   // CIEDE2000 in Lab
-kleur.distance(a, b, { preset: "modern" });     // Euclidean in OKLab
+kleur.distance("#ff6600", "#0066ff", { preset: "fast" });       // Euclidean in RGB
+kleur.distance("#ff6600", "#0066ff", { preset: "perceptual" }); // deltaE94 in Lab
+kleur.distance("#ff6600", "#0066ff", { preset: "accurate" });   // CIEDE2000 in Lab
+kleur.distance("#ff6600", "#0066ff", { preset: "modern" });     // Euclidean in OKLab
 ```
 
 | Preset | Color Space | Method | Best For |
@@ -40,8 +42,8 @@ kleur.distance(a, b, { preset: "modern" });     // Euclidean in OKLab
 Specify an explicit color space and distance method:
 
 ```ts
-kleur.distance(a, b, { space: "oklab", method: "euclidean" });
-kleur.distance(a, b, { space: "lab", method: "deltaE2000" });
+kleur.distance("#ff6600", "#0066ff", { space: "oklab", method: "euclidean" });
+kleur.distance("#ff6600", "#0066ff", { space: "lab", method: "deltaE2000" });
 ```
 
 ### Color Spaces
