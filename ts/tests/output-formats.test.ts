@@ -83,6 +83,25 @@ describe("output format conversions", () => {
     });
   });
 
+  describe("toHsb()", () => {
+    it("returns {h, s, b} object", () => {
+      expect(red.toHsb()).toEqual({ h: 0, s: 100, b: 100 });
+      expect(black.toHsb()).toEqual({ h: 0, s: 0, b: 0 });
+    });
+
+    it("does not include alpha", () => {
+      const result = blue.toHsb();
+      expect(result).not.toHaveProperty("a");
+    });
+  });
+
+  describe("toHsba()", () => {
+    it("returns {h, s, b, a} object", () => {
+      expect(red.toHsba()).toEqual({ h: 0, s: 100, b: 100, a: 1 });
+      expect(blue.toHsba()).toEqual({ h: 240, s: 100, b: 100, a: 0.5 });
+    });
+  });
+
   describe("toArray()", () => {
     it("returns [r, g, b, a] tuple", () => {
       expect(red.toArray()).toEqual([255, 0, 0, 1]);

@@ -33,6 +33,11 @@ export interface Hsb {
   b: number;
 }
 
+/** HSB (HSV) channels object with alpha */
+export interface Hsba extends Hsb {
+  a: number;
+}
+
 /** A solid color fill */
 export interface SolidKleur {
   type: "solid";

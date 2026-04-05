@@ -6,6 +6,7 @@ import type {
   Hsl,
   Hsla,
   Hsb,
+  Hsba,
   KleurValue,
   BlendMode,
 } from "./types.js";
@@ -210,6 +211,12 @@ export class Color {
   }
   toHsla(): Hsla {
     return { ...this.hsl, a: this.#a };
+  }
+  toHsb(): Hsb {
+    return this.hsb;
+  }
+  toHsba(): Hsba {
+    return { ...this.hsb, a: this.#a };
   }
   toArray(): [number, number, number, number] {
     return [this.#r, this.#g, this.#b, this.#a];
