@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, onUnmounted } from "vue";
 import DocsDemo from "./DocsDemo.vue";
 import { readableTextColor } from "../lib/demo";
 import kleur from "@driangle/kleur";
@@ -34,7 +34,7 @@ function wheelPoint(hueDeg: number, radius: number, centerX: number, centerY: nu
 const wheelSize = 200;
 const cx = wheelSize / 2;
 const cy = wheelSize / 2;
-const maxRadius = 78;
+const maxRadius = wheelSize / 2;
 const dotRadius = 8;
 
 const baseLightness = computed(() => baseColor.value.toHsl().l);
@@ -85,6 +85,80 @@ const code = computed(() => {
   }
   return `kleur("${base.value}").${kind.value}()`;
 });
+
+const svgEl = ref<SVGSVGElement | null>(null);
+const dragging = ref(false);
+
+function svgPoint(e: MouseEvent | Touch): { x: number; y: number } {
+  const svg = svgEl.value!;
+  const rect = svg.getBoundingClientRect();
+  const scaleX = wheelSize / rect.width;
+  const scaleY = wheelSize / rect.height;
+  return {
+    x: (e.clientX - rect.left) * scaleX,
+    y: (e.clientY - rect.top) * scaleY,
+  };
+}
+
+function updateColorFromPoint(px: number, py: number) {
+  const dx = px - cx;
+  const dy = py - cy;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  const s = Math.min(100, (dist / maxRadius) * 100);
+  const angleDeg = (Math.atan2(dy, dx) * 180) / Math.PI;
+  const h = (angleDeg + 90 + 360) % 360;
+  const l = baseLightness.value;
+  base.value = kleur.hsl(Math.round(h), Math.round(s), Math.round(l)).toHex();
+}
+
+function onPointerDown(e: MouseEvent) {
+  dragging.value = true;
+  const pt = svgPoint(e);
+  updateColorFromPoint(pt.x, pt.y);
+  e.preventDefault();
+}
+
+function onPointerMove(e: MouseEvent) {
+  if (!dragging.value) return;
+  const pt = svgPoint(e);
+  updateColorFromPoint(pt.x, pt.y);
+}
+
+function onPointerUp() {
+  dragging.value = false;
+}
+
+function onTouchStart(e: TouchEvent) {
+  dragging.value = true;
+  const pt = svgPoint(e.touches[0]);
+  updateColorFromPoint(pt.x, pt.y);
+  e.preventDefault();
+}
+
+function onTouchMove(e: TouchEvent) {
+  if (!dragging.value) return;
+  const pt = svgPoint(e.touches[0]);
+  updateColorFromPoint(pt.x, pt.y);
+  e.preventDefault();
+}
+
+function onTouchEnd() {
+  dragging.value = false;
+}
+
+onMounted(() => {
+  window.addEventListener("mousemove", onPointerMove);
+  window.addEventListener("mouseup", onPointerUp);
+  window.addEventListener("touchmove", onTouchMove, { passive: false });
+  window.addEventListener("touchend", onTouchEnd);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("mousemove", onPointerMove);
+  window.removeEventListener("mouseup", onPointerUp);
+  window.removeEventListener("touchmove", onTouchMove);
+  window.removeEventListener("touchend", onTouchEnd);
+});
 </script>
 
 <template>
@@ -132,6 +206,7 @@ const code = computed(() => {
         <div class="kl-wheel-wrap">
           <div class="kl-wheel-bg" :style="wheelStyle"></div>
           <svg
+            ref="svgEl"
             class="kl-wheel-svg"
             :viewBox="`0 0 ${wheelSize} ${wheelSize}`"
           >
@@ -151,6 +226,9 @@ const code = computed(() => {
                 :fill="dot.hex"
                 stroke="var(--kl-on-surface)"
                 :stroke-width="dot.isBase ? 2.5 : 1.5"
+                :class="{ 'kl-draggable': dot.isBase }"
+                @mousedown="dot.isBase ? onPointerDown($event) : undefined"
+                @touchstart="dot.isBase ? onTouchStart($event) : undefined"
               />
             </g>
           </svg>
@@ -201,6 +279,7 @@ const code = computed(() => {
 .kl-harmony-preview {
   display: grid;
   gap: 16px;
+  padding: 12px;
 }
 
 .kl-wheel-wrap {
@@ -214,6 +293,7 @@ const code = computed(() => {
   position: absolute;
   inset: 0;
   border-radius: 50%;
+  clip-path: circle(50%);
   opacity: 0.9;
 }
 
@@ -221,6 +301,15 @@ const code = computed(() => {
   position: relative;
   width: 100%;
   height: 100%;
+  clip-path: circle(50%);
+}
+
+.kl-draggable {
+  cursor: grab;
+}
+
+.kl-draggable:active {
+  cursor: grabbing;
 }
 
 .kl-swatches {
