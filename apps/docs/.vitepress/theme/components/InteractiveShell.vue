@@ -243,10 +243,9 @@ function textColorStrong(hex: string): string {
 
 /* ── Code panel ── */
 .kl-shell-code {
-  background: #0e0e0e;
+  background: var(--kl-surface-dim);
   padding: 28px 32px;
-  border-left: 1px solid rgba(71, 71, 71, 0.3);
-  border-top: 1px solid rgba(71, 71, 71, 0.3);
+  border: 1px solid var(--kl-outline-variant);
 }
 
 .kl-shell-chrome {
@@ -259,7 +258,7 @@ function textColorStrong(hex: string): string {
 .kl-dot {
   width: 10px;
   height: 10px;
-  background: #2a2a2a;
+  background: var(--kl-surface-high);
 }
 
 .kl-shell-label {
@@ -268,7 +267,7 @@ function textColorStrong(hex: string): string {
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #474747;
+  color: var(--kl-outline-variant);
 }
 
 .kl-shell-line {
@@ -280,7 +279,7 @@ function textColorStrong(hex: string): string {
   font-family: var(--vp-font-family-mono) !important;
   font-size: clamp(0.8rem, 1.5vw, 1rem) !important;
   line-height: 1.8;
-  color: #919191 !important;
+  color: var(--kl-outline) !important;
   background: none !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -289,21 +288,21 @@ function textColorStrong(hex: string): string {
   overflow-x: auto;
 }
 
-.kl-kw { color: #666; }
-.kl-fn { color: #e5e2e1; }
+.kl-kw { color: var(--kl-outline); }
+.kl-fn { color: var(--kl-on-surface); }
 .kl-str { transition: color 0.2s; }
-.kl-num { color: #e5e2e1; }
-.kl-comment { color: #474747; }
+.kl-num { color: var(--kl-on-surface); }
+.kl-comment { color: var(--kl-outline-variant); }
 .kl-disabled { opacity: 0.35; }
 .kl-disabled .kl-fn,
-.kl-disabled .kl-num { color: #666; }
+.kl-disabled .kl-num { color: var(--kl-outline); }
 
 /* ── Controls ── */
 .kl-shell-controls {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border-top: 1px solid #1c1b1b;
+  border-top: 1px solid var(--kl-surface-low);
   padding-top: 16px;
 }
 
@@ -334,7 +333,7 @@ function textColorStrong(hex: string): string {
 .kl-color-picker {
   width: 26px;
   height: 26px;
-  border: 1px solid #353534;
+  border: 1px solid var(--kl-surface-highest);
   background: none;
   cursor: pointer;
   padding: 0;
@@ -354,9 +353,9 @@ function textColorStrong(hex: string): string {
 .kl-color-text {
   font-family: var(--vp-font-family-mono);
   font-size: 0.75rem;
-  background: #1c1b1b;
-  border: 1px solid #353534;
-  color: #e5e2e1;
+  background: var(--kl-surface-low);
+  border: 1px solid var(--kl-surface-highest);
+  color: var(--kl-on-surface);
   padding: 5px 8px;
   width: 96px;
   outline: none;
@@ -364,7 +363,7 @@ function textColorStrong(hex: string): string {
 }
 
 .kl-color-text:focus {
-  border-color: #919191;
+  border-color: var(--kl-outline);
 }
 
 /* ── Toggle switch ── */
@@ -382,7 +381,7 @@ function textColorStrong(hex: string): string {
   display: block;
   width: 24px;
   height: 12px;
-  background: #e5e2e1;
+  background: var(--kl-on-surface);
   position: relative;
   transition: background 0.2s;
 }
@@ -391,7 +390,7 @@ function textColorStrong(hex: string): string {
   display: block;
   width: 8px;
   height: 8px;
-  background: #0e0e0e;
+  background: var(--kl-surface-dim);
   position: absolute;
   top: 2px;
   left: 14px;
@@ -399,12 +398,12 @@ function textColorStrong(hex: string): string {
 }
 
 .kl-toggle-off .kl-toggle-track {
-  background: #353534;
+  background: var(--kl-surface-highest);
 }
 
 .kl-toggle-off .kl-toggle-thumb {
   left: 2px;
-  background: #666;
+  background: var(--kl-outline);
 }
 
 .kl-slider-disabled {
@@ -415,9 +414,9 @@ function textColorStrong(hex: string): string {
 .kl-method-select {
   font-family: var(--vp-font-family-mono);
   font-size: 0.75rem;
-  background: #1c1b1b;
-  border: 1px solid #353534;
-  color: #e5e2e1;
+  background: var(--kl-surface-low);
+  border: 1px solid var(--kl-surface-highest);
+  color: var(--kl-on-surface);
   padding: 5px 8px;
   outline: none;
   cursor: pointer;
@@ -427,13 +426,13 @@ function textColorStrong(hex: string): string {
 }
 
 .kl-method-select:focus {
-  border-color: #919191;
+  border-color: var(--kl-outline);
 }
 
 .kl-remove-btn {
   background: none;
   border: none;
-  color: #353534;
+  color: var(--kl-surface-highest);
   width: 20px;
   height: 20px;
   display: flex;
@@ -448,7 +447,7 @@ function textColorStrong(hex: string): string {
 }
 
 .kl-remove-btn:hover {
-  color: #919191;
+  color: var(--kl-outline);
 }
 
 .kl-slider {
@@ -456,7 +455,7 @@ function textColorStrong(hex: string): string {
   -webkit-appearance: none;
   appearance: none;
   height: 2px;
-  background: #353534;
+  background: var(--kl-surface-highest);
   outline: none;
 }
 
@@ -465,7 +464,7 @@ function textColorStrong(hex: string): string {
   appearance: none;
   width: 14px;
   height: 14px;
-  background: #e5e2e1;
+  background: var(--kl-on-surface);
   cursor: pointer;
   border: none;
 }
@@ -473,7 +472,7 @@ function textColorStrong(hex: string): string {
 .kl-slider::-moz-range-thumb {
   width: 14px;
   height: 14px;
-  background: #e5e2e1;
+  background: var(--kl-on-surface);
   cursor: pointer;
   border: none;
 }
@@ -481,7 +480,7 @@ function textColorStrong(hex: string): string {
 .kl-slider-value {
   font-family: var(--vp-font-family-mono);
   font-size: 0.75rem;
-  color: #919191;
+  color: var(--kl-outline);
   width: 48px;
   flex-shrink: 0;
   text-align: right;
@@ -489,8 +488,8 @@ function textColorStrong(hex: string): string {
 
 .kl-add-btn {
   background: none;
-  border: 1px dashed #353534;
-  color: #666;
+  border: 1px dashed var(--kl-surface-highest);
+  color: var(--kl-outline);
   padding: 8px;
   font-size: 0.6875rem;
   text-transform: uppercase;
@@ -501,8 +500,8 @@ function textColorStrong(hex: string): string {
 }
 
 .kl-add-btn:hover {
-  color: #e5e2e1;
-  border-color: #919191;
+  color: var(--kl-on-surface);
+  border-color: var(--kl-outline);
 }
 
 /* ── Preview panels ── */

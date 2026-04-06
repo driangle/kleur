@@ -146,13 +146,13 @@ onMounted(() => {
   font-weight: 900;
   line-height: 0.85;
   letter-spacing: -0.04em;
-  color: #fff;
+  color: var(--kl-primary);
   margin: 0 0 32px;
 }
 
 .kl-hero-tagline {
   font-size: 1.25rem;
-  color: #919191;
+  color: var(--kl-outline);
   max-width: 520px;
   line-height: 1.7;
   margin: 0 0 48px;
@@ -178,27 +178,27 @@ onMounted(() => {
 }
 
 .kl-btn-primary {
-  background: #fff;
-  color: #1a1c1c;
-  border-color: #fff;
+  background: var(--kl-primary);
+  color: var(--kl-on-primary);
+  border-color: var(--kl-primary);
 }
 
 .kl-btn-primary:hover {
-  background: #d4d4d4;
-  border-color: #d4d4d4;
+  background: var(--kl-on-surface-variant);
+  border-color: var(--kl-on-surface-variant);
   transform: translateY(-1px);
 }
 
 .kl-btn-outline {
   background: transparent;
-  color: #fff;
-  border-color: #474747;
+  color: var(--kl-primary);
+  border-color: var(--kl-outline-variant);
 }
 
 .kl-btn-outline:hover {
-  background: #fff;
-  color: #1a1c1c;
-  border-color: #fff;
+  background: var(--kl-primary);
+  color: var(--kl-on-primary);
+  border-color: var(--kl-primary);
 }
 
 /* ── Features ── */
@@ -222,20 +222,21 @@ onMounted(() => {
 }
 
 .kl-feature {
-  background: #201f1f;
+  background: var(--kl-surface);
   padding: 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 360px;
-  border: 1px solid transparent;
-  transition: border-color 0.2s;
+  border: 1px solid var(--kl-outline-variant);
+  transition: border-color 0.2s, background 0.2s;
   text-decoration: none !important;
   cursor: pointer;
 }
 
 .kl-feature:hover {
-  border-color: #474747;
+  border-color: var(--kl-outline);
+  background: var(--kl-surface-high);
 }
 
 .kl-feature-content {
@@ -243,21 +244,21 @@ onMounted(() => {
 }
 
 .kl-feature-icon {
-  color: #fff;
+  color: var(--kl-on-surface);
   margin-bottom: 24px;
 }
 
 .kl-feature h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #fff !important;
+  color: var(--kl-on-surface) !important;
   margin: 0 0 12px;
   letter-spacing: -0.01em;
 }
 
 .kl-feature p {
   font-size: 0.875rem;
-  color: #919191 !important;
+  color: var(--kl-on-surface-variant) !important;
   line-height: 1.6;
   margin: 0;
 }
@@ -287,7 +288,7 @@ onMounted(() => {
 
 /* Gradient bar */
 .kl-bar-gradient {
-  background: linear-gradient(to right, #1a1a1a, #666, #ccc);
+  background: linear-gradient(to right, var(--kl-surface-highest), var(--kl-outline), var(--kl-outline-variant));
   transition: background 0.4s ease;
 }
 
@@ -300,7 +301,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #0e0e0e;
+  background: var(--kl-surface-dim);
   padding: 16px;
   margin-top: 24px;
 }
@@ -308,15 +309,15 @@ onMounted(() => {
 .kl-metric-value {
   font-size: 2rem;
   font-weight: 900;
-  color: #fff;
+  color: var(--kl-on-surface);
 }
 
 .kl-metric-badge {
   font-size: 0.625rem;
   font-weight: 700;
   padding: 4px 10px;
-  background: #666;
-  color: #0e0e0e;
+  background: var(--kl-outline);
+  color: var(--kl-surface-lowest);
   letter-spacing: 0.06em;
   transition: background 0.4s ease, color 0.4s ease;
 }
@@ -337,9 +338,9 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  background: #353534;
-  border: 1px solid #474747;
-  color: #fff;
+  background: var(--kl-surface-highest);
+  border: 1px solid var(--kl-outline-variant);
+  color: var(--kl-on-surface);
   padding: 16px 24px;
   font-family: var(--vp-font-family-mono);
   font-size: 0.875rem;
@@ -349,18 +350,18 @@ onMounted(() => {
 }
 
 .kl-install-btn:hover {
-  border-color: #919191;
+  border-color: var(--kl-outline);
 }
 
 .kl-install-cmd {
-  color: #e5e2e1;
+  color: var(--kl-on-surface);
 }
 
 .kl-install-copy {
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #919191;
+  color: var(--kl-outline);
   font-family: var(--vp-font-family-base);
 }
 </style>

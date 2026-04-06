@@ -43,6 +43,7 @@ export default defineConfig({
     nav: [
       { text: "Guide", link: "/guide/getting-started" },
       { text: "API Reference", link: "/api/color" },
+      { text: "Examples", link: "/examples/vanillajs" },
     ],
 
     sidebar: {
@@ -95,6 +96,17 @@ export default defineConfig({
         {
           text: "Types",
           items: [{ text: "Type Definitions", link: "/api/types" }],
+        },
+      ],
+      "/examples/": [
+        {
+          text: "Library Integration",
+          items: [
+            { text: "Vanilla JS", link: "/examples/vanillajs" },
+            { text: "React", link: "/examples/reactjs" },
+            { text: "p5.js", link: "/examples/p5js" },
+            { text: "Three.js", link: "/examples/threejs" },
+          ],
         },
       ],
     },

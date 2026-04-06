@@ -1,7 +1,7 @@
 ---
 title: "Add visual library integration examples (p5.js, Three.js)"
 id: "01knhacz7"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["docs", "examples", "integration"]
@@ -16,12 +16,12 @@ Add interactive documentation examples in `apps/docs` demonstrating how to use k
 
 ## Tasks
 
-- [ ] Research how p5.js and Three.js accept and use color values (hex strings, RGB arrays, etc.)
-- [ ] Create a p5.js example page/demo showing kleur colors used to style a canvas sketch (e.g. palette-driven generative art)
-- [ ] Create a Three.js example page/demo showing kleur colors applied to 3D materials (e.g. harmony-based material colors)
-- [ ] Add the new example pages to the docs navigation
-- [ ] Write clear explanatory prose for each example describing what kleur APIs are being used and why
-- [ ] Ensure examples are interactive where feasible (e.g. allow users to change a base hue or pick a harmony mode)
+- [x] Research how p5.js and Three.js accept and use color values (hex strings, RGB arrays, etc.)
+- [x] Create a p5.js example page/demo showing kleur colors used to style a canvas sketch (e.g. palette-driven generative art)
+- [x] Create a Three.js example page/demo showing kleur colors applied to 3D materials (e.g. harmony-based material colors)
+- [x] Add the new example pages to the docs navigation
+- [x] Write clear explanatory prose for each example describing what kleur APIs are being used and why
+- [x] Ensure examples are interactive where feasible (e.g. allow users to change a base hue or pick a harmony mode)
 
 ## Acceptance Criteria
 

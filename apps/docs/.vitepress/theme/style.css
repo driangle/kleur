@@ -235,13 +235,14 @@
     font-size: 0.8125rem;
     letter-spacing: 0.02em;
     font-weight: 500;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
 }
 
 /* Active nav link — bottom border accent */
 .VPNavBarMenu .VPNavBarMenuLink.active {
     color: var(--kl-primary) !important;
-    border-bottom: 2px solid var(--kl-primary);
-    padding-bottom: 2px;
+    border-bottom-color: var(--kl-primary);
 }
 
 /* Search box styling */
@@ -411,6 +412,10 @@
     border-top: 1px solid var(--kl-outline-variant) !important;
     padding-top: 32px !important;
     margin-top: 48px !important;
+}
+
+.vp-doc h2 .header-anchor {
+    top: 32px;
 }
 
 .vp-doc h3 {
@@ -682,4 +687,24 @@
 .vp-doc .vp-badge.info {
     background: var(--kl-surface-highest) !important;
     color: var(--kl-on-surface) !important;
+}
+
+/* Demo link button on example pages */
+.kl-demo-link {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--kl-outline-variant);
+    font-family: var(--vp-font-family-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--kl-on-surface-variant);
+    transition: border-color 0.15s, color 0.15s;
+    margin-bottom: 4px;
+}
+
+.kl-demo-link:hover {
+    border-color: var(--kl-on-surface);
+    color: var(--kl-on-surface);
 }
