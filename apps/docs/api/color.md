@@ -37,6 +37,8 @@ const blue = red.withHue(240); // same saturation/lightness, different hue
 
 ## Systematic Channel Operations
 
+<ChannelOpsDemo />
+
 For channels that support multiple kinds of adjustment, the API follows a consistent pattern:
 
 - `withX(value)` sets an absolute value

@@ -10,13 +10,19 @@ type Operation =
   | "saturate"
   | "desaturate"
   | "rotate"
-  | "scaleAlpha"
   | "warm"
-  | "cool";
+  | "cool"
+  | "invert"
+  | "grayscale"
+  | "complement";
 
 const base = ref("#ff7f50");
 const operation = ref<Operation>("lighten");
 const amount = ref(0.3);
+
+const noParam = computed(() =>
+  ["invert", "grayscale", "complement"].includes(operation.value)
+);
 
 const config = computed(() => {
   if (operation.value === "rotate") {
@@ -41,16 +47,24 @@ const after = computed(() => {
       return color.desaturate(amount.value);
     case "rotate":
       return color.rotate(amount.value);
-    case "scaleAlpha":
-      return color.scaleAlpha(amount.value);
     case "warm":
       return color.warm(amount.value);
     case "cool":
       return color.cool(amount.value);
+    case "invert":
+      return color.invert();
+    case "grayscale":
+      return color.grayscale();
+    case "complement":
+      return color.complement();
   }
 });
 
-const code = computed(() => `const result = kleur("${base.value}").${operation.value}(${amount.value})`);
+const code = computed(() =>
+  noParam.value
+    ? `const result = kleur("${base.value}").${operation.value}()`
+    : `const result = kleur("${base.value}").${operation.value}(${amount.value})`
+);
 </script>
 
 <template>
@@ -76,19 +90,22 @@ const code = computed(() => `const result = kleur("${base.value}").${operation.v
             <option value="saturate">saturate()</option>
             <option value="desaturate">desaturate()</option>
             <option value="rotate">rotate()</option>
-            <option value="scaleAlpha">scaleAlpha()</option>
             <option value="warm">warm()</option>
             <option value="cool">cool()</option>
+            <option value="invert">invert()</option>
+            <option value="grayscale">grayscale()</option>
+            <option value="complement">complement()</option>
           </select>
         </label>
-        <label class="kl-field">
-          <span>Amount: {{ amount }}</span>
+        <label class="kl-field" :class="{ 'kl-field--disabled': noParam }">
+          <span>Amount: {{ noParam ? '—' : amount }}</span>
           <input
             v-model.number="amount"
             type="range"
             :min="config.min"
             :max="config.max"
             :step="config.step"
+            :disabled="noParam"
           />
         </label>
       </div>
@@ -119,10 +136,15 @@ const code = computed(() => `const result = kleur("${base.value}").${operation.v
   overflow-wrap: break-word;
 }
 
-.kl-controls,
-.kl-compare {
+.kl-controls {
   display: grid;
   gap: 12px;
+}
+
+.kl-compare {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 100%;
 }
 
 .kl-field {
@@ -145,5 +167,10 @@ const code = computed(() => `const result = kleur("${base.value}").${operation.v
 
 .kl-swatch strong {
   font-family: var(--vp-font-family-mono);
+}
+
+.kl-field--disabled {
+  opacity: 0.4;
+  pointer-events: none;
 }
 </style>

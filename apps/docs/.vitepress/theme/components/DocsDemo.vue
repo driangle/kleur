@@ -63,9 +63,12 @@ defineProps<{
   margin-top: 18px;
 }
 
-.kl-demo__panel,
-.kl-demo__preview {
+.kl-demo__panel {
   padding: 20px 22px;
+}
+
+.kl-demo__preview {
+  display: grid;
 }
 
 .kl-demo__panel {

@@ -29,7 +29,7 @@ const channels = computed(() => {
 });
 
 const code = computed(() => {
-  return `const color = kleur("${hex.value}");\ncolor.red;        // ${color.value.red}\ncolor.hue;        // ${color.value.hue}\ncolor.lightness;  // ${color.value.lightness}`;
+  return `const color = kleur("${hex.value}");`;
 });
 </script>
 
