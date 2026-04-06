@@ -708,3 +708,57 @@
     border-color: var(--kl-on-surface);
     color: var(--kl-on-surface);
 }
+
+/* ──────────────────────────────────────────────
+   Standalone demo pages — full-width content
+   ────────────────────────────────────────────── */
+body.demo-fullscreen .VPDoc .content-container {
+    max-width: 100% !important;
+}
+
+body.demo-fullscreen .VPDoc .container {
+    max-width: 100% !important;
+}
+
+body.demo-fullscreen .vp-doc {
+    padding: 0 !important;
+}
+
+body.demo-fullscreen .VPDoc .content {
+    padding: 0 !important;
+}
+
+body.demo-fullscreen .VPDoc .aside {
+    display: none !important;
+}
+
+/* Shared controls styling for standalone demo pages */
+.kl-demo-page__controls .kl-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-family: var(--vp-font-family-mono);
+    color: var(--kl-on-surface-variant);
+}
+
+.kl-demo-page__controls .kl-ctrl input[type="color"] {
+    width: 28px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid var(--kl-outline-variant);
+    cursor: pointer;
+}
+
+.kl-demo-page__controls .kl-ctrl input[type="range"] {
+    width: 80px;
+}
+
+.kl-demo-page__controls .kl-ctrl select {
+    background: var(--kl-surface-dim);
+    border: 1px solid var(--kl-outline-variant);
+    color: var(--kl-on-surface);
+    padding: 2px 6px;
+    font-family: var(--vp-font-family-mono);
+    font-size: 0.75rem;
+}

@@ -1,10 +1,10 @@
 # Vanilla JS
 
-<a href="./vanillajs-demo" class="kl-demo-link">Open Standalone Demo &rarr;</a>
-
 Use kleur with plain DOM APIs to interpolate colors, style elements dynamically, and build data visualizations — no framework required.
 
 ## Color Interpolation
+
+<a href="./vanilla-interpolation" class="kl-demo-link">Open Demo &rarr;</a>
 
 The most common pattern is mapping a range of values to a color gradient using `kleur.mix()`. Each element gets a color interpolated between two endpoints based on its position.
 
@@ -26,9 +26,9 @@ bars.forEach((bar, i) => {
 
 `kleur.mix(a, b, t)` returns a new `Color` interpolated at position `t` (0–1). The result works with any DOM style property via `.toHex()` or `.toCss()`.
 
-<VanillaDomDemo />
-
 ## Scroll-Driven Color
+
+<a href="./vanilla-scroll-color" class="kl-demo-link">Open Demo &rarr;</a>
 
 Combine `kleur.mix()` with scroll position to create smooth color transitions:
 
@@ -43,6 +43,8 @@ window.addEventListener("scroll", () => {
 ```
 
 ## Data-Driven Styling
+
+<a href="./vanilla-data-styling" class="kl-demo-link">Open Demo &rarr;</a>
 
 Use `.toRgb()` when you need individual channel values, or `.toCss()` for direct CSS assignment:
 

@@ -1,10 +1,10 @@
 # React
 
-<a href="./reactjs-demo" class="kl-demo-link">Open Standalone Demo &rarr;</a>
-
 Use kleur to derive a complete UI theme from a single seed color. Generate primary, surface, and text tokens with automatic WCAG contrast validation.
 
 ## Dynamic Theming
+
+<a href="./react-theming" class="kl-demo-link">Open Demo &rarr;</a>
 
 A common pattern is computing CSS custom properties from one base color, then applying them to a root element. kleur's `lighten()`, `darken()`, and `contrast()` methods make this straightforward:
 
@@ -36,9 +36,9 @@ function useTheme(seed, mode) {
 
 The `lighten(amount)` and `darken(amount)` methods scale proportionally — `lighten(0.3)` moves 30% toward white from the current lightness, so it works consistently across different seed colors.
 
-<ReactThemeDemo />
-
 ## Contrast Validation
+
+<a href="./react-contrast" class="kl-demo-link">Open Demo &rarr;</a>
 
 Use `kleur.contrast()` to verify that your derived tokens meet accessibility requirements:
 
@@ -57,17 +57,41 @@ function ContrastBadge({ foreground, background }) {
 
 ## Palette-Based Component Variants
 
+<a href="./react-palette-variants" class="kl-demo-link">Open Demo &rarr;</a>
+
 Generate tint and shade scales for component variant systems:
 
 ```jsx
-const base = kleur("#3a6bd5");
-const tints = base.tints(5);   // 5 lighter steps
-const shades = base.shades(5); // 5 darker steps
+import kleur from "@driangle/kleur";
+import { useMemo } from "react";
 
-// Use as button variant tokens
-const variants = {
-  light:   tints.at(2).toHex(),
-  default: base.toHex(),
-  dark:    shades.at(2).toHex(),
-};
+function useVariants(hex, steps) {
+  return useMemo(() => {
+    const base = kleur(hex);
+    const tints = [...base.tints(steps)];
+    const shades = [...base.shades(steps)];
+
+    return { tints, base, shades };
+  }, [hex, steps]);
+}
+
+function Button({ variant, children }) {
+  const { tints, base, shades } = useVariants("#3a6bd5", 5);
+
+  const bg = variant === "light"
+    ? tints[2].toHex()
+    : variant === "dark"
+      ? shades[2].toHex()
+      : base.toHex();
+
+  const color = kleur.isLight(bg)
+    ? kleur(bg).darken(0.8).toHex()
+    : kleur(bg).lighten(0.9).toHex();
+
+  return (
+    <button style={{ background: bg, color }}>
+      {children}
+    </button>
+  );
+}
 ```

@@ -1,7 +1,7 @@
 ---
 title: "Redesign standalone demo pages with per-example split and side-by-side layout"
 id: "01knhbpw5"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["docs", "examples", "ui"]
@@ -18,15 +18,15 @@ Additionally, reduce the page chrome further: the current header is too large, a
 
 ## Tasks
 
-- [ ] Create a shared demo page layout component with side-by-side code (left) + interactive preview (right)
-- [ ] Hide the VitePress nav bar on standalone demo pages (via CSS or a custom layout)
-- [ ] Reduce the header bar to a minimal single line (back link + compact inline controls)
-- [ ] Split Vanilla JS into separate standalone demos: color interpolation bars, scroll-driven color, data-driven styling
-- [ ] Split React into separate standalone demos: dynamic theming, contrast validation, palette-based variants
-- [ ] Split p5.js into separate standalone demos: palette-driven grid, random variations, color output formats
-- [ ] Split Three.js into separate standalone demos: material colors from harmonies, gradient skybox, shader uniforms
-- [ ] Update the example doc pages to link to each individual standalone demo (not just one per library)
-- [ ] Remove the current single-page standalone components (`VanillaDomPage`, `ReactThemePage`, `P5SketchPage`, `ThreeMaterialPage`) once replaced
+- [x] Create a shared demo page layout component with side-by-side code (left) + interactive preview (right)
+- [x] Hide the VitePress nav bar on standalone demo pages (via CSS or a custom layout)
+- [x] Reduce the header bar to a minimal single line (back link + compact inline controls)
+- [x] Split Vanilla JS into separate standalone demos: color interpolation bars, scroll-driven color, data-driven styling
+- [x] Split React into separate standalone demos: dynamic theming, contrast validation, palette-based variants
+- [x] Split p5.js into separate standalone demos: palette-driven grid, random variations, color output formats
+- [x] Split Three.js into separate standalone demos: material colors from harmonies, gradient skybox, shader uniforms
+- [x] Update the example doc pages to link to each individual standalone demo (not just one per library)
+- [x] Remove the current single-page standalone components (`VanillaDomPage`, `ReactThemePage`, `P5SketchPage`, `ThreeMaterialPage`) once replaced
 
 ## Acceptance Criteria
 

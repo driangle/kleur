@@ -100,12 +100,39 @@ export default defineConfig({
       ],
       "/examples/": [
         {
-          text: "Library Integration",
+          text: "Vanilla JS",
           items: [
-            { text: "Vanilla JS", link: "/examples/vanillajs" },
-            { text: "React", link: "/examples/reactjs" },
-            { text: "p5.js", link: "/examples/p5js" },
-            { text: "Three.js", link: "/examples/threejs" },
+            { text: "Overview", link: "/examples/vanillajs" },
+            { text: "Color Interpolation", link: "/examples/vanilla-interpolation" },
+            { text: "Scroll-Driven Color", link: "/examples/vanilla-scroll-color" },
+            { text: "Data-Driven Styling", link: "/examples/vanilla-data-styling" },
+          ],
+        },
+        {
+          text: "React",
+          items: [
+            { text: "Overview", link: "/examples/reactjs" },
+            { text: "Dynamic Theming", link: "/examples/react-theming" },
+            { text: "Contrast Validation", link: "/examples/react-contrast" },
+            { text: "Palette Variants", link: "/examples/react-palette-variants" },
+          ],
+        },
+        {
+          text: "p5.js",
+          items: [
+            { text: "Overview", link: "/examples/p5js" },
+            { text: "Palette-Driven Grid", link: "/examples/p5-grid" },
+            { text: "Random Variations", link: "/examples/p5-random" },
+            { text: "Color Output Formats", link: "/examples/p5-formats" },
+          ],
+        },
+        {
+          text: "Three.js",
+          items: [
+            { text: "Overview", link: "/examples/threejs" },
+            { text: "Material Colors", link: "/examples/three-materials" },
+            { text: "Gradient Skybox", link: "/examples/three-skybox" },
+            { text: "Shader Uniforms", link: "/examples/three-shader-uniforms" },
           ],
         },
       ],

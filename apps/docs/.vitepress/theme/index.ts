@@ -11,16 +11,20 @@ import DistanceDemo from "./components/DistanceDemo.vue";
 import GradientDemo from "./components/GradientDemo.vue";
 import HarmonyDemo from "./components/HarmonyDemo.vue";
 import HomeHero from "./components/HomeHero.vue";
-import P5SketchDemo from "./components/P5SketchDemo.vue";
-import P5SketchPage from "./components/P5SketchPage.vue";
 import PaletteAdjustDemo from "./components/PaletteAdjustDemo.vue";
 import PaletteDemo from "./components/PaletteDemo.vue";
-import ReactThemeDemo from "./components/ReactThemeDemo.vue";
-import ReactThemePage from "./components/ReactThemePage.vue";
-import ThreeMaterialDemo from "./components/ThreeMaterialDemo.vue";
-import ThreeMaterialPage from "./components/ThreeMaterialPage.vue";
-import VanillaDomDemo from "./components/VanillaDomDemo.vue";
-import VanillaDomPage from "./components/VanillaDomPage.vue";
+import VanillaInterpolationPage from "./components/VanillaInterpolationPage.vue";
+import VanillaScrollColorPage from "./components/VanillaScrollColorPage.vue";
+import VanillaDataStylingPage from "./components/VanillaDataStylingPage.vue";
+import ReactThemingPage from "./components/ReactThemingPage.vue";
+import ReactContrastPage from "./components/ReactContrastPage.vue";
+import ReactPaletteVariantsPage from "./components/ReactPaletteVariantsPage.vue";
+import P5GridPage from "./components/P5GridPage.vue";
+import P5RandomPage from "./components/P5RandomPage.vue";
+import P5FormatsPage from "./components/P5FormatsPage.vue";
+import ThreeMaterialsPage from "./components/ThreeMaterialsPage.vue";
+import ThreeSkyboxPage from "./components/ThreeSkyboxPage.vue";
+import ThreeShaderPage from "./components/ThreeShaderPage.vue";
 
 export default {
   extends: DefaultTheme,
@@ -35,15 +39,19 @@ export default {
     app.component("GradientDemo", GradientDemo);
     app.component("HarmonyDemo", HarmonyDemo);
     app.component("HomeHero", HomeHero);
-    app.component("P5SketchDemo", P5SketchDemo);
-    app.component("P5SketchPage", P5SketchPage);
     app.component("PaletteAdjustDemo", PaletteAdjustDemo);
     app.component("PaletteDemo", PaletteDemo);
-    app.component("ReactThemeDemo", ReactThemeDemo);
-    app.component("ReactThemePage", ReactThemePage);
-    app.component("ThreeMaterialDemo", ThreeMaterialDemo);
-    app.component("ThreeMaterialPage", ThreeMaterialPage);
-    app.component("VanillaDomDemo", VanillaDomDemo);
-    app.component("VanillaDomPage", VanillaDomPage);
+    app.component("VanillaInterpolationPage", VanillaInterpolationPage);
+    app.component("VanillaScrollColorPage", VanillaScrollColorPage);
+    app.component("VanillaDataStylingPage", VanillaDataStylingPage);
+    app.component("ReactThemingPage", ReactThemingPage);
+    app.component("ReactContrastPage", ReactContrastPage);
+    app.component("ReactPaletteVariantsPage", ReactPaletteVariantsPage);
+    app.component("P5GridPage", P5GridPage);
+    app.component("P5RandomPage", P5RandomPage);
+    app.component("P5FormatsPage", P5FormatsPage);
+    app.component("ThreeMaterialsPage", ThreeMaterialsPage);
+    app.component("ThreeSkyboxPage", ThreeSkyboxPage);
+    app.component("ThreeShaderPage", ThreeShaderPage);
   },
 } satisfies Theme;

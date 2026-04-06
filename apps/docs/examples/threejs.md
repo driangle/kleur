@@ -1,10 +1,10 @@
 # Three.js
 
-<a href="./threejs-demo" class="kl-demo-link">Open Standalone Demo &rarr;</a>
-
 Use kleur to generate harmonious material colors for Three.js scenes. The `toNormalized()` method outputs 0–1 float RGB values that map directly to `THREE.Color(r, g, b)`.
 
 ## Material Colors from Harmonies
+
+<a href="./three-materials" class="kl-demo-link">Open Demo &rarr;</a>
 
 Generate a tetradic (or any) harmony and apply each color to a mesh material. `toNormalized()` returns `[r, g, b, a]` with values in 0–1 — exactly what Three.js expects:
 
@@ -32,9 +32,9 @@ for (const color of palette) {
 }
 ```
 
-<ThreeMaterialDemo />
-
 ## Gradient-Based Skybox Colors
+
+<a href="./three-skybox" class="kl-demo-link">Open Demo &rarr;</a>
 
 Use `kleur.mix()` to interpolate between horizon and zenith colors for a procedural sky:
 
@@ -52,6 +52,8 @@ for (let i = 0; i < 8; i++) {
 ```
 
 ## WebGL Shader Uniforms
+
+<a href="./three-shader-uniforms" class="kl-demo-link">Open Demo &rarr;</a>
 
 For custom shaders, `toNormalized()` gives you values ready for GLSL `vec3`/`vec4` uniforms:
 
