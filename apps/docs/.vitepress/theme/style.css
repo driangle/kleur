@@ -331,6 +331,17 @@
     accent-color: var(--kl-primary);
 }
 
+.kl-demo input[type="color"] {
+    cursor: pointer;
+    border: 1px solid var(--kl-outline-variant);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.kl-demo input[type="color"]:hover {
+    border-color: var(--kl-outline);
+    box-shadow: 0 0 0 1px var(--kl-outline);
+}
+
 .kl-demo select {
     min-height: 42px;
     padding: 0 40px 0 12px;

@@ -29,7 +29,7 @@ const channels = computed(() => {
 });
 
 const code = computed(() => {
-  return `const color = kleur("${hex.value}");`;
+  return `kleur("${hex.value}")`;
 });
 </script>
 
@@ -44,10 +44,10 @@ const code = computed(() => {
 
     <template #controls>
       <div class="kl-controls">
-        <label class="kl-field">
+        <div class="kl-field">
           <span>Color</span>
           <input v-model="hex" type="color" />
-        </label>
+        </div>
       </div>
     </template>
 

@@ -10,11 +10,11 @@ const preset = ref<"fast" | "perceptual" | "accurate" | "modern">("perceptual");
 const distance = computed(() => measureDistance(kleur(a.value), kleur(b.value), preset.value));
 const code = computed(() =>
   [
-    "const delta = kleur.distance(",
+    "kleur.distance(",
     `  kleur("${a.value}"),`,
     `  kleur("${b.value}"),`,
     `  { preset: "${preset.value}" }`,
-    ");",
+    ")",
   ].join("\n")
 );
 </script>
@@ -30,14 +30,14 @@ const code = computed(() =>
 
     <template #controls>
       <div class="kl-controls">
-        <label class="kl-field">
+        <div class="kl-field">
           <span>Color A</span>
           <input v-model="a" type="color" />
-        </label>
-        <label class="kl-field">
+        </div>
+        <div class="kl-field">
           <span>Color B</span>
           <input v-model="b" type="color" />
-        </label>
+        </div>
         <label class="kl-field">
           <span>Preset</span>
           <select v-model="preset">

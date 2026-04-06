@@ -62,8 +62,8 @@ const after = computed(() => {
 
 const code = computed(() =>
   noParam.value
-    ? `const result = kleur("${base.value}").${operation.value}()`
-    : `const result = kleur("${base.value}").${operation.value}(${amount.value})`
+    ? `kleur("${base.value}").${operation.value}()`
+    : `kleur("${base.value}").${operation.value}(${amount.value})`
 );
 </script>
 
@@ -78,10 +78,10 @@ const code = computed(() =>
 
     <template #controls>
       <div class="kl-controls">
-        <label class="kl-field">
+        <div class="kl-field">
           <span>Base Color</span>
           <input v-model="base" type="color" />
-        </label>
+        </div>
         <label class="kl-field">
           <span>Operation</span>
           <select v-model="operation">

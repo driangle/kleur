@@ -14,21 +14,21 @@ const palette = computed(() => buildPalette(kleur(base.value), kind.value, { ang
 const code = computed(() => {
   if (kind.value === "analogous" || kind.value === "splitComplement") {
     return [
-      `const palette = kleur("${base.value}").${kind.value}(`,
+      `kleur("${base.value}").${kind.value}(`,
       `  ${angle.value}`,
-      ");",
+      ")",
     ].join("\n");
   }
 
   if (kind.value === "tints" || kind.value === "shades" || kind.value === "tones") {
     return [
-      `const palette = kleur("${base.value}").${kind.value}(`,
+      `kleur("${base.value}").${kind.value}(`,
       `  ${count.value}`,
-      ");",
+      ")",
     ].join("\n");
   }
 
-  return `const palette = kleur("${base.value}").${kind.value}()`;
+  return `kleur("${base.value}").${kind.value}()`;
 });
 </script>
 
@@ -43,10 +43,10 @@ const code = computed(() => {
 
     <template #controls>
       <div class="kl-controls">
-        <label class="kl-field">
+        <div class="kl-field">
           <span>Base Color</span>
           <input v-model="base" type="color" />
-        </label>
+        </div>
         <label class="kl-field">
           <span>Palette Type</span>
           <select v-model="kind">

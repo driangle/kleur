@@ -13,18 +13,18 @@ const result = computed(() => blendColors(kleur(base.value), kleur(overlay.value
 const code = computed(() =>
   mode.value === "mix"
     ? [
-        "const result = kleur.mix(",
+        "kleur.mix(",
         `  kleur("${base.value}"),`,
         `  kleur("${overlay.value}"),`,
         `  ${t.value}`,
-        ");",
+        ")",
       ].join("\n")
     : [
-        "const result = kleur.blend(",
+        "kleur.blend(",
         `  kleur("${base.value}"),`,
         `  kleur("${overlay.value}"),`,
         `  "${mode.value}"`,
-        ");",
+        ")",
       ].join("\n")
 );
 </script>
@@ -40,14 +40,14 @@ const code = computed(() =>
 
     <template #controls>
       <div class="kl-controls">
-        <label class="kl-field">
+        <div class="kl-field">
           <span>Base</span>
           <input v-model="base" type="color" />
-        </label>
-        <label class="kl-field">
+        </div>
+        <div class="kl-field">
           <span>Overlay</span>
           <input v-model="overlay" type="color" />
-        </label>
+        </div>
         <label class="kl-field">
           <span>Mode</span>
           <select v-model="mode">

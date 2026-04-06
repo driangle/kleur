@@ -10,10 +10,10 @@ const summary = computed(() => describeContrast(kleur(foreground.value), kleur(b
 const sample = ref("The quick brown fox jumps over the lazy dog.");
 const code = computed(() =>
   [
-    "const ratio = kleur.contrast(",
+    "kleur.contrast(",
     `  kleur("${background.value}"),`,
     `  kleur("${foreground.value}")`,
-    ");",
+    ")",
   ].join("\n")
 );
 </script>
@@ -29,14 +29,14 @@ const code = computed(() =>
 
     <template #controls>
       <div class="kl-controls">
-        <label class="kl-field">
+        <div class="kl-field">
           <span>Foreground</span>
           <input v-model="foreground" type="color" />
-        </label>
-        <label class="kl-field">
+        </div>
+        <div class="kl-field">
           <span>Background</span>
           <input v-model="background" type="color" />
-        </label>
+        </div>
         <label class="kl-field">
           <span>Preview Text</span>
           <input v-model="sample" type="text" spellcheck="false" />

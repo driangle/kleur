@@ -38,31 +38,31 @@ const outputs = computed(() => (result.value ? formatColorOutputs(result.value) 
 const code = computed(() => {
   switch (mode.value) {
     case "factory":
-      return `const color = kleur("${textInput.value}")`;
+      return `kleur("${textInput.value}")`;
     case "hex":
-      return `const color = kleur.hex("${textInput.value}")`;
+      return `kleur.hex("${textInput.value}")`;
     case "css":
-      return `const color = kleur.css("${textInput.value}")`;
+      return `kleur.css("${textInput.value}")`;
     case "rgb":
       return [
-        "const color = kleur.rgb(",
+        "kleur.rgb(",
         `  ${rgb.value.r},`,
         `  ${rgb.value.g},`,
         `  ${rgb.value.b},`,
         `  ${rgb.value.a}`,
-        ");",
+        ")",
       ].join("\n");
     case "hsl":
       return [
-        "const color = kleur.hsl(",
+        "kleur.hsl(",
         `  ${hsl.value.h},`,
         `  ${hsl.value.s},`,
         `  ${hsl.value.l},`,
         `  ${hsl.value.a}`,
-        ");",
+        ")",
       ].join("\n");
     case "int":
-      return `const color = kleur.int(${packedNumber.value})`;
+      return `kleur.int(${packedNumber.value})`;
   }
 });
 </script>

@@ -105,7 +105,7 @@ const sliderConfig = computed(() => {
 });
 
 const methodName = computed(() => `${mode.value}${channel.value}`);
-const code = computed(() => `const result = kleur("${base.value}").${methodName.value}(${value.value})`);
+const code = computed(() => `kleur("${base.value}").${methodName.value}(${value.value})`);
 </script>
 
 <template>
@@ -119,10 +119,10 @@ const code = computed(() => `const result = kleur("${base.value}").${methodName.
 
     <template #controls>
       <div class="kl-controls">
-        <label class="kl-field">
+        <div class="kl-field">
           <span>Base Color</span>
           <input v-model="base" type="color" />
-        </label>
+        </div>
         <label class="kl-field">
           <span>Channel</span>
           <select v-model="channel">
