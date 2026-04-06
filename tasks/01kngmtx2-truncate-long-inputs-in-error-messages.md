@@ -1,7 +1,7 @@
 ---
 title: "Truncate long inputs in error messages"
 id: "01kngmtx2"
-status: pending
+status: completed
 priority: medium
 type: bug
 tags: ["robustness"]

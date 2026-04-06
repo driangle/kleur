@@ -143,6 +143,27 @@ describe("hex()", () => {
   it("throws for mixed valid/invalid hex digits", () => {
     expect(() => hex("#ff00gg")).toThrow(ParseError);
   });
+
+  it("truncates long input in error messages", () => {
+    const longInput = "a".repeat(200);
+    try {
+      hex(longInput);
+    } catch (e) {
+      const msg = (e as Error).message;
+      expect(msg.length).toBeLessThan(200);
+      expect(msg).toContain("...");
+    }
+  });
+
+  it("does not truncate short input in error messages", () => {
+    try {
+      hex("ff0000");
+    } catch (e) {
+      const msg = (e as Error).message;
+      expect(msg).toContain("ff0000");
+      expect(msg).not.toContain("...");
+    }
+  });
 });
 
 describe("hsl()", () => {

@@ -38,26 +38,37 @@ export class ParseError extends KleurError {
   }
 }
 
+function truncate(value: string, maxLen = 100): string {
+  if (value.length <= maxLen) return value;
+  const half = Math.floor((maxLen - 3) / 2);
+  return value.slice(0, half) + "..." + value.slice(-half);
+}
+
+function displayInput(input: unknown): string {
+  return truncate(String(input));
+}
+
 function buildParseMessage(
   kind: ParseErrorKind,
   input: unknown,
   reason?: string,
 ): string {
+  const display = displayInput(input);
   switch (kind) {
     case "hex": {
       const messages: Record<string, string> = {
-        "missing-prefix": `Invalid hex color: "${input}" (must start with #)`,
-        "invalid-length": `Invalid hex color: "${input}" (must be 3, 4, 6, or 8 digits)`,
-        "invalid-digits": `Invalid hex color: "${input}" (contains non-hex characters)`,
+        "missing-prefix": `Invalid hex color: "${display}" (must start with #)`,
+        "invalid-length": `Invalid hex color: "${display}" (must be 3, 4, 6, or 8 digits)`,
+        "invalid-digits": `Invalid hex color: "${display}" (contains non-hex characters)`,
       };
       return messages[reason!];
     }
     case "css":
-      return `Invalid CSS color: "${input}"`;
+      return `Invalid CSS color: "${display}"`;
     case "named":
-      return `Unknown color: "${input}"`;
+      return `Unknown color: "${display}"`;
     case "value":
-      return `Invalid color value: ${String(input)}`;
+      return `Invalid color value: ${display}`;
   }
 }
 
