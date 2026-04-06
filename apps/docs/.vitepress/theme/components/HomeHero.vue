@@ -382,7 +382,7 @@ a.kl-lang:hover {
   font-size: 0.875rem;
   cursor: pointer;
   transition: border-color 0.2s;
-  min-width: 320px;
+  min-width: min(320px, 100%);
 }
 
 .kl-install-btn:hover {

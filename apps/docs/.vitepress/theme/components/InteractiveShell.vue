@@ -318,6 +318,7 @@ function textColorStrong(hex: string): string {
   gap: 6px;
   width: 148px;
   flex-shrink: 0;
+  min-width: 0;
 }
 
 /* Shared right column — fills remaining space */
@@ -513,6 +514,23 @@ function textColorStrong(hex: string): string {
 @media (max-width: 767px) {
   .kl-shell-preview-wrap {
     min-height: 160px;
+  }
+
+  .kl-shell-code {
+    padding: 20px 16px;
+  }
+
+  .kl-control-row {
+    flex-wrap: wrap;
+  }
+
+  .kl-row-left {
+    width: auto;
+    flex-shrink: 1;
+  }
+
+  .kl-row-right {
+    width: 100%;
   }
 }
 

@@ -62,7 +62,7 @@ defineProps<{
 
 .kl-demo__body {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.9fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
   border-top: 1px solid var(--kl-outline-variant);
   margin-top: 18px;
 }
