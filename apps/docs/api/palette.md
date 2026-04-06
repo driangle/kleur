@@ -103,6 +103,8 @@ const expanded = palette.flatMap(c => c.shades(3));
 
 All adjustment methods return a new `Palette` with the operation applied to every color.
 
+<PaletteAdjustDemo />
+
 | Method | Description |
 |---|---|
 | `lighten(amount)` | Lighten all colors |

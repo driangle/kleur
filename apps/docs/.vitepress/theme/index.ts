@@ -10,6 +10,7 @@ import CreateColorDemo from "./components/CreateColorDemo.vue";
 import DistanceDemo from "./components/DistanceDemo.vue";
 import HarmonyDemo from "./components/HarmonyDemo.vue";
 import HomeHero from "./components/HomeHero.vue";
+import PaletteAdjustDemo from "./components/PaletteAdjustDemo.vue";
 import PaletteDemo from "./components/PaletteDemo.vue";
 
 export default {
@@ -24,6 +25,7 @@ export default {
     app.component("DistanceDemo", DistanceDemo);
     app.component("HarmonyDemo", HarmonyDemo);
     app.component("HomeHero", HomeHero);
+    app.component("PaletteAdjustDemo", PaletteAdjustDemo);
     app.component("PaletteDemo", PaletteDemo);
   },
 } satisfies Theme;
