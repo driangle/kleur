@@ -15,7 +15,6 @@ const METHODS = [
   { name: "saturate", default: 0.3, min: 0, max: 1, step: 0.05 },
   { name: "desaturate", default: 0.3, min: 0, max: 1, step: 0.05 },
   { name: "rotate", default: 90, min: 0, max: 360, step: 5 },
-  { name: "scaleAlpha", default: 0.5, min: 0, max: 1, step: 0.05 },
   { name: "warm", default: 0.2, min: 0, max: 1, step: 0.05 },
   { name: "cool", default: 0.2, min: 0, max: 1, step: 0.05 },
 ] as const;
