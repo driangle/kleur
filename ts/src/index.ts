@@ -12,6 +12,7 @@ export {
   KleurError,
   ParseError,
   UnknownOptionError,
+  InvalidOffsetError,
   InvalidCountError,
   InvalidDistanceCombinationError,
   MissingRegistrationError,

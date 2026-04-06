@@ -111,6 +111,18 @@ export class MissingRegistrationError extends KleurError {
   }
 }
 
+export class InvalidOffsetError extends KleurError {
+  readonly value: number;
+
+  constructor(value: number) {
+    super(
+      `Invalid offset: ${value}. Offset must be a finite number.`,
+    );
+    this.name = "InvalidOffsetError";
+    this.value = value;
+  }
+}
+
 export class InvalidCountError extends KleurError {
   readonly value: number;
 

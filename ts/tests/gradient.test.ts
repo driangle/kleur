@@ -10,6 +10,7 @@ import {
   isRadialGradient,
   isGradient,
 } from "../src/gradient.js";
+import { InvalidOffsetError } from "../src/errors.js";
 
 const red = rgb(255, 0, 0);
 const blue = rgb(0, 0, 255);
@@ -27,6 +28,25 @@ describe("colorStop()", () => {
 
   it("clamps offset above 1", () => {
     expect(colorStop(1.5, red).offset).toBe(1);
+  });
+
+  it("throws for NaN offset", () => {
+    expect(() => colorStop(NaN, red)).toThrow(InvalidOffsetError);
+    expect(() => colorStop(NaN, red)).toThrow("Invalid offset");
+  });
+
+  it("throws for Infinity offset", () => {
+    expect(() => colorStop(Infinity, red)).toThrow(InvalidOffsetError);
+  });
+
+  it("throws for -Infinity offset", () => {
+    expect(() => colorStop(-Infinity, red)).toThrow(InvalidOffsetError);
+  });
+
+  it("accepts valid finite offsets", () => {
+    expect(colorStop(0, red).offset).toBe(0);
+    expect(colorStop(0.5, red).offset).toBe(0.5);
+    expect(colorStop(1, red).offset).toBe(1);
   });
 });
 

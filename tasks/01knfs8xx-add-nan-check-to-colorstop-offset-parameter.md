@@ -1,7 +1,7 @@
 ---
 title: "Add NaN check to colorStop() offset parameter"
 id: "01knfs8xx"
-status: pending
+status: completed
 priority: medium
 type: bug
 tags: ["gradient", "validation"]
@@ -26,10 +26,10 @@ created: "2026-04-05"
 
 ## Tasks
 
-- [ ] Add a `Number.isFinite()` check for the offset parameter in `colorStop()`
-- [ ] Throw the appropriate custom error for non-finite offsets (`NaN`, `Infinity`, `-Infinity`)
-- [ ] Add tests for `NaN`, `Infinity`, and `-Infinity` offsets
-- [ ] Verify valid offsets (0, 0.5, 1) continue to work
+- [x] Add a `Number.isFinite()` check for the offset parameter in `colorStop()`
+- [x] Throw the appropriate custom error for non-finite offsets (`NaN`, `Infinity`, `-Infinity`)
+- [x] Add tests for `NaN`, `Infinity`, and `-Infinity` offsets
+- [x] Verify valid offsets (0, 0.5, 1) continue to work
 
 ## Acceptance Criteria
 

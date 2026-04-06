@@ -6,9 +6,13 @@ import type {
   KleurFill,
   KleurValue,
 } from "./types.js";
+import { InvalidOffsetError } from "./errors.js";
 import { resolve } from "./parse.js";
 
-const clampOffset = (v: number): number => Math.min(1, Math.max(0, v));
+const clampOffset = (v: number): number => {
+  if (!Number.isFinite(v)) throw new InvalidOffsetError(v);
+  return Math.min(1, Math.max(0, v));
+};
 
 /**
  * Create a clamped gradient stop.
