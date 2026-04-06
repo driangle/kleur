@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { rgb } from "../src/parse.js";
+import { rgb, hsl } from "../src/parse.js";
 import { rgbToHsl, hslToRgb } from "../src/hsl.js";
+import { InvalidChannelError } from "../src/errors.js";
 
 describe("Color", () => {
   describe("construction and clamping", () => {
@@ -51,6 +52,56 @@ describe("Color", () => {
     it("clamps alpha above 1", () => {
       const c = rgb(0, 0, 0, 1.5);
       expect(c.alpha).toBe(1);
+    });
+
+    it("throws InvalidChannelError for NaN red", () => {
+      expect(() => rgb(NaN, 0, 0)).toThrow(InvalidChannelError);
+    });
+
+    it("throws InvalidChannelError for NaN green", () => {
+      expect(() => rgb(0, NaN, 0)).toThrow(InvalidChannelError);
+    });
+
+    it("throws InvalidChannelError for NaN blue", () => {
+      expect(() => rgb(0, 0, NaN)).toThrow(InvalidChannelError);
+    });
+
+    it("throws InvalidChannelError for NaN alpha", () => {
+      expect(() => rgb(0, 0, 0, NaN)).toThrow(InvalidChannelError);
+    });
+
+    it("throws InvalidChannelError for Infinity", () => {
+      expect(() => rgb(Infinity, 0, 0)).toThrow(InvalidChannelError);
+    });
+
+    it("throws InvalidChannelError for -Infinity", () => {
+      expect(() => rgb(0, -Infinity, 0)).toThrow(InvalidChannelError);
+    });
+
+    it("throws InvalidChannelError for Infinity alpha", () => {
+      expect(() => rgb(0, 0, 0, Infinity)).toThrow(InvalidChannelError);
+    });
+
+    it("NaN propagation via hsl() alpha is caught", () => {
+      expect(() => hsl(0, 50, 50, NaN)).toThrow(InvalidChannelError);
+    });
+
+    it("error has correct kind for byte channel", () => {
+      try {
+        rgb(NaN, 0, 0);
+      } catch (e) {
+        expect(e).toBeInstanceOf(InvalidChannelError);
+        expect((e as InvalidChannelError).kind).toBe("byte");
+      }
+    });
+
+    it("error has correct kind for alpha channel", () => {
+      try {
+        rgb(0, 0, 0, NaN);
+      } catch (e) {
+        expect(e).toBeInstanceOf(InvalidChannelError);
+        expect((e as InvalidChannelError).kind).toBe("alpha");
+      }
     });
   });
 

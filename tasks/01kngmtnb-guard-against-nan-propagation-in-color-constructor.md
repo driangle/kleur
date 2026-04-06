@@ -1,7 +1,7 @@
 ---
 title: "Guard against NaN propagation in Color constructor"
 id: "01kngmtnb"
-status: pending
+status: completed
 priority: high
 type: bug
 tags: ["robustness"]

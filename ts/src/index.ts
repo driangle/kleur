@@ -12,12 +12,13 @@ export {
   KleurError,
   ParseError,
   UnknownOptionError,
+  InvalidChannelError,
   InvalidOffsetError,
   InvalidCountError,
   InvalidDistanceCombinationError,
   MissingRegistrationError,
 } from "./errors.js";
-export type { ParseErrorKind, UnknownOptionKind } from "./errors.js";
+export type { InvalidChannelKind, ParseErrorKind, UnknownOptionKind } from "./errors.js";
 export type {
   Rgb,
   Rgba,

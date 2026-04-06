@@ -135,6 +135,21 @@ export class InvalidCountError extends KleurError {
   }
 }
 
+export type InvalidChannelKind = "byte" | "alpha";
+
+export class InvalidChannelError extends KleurError {
+  readonly kind: InvalidChannelKind;
+  readonly value: number;
+
+  constructor(kind: InvalidChannelKind, value: number) {
+    const label = kind === "byte" ? "color channel" : "alpha channel";
+    super(`Invalid ${label} value: ${value}. Value must be a finite number.`);
+    this.name = "InvalidChannelError";
+    this.kind = kind;
+    this.value = value;
+  }
+}
+
 export class InvalidDistanceCombinationError extends KleurError {
   readonly method: string;
   readonly space: string;

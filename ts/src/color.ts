@@ -11,6 +11,7 @@ import type {
   BlendMode,
 } from "./types.js";
 import {
+  InvalidChannelError,
   InvalidCountError,
   MissingRegistrationError,
 } from "./errors.js";
@@ -21,9 +22,14 @@ function validateCount(count: number): void {
   }
 }
 
-const clampByte = (v: number): number =>
-  Math.round(Math.min(255, Math.max(0, v)));
-const clampAlpha = (v: number): number => Math.min(1, Math.max(0, v));
+const clampByte = (v: number): number => {
+  if (!Number.isFinite(v)) throw new InvalidChannelError("byte", v);
+  return Math.round(Math.min(255, Math.max(0, v)));
+};
+const clampAlpha = (v: number): number => {
+  if (!Number.isFinite(v)) throw new InvalidChannelError("alpha", v);
+  return Math.min(1, Math.max(0, v));
+};
 const clampHue = (v: number): number => ((v % 360) + 360) % 360;
 const clampPercent = (v: number): number => Math.min(100, Math.max(0, v));
 
