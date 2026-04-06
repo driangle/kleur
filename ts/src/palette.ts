@@ -110,8 +110,8 @@ export class Palette {
   complement(): Palette { return this.#mapColors((c) => c.complement()); }
   grayscale(): Palette { return this.#mapColors((c) => c.grayscale()); }
   opaque(): Palette { return this.#mapColors((c) => c.opaque()); }
-  warm(amount = 0.2): Palette { return this.#mapColors((c) => c.warm(amount)); }
-  cool(amount = 0.2): Palette { return this.#mapColors((c) => c.cool(amount)); }
+  warm(intensity = 0.2): Palette { return this.#mapColors((c) => c.warm(intensity)); }
+  cool(intensity = 0.2): Palette { return this.#mapColors((c) => c.cool(intensity)); }
   mix(target: KleurValue, t = 0.5, ease?: (t: number) => number): Palette {
     return this.#mapColors((c) => c.mix(target, t, ease));
   }

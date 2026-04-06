@@ -1,7 +1,7 @@
 ---
 title: "Clarify warm/cool parameter semantics and rename to intensity"
 id: "01kngmnm8"
-status: pending
+status: completed
 priority: low
 type: feature
 tags: ["api-consistency"]

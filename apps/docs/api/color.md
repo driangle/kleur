@@ -123,8 +123,8 @@ All adjustment methods return a new `Color`.
 | `adjustHue(delta)` | `number` | Add to hue and wrap around 360. |
 | `rotate(degrees)` | `number` | Rotate hue on the color wheel. |
 | `complement()` | — | Rotate hue by 180 degrees. |
-| `warm(amount?)` | `number` (default `0.2`) | Shift hue toward warm colors (yellow-red). |
-| `cool(amount?)` | `number` (default `0.2`) | Shift hue toward cool colors (blue-cyan). |
+| `warm(intensity?)` | `number` 0–1 (default `0.2`) | Shift hue toward 30° (warm). Intensity is an interpolation factor. |
+| `cool(intensity?)` | `number` 0–1 (default `0.2`) | Shift hue toward 240° (cool). Intensity is an interpolation factor. |
 
 ### Alpha & Inversion
 

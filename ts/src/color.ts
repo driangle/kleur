@@ -267,11 +267,13 @@ export class Color {
   complement(): Color {
     return this.rotate(180);
   }
-  warm(amount = 0.2): Color {
-    return this.adjustHue((((30 - this.hue + 540) % 360) - 180) * amount);
+  /** Shift hue toward warm (30°). `intensity` 0–1 interpolation factor. */
+  warm(intensity = 0.2): Color {
+    return this.adjustHue((((30 - this.hue + 540) % 360) - 180) * intensity);
   }
-  cool(amount = 0.2): Color {
-    return this.adjustHue((((240 - this.hue + 540) % 360) - 180) * amount);
+  /** Shift hue toward cool (240°). `intensity` 0–1 interpolation factor. */
+  cool(intensity = 0.2): Color {
+    return this.adjustHue((((240 - this.hue + 540) % 360) - 180) * intensity);
   }
   invert(): Color {
     return new Color(255 - this.#r, 255 - this.#g, 255 - this.#b, this.#a);

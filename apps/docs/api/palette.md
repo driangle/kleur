@@ -114,8 +114,8 @@ All adjustment methods return a new `Palette` with the operation applied to ever
 | `complement()` | Get complement of each color |
 | `grayscale()` | Fully desaturate all colors |
 | `opaque()` | Set alpha to 1 for all colors |
-| `warm(amount?)` | Shift hue toward warm tones |
-| `cool(amount?)` | Shift hue toward cool tones |
+| `warm(intensity?)` | Shift hue toward warm tones |
+| `cool(intensity?)` | Shift hue toward cool tones |
 | `mix(target, t?, ease?)` | Mix each color toward a target |
 | `blend(overlay, mode)` | Blend each color with an overlay |
 | `balanceLightness(target?)` | Adjust all colors to uniform lightness (default: median) |
