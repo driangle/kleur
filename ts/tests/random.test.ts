@@ -131,4 +131,36 @@ describe("random()", () => {
       expect(c.alpha).toBe(0.8);
     }
   });
+
+  it("produces deterministic output with custom rng", () => {
+    let i = 0;
+    const rng = () => [0.1, 0.5, 0.9][i++ % 3];
+    const c1 = random({ rng });
+    i = 0;
+    const c2 = random({ rng });
+    expect(c1.red).toBe(c2.red);
+    expect(c1.green).toBe(c2.green);
+    expect(c1.blue).toBe(c2.blue);
+  });
+
+  it("uses custom rng for constrained options", () => {
+    const rng = () => 0.5;
+    const c = random({
+      hue: [100, 200],
+      saturation: [20, 80],
+      lightness: [30, 70],
+      rng,
+    });
+    // rng() = 0.5 → midpoint of each range
+    expect(c.hue).toBeCloseTo(150, 0);
+    expect(c.hsl.s).toBeCloseTo(50, 0);
+    expect(c.lightness).toBeCloseTo(50, 0);
+  });
+
+  it("falls back to Math.random when rng is not provided", () => {
+    // Just verify it doesn't crash — non-deterministic
+    const c = random();
+    expect(c.red).toBeGreaterThanOrEqual(0);
+    expect(c.red).toBeLessThanOrEqual(255);
+  });
 });

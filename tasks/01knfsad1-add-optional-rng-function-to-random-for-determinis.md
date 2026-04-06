@@ -1,7 +1,7 @@
 ---
 title: "Add optional RNG function to random() for deterministic seeding"
 id: "01knfsad1"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["api", "random", "testing"]
@@ -18,11 +18,11 @@ created: "2026-04-05"
 
 ## Tasks
 
-- [ ] Add an optional `rng?: () => number` property to `RandomOptions` (returns 0–1, same contract as `Math.random`)
-- [ ] Update `randInRange()` (or wherever `Math.random()` is called) to use the provided `rng` if present, falling back to `Math.random()`
-- [ ] Add tests using a deterministic RNG to verify reproducible output
-- [ ] Verify default behavior (no `rng` provided) is unchanged
-- [ ] Update docs (`apps/docs`) with seeded RNG usage example
+- [x] Add an optional `rng?: () => number` property to `RandomOptions` (returns 0–1, same contract as `Math.random`)
+- [x] Update `randInRange()` (or wherever `Math.random()` is called) to use the provided `rng` if present, falling back to `Math.random()`
+- [x] Add tests using a deterministic RNG to verify reproducible output
+- [x] Verify default behavior (no `rng` provided) is unchanged
+- [x] Update docs (`apps/docs`) with seeded RNG usage example
 
 ## Acceptance Criteria
 

@@ -144,10 +144,14 @@ Generate a random color with optional constraints.
 | `saturation` | `[min, max]` | Constrain saturation (0-100). |
 | `lightness` | `[min, max]` | Constrain lightness (0-100). |
 | `alpha` | `number` | Fixed alpha value (0-1). Default `1`. |
+| `rng` | `() => number` | Custom RNG function (returns 0-1, same contract as `Math.random`). For deterministic/seeded output. |
 
 ```ts
 const any = kleur.random();
 const warm = kleur.random({ hue: "warm" });
 const pastel = kleur.random({ saturation: [20, 40], lightness: [70, 90] });
 const blueish = kleur.random({ hue: [200, 260], saturation: [60, 100] });
+
+// Deterministic output with a seeded RNG
+const seeded = kleur.random({ hue: "warm", rng: mySeededRng });
 ```
