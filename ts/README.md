@@ -2,6 +2,8 @@
 
 A TypeScript color manipulation library. Create, convert, analyze, and transform colors with an immutable, chainable API.
 
+**[Documentation](https://driangle.github.io/kleur/)**
+
 ## Install
 
 ```bash

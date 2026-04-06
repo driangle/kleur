@@ -2,6 +2,8 @@
 
 A comprehensive, cross-language color library with a consistent API.
 
+**[Documentation](https://driangle.github.io/kleur/)**
+
 Kleur provides color creation, conversion, manipulation, and analysis across multiple color spaces. The API is designed to be identical across language implementations so you can switch between ecosystems without relearning.
 
 ## Language Support
