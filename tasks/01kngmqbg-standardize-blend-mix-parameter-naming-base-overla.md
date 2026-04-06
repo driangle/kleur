@@ -1,7 +1,7 @@
 ---
 title: "Standardize blend/mix parameter naming (base/overlay vs a/b)"
 id: "01kngmqbg"
-status: pending
+status: completed
 priority: medium
 type: chore
 tags: ["api-consistency"]

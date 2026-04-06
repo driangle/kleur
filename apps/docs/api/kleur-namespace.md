@@ -63,7 +63,7 @@ See [Blending & Mixing](/api/blend).
 
 | Function | Description |
 |----------|-------------|
-| `kleur.mix(a, b, t?, ease?)` | Interpolate between two colors |
+| `kleur.mix(from, to, t?, ease?)` | Interpolate between two colors |
 | `kleur.blend(base, overlay, mode)` | Blend with a blend mode |
 
 ### Color Harmonies

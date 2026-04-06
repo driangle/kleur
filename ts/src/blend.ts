@@ -113,16 +113,16 @@ export type KleurEaseFn = (t: number) => number;
 
 /**
  * Interpolate between two colors in RGB space.
- * t=0 returns a, t=1 returns b. An optional easing function remaps t before interpolation.
+ * t=0 returns `from`, t=1 returns `to`. An optional easing function remaps t before interpolation.
  */
 export function mix(
-  a: KleurValue,
-  b: KleurValue,
+  from: KleurValue,
+  to: KleurValue,
   t = 0.5,
   ease?: KleurEaseFn,
 ): Color {
-  const ca = resolve(a);
-  const cb = resolve(b);
+  const ca = resolve(from);
+  const cb = resolve(to);
   const et = ease ? ease(t) : t;
   const r = ca.red + (cb.red - ca.red) * et;
   const g = ca.green + (cb.green - ca.green) * et;

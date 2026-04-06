@@ -57,10 +57,10 @@ base.blend("#0066ff", "multiply").toHex();
 ## mix
 
 ```ts
-kleur.mix(a: KleurValue, b: KleurValue, t?: number, ease?: KleurEaseFn): Color
+kleur.mix(from: KleurValue, to: KleurValue, t?: number, ease?: KleurEaseFn): Color
 ```
 
-Interpolate between two colors in RGB space. `t=0` returns `a`, `t=1` returns `b`. Default `t` is `0.5` (midpoint).
+Interpolate between two colors in RGB space. `t=0` returns `from`, `t=1` returns `to`. Default `t` is `0.5` (midpoint).
 
 The optional `ease` function remaps `t` before interpolation, allowing non-linear blending.
 
