@@ -2,12 +2,51 @@
 
 Functions for creating `Color` instances from various input formats.
 
+## kleur
+
 ```ts
-import kleur from "@driangle/kleur";
-// kleur.rgb(...), kleur.hex(...), etc.
+kleur(value: string | number | Color): Color
+kleur(r: number, g: number, b: number, a?: number): Color
 ```
 
+The default export is a universal factory that accepts any supported color format — hex strings, CSS function strings, named colors, packed integers, existing `Color` instances, or explicit RGBA values:
+
+```ts
+import kleur from "@driangle/kleur";
+
+const a = kleur("#ff6600");
+const b = kleur("coral");
+const c = kleur(0xff6600);
+const d = kleur(255, 102, 0);
+```
+
+Throws if the value cannot be resolved to a color.
+
+For more control over parsing, use the specific creation functions below.
+
 <CreateColorDemo />
+
+## Namespace imports
+
+The default `kleur` export doubles as a namespace — all creation functions, utilities, and static methods are accessible as properties:
+
+```ts
+import kleur from "@driangle/kleur";
+
+kleur.rgb(255, 102, 0);
+kleur.hex("#ff6600");
+kleur.hsl(30, 100, 50);
+kleur.css("rgb(255, 102, 0)");
+kleur.random();
+```
+
+You can also destructure individual functions directly from the import:
+
+```ts
+const { rgb, hex, hsl, css, random } = kleur;
+
+const color = rgb(255, 102, 0);
+```
 
 ## rgb
 
@@ -105,30 +144,6 @@ Create a grayscale color where `r = g = b = value`.
 const gray = kleur.grayscale(128);       // mid-gray
 const shadow = kleur.grayscale(0, 0.3);  // semi-transparent black
 ```
-
-## kleur
-
-```ts
-kleur(value: string | number | Color): Color
-kleur(r: number, g: number, b: number, a?: number): Color
-```
-
-Universal factory that accepts any supported color format:
-- Hex strings (`"#ff6600"`)
-- CSS function strings (`"rgb(255, 102, 0)"`)
-- Named colors (`"coral"`)
-- Packed integers (`0xff6600`)
-- Existing `Color` instances (passthrough)
-- Explicit RGBA values (`255, 102, 0`)
-
-```ts
-const a = kleur("#ff6600");
-const b = kleur("coral");
-const c = kleur(0xff6600);
-const d = kleur(255, 102, 0);
-```
-
-Throws if the value cannot be resolved to a color.
 
 ## random
 

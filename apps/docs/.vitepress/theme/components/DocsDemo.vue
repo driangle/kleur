@@ -30,6 +30,10 @@ defineProps<{
 .kl-demo {
   margin: 24px 0 40px;
   border: 1px solid var(--kl-outline-variant);
+  background: var(--kl-surface-dim);
+}
+
+.dark .kl-demo {
   background: var(--kl-surface);
 }
 

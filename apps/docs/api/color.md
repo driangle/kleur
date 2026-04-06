@@ -125,15 +125,6 @@ All adjustment methods return a new `Color`.
 | `opaque()` | — | Set alpha to 1. |
 | `invert()` | — | Invert RGB channels (255 - value). |
 
-```ts
-const color = kleur("#ff6600");
-
-color.lighten(0.3).toHex();   // lighter orange
-color.rotate(120).toHex();     // shifted 120° on the wheel
-color.warm(0.3).toHex();       // warmer tone
-color.scaleAlpha(0.5).alpha;   // 0.5
-```
-
 ## Interpolation & Blending
 
 <BlendDemo />

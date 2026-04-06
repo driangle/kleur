@@ -7,9 +7,27 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 
 /* ──────────────────────────────────────────────
-   Surface palette
+   Surface palette — light (default)
    ────────────────────────────────────────────── */
 :root {
+    --kl-surface-lowest: #ffffff;
+    --kl-surface-dim: #f5f5f5;
+    --kl-surface-low: #eeeeee;
+    --kl-surface: #e8e8e8;
+    --kl-surface-high: #dddddd;
+    --kl-surface-highest: #d0d0d0;
+    --kl-outline: #6e6e6e;
+    --kl-outline-variant: #c8c8c8;
+    --kl-on-surface: #1a1a1a;
+    --kl-on-surface-variant: #444444;
+    --kl-primary: #1a1a1a;
+    --kl-on-primary: #ffffff;
+}
+
+/* ──────────────────────────────────────────────
+   Surface palette — dark
+   ────────────────────────────────────────────── */
+.dark {
     --kl-surface-lowest: #0e0e0e;
     --kl-surface-dim: #131313;
     --kl-surface-low: #1c1b1b;
@@ -22,6 +40,74 @@
     --kl-on-surface-variant: #c6c6c6;
     --kl-primary: #ffffff;
     --kl-on-primary: #1a1c1c;
+}
+
+/* ──────────────────────────────────────────────
+   VitePress light-mode variable overrides
+   ────────────────────────────────────────────── */
+:root {
+    --vp-c-bg: var(--kl-surface-lowest);
+    --vp-c-bg-alt: var(--kl-surface-dim);
+    --vp-c-bg-elv: var(--kl-surface-lowest);
+    --vp-c-bg-soft: var(--kl-surface-low);
+
+    --vp-c-text-1: var(--kl-on-surface);
+    --vp-c-text-2: var(--kl-on-surface-variant);
+    --vp-c-text-3: var(--kl-outline);
+
+    --vp-c-divider: var(--kl-outline-variant);
+    --vp-c-gutter: var(--kl-surface-dim);
+
+    --vp-c-brand-1: var(--kl-primary);
+    --vp-c-brand-2: #333333;
+    --vp-c-brand-3: var(--kl-primary);
+    --vp-c-brand-soft: rgba(0, 0, 0, 0.06);
+
+    --vp-code-block-bg: var(--kl-surface-lowest);
+    --vp-code-block-divider-color: var(--kl-outline-variant);
+    --vp-code-line-highlight-color: rgba(0, 0, 0, 0.05);
+    --vp-code-copy-code-bg: var(--kl-surface-dim);
+    --vp-code-copy-code-hover-bg: var(--kl-surface-low);
+
+    --vp-sidebar-bg-color: var(--kl-surface-dim);
+
+    --vp-nav-bg-color: var(--kl-surface-lowest);
+    --vp-nav-screen-bg-color: var(--kl-surface-lowest);
+
+    --vp-button-brand-border: var(--kl-primary);
+    --vp-button-brand-text: var(--kl-on-primary);
+    --vp-button-brand-bg: var(--kl-primary);
+    --vp-button-brand-hover-border: #333333;
+    --vp-button-brand-hover-text: var(--kl-on-primary);
+    --vp-button-brand-hover-bg: #333333;
+    --vp-button-brand-active-border: #555555;
+    --vp-button-brand-active-text: var(--kl-on-primary);
+    --vp-button-brand-active-bg: #555555;
+
+    --vp-button-alt-border: var(--kl-outline-variant);
+    --vp-button-alt-text: var(--kl-on-surface);
+    --vp-button-alt-bg: transparent;
+    --vp-button-alt-hover-border: var(--kl-outline);
+    --vp-button-alt-hover-text: var(--kl-primary);
+    --vp-button-alt-hover-bg: rgba(0, 0, 0, 0.04);
+
+    --vp-home-hero-name-color: var(--kl-primary);
+    --vp-home-hero-name-background: none;
+    --vp-home-hero-image-background-image: none;
+    --vp-home-hero-image-filter: none;
+
+    --vp-custom-block-tip-border: var(--kl-outline-variant);
+    --vp-custom-block-tip-text: var(--kl-on-surface);
+    --vp-custom-block-tip-bg: var(--kl-surface-dim);
+    --vp-custom-block-tip-code-bg: var(--kl-surface-low);
+
+    --vp-input-border-color: var(--kl-outline-variant);
+    --vp-input-hover-border-color: var(--kl-outline);
+    --vp-input-switch-bg-color: var(--kl-surface-high);
+
+    --vp-local-search-bg: var(--kl-surface-lowest);
+    --vp-local-search-result-bg: var(--kl-surface-dim);
+    --vp-local-search-result-selected-bg: var(--kl-surface-low);
 }
 
 /* ──────────────────────────────────────────────
@@ -130,6 +216,10 @@
 
 .VPNavBar {
     backdrop-filter: blur(12px);
+    background: rgba(245, 245, 245, 0.92) !important;
+}
+
+.dark .VPNavBar {
     background: rgba(19, 19, 19, 0.92) !important;
 }
 
@@ -157,8 +247,13 @@
 /* Search box styling */
 .VPNavBarSearch .DocSearch-Button,
 .VPNavBarSearch button {
-    background: var(--kl-surface-lowest) !important;
+    background: var(--kl-surface-dim) !important;
     border: 1px solid var(--kl-outline-variant) !important;
+}
+
+.dark .VPNavBarSearch .DocSearch-Button,
+.dark .VPNavBarSearch button {
+    background: var(--kl-surface-lowest) !important;
 }
 
 /* ──────────────────────────────────────────────
@@ -361,7 +456,7 @@
         6px 6px;
     background-repeat: no-repeat;
     cursor: pointer;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
 }
 
 .kl-demo select:focus {
@@ -373,17 +468,21 @@
 /* Method signatures in docs */
 .vp-doc code {
     font-family: var(--vp-font-family-mono);
-    background: var(--kl-surface-high) !important;
+    background: rgba(0, 0, 0, 0.03) !important;
     color: var(--kl-on-surface) !important;
     padding: 2px 6px;
     font-size: 0.875em;
+}
+
+.dark .vp-doc code {
+    background: var(--kl-surface-high) !important;
 }
 
 /* Code blocks */
 .vp-doc div[class*="language-"] {
     position: relative !important;
     background: var(--kl-surface-lowest) !important;
-    border: 1px solid rgba(71, 71, 71, 0.3);
+    border: 1px solid var(--kl-outline-variant);
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin-top: 28px !important;
@@ -417,7 +516,7 @@
     color: var(--kl-on-surface-variant);
     background: var(--kl-surface-high);
     padding: 4px 12px;
-    border: 1px solid rgba(71, 71, 71, 0.3);
+    border: 1px solid var(--kl-outline-variant);
     border-bottom: none;
     line-height: 1;
     z-index: 1;

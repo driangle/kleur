@@ -101,6 +101,10 @@ const code = computed(() =>
   gap: 12px;
 }
 
+.kl-metrics {
+  padding: 16px 20px;
+}
+
 .kl-field {
   display: grid;
   gap: 6px;

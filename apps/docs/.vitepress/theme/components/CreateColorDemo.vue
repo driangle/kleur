@@ -219,6 +219,7 @@ const code = computed(() => {
   display: grid;
   gap: 10px;
   margin: 0;
+  padding: 16px 20px;
 }
 
 .kl-output-list div {
@@ -233,6 +234,7 @@ const code = computed(() => {
 .kl-output-list dd {
   margin: 0;
   word-break: break-word;
+  white-space: pre-line;
 }
 
 .kl-error {

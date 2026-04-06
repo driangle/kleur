@@ -52,8 +52,8 @@ export function formatColorOutputs(color: Color): ColorOutputs {
   return {
     hex: color.toHex(),
     css: color.toCss(),
-    rgb: `{ r: ${rgb.r}, g: ${rgb.g}, b: ${rgb.b} }`,
-    hsl: `{ h: ${hsl.h}, s: ${hsl.s}, l: ${hsl.l} }`,
+    rgb: `r: ${rgb.r}\ng: ${rgb.g}\nb: ${rgb.b}`,
+    hsl: `h: ${hsl.h}\ns: ${hsl.s}\nl: ${hsl.l}`,
   };
 }
 
