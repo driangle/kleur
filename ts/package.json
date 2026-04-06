@@ -1,6 +1,6 @@
 {
   "name": "@driangle/kleur",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A cross-language color manipulation library",
   "type": "module",
   "main": "./dist/index.cjs",
