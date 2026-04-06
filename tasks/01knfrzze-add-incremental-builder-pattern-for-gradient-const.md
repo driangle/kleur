@@ -1,7 +1,7 @@
 ---
 title: "Add incremental builder pattern for gradient construction"
 id: "01knfrzze"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["api", "gradient"]
@@ -18,15 +18,15 @@ Gradient construction currently requires a complete config object upfront (`ts/s
 
 ## Tasks
 
-- [ ] Design the builder API (`GradientBuilder` class or fluent methods on `Gradient`)
-- [ ] Implement `addStop(color, position?)` for incrementally adding color stops
-- [ ] Support chaining (fluent interface): `gradient().addStop(red, 0).addStop(blue, 1).build()`
-- [ ] Allow setting interpolation space and other options via the builder (e.g., `.space("lab")`, `.mode("linear")`)
-- [ ] Ensure the existing config-object constructor continues to work unchanged
-- [ ] Add tests for builder pattern construction
-- [ ] Add tests for equivalence between builder-constructed and config-constructed gradients
-- [ ] Export builder from the package public API
-- [ ] Update docs (`apps/docs`) with builder usage examples
+- [x] Design the builder API (`GradientBuilder` class or fluent methods on `Gradient`)
+- [x] Implement `addStop(color, position?)` for incrementally adding color stops
+- [x] Support chaining (fluent interface): `gradient().addStop(red, 0).addStop(blue, 1).build()`
+- [x] Allow setting interpolation space and other options via the builder (e.g., `.space("lab")`, `.mode("linear")`) — Note: interpolation space/mode not applicable to current gradient model; builder supports `alpha()` instead
+- [x] Ensure the existing config-object constructor continues to work unchanged
+- [x] Add tests for builder pattern construction
+- [x] Add tests for equivalence between builder-constructed and config-constructed gradients
+- [x] Export builder from the package public API
+- [x] Update docs (`apps/docs`) with builder usage examples
 
 ## Acceptance Criteria
 

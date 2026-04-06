@@ -87,6 +87,54 @@ const gradient = kleur.radialGradient({
 });
 ```
 
+## Gradient Builders
+
+For building gradients incrementally, use the builder classes. They support fluent chaining and produce the same result as the config-object API.
+
+### LinearGradientBuilder
+
+```ts
+import { LinearGradientBuilder } from "@driangle/kleur";
+
+const gradient = new LinearGradientBuilder()
+  .from(0, 0)
+  .to(100, 0)
+  .addStop(0, "#ff0000")
+  .addStop(0.5, "#00ff00")
+  .addStop(1, "#0000ff")
+  .alpha(0.8)
+  .build();
+```
+
+| Method | Description |
+|---|---|
+| `from(x, y)` | Set start coordinates |
+| `to(x, y)` | Set end coordinates |
+| `addStop(offset, color)` | Add a color stop (offset clamped to 0-1) |
+| `alpha(value)` | Set global alpha |
+| `build()` | Returns a `LinearGradient` |
+
+### RadialGradientBuilder
+
+```ts
+import { RadialGradientBuilder } from "@driangle/kleur";
+
+const gradient = new RadialGradientBuilder()
+  .from(50, 50, 0)
+  .to(50, 50, 100)
+  .addStop(0, "#ffffff")
+  .addStop(1, "#000000")
+  .build();
+```
+
+| Method | Description |
+|---|---|
+| `from(x, y, r)` | Set start circle (center + radius) |
+| `to(x, y, r)` | Set end circle (center + radius) |
+| `addStop(offset, color)` | Add a color stop (offset clamped to 0-1) |
+| `alpha(value)` | Set global alpha |
+| `build()` | Returns a `RadialGradient` |
+
 ## Type Guards
 
 Use these to narrow `KleurFill` union types:

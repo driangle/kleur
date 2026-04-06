@@ -51,6 +51,8 @@ import {
   solid,
   linearGradient,
   radialGradient,
+  LinearGradientBuilder,
+  RadialGradientBuilder,
   isSolid,
   isLinearGradient,
   isRadialGradient,
@@ -93,6 +95,8 @@ export interface KleurApi {
   solid: typeof solid;
   linearGradient: typeof linearGradient;
   radialGradient: typeof radialGradient;
+  LinearGradientBuilder: typeof LinearGradientBuilder;
+  RadialGradientBuilder: typeof RadialGradientBuilder;
   isSolid: typeof isSolid;
   isLinearGradient: typeof isLinearGradient;
   isRadialGradient: typeof isRadialGradient;
@@ -157,6 +161,8 @@ kleur.colorStop = colorStop;
 kleur.solid = solid;
 kleur.linearGradient = linearGradient;
 kleur.radialGradient = radialGradient;
+kleur.LinearGradientBuilder = LinearGradientBuilder;
+kleur.RadialGradientBuilder = RadialGradientBuilder;
 kleur.isSolid = isSolid;
 kleur.isLinearGradient = isLinearGradient;
 kleur.isRadialGradient = isRadialGradient;
