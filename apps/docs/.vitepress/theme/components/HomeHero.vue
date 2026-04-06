@@ -26,7 +26,7 @@ onMounted(() => {
         A minimal software library for color
       </p>
       <div class="kl-hero-languages">
-        <span class="kl-lang">TypeScript</span>
+        <a href="./api/color" class="kl-lang">TypeScript</a>
         <span class="kl-lang kl-lang-soon">Python</span>
       </div>
       <div class="kl-hero-actions">
@@ -176,6 +176,12 @@ onMounted(() => {
   padding: 6px 14px;
   border: 1px solid var(--kl-outline-variant);
   color: var(--kl-on-surface);
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+
+a.kl-lang:hover {
+  border-color: var(--kl-outline);
 }
 
 .kl-lang-soon {
