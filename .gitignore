@@ -1,5 +1,6 @@
 node_modules
 dist
+coverage
 scheduled_tasks.lock
 
 # VitePress
