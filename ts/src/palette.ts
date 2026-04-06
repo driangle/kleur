@@ -100,6 +100,22 @@ export class Palette {
     return new Palette(this.#colors.map((c) => c.blend(overlay, mode)));
   }
 
+  /** Resample the palette to exactly `count` colors by interpolating between existing colors. */
+  spread(count: number): Palette {
+    if (count <= 0 || this.#colors.length === 0) return new Palette([]);
+    if (count === 1) return new Palette([this.#colors[0]]);
+    if (this.#colors.length === 1) return new Palette(Array(count).fill(this.#colors[0]));
+    const result: Color[] = [];
+    const segments = this.#colors.length - 1;
+    for (let i = 0; i < count; i++) {
+      const t = (i / (count - 1)) * segments;
+      const seg = Math.min(Math.floor(t), segments - 1);
+      const local = t - seg;
+      result.push(this.#colors[seg].mix(this.#colors[seg + 1], local));
+    }
+    return new Palette(result);
+  }
+
   /** Remove perceptually near-duplicate colors, keeping the first occurrence. */
   unique(threshold = 2.3): Palette {
     const kept: Color[] = [];

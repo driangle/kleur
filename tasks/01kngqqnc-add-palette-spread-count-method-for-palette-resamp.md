@@ -1,7 +1,7 @@
 ---
 title: "Add Palette.spread(count) method for palette resampling"
 id: "01kngqqnc"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["palette", "api-enhancement"]

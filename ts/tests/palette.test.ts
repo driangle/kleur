@@ -194,6 +194,55 @@ describe("Palette", () => {
     });
   });
 
+  describe("spread()", () => {
+    it("upsamples palette (3 → 5)", () => {
+      const spread = palette.spread(5);
+      expect(spread.length).toBe(5);
+      // First and last should match originals
+      expect(spread.at(0)!.red).toBe(255);
+      expect(spread.at(4)!.blue).toBe(255);
+    });
+
+    it("downsamples palette (3 → 2)", () => {
+      const spread = palette.spread(2);
+      expect(spread.length).toBe(2);
+      // First and last preserved
+      expect(spread.at(0)!.red).toBe(255);
+      expect(spread.at(1)!.blue).toBe(255);
+    });
+
+    it("identity (n → n)", () => {
+      const spread = palette.spread(3);
+      expect(spread.length).toBe(3);
+      expect(spread.at(0)!.red).toBe(255);
+      expect(spread.at(1)!.green).toBe(255);
+      expect(spread.at(2)!.blue).toBe(255);
+    });
+
+    it("count of 0 returns empty palette", () => {
+      expect(palette.spread(0).length).toBe(0);
+    });
+
+    it("count of 1 returns first color", () => {
+      const spread = palette.spread(1);
+      expect(spread.length).toBe(1);
+      expect(spread.at(0)!.red).toBe(255);
+    });
+
+    it("midpoint is interpolated correctly", () => {
+      const twoColor = new Palette([red, blue]);
+      const spread = twoColor.spread(3);
+      // Midpoint should be 50% mix of red and blue
+      expect(spread.at(1)!.red).toBeCloseTo(128, 0);
+      expect(spread.at(1)!.blue).toBeCloseTo(128, 0);
+    });
+
+    it("returns empty palette from empty palette", () => {
+      const empty = new Palette([]);
+      expect(empty.spread(5).length).toBe(0);
+    });
+  });
+
   describe("unique()", () => {
     it("removes exact duplicates", () => {
       const p = new Palette([red, red, green, green, blue]);
