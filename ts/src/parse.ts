@@ -124,7 +124,6 @@ export function css(css: string): Color {
   throw new ParseError("css", css);
 }
 
-
 /**
  * Universal factory: create a color from any supported input.
  *

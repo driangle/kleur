@@ -1,10 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { rgb } from "../src/parse.js";
-import {
-  linearGradient,
-  radialGradient,
-  colorStop,
-} from "../src/gradient.js";
+import { linearGradient, radialGradient, colorStop } from "../src/gradient.js";
 import {
   LinearGradientBuilder,
   RadialGradientBuilder,
@@ -66,7 +62,11 @@ describe("LinearGradientBuilder", () => {
   });
 
   it("produces equivalent result to config-object API", () => {
-    const stops = [colorStop(0, red), colorStop(0.5, green), colorStop(1, blue)];
+    const stops = [
+      colorStop(0, red),
+      colorStop(0.5, green),
+      colorStop(1, blue),
+    ];
 
     const fromConfig = linearGradient({
       x0: 10,
@@ -95,9 +95,15 @@ describe("LinearGradientBuilder", () => {
     expect(fromBuilder.stops).toHaveLength(fromConfig.stops.length);
     for (let i = 0; i < fromBuilder.stops.length; i++) {
       expect(fromBuilder.stops[i].offset).toBe(fromConfig.stops[i].offset);
-      expect(fromBuilder.stops[i].color.red).toBe(fromConfig.stops[i].color.red);
-      expect(fromBuilder.stops[i].color.green).toBe(fromConfig.stops[i].color.green);
-      expect(fromBuilder.stops[i].color.blue).toBe(fromConfig.stops[i].color.blue);
+      expect(fromBuilder.stops[i].color.red).toBe(
+        fromConfig.stops[i].color.red,
+      );
+      expect(fromBuilder.stops[i].color.green).toBe(
+        fromConfig.stops[i].color.green,
+      );
+      expect(fromBuilder.stops[i].color.blue).toBe(
+        fromConfig.stops[i].color.blue,
+      );
     }
   });
 
@@ -121,8 +127,12 @@ describe("LinearGradientBuilder", () => {
   });
 
   it("throws when building with no stops", () => {
-    expect(() => new LinearGradientBuilder().from(0, 0).to(100, 0).build()).toThrow(KleurError);
-    expect(() => new LinearGradientBuilder().build()).toThrow("at least one color stop");
+    expect(() =>
+      new LinearGradientBuilder().from(0, 0).to(100, 0).build(),
+    ).toThrow(KleurError);
+    expect(() => new LinearGradientBuilder().build()).toThrow(
+      "at least one color stop",
+    );
   });
 });
 
@@ -160,8 +170,12 @@ describe("RadialGradientBuilder", () => {
     const stops = [colorStop(0, red), colorStop(1, blue)];
 
     const fromConfig = radialGradient({
-      x0: 50, y0: 50, r0: 10,
-      x1: 50, y1: 50, r1: 100,
+      x0: 50,
+      y0: 50,
+      r0: 10,
+      x1: 50,
+      y1: 50,
+      r1: 100,
       stops,
     });
 
@@ -182,9 +196,15 @@ describe("RadialGradientBuilder", () => {
     expect(fromBuilder.stops).toHaveLength(fromConfig.stops.length);
     for (let i = 0; i < fromBuilder.stops.length; i++) {
       expect(fromBuilder.stops[i].offset).toBe(fromConfig.stops[i].offset);
-      expect(fromBuilder.stops[i].color.red).toBe(fromConfig.stops[i].color.red);
-      expect(fromBuilder.stops[i].color.green).toBe(fromConfig.stops[i].color.green);
-      expect(fromBuilder.stops[i].color.blue).toBe(fromConfig.stops[i].color.blue);
+      expect(fromBuilder.stops[i].color.red).toBe(
+        fromConfig.stops[i].color.red,
+      );
+      expect(fromBuilder.stops[i].color.green).toBe(
+        fromConfig.stops[i].color.green,
+      );
+      expect(fromBuilder.stops[i].color.blue).toBe(
+        fromConfig.stops[i].color.blue,
+      );
     }
   });
 

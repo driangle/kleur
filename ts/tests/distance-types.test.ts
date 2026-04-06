@@ -17,22 +17,42 @@ const blue = rgb(0, 0, 255);
 describe("distance() type-level safety", () => {
   describe("valid combinations compile", () => {
     it("euclidean works with any space", () => {
-      expect(distance(red, blue, { space: "rgb", method: "euclidean" })).toBeGreaterThan(0);
-      expect(distance(red, blue, { space: "hsl", method: "euclidean" })).toBeGreaterThan(0);
-      expect(distance(red, blue, { space: "lab", method: "euclidean" })).toBeGreaterThan(0);
-      expect(distance(red, blue, { space: "lch", method: "euclidean" })).toBeGreaterThan(0);
-      expect(distance(red, blue, { space: "oklab", method: "euclidean" })).toBeGreaterThan(0);
-      expect(distance(red, blue, { space: "oklch", method: "euclidean" })).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "rgb", method: "euclidean" }),
+      ).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "hsl", method: "euclidean" }),
+      ).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "lab", method: "euclidean" }),
+      ).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "lch", method: "euclidean" }),
+      ).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "oklab", method: "euclidean" }),
+      ).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "oklch", method: "euclidean" }),
+      ).toBeGreaterThan(0);
     });
 
     it("deltaE methods work with lab", () => {
-      expect(distance(red, blue, { space: "lab", method: "deltaE76" })).toBeGreaterThan(0);
-      expect(distance(red, blue, { space: "lab", method: "deltaE94" })).toBeGreaterThan(0);
-      expect(distance(red, blue, { space: "lab", method: "deltaE2000" })).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "lab", method: "deltaE76" }),
+      ).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "lab", method: "deltaE94" }),
+      ).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "lab", method: "deltaE2000" }),
+      ).toBeGreaterThan(0);
     });
 
     it("deltaEOK works with oklab", () => {
-      expect(distance(red, blue, { space: "oklab", method: "deltaEOK" })).toBeGreaterThan(0);
+      expect(
+        distance(red, blue, { space: "oklab", method: "deltaEOK" }),
+      ).toBeGreaterThan(0);
     });
 
     it("presets compile", () => {

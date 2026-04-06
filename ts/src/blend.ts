@@ -104,7 +104,11 @@ export function blend(
 ): Color {
   const fn = typeof mode === "function" ? mode : blendModes[mode];
   if (!fn) {
-    throw new UnknownOptionError("blendMode", mode as string, Object.keys(blendModes));
+    throw new UnknownOptionError(
+      "blendMode",
+      mode as string,
+      Object.keys(blendModes),
+    );
   }
   return fn(resolve(base), resolve(overlay));
 }

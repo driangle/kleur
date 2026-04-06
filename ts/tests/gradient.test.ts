@@ -100,7 +100,10 @@ describe("linearGradient()", () => {
 
   it("accepts a single stop", () => {
     const g = linearGradient({
-      x0: 0, y0: 0, x1: 100, y1: 0,
+      x0: 0,
+      y0: 0,
+      x1: 100,
+      y1: 0,
       stops: [{ offset: 0, color: red }],
     });
     expect(g.stops).toHaveLength(1);
@@ -130,12 +133,24 @@ describe("radialGradient()", () => {
   it("throws for empty stops array", () => {
     expect(() =>
       radialGradient({
-        x0: 50, y0: 50, r0: 0, x1: 50, y1: 50, r1: 100, stops: [],
+        x0: 50,
+        y0: 50,
+        r0: 0,
+        x1: 50,
+        y1: 50,
+        r1: 100,
+        stops: [],
       }),
     ).toThrow(KleurError);
     expect(() =>
       radialGradient({
-        x0: 50, y0: 50, r0: 0, x1: 50, y1: 50, r1: 100, stops: [],
+        x0: 50,
+        y0: 50,
+        r0: 0,
+        x1: 50,
+        y1: 50,
+        r1: 100,
+        stops: [],
       }),
     ).toThrow("at least one color stop");
   });

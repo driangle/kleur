@@ -1,50 +1,13 @@
 import { Color, registerPalette } from "./color.js";
 import { distance } from "./distance.js";
 import type { KleurValue, BlendMode } from "./types.js";
-
-export type PaletteSortChannel =
-  | "hue" | "saturation" | "lightness" | "brightness"
-  | "red" | "green" | "blue" | "alpha";
-
-const channelAccessor: Record<PaletteSortChannel, (c: Color) => number> = {
-  hue: (c) => c.hue,
-  saturation: (c) => c.saturationHsl,
-  lightness: (c) => c.lightness,
-  brightness: (c) => c.brightness,
-  red: (c) => c.red,
-  green: (c) => c.green,
-  blue: (c) => c.blue,
-  alpha: (c) => c.alpha,
-};
-
-function median(values: number[]): number {
-  const sorted = [...values].sort((a, b) => a - b);
-  const mid = Math.floor(sorted.length / 2);
-  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
-}
-
-function harmonicTargets(colors: readonly Color[]): number[] {
-  let sinSum = 0, cosSum = 0;
-  for (const c of colors) {
-    const rad = (c.hue * Math.PI) / 180;
-    sinSum += Math.sin(rad);
-    cosSum += Math.cos(rad);
-  }
-  const mean = ((Math.atan2(sinSum, cosSum) * 180) / Math.PI + 360) % 360;
-  const n = colors.length;
-  const targets = Array.from({ length: n }, (_, i) => (mean + (i * 360) / n) % 360);
-  const used = new Set<number>();
-  return colors.map((c) => {
-    let best = 0, bestD = Infinity;
-    for (let i = 0; i < n; i++) {
-      if (used.has(i)) continue;
-      const d = Math.abs(((c.hue - targets[i] + 540) % 360) - 180);
-      if (d < bestD) { bestD = d; best = i; }
-    }
-    used.add(best);
-    return targets[best];
-  });
-}
+import {
+  type PaletteSortChannel,
+  channelAccessor,
+  harmonicTargets,
+  median,
+} from "./palette-utils.js";
+export type { PaletteSortChannel } from "./palette-utils.js";
 
 /**
  * A collection of colors with convenient bulk operations.
@@ -100,18 +63,42 @@ export class Palette {
   }
 
   // --- Bulk color adjustments (each returns a new Palette) ---
-  #mapColors(fn: (c: Color) => Color): Palette { return new Palette(this.#colors.map(fn)); }
-  lighten(amount: number): Palette { return this.#mapColors((c) => c.lighten(amount)); }
-  darken(amount: number): Palette { return this.#mapColors((c) => c.darken(amount)); }
-  saturate(amount: number): Palette { return this.#mapColors((c) => c.saturate(amount)); }
-  desaturate(amount: number): Palette { return this.#mapColors((c) => c.desaturate(amount)); }
-  rotate(degrees: number): Palette { return this.#mapColors((c) => c.rotate(degrees)); }
-  invert(): Palette { return this.#mapColors((c) => c.invert()); }
-  complement(): Palette { return this.#mapColors((c) => c.complement()); }
-  grayscale(): Palette { return this.#mapColors((c) => c.grayscale()); }
-  opaque(): Palette { return this.#mapColors((c) => c.opaque()); }
-  warm(intensity = 0.2): Palette { return this.#mapColors((c) => c.warm(intensity)); }
-  cool(intensity = 0.2): Palette { return this.#mapColors((c) => c.cool(intensity)); }
+  #mapColors(fn: (c: Color) => Color): Palette {
+    return new Palette(this.#colors.map(fn));
+  }
+  lighten(amount: number): Palette {
+    return this.#mapColors((c) => c.lighten(amount));
+  }
+  darken(amount: number): Palette {
+    return this.#mapColors((c) => c.darken(amount));
+  }
+  saturate(amount: number): Palette {
+    return this.#mapColors((c) => c.saturate(amount));
+  }
+  desaturate(amount: number): Palette {
+    return this.#mapColors((c) => c.desaturate(amount));
+  }
+  rotate(degrees: number): Palette {
+    return this.#mapColors((c) => c.rotate(degrees));
+  }
+  invert(): Palette {
+    return this.#mapColors((c) => c.invert());
+  }
+  complement(): Palette {
+    return this.#mapColors((c) => c.complement());
+  }
+  grayscale(): Palette {
+    return this.#mapColors((c) => c.grayscale());
+  }
+  opaque(): Palette {
+    return this.#mapColors((c) => c.opaque());
+  }
+  warm(intensity = 0.2): Palette {
+    return this.#mapColors((c) => c.warm(intensity));
+  }
+  cool(intensity = 0.2): Palette {
+    return this.#mapColors((c) => c.cool(intensity));
+  }
   mix(target: KleurValue, t = 0.5, ease?: (t: number) => number): Palette {
     return this.#mapColors((c) => c.mix(target, t, ease));
   }
@@ -120,7 +107,10 @@ export class Palette {
   }
 
   /** Sort colors by a channel. Returns a new Palette. */
-  sortBy(channel: PaletteSortChannel, direction: "asc" | "desc" = "asc"): Palette {
+  sortBy(
+    channel: PaletteSortChannel,
+    direction: "asc" | "desc" = "asc",
+  ): Palette {
     const accessor = channelAccessor[channel];
     const sorted = [...this.#colors].sort((a, b) => {
       const diff = accessor(a) - accessor(b);
@@ -145,7 +135,8 @@ export class Palette {
   interpolate(steps: number, ease?: (t: number) => number): Palette {
     if (steps <= 0 || this.#colors.length === 0) return new Palette([]);
     if (steps === 1) return new Palette([this.#colors[0]]);
-    if (this.#colors.length === 1) return new Palette(Array(steps).fill(this.#colors[0]));
+    if (this.#colors.length === 1)
+      return new Palette(Array(steps).fill(this.#colors[0]));
     const result: Color[] = [];
     const segments = this.#colors.length - 1;
     for (let i = 0; i < steps; i++) {
@@ -161,10 +152,12 @@ export class Palette {
   harmonize(amount = 0.5): Palette {
     if (this.#colors.length <= 1) return new Palette([...this.#colors]);
     const targets = harmonicTargets(this.#colors);
-    return new Palette(this.#colors.map((c, i) => {
-      const delta = (((targets[i] - c.hue + 540) % 360) - 180) * amount;
-      return c.rotate(delta);
-    }));
+    return new Palette(
+      this.#colors.map((c, i) => {
+        const delta = (((targets[i] - c.hue + 540) % 360) - 180) * amount;
+        return c.rotate(delta);
+      }),
+    );
   }
 
   /** Remove perceptually near-duplicate colors, keeping the first occurrence. */

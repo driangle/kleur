@@ -148,10 +148,14 @@ describe("cross-language test vectors", () => {
           expect(result.blue).toBe(exp.b);
         }
         if ("expected_lightness" in v)
-          expect(result.lightness).toBeCloseTo(v.expected_lightness as number, 0);
+          expect(result.lightness).toBeCloseTo(
+            v.expected_lightness as number,
+            0,
+          );
         if ("expected_saturation" in v)
           expect(result.hsl.s).toBeCloseTo(v.expected_saturation as number, 0);
-        if ("expected_hue" in v) expect(result.hue).toBeCloseTo(v.expected_hue as number, 0);
+        if ("expected_hue" in v)
+          expect(result.hue).toBeCloseTo(v.expected_hue as number, 0);
         if ("expected_alpha" in v)
           expect(result.alpha).toBeCloseTo(v.expected_alpha as number, 2);
       });

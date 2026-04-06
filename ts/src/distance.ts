@@ -119,12 +119,20 @@ export function distance(
 
   const converter = SPACE_CONVERTERS[space];
   if (!converter) {
-    throw new UnknownOptionError("colorSpace", space, Object.keys(SPACE_CONVERTERS));
+    throw new UnknownOptionError(
+      "colorSpace",
+      space,
+      Object.keys(SPACE_CONVERTERS),
+    );
   }
 
   const distanceFn = DISTANCE_METHODS[method];
   if (!distanceFn) {
-    throw new UnknownOptionError("distanceMethod", method, Object.keys(DISTANCE_METHODS));
+    throw new UnknownOptionError(
+      "distanceMethod",
+      method,
+      Object.keys(DISTANCE_METHODS),
+    );
   }
 
   const validSpaces = VALID_COMBINATIONS[method];

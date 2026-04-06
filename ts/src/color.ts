@@ -37,14 +37,22 @@ const clampPercent = (v: number): number => Math.min(100, Math.max(0, v));
 // Registration pattern: breaks circular deps by having dependent modules
 // register their functions at import time. See parse.ts, blend.ts, palette.ts.
 
-let _blend: ((base: KleurValue, overlay: KleurValue, mode: BlendMode) => Color) | undefined;
-export function registerBlend(fn: typeof _blend): void { _blend = fn; }
+let _blend:
+  | ((base: KleurValue, overlay: KleurValue, mode: BlendMode) => Color)
+  | undefined;
+export function registerBlend(fn: typeof _blend): void {
+  _blend = fn;
+}
 
 let _resolve: ((value: KleurValue) => Color) | undefined;
-export function registerResolver(fn: typeof _resolve): void { _resolve = fn; }
+export function registerResolver(fn: typeof _resolve): void {
+  _resolve = fn;
+}
 
 let _palette: ((colors: readonly Color[]) => Palette) | undefined;
-export function registerPalette(fn: typeof _palette): void { _palette = fn; }
+export function registerPalette(fn: typeof _palette): void {
+  _palette = fn;
+}
 
 function createPalette(colors: readonly Color[]): Palette {
   if (!_palette) throw new MissingRegistrationError("Palette");
@@ -305,7 +313,12 @@ export class Color {
   }
 
   tetradic(): Palette {
-    return createPalette([this, this.rotate(90), this.rotate(180), this.rotate(270)]);
+    return createPalette([
+      this,
+      this.rotate(90),
+      this.rotate(180),
+      this.rotate(270),
+    ]);
   }
 
   analogous(angle = 30): Palette {
@@ -313,7 +326,11 @@ export class Color {
   }
 
   splitComplement(angle = 30): Palette {
-    return createPalette([this, this.rotate(180 - angle), this.rotate(180 + angle)]);
+    return createPalette([
+      this,
+      this.rotate(180 - angle),
+      this.rotate(180 + angle),
+    ]);
   }
 
   tints(count: number): Palette {

@@ -8,7 +8,10 @@ export { resolve } from "./parse.js";
 export type { RandomOptions } from "./random.js";
 export { Palette } from "./palette.js";
 export type { PaletteSortChannel } from "./palette.js";
-export { LinearGradientBuilder, RadialGradientBuilder } from "./gradient-builder.js";
+export {
+  LinearGradientBuilder,
+  RadialGradientBuilder,
+} from "./gradient-builder.js";
 export {
   KleurError,
   ParseError,
@@ -19,7 +22,11 @@ export {
   InvalidDistanceCombinationError,
   MissingRegistrationError,
 } from "./errors.js";
-export type { InvalidChannelKind, ParseErrorKind, UnknownOptionKind } from "./errors.js";
+export type {
+  InvalidChannelKind,
+  ParseErrorKind,
+  UnknownOptionKind,
+} from "./errors.js";
 export type {
   Rgb,
   Rgba,
@@ -40,4 +47,3 @@ export type {
   DistanceSpaceMethod,
   DistanceOptions,
 } from "./types.js";
-

@@ -219,7 +219,10 @@ describe("Palette", () => {
 
     it("passes index to callback", () => {
       const indices: number[] = [];
-      palette.flatMap((_, i) => { indices.push(i); return []; });
+      palette.flatMap((_, i) => {
+        indices.push(i);
+        return [];
+      });
       expect(indices).toEqual([0, 1, 2]);
     });
 
@@ -401,8 +404,14 @@ describe("Palette", () => {
     it("preserves lightness and saturation", () => {
       const harmonized = palette.harmonize(0.5);
       for (let i = 0; i < palette.length; i++) {
-        expect(harmonized.at(i)!.lightness).toBeCloseTo(palette.at(i)!.lightness, 0);
-        expect(harmonized.at(i)!.saturationHsl).toBeCloseTo(palette.at(i)!.saturationHsl, 0);
+        expect(harmonized.at(i)!.lightness).toBeCloseTo(
+          palette.at(i)!.lightness,
+          0,
+        );
+        expect(harmonized.at(i)!.saturationHsl).toBeCloseTo(
+          palette.at(i)!.saturationHsl,
+          0,
+        );
       }
     });
 
