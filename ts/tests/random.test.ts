@@ -84,6 +84,37 @@ describe("random()", () => {
     }
   });
 
+  it("auto-corrects inverted saturation range", () => {
+    for (let i = 0; i < ITERATIONS; i++) {
+      const c = random({ saturation: [100, 0], lightness: [30, 70] });
+      const s = c.hsl.s;
+      expect(s).toBeGreaterThanOrEqual(0);
+      expect(s).toBeLessThanOrEqual(100);
+    }
+  });
+
+  it("auto-corrects inverted lightness range", () => {
+    for (let i = 0; i < ITERATIONS; i++) {
+      const c = random({ lightness: [60, 40] });
+      const l = c.lightness;
+      expect(l).toBeGreaterThanOrEqual(35);
+      expect(l).toBeLessThanOrEqual(65);
+    }
+  });
+
+  it("auto-corrects inverted hue range", () => {
+    for (let i = 0; i < ITERATIONS; i++) {
+      const c = random({
+        hue: [250, 200],
+        saturation: [50, 100],
+        lightness: [30, 70],
+      });
+      const h = c.hue;
+      expect(h).toBeGreaterThanOrEqual(195);
+      expect(h).toBeLessThanOrEqual(255);
+    }
+  });
+
   it("composes multiple constraints", () => {
     for (let i = 0; i < ITERATIONS; i++) {
       const c = random({

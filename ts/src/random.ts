@@ -13,7 +13,9 @@ export interface RandomOptions {
 }
 
 function randInRange(min: number, max: number): number {
-  return min + Math.random() * (max - min);
+  const lo = Math.min(min, max);
+  const hi = Math.max(min, max);
+  return lo + Math.random() * (hi - lo);
 }
 
 function randomHue(option?: "warm" | "cool" | [number, number]): number {

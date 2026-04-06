@@ -1,7 +1,7 @@
 ---
 title: "Validate inverted ranges in random() options"
 id: "01knfs8yg"
-status: pending
+status: completed
 priority: medium
 type: bug
 tags: ["random", "validation"]
@@ -26,10 +26,10 @@ Either swap the values so the range is valid, or throw an error indicating min m
 
 ## Tasks
 
-- [ ] Add validation in `random()` (or `randInRange()`) to detect inverted ranges where min > max
-- [ ] Decide behavior: auto-swap the values or throw an error (auto-swap is more ergonomic)
-- [ ] Add tests for inverted ranges on each option (`hue`, `saturation`, `lightness`, etc.)
-- [ ] Verify normal ranges continue to work
+- [x] Add validation in `random()` (or `randInRange()`) to detect inverted ranges where min > max
+- [x] Decide behavior: auto-swap the values or throw an error (auto-swap is more ergonomic)
+- [x] Add tests for inverted ranges on each option (`hue`, `saturation`, `lightness`, etc.)
+- [x] Verify normal ranges continue to work
 
 ## Acceptance Criteria
 
