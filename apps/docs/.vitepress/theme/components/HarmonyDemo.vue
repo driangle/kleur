@@ -11,7 +11,6 @@ const kind = ref<HarmonyKind>("triadic");
 const angle = ref(30);
 
 const baseColor = computed(() => kleur(base.value));
-const baseHue = computed(() => baseColor.value.toHsl().h);
 
 const palette = computed(() => {
   const c = baseColor.value;
@@ -27,51 +26,40 @@ const palette = computed(() => {
   }
 });
 
-const hues = computed(() => {
-  const h = baseHue.value;
-  switch (kind.value) {
-    case "triadic":
-      return [h, (h + 120) % 360, (h + 240) % 360];
-    case "tetradic":
-      return [h, (h + 90) % 360, (h + 180) % 360, (h + 270) % 360];
-    case "analogous":
-      return [
-        (h - angle.value + 360) % 360,
-        h,
-        (h + angle.value) % 360,
-      ];
-    case "splitComplement":
-      return [
-        h,
-        (h + 180 - angle.value + 360) % 360,
-        (h + 180 + angle.value) % 360,
-      ];
-  }
-});
-
-function wheelPoint(hueDeg: number, r: number, cx: number, cy: number) {
+function wheelPoint(hueDeg: number, radius: number, centerX: number, centerY: number) {
   const rad = ((hueDeg - 90) * Math.PI) / 180;
-  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  return { x: centerX + radius * Math.cos(rad), y: centerY + radius * Math.sin(rad) };
 }
 
 const wheelSize = 200;
 const cx = wheelSize / 2;
 const cy = wheelSize / 2;
-const wheelRadius = 78;
+const maxRadius = 78;
 const dotRadius = 8;
 
-const conicGradient = computed(() => {
-  const stops: string[] = [];
-  for (let i = 0; i <= 360; i += 30) {
-    stops.push(`hsl(${i}, 80%, 55%) ${i}deg`);
-  }
-  return `conic-gradient(from 0deg, ${stops.join(", ")})`;
+const baseLightness = computed(() => baseColor.value.toHsl().l);
+
+const wheelStyle = computed(() => {
+  const l = baseLightness.value;
+  const stops = Array.from({ length: 13 }, (_, i) => {
+    const h = i * 30;
+    return `hsl(${h}, 80%, ${l}%) ${h}deg`;
+  });
+  // Radial: gray at center (desaturated), full color at rim
+  // The center gray matches the lightness of the palette
+  return {
+    background: [
+      `radial-gradient(circle, hsl(0 0% ${l}%) 0%, transparent 70%)`,
+      `conic-gradient(from 0deg, ${stops.join(", ")})`,
+    ].join(", "),
+  };
 });
 
 const dots = computed(() =>
-  hues.value.map((h, i) => {
-    const pos = wheelPoint(h, wheelRadius, cx, cy);
-    const color = palette.value[i];
+  palette.value.map((color, i) => {
+    const hsl = color.toHsl();
+    const r = (hsl.s / 100) * maxRadius;
+    const pos = wheelPoint(hsl.h, r, cx, cy);
     return {
       ...pos,
       hex: color.toHex(),
@@ -142,10 +130,7 @@ const code = computed(() => {
     <template #preview>
       <div class="kl-harmony-preview">
         <div class="kl-wheel-wrap">
-          <div
-            class="kl-wheel-bg"
-            :style="{ background: conicGradient }"
-          ></div>
+          <div class="kl-wheel-bg" :style="wheelStyle"></div>
           <svg
             class="kl-wheel-svg"
             :viewBox="`0 0 ${wheelSize} ${wheelSize}`"
@@ -162,7 +147,7 @@ const code = computed(() => {
               <circle
                 :cx="dot.x"
                 :cy="dot.y"
-                :r="dotRadius"
+                :r="dot.isBase ? dotRadius * 1.4 : dotRadius"
                 :fill="dot.hex"
                 stroke="var(--kl-on-surface)"
                 :stroke-width="dot.isBase ? 2.5 : 1.5"
@@ -229,7 +214,7 @@ const code = computed(() => {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  opacity: 0.25;
+  opacity: 0.9;
 }
 
 .kl-wheel-svg {
