@@ -128,6 +128,35 @@ describe("int()", () => {
     expect(c.green).toBe(255);
     expect(c.blue).toBe(255);
   });
+
+  it("parses 0 as black", () => {
+    const c = int(0);
+    expect(c.red).toBe(0);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(0);
+  });
+
+  it("throws for negative numbers", () => {
+    expect(() => int(-1)).toThrow(ParseError);
+    expect(() => int(-1)).toThrow("Invalid color value");
+  });
+
+  it("throws for floats", () => {
+    expect(() => int(3.7)).toThrow(ParseError);
+  });
+
+  it("throws for values exceeding 0xFFFFFF", () => {
+    expect(() => int(0x1000000)).toThrow(ParseError);
+  });
+
+  it("throws for NaN", () => {
+    expect(() => int(NaN)).toThrow(ParseError);
+  });
+
+  it("throws for Infinity", () => {
+    expect(() => int(Infinity)).toThrow(ParseError);
+    expect(() => int(-Infinity)).toThrow(ParseError);
+  });
 });
 
 describe("css()", () => {

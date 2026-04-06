@@ -55,10 +55,12 @@ export function hsl(h: number, s: number, l: number, a?: number): Color {
  * Create a color from a 24-bit packed integer (0xRRGGBB).
  */
 export function int(n: number): Color {
-  const int = n >>> 0; // ensure unsigned 32-bit
-  const r = (int >> 16) & 0xff;
-  const g = (int >> 8) & 0xff;
-  const b = int & 0xff;
+  if (!Number.isInteger(n) || n < 0 || n > 0xffffff) {
+    throw new ParseError("value", n);
+  }
+  const r = (n >> 16) & 0xff;
+  const g = (n >> 8) & 0xff;
+  const b = n & 0xff;
   return new Color(r, g, b);
 }
 

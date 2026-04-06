@@ -1,7 +1,7 @@
 ---
 title: "Validate int() input: reject negative numbers and floats"
 id: "01knfs201"
-status: pending
+status: completed
 priority: medium
 type: bug
 tags: ["api", "parse", "validation"]
@@ -27,13 +27,13 @@ Both calls should throw an appropriate error indicating the input is not a valid
 
 ## Tasks
 
-- [ ] Add validation at the top of `int()`: `Number.isInteger(n) && n >= 0 && n <= 0xFFFFFF`
-- [ ] Throw the appropriate custom error class for invalid inputs
-- [ ] Add tests for negative numbers (e.g., `int(-1)`)
-- [ ] Add tests for floats (e.g., `int(3.7)`)
-- [ ] Add tests for values exceeding `0xFFFFFF` (e.g., `int(0x1000000)`)
-- [ ] Verify `NaN` and `Infinity` are also rejected
-- [ ] Ensure valid integer inputs (`0`, `0xFF0000`, `0xFFFFFF`) continue to work
+- [x] Add validation at the top of `int()`: `Number.isInteger(n) && n >= 0 && n <= 0xFFFFFF`
+- [x] Throw the appropriate custom error class for invalid inputs
+- [x] Add tests for negative numbers (e.g., `int(-1)`)
+- [x] Add tests for floats (e.g., `int(3.7)`)
+- [x] Add tests for values exceeding `0xFFFFFF` (e.g., `int(0x1000000)`)
+- [x] Verify `NaN` and `Infinity` are also rejected
+- [x] Ensure valid integer inputs (`0`, `0xFF0000`, `0xFFFFFF`) continue to work
 
 ## Acceptance Criteria
 
