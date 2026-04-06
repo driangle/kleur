@@ -10,7 +10,7 @@ import {
   isRadialGradient,
   isGradient,
 } from "../src/gradient.js";
-import { InvalidOffsetError } from "../src/errors.js";
+import { InvalidOffsetError, KleurError } from "../src/errors.js";
 
 const red = rgb(255, 0, 0);
 const blue = rgb(0, 0, 255);
@@ -88,6 +88,23 @@ describe("linearGradient()", () => {
     });
     expect(g.globalAlpha).toBe(0.5);
   });
+
+  it("throws for empty stops array", () => {
+    expect(() =>
+      linearGradient({ x0: 0, y0: 0, x1: 100, y1: 0, stops: [] }),
+    ).toThrow(KleurError);
+    expect(() =>
+      linearGradient({ x0: 0, y0: 0, x1: 100, y1: 0, stops: [] }),
+    ).toThrow("at least one color stop");
+  });
+
+  it("accepts a single stop", () => {
+    const g = linearGradient({
+      x0: 0, y0: 0, x1: 100, y1: 0,
+      stops: [{ offset: 0, color: red }],
+    });
+    expect(g.stops).toHaveLength(1);
+  });
 });
 
 describe("radialGradient()", () => {
@@ -108,6 +125,19 @@ describe("radialGradient()", () => {
     expect(g.r0).toBe(0);
     expect(g.r1).toBe(100);
     expect(g.stops[1].offset).toBe(1);
+  });
+
+  it("throws for empty stops array", () => {
+    expect(() =>
+      radialGradient({
+        x0: 50, y0: 50, r0: 0, x1: 50, y1: 50, r1: 100, stops: [],
+      }),
+    ).toThrow(KleurError);
+    expect(() =>
+      radialGradient({
+        x0: 50, y0: 50, r0: 0, x1: 50, y1: 50, r1: 100, stops: [],
+      }),
+    ).toThrow("at least one color stop");
   });
 });
 

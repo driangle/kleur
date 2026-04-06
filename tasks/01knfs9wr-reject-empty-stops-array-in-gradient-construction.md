@@ -1,7 +1,7 @@
 ---
 title: "Reject empty stops array in gradient construction"
 id: "01knfs9wr"
-status: pending
+status: completed
 priority: medium
 type: bug
 tags: ["gradient", "validation"]
@@ -26,11 +26,11 @@ The empty stops array is silently accepted, producing an invalid gradient.
 
 ## Tasks
 
-- [ ] Add validation that the stops array has a minimum required length (at least 1, or arguably 2 for a meaningful gradient)
-- [ ] Throw the appropriate custom error with a descriptive message
-- [ ] Add tests for empty stops array
-- [ ] Add tests for single-stop array (decide if this is valid or requires at least 2)
-- [ ] Verify valid gradient construction is unaffected
+- [x] Add validation that the stops array has a minimum required length (at least 1, or arguably 2 for a meaningful gradient)
+- [x] Throw the appropriate custom error with a descriptive message
+- [x] Add tests for empty stops array
+- [x] Add tests for single-stop array (decide if this is valid or requires at least 2)
+- [x] Verify valid gradient construction is unaffected
 
 ## Acceptance Criteria
 

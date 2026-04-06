@@ -4,9 +4,12 @@ import {
   linearGradient,
   radialGradient,
   colorStop,
+} from "../src/gradient.js";
+import {
   LinearGradientBuilder,
   RadialGradientBuilder,
-} from "../src/gradient.js";
+} from "../src/gradient-builder.js";
+import { KleurError } from "../src/errors.js";
 
 const red = rgb(255, 0, 0);
 const blue = rgb(0, 0, 255);
@@ -116,6 +119,11 @@ describe("LinearGradientBuilder", () => {
     expect(g.x1).toBe(0);
     expect(g.y1).toBe(0);
   });
+
+  it("throws when building with no stops", () => {
+    expect(() => new LinearGradientBuilder().from(0, 0).to(100, 0).build()).toThrow(KleurError);
+    expect(() => new LinearGradientBuilder().build()).toThrow("at least one color stop");
+  });
 });
 
 describe("RadialGradientBuilder", () => {
@@ -178,5 +186,11 @@ describe("RadialGradientBuilder", () => {
       expect(fromBuilder.stops[i].color.green).toBe(fromConfig.stops[i].color.green);
       expect(fromBuilder.stops[i].color.blue).toBe(fromConfig.stops[i].color.blue);
     }
+  });
+
+  it("throws when building with no stops", () => {
+    expect(() =>
+      new RadialGradientBuilder().from(50, 50, 0).to(50, 50, 100).build(),
+    ).toThrow(KleurError);
   });
 });

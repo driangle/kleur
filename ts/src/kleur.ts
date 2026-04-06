@@ -51,13 +51,15 @@ import {
   solid,
   linearGradient,
   radialGradient,
-  LinearGradientBuilder,
-  RadialGradientBuilder,
   isSolid,
   isLinearGradient,
   isRadialGradient,
   isGradient,
 } from "./gradient.js";
+import {
+  LinearGradientBuilder,
+  RadialGradientBuilder,
+} from "./gradient-builder.js";
 
 /** All properties available on the `kleur` function object. */
 export interface KleurApi {
