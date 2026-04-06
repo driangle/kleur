@@ -136,6 +136,8 @@ color.scaleAlpha(0.5).alpha;   // 0.5
 
 ## Interpolation & Blending
 
+<BlendDemo />
+
 ```ts
 mix(target: Color, t?: number, ease?: (t: number) => number): Color
 ```

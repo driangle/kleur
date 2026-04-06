@@ -107,7 +107,8 @@ const code = computed(() =>
 
 .kl-preview {
   display: grid;
-  gap: 16px;
+  grid-template-rows: 1fr auto;
+  height: 100%;
 }
 
 .kl-strip {
@@ -125,6 +126,7 @@ const code = computed(() =>
 
 .kl-hex {
   font-family: var(--vp-font-family-mono);
+  padding: 12px 14px;
 }
 
 @media (max-width: 640px) {
