@@ -1,6 +1,6 @@
 # Getting Started
 
-> Examples gain interactive demos when changing the input reveals meaningful visual or numeric behavior. Reference tables and type-only examples stay static so the docs stay focused.
+Create, manipulate, and analyze colors in a few lines of code.
 
 ## Create a Color
 
