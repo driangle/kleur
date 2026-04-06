@@ -1,6 +1,6 @@
 # kleur
 
-The `kleur` export is both a universal color factory and a namespace carrying the full API. Import it once to access everything:
+The `kleur` export is both a universal color factory and a namespace carrying the full API. Factory functions and named creators return a [`Color`](/api/color) instance — an immutable object with chainable methods for manipulation and output. Import it once to access everything:
 
 ```ts
 import kleur from "@driangle/kleur";

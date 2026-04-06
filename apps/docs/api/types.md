@@ -1,6 +1,6 @@
 # Type Definitions
 
-All exported types from the kleur library.
+All exported types from the kleur library. See the [Kleur Namespace](/api/kleur-namespace) for the full API surface.
 
 ```ts
 import type {

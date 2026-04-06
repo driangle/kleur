@@ -26,7 +26,7 @@ onMounted(() => {
         A minimal software library for color
       </p>
       <div class="kl-hero-languages">
-        <a href="./api/color" class="kl-lang">TypeScript</a>
+        <a href="./api/kleur-namespace" class="kl-lang">TypeScript</a>
         <span class="kl-lang kl-lang-soon">Python</span>
       </div>
       <div class="kl-hero-actions">
