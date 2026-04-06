@@ -17,6 +17,29 @@ const channelAccessor: Record<PaletteSortChannel, (c: Color) => number> = {
   alpha: (c) => c.alpha,
 };
 
+function harmonicTargets(colors: readonly Color[]): number[] {
+  let sinSum = 0, cosSum = 0;
+  for (const c of colors) {
+    const rad = (c.hue * Math.PI) / 180;
+    sinSum += Math.sin(rad);
+    cosSum += Math.cos(rad);
+  }
+  const mean = ((Math.atan2(sinSum, cosSum) * 180) / Math.PI + 360) % 360;
+  const n = colors.length;
+  const targets = Array.from({ length: n }, (_, i) => (mean + (i * 360) / n) % 360);
+  const used = new Set<number>();
+  return colors.map((c) => {
+    let best = 0, bestD = Infinity;
+    for (let i = 0; i < n; i++) {
+      if (used.has(i)) continue;
+      const d = Math.abs(((c.hue - targets[i] + 540) % 360) - 180);
+      if (d < bestD) { bestD = d; best = i; }
+    }
+    used.add(best);
+    return targets[best];
+  });
+}
+
 /**
  * A collection of colors with convenient bulk operations.
  *
@@ -70,58 +93,24 @@ export class Palette {
     return new Palette(result);
   }
 
-  // --- Bulk color adjustments ---
-
-  lighten(amount: number): Palette {
-    return new Palette(this.#colors.map((c) => c.lighten(amount)));
-  }
-
-  darken(amount: number): Palette {
-    return new Palette(this.#colors.map((c) => c.darken(amount)));
-  }
-
-  saturate(amount: number): Palette {
-    return new Palette(this.#colors.map((c) => c.saturate(amount)));
-  }
-
-  desaturate(amount: number): Palette {
-    return new Palette(this.#colors.map((c) => c.desaturate(amount)));
-  }
-
-  rotate(degrees: number): Palette {
-    return new Palette(this.#colors.map((c) => c.rotate(degrees)));
-  }
-
-  invert(): Palette {
-    return new Palette(this.#colors.map((c) => c.invert()));
-  }
-
-  complement(): Palette {
-    return new Palette(this.#colors.map((c) => c.complement()));
-  }
-
-  grayscale(): Palette {
-    return new Palette(this.#colors.map((c) => c.grayscale()));
-  }
-
-  opaque(): Palette {
-    return new Palette(this.#colors.map((c) => c.opaque()));
-  }
-
-  warm(amount = 0.2): Palette {
-    return new Palette(this.#colors.map((c) => c.warm(amount)));
-  }
-
-  cool(amount = 0.2): Palette {
-    return new Palette(this.#colors.map((c) => c.cool(amount)));
-  }
-
+  // --- Bulk color adjustments (each returns a new Palette) ---
+  #mapColors(fn: (c: Color) => Color): Palette { return new Palette(this.#colors.map(fn)); }
+  lighten(amount: number): Palette { return this.#mapColors((c) => c.lighten(amount)); }
+  darken(amount: number): Palette { return this.#mapColors((c) => c.darken(amount)); }
+  saturate(amount: number): Palette { return this.#mapColors((c) => c.saturate(amount)); }
+  desaturate(amount: number): Palette { return this.#mapColors((c) => c.desaturate(amount)); }
+  rotate(degrees: number): Palette { return this.#mapColors((c) => c.rotate(degrees)); }
+  invert(): Palette { return this.#mapColors((c) => c.invert()); }
+  complement(): Palette { return this.#mapColors((c) => c.complement()); }
+  grayscale(): Palette { return this.#mapColors((c) => c.grayscale()); }
+  opaque(): Palette { return this.#mapColors((c) => c.opaque()); }
+  warm(amount = 0.2): Palette { return this.#mapColors((c) => c.warm(amount)); }
+  cool(amount = 0.2): Palette { return this.#mapColors((c) => c.cool(amount)); }
   mix(target: KleurValue, t = 0.5, ease?: (t: number) => number): Palette {
-    return new Palette(this.#colors.map((c) => c.mix(target, t, ease)));
+    return this.#mapColors((c) => c.mix(target, t, ease));
   }
-
   blend(overlay: KleurValue, mode: BlendMode): Palette {
-    return new Palette(this.#colors.map((c) => c.blend(overlay, mode)));
+    return this.#mapColors((c) => c.blend(overlay, mode));
   }
 
   /** Sort colors by a channel. Returns a new Palette. */
@@ -153,6 +142,16 @@ export class Palette {
       result.push(this.#colors[seg].mix(this.#colors[seg + 1], local, ease));
     }
     return new Palette(result);
+  }
+
+  /** Nudge hues toward harmonic spacing. `amount` 0–1 controls shift strength. */
+  harmonize(amount = 0.5): Palette {
+    if (this.#colors.length <= 1) return new Palette([...this.#colors]);
+    const targets = harmonicTargets(this.#colors);
+    return new Palette(this.#colors.map((c, i) => {
+      const delta = (((targets[i] - c.hue + 540) % 360) - 180) * amount;
+      return c.rotate(delta);
+    }));
   }
 
   /** Remove perceptually near-duplicate colors, keeping the first occurrence. */

@@ -1,7 +1,7 @@
 ---
 title: "Add Palette.harmonize() method for hue cohesion"
 id: "01kngqqra"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["palette", "api-enhancement"]

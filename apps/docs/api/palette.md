@@ -118,6 +118,7 @@ All adjustment methods return a new `Palette` with the operation applied to ever
 | `cool(amount?)` | Shift hue toward cool tones |
 | `mix(target, t?, ease?)` | Mix each color toward a target |
 | `blend(overlay, mode)` | Blend each color with an overlay |
+| `harmonize(amount?)` | Nudge hues toward harmonic spacing (0 = no change, 1 = full snap) |
 | `sortBy(channel, direction?)` | Sort by channel (`hue`, `saturation`, `lightness`, etc.). Default ascending. |
 | `interpolate(steps, ease?)` | Generate smooth color ramp of `steps` colors with optional easing |
 | `spread(count)` | Alias for `interpolate(count)` |

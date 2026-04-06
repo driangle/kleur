@@ -340,6 +340,48 @@ describe("Palette", () => {
     });
   });
 
+  describe("harmonize()", () => {
+    it("amount 0 returns unchanged hues", () => {
+      const harmonized = palette.harmonize(0);
+      expect(harmonized.at(0)!.hue).toBeCloseTo(red.hue, 0);
+      expect(harmonized.at(1)!.hue).toBeCloseTo(green.hue, 0);
+      expect(harmonized.at(2)!.hue).toBeCloseTo(blue.hue, 0);
+    });
+
+    it("amount 1 fully snaps to harmonic arrangement", () => {
+      const harmonized = palette.harmonize(1);
+      const hues = [...harmonized].map((c) => c.hue);
+      // Should be evenly spaced (120° apart for 3 colors)
+      const diffs = hues.map((h, i) => {
+        const next = hues[(i + 1) % hues.length];
+        return Math.abs(((next - h + 540) % 360) - 180);
+      });
+      for (const d of diffs) {
+        expect(d).toBeCloseTo(120, 0);
+      }
+    });
+
+    it("preserves lightness and saturation", () => {
+      const harmonized = palette.harmonize(0.5);
+      for (let i = 0; i < palette.length; i++) {
+        expect(harmonized.at(i)!.lightness).toBeCloseTo(palette.at(i)!.lightness, 0);
+        expect(harmonized.at(i)!.saturationHsl).toBeCloseTo(palette.at(i)!.saturationHsl, 0);
+      }
+    });
+
+    it("single-color palette returns unchanged", () => {
+      const single = new Palette([red]);
+      const harmonized = single.harmonize();
+      expect(harmonized.at(0)!.hue).toBeCloseTo(red.hue, 0);
+    });
+
+    it("returns new Palette instance", () => {
+      const harmonized = palette.harmonize();
+      expect(harmonized).toBeInstanceOf(Palette);
+      expect(harmonized).not.toBe(palette);
+    });
+  });
+
   describe("interpolate()", () => {
     it("generates smooth ramp with correct count", () => {
       const ramp = palette.interpolate(9);
