@@ -302,6 +302,58 @@ describe("Palette", () => {
     });
   });
 
+  describe("interpolate()", () => {
+    it("generates smooth ramp with correct count", () => {
+      const ramp = palette.interpolate(9);
+      expect(ramp.length).toBe(9);
+    });
+
+    it("preserves endpoints", () => {
+      const ramp = palette.interpolate(9);
+      expect(ramp.at(0)!.red).toBe(255);
+      expect(ramp.at(8)!.blue).toBe(255);
+    });
+
+    it("midpoint between two colors is correctly blended", () => {
+      const twoColor = new Palette([red, blue]);
+      const ramp = twoColor.interpolate(3);
+      expect(ramp.at(1)!.red).toBeCloseTo(128, 0);
+      expect(ramp.at(1)!.blue).toBeCloseTo(128, 0);
+    });
+
+    it("identity when steps equals palette length", () => {
+      const ramp = palette.interpolate(3);
+      expect(ramp.at(0)!.red).toBe(255);
+      expect(ramp.at(1)!.green).toBe(255);
+      expect(ramp.at(2)!.blue).toBe(255);
+    });
+
+    it("supports ease parameter", () => {
+      const twoColor = new Palette([red, blue]);
+      const easeIn = (t: number) => t * t;
+      const ramp = twoColor.interpolate(3, easeIn);
+      // Midpoint with quadratic ease: t=0.5, eased=0.25
+      expect(ramp.at(1)!.red).toBeCloseTo(191, 0);
+    });
+
+    it("steps of 0 returns empty", () => {
+      expect(palette.interpolate(0).length).toBe(0);
+    });
+
+    it("steps of 1 returns first color", () => {
+      expect(palette.interpolate(1).at(0)!.red).toBe(255);
+    });
+
+    it("single-color palette fills all steps", () => {
+      const single = new Palette([red]);
+      const ramp = single.interpolate(5);
+      expect(ramp.length).toBe(5);
+      for (const c of ramp) {
+        expect(c.red).toBe(255);
+      }
+    });
+  });
+
   describe("unique()", () => {
     it("removes exact duplicates", () => {
       const p = new Palette([red, red, green, green, blue]);

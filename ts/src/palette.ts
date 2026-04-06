@@ -127,16 +127,21 @@ export class Palette {
 
   /** Resample the palette to exactly `count` colors by interpolating between existing colors. */
   spread(count: number): Palette {
-    if (count <= 0 || this.#colors.length === 0) return new Palette([]);
-    if (count === 1) return new Palette([this.#colors[0]]);
-    if (this.#colors.length === 1) return new Palette(Array(count).fill(this.#colors[0]));
+    return this.interpolate(count);
+  }
+
+  /** Generate a smooth color ramp of `steps` colors. Optional `ease` controls the interpolation curve. */
+  interpolate(steps: number, ease?: (t: number) => number): Palette {
+    if (steps <= 0 || this.#colors.length === 0) return new Palette([]);
+    if (steps === 1) return new Palette([this.#colors[0]]);
+    if (this.#colors.length === 1) return new Palette(Array(steps).fill(this.#colors[0]));
     const result: Color[] = [];
     const segments = this.#colors.length - 1;
-    for (let i = 0; i < count; i++) {
-      const t = (i / (count - 1)) * segments;
+    for (let i = 0; i < steps; i++) {
+      const t = (i / (steps - 1)) * segments;
       const seg = Math.min(Math.floor(t), segments - 1);
       const local = t - seg;
-      result.push(this.#colors[seg].mix(this.#colors[seg + 1], local));
+      result.push(this.#colors[seg].mix(this.#colors[seg + 1], local, ease));
     }
     return new Palette(result);
   }

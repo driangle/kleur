@@ -1,7 +1,7 @@
 ---
 title: "Add Palette.interpolate(steps) method for smooth color ramps"
 id: "01kngqqpn"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["palette", "api-enhancement"]

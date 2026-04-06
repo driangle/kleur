@@ -106,7 +106,8 @@ All adjustment methods return a new `Palette` with the operation applied to ever
 | `mix(target, t?, ease?)` | Mix each color toward a target |
 | `blend(overlay, mode)` | Blend each color with an overlay |
 | `sortBy(channel, direction?)` | Sort by channel (`hue`, `saturation`, `lightness`, etc.). Default ascending. |
-| `spread(count)` | Resample palette to exactly `count` colors by interpolation |
+| `interpolate(steps, ease?)` | Generate smooth color ramp of `steps` colors with optional easing |
+| `spread(count)` | Alias for `interpolate(count)` |
 | `unique(threshold?)` | Remove perceptually near-duplicate colors (default threshold: 2.3) |
 
 ```ts
