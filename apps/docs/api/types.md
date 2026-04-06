@@ -5,7 +5,7 @@ All exported types from the kleur library.
 ```ts
 import type {
   Rgb, Rgba, Hsl, Hsla,
-  SolidKleur, LinearGradient, RadialGradient, GradientStop, KleurFill,
+  SolidColor, LinearGradient, RadialGradient, GradientStop, KleurFill,
   KleurValue, DistancePreset, DistanceOptions,
   BlendFn, BlendMode, KleurEaseFn, RandomOptions,
 } from "@driangle/kleur";
@@ -51,10 +51,10 @@ interface Hsla extends Hsl {
 
 ## Fill Types
 
-### SolidKleur
+### SolidColor
 
 ```ts
-interface SolidKleur {
+interface SolidColor {
   type: "solid";
   color: Color;
 }
@@ -102,7 +102,7 @@ interface GradientStop {
 ### KleurFill
 
 ```ts
-type KleurFill = SolidKleur | LinearGradient | RadialGradient;
+type KleurFill = SolidColor | LinearGradient | RadialGradient;
 ```
 
 ## Input Types

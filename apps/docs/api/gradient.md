@@ -22,7 +22,7 @@ const stop = kleur.colorStop(0.5, "#ff6600");
 ## solid
 
 ```ts
-solid(color: KleurValue): SolidKleur
+solid(color: KleurValue): SolidColor
 ```
 
 Create a solid fill from a single color. Accepts any color input.
@@ -140,7 +140,7 @@ const gradient = new RadialGradientBuilder()
 Use these to narrow `KleurFill` union types:
 
 ```ts
-isSolid(fill: KleurFill): fill is SolidKleur
+isSolid(fill: KleurFill): fill is SolidColor
 isLinearGradient(fill: KleurFill): fill is LinearGradient
 isRadialGradient(fill: KleurFill): fill is RadialGradient
 isGradient(fill: KleurFill): fill is LinearGradient | RadialGradient

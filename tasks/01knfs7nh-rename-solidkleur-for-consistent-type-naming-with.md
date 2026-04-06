@@ -1,7 +1,7 @@
 ---
 title: "Rename SolidKleur for consistent type naming with gradient types"
 id: "01knfs7nh"
-status: pending
+status: completed
 priority: low
 type: chore
 tags: ["api", "types", "naming"]
@@ -18,9 +18,9 @@ The `SolidKleur` type name mixes library branding ("Kleur") with English descrip
 
 ## Tasks
 
-- [ ] Decide naming direction: rename `SolidKleur` → `SolidColor` (preferred, aligns with existing gradient naming) or rename gradients to `*Kleur`
-- [ ] Rename the type across the codebase (type definition, all usages, re-exports)
-- [ ] Add a deprecated type alias for `SolidKleur` pointing to the new name (if a breaking-change grace period is desired)
-- [ ] Update tests referencing the old name
-- [ ] Update docs (`apps/docs`) with the new name
-- [ ] Run `make check` to verify nothing is broken
+- [x] Decide naming direction: rename `SolidKleur` → `SolidColor` (preferred, aligns with existing gradient naming) or rename gradients to `*Kleur`
+- [x] Rename the type across the codebase (type definition, all usages, re-exports)
+- [x] Add a deprecated type alias for `SolidKleur` pointing to the new name (if a breaking-change grace period is desired) — skipped, no published version yet
+- [x] Update tests referencing the old name — no tests referenced the type name
+- [x] Update docs (`apps/docs`) with the new name
+- [x] Run `make check` to verify nothing is broken

@@ -39,7 +39,7 @@ export interface Hsba extends Hsb {
 }
 
 /** A solid color fill */
-export interface SolidKleur {
+export interface SolidColor {
   type: "solid";
   color: Color;
 }
@@ -75,7 +75,7 @@ export interface GradientStop {
 }
 
 /** Union of all fill types */
-export type KleurFill = SolidKleur | LinearGradient | RadialGradient;
+export type KleurFill = SolidColor | LinearGradient | RadialGradient;
 
 /** Any value accepted as a color input */
 export type KleurValue = string | number | Color;

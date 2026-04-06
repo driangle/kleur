@@ -1,5 +1,5 @@
 import type {
-  SolidKleur,
+  SolidColor,
   LinearGradient,
   RadialGradient,
   GradientStop,
@@ -30,7 +30,7 @@ export function colorStop(offset: number, color: KleurValue): GradientStop {
 /**
  * Create a solid fill.
  */
-export function solid(color: KleurValue): SolidKleur {
+export function solid(color: KleurValue): SolidColor {
   return { type: "solid", color: resolve(color) };
 }
 
@@ -86,7 +86,7 @@ export function radialGradient(config: {
 
 // --- Type guards ---
 
-export function isSolid(fill: KleurFill): fill is SolidKleur {
+export function isSolid(fill: KleurFill): fill is SolidColor {
   return fill.type === "solid";
 }
 
