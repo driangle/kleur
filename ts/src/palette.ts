@@ -61,6 +61,15 @@ export class Palette {
     this.#colors.forEach((c, i) => fn(c, i));
   }
 
+  flatMap(fn: (color: Color, index: number) => Color[] | Palette): Palette {
+    const result: Color[] = [];
+    this.#colors.forEach((c, i) => {
+      const output = fn(c, i);
+      for (const color of output) result.push(color);
+    });
+    return new Palette(result);
+  }
+
   // --- Bulk color adjustments ---
 
   lighten(amount: number): Palette {

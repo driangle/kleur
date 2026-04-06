@@ -194,6 +194,44 @@ describe("Palette", () => {
     });
   });
 
+  describe("flatMap()", () => {
+    it("expands each color into shades", () => {
+      const expanded = palette.flatMap((c) => [...c.shades(2)]);
+      expect(expanded.length).toBe(6); // 3 colors × 2 shades each
+    });
+
+    it("accepts Palette return type", () => {
+      const expanded = palette.flatMap((c) => c.shades(2));
+      expect(expanded.length).toBe(6);
+      expect(expanded).toBeInstanceOf(Palette);
+    });
+
+    it("identity flatMap returns copy", () => {
+      const copy = palette.flatMap((c) => [c]);
+      expect(copy.length).toBe(3);
+      expect(copy.at(0)).toBe(red);
+    });
+
+    it("handles empty results", () => {
+      const empty = palette.flatMap(() => []);
+      expect(empty.length).toBe(0);
+    });
+
+    it("passes index to callback", () => {
+      const indices: number[] = [];
+      palette.flatMap((_, i) => { indices.push(i); return []; });
+      expect(indices).toEqual([0, 1, 2]);
+    });
+
+    it("preserves order", () => {
+      const expanded = palette.flatMap((c) => [c, c]);
+      expect(expanded.length).toBe(6);
+      expect(expanded.at(0)).toBe(red);
+      expect(expanded.at(1)).toBe(red);
+      expect(expanded.at(2)).toBe(green);
+    });
+  });
+
   describe("sortBy()", () => {
     it("sorts by hue ascending", () => {
       // red=0, green=120, blue=240

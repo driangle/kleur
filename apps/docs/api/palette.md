@@ -86,6 +86,19 @@ palette.forEach(fn: (color: Color, index: number) => void): void
 
 Calls the function for each color in the palette.
 
+### flatMap
+
+```ts
+palette.flatMap(fn: (color: Color, index: number) => Color[] | Palette): Palette
+```
+
+Maps each color to an array of colors (or a Palette) and flattens the results into a single new Palette.
+
+```ts
+// Expand each color into its shades
+const expanded = palette.flatMap(c => c.shades(3));
+```
+
 ## Bulk Color Adjustments
 
 All adjustment methods return a new `Palette` with the operation applied to every color.

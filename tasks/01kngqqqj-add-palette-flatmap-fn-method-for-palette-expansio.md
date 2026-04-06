@@ -1,7 +1,7 @@
 ---
 title: "Add Palette.flatMap(fn) method for palette expansion"
 id: "01kngqqqj"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["palette", "api-enhancement"]
