@@ -194,6 +194,48 @@ describe("Palette", () => {
     });
   });
 
+  describe("unique()", () => {
+    it("removes exact duplicates", () => {
+      const p = new Palette([red, red, green, green, blue]);
+      expect(p.unique().length).toBe(3);
+    });
+
+    it("removes near-duplicates within threshold", () => {
+      const almostRed = rgb(254, 1, 1);
+      const p = new Palette([red, almostRed, green]);
+      const unique = p.unique();
+      expect(unique.length).toBe(2);
+      expect(unique.at(0)).toBe(red);
+    });
+
+    it("preserves distinct colors", () => {
+      const unique = palette.unique();
+      expect(unique.length).toBe(3);
+    });
+
+    it("returns empty palette from empty palette", () => {
+      const empty = new Palette([]);
+      expect(empty.unique().length).toBe(0);
+    });
+
+    it("respects custom threshold", () => {
+      const almostRed = rgb(254, 1, 1);
+      const p = new Palette([red, almostRed]);
+      // With threshold 0, even near-duplicates are kept
+      expect(p.unique(0).length).toBe(2);
+      // With large threshold, everything collapses
+      expect(p.unique(1000).length).toBe(1);
+    });
+
+    it("preserves ordering (keeps first occurrence)", () => {
+      const p = new Palette([red, green, red, blue]);
+      const unique = p.unique();
+      expect(unique.at(0)).toBe(red);
+      expect(unique.at(1)).toBe(green);
+      expect(unique.at(2)).toBe(blue);
+    });
+  });
+
   describe("empty palette", () => {
     const empty = new Palette([]);
 

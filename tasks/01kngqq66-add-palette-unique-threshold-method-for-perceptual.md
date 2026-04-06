@@ -1,7 +1,7 @@
 ---
 title: "Add Palette.unique(threshold?) method for perceptual deduplication"
 id: "01kngqq66"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["palette", "api-enhancement"]

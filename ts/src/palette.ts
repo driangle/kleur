@@ -1,4 +1,5 @@
 import { Color, registerPalette } from "./color.js";
+import { distance } from "./distance.js";
 import type { KleurValue, BlendMode } from "./types.js";
 
 /**
@@ -97,6 +98,18 @@ export class Palette {
 
   blend(overlay: KleurValue, mode: BlendMode): Palette {
     return new Palette(this.#colors.map((c) => c.blend(overlay, mode)));
+  }
+
+  /** Remove perceptually near-duplicate colors, keeping the first occurrence. */
+  unique(threshold = 2.3): Palette {
+    const kept: Color[] = [];
+    for (const color of this.#colors) {
+      const isDuplicate = kept.some(
+        (c) => distance(c, color, { preset: "perceptual" }) < threshold,
+      );
+      if (!isDuplicate) kept.push(color);
+    }
+    return new Palette(kept);
   }
 }
 
