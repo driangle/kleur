@@ -105,6 +105,7 @@ All adjustment methods return a new `Palette` with the operation applied to ever
 | `cool(amount?)` | Shift hue toward cool tones |
 | `mix(target, t?, ease?)` | Mix each color toward a target |
 | `blend(overlay, mode)` | Blend each color with an overlay |
+| `sortBy(channel, direction?)` | Sort by channel (`hue`, `saturation`, `lightness`, etc.). Default ascending. |
 | `spread(count)` | Resample palette to exactly `count` colors by interpolation |
 | `unique(threshold?)` | Remove perceptually near-duplicate colors (default threshold: 2.3) |
 

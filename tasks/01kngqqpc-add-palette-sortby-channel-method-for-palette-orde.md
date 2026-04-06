@@ -1,7 +1,7 @@
 ---
 title: "Add Palette.sortBy(channel) method for palette ordering"
 id: "01kngqqpc"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["palette", "api-enhancement"]

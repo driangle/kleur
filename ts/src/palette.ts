@@ -2,6 +2,21 @@ import { Color, registerPalette } from "./color.js";
 import { distance } from "./distance.js";
 import type { KleurValue, BlendMode } from "./types.js";
 
+export type PaletteSortChannel =
+  | "hue" | "saturation" | "lightness" | "brightness"
+  | "red" | "green" | "blue" | "alpha";
+
+const channelAccessor: Record<PaletteSortChannel, (c: Color) => number> = {
+  hue: (c) => c.hue,
+  saturation: (c) => c.saturationHsl,
+  lightness: (c) => c.lightness,
+  brightness: (c) => c.brightness,
+  red: (c) => c.red,
+  green: (c) => c.green,
+  blue: (c) => c.blue,
+  alpha: (c) => c.alpha,
+};
+
 /**
  * A collection of colors with convenient bulk operations.
  *
@@ -98,6 +113,16 @@ export class Palette {
 
   blend(overlay: KleurValue, mode: BlendMode): Palette {
     return new Palette(this.#colors.map((c) => c.blend(overlay, mode)));
+  }
+
+  /** Sort colors by a channel. Returns a new Palette. */
+  sortBy(channel: PaletteSortChannel, direction: "asc" | "desc" = "asc"): Palette {
+    const accessor = channelAccessor[channel];
+    const sorted = [...this.#colors].sort((a, b) => {
+      const diff = accessor(a) - accessor(b);
+      return direction === "desc" ? -diff : diff;
+    });
+    return new Palette(sorted);
   }
 
   /** Resample the palette to exactly `count` colors by interpolating between existing colors. */

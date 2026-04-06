@@ -7,6 +7,7 @@ export type { BlendFn, BlendMode, KleurEaseFn } from "./blend.js";
 export { resolve } from "./parse.js";
 export type { RandomOptions } from "./random.js";
 export { Palette } from "./palette.js";
+export type { PaletteSortChannel } from "./palette.js";
 export { LinearGradientBuilder, RadialGradientBuilder } from "./gradient-builder.js";
 export {
   KleurError,

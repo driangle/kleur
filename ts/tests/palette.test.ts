@@ -194,6 +194,65 @@ describe("Palette", () => {
     });
   });
 
+  describe("sortBy()", () => {
+    it("sorts by hue ascending", () => {
+      // red=0, green=120, blue=240
+      const sorted = palette.sortBy("hue");
+      expect(sorted.at(0)!.hue).toBe(0);
+      expect(sorted.at(1)!.hue).toBe(120);
+      expect(sorted.at(2)!.hue).toBe(240);
+    });
+
+    it("sorts by hue descending", () => {
+      const sorted = palette.sortBy("hue", "desc");
+      expect(sorted.at(0)!.hue).toBe(240);
+      expect(sorted.at(2)!.hue).toBe(0);
+    });
+
+    it("sorts by red channel", () => {
+      const sorted = palette.sortBy("red");
+      expect(sorted.at(0)!.red).toBe(0);
+      expect(sorted.at(2)!.red).toBe(255);
+    });
+
+    it("sorts by lightness", () => {
+      const dark = rgb(20, 20, 20);
+      const light = rgb(200, 200, 200);
+      const mid = rgb(100, 100, 100);
+      const p = new Palette([light, dark, mid]);
+      const sorted = p.sortBy("lightness");
+      expect(sorted.at(0)!.lightness).toBeLessThan(sorted.at(1)!.lightness);
+      expect(sorted.at(1)!.lightness).toBeLessThan(sorted.at(2)!.lightness);
+    });
+
+    it("sorts by alpha", () => {
+      const a1 = rgb(255, 0, 0, 0.2);
+      const a2 = rgb(0, 255, 0, 0.8);
+      const a3 = rgb(0, 0, 255, 0.5);
+      const p = new Palette([a2, a1, a3]);
+      const sorted = p.sortBy("alpha");
+      expect(sorted.at(0)!.alpha).toBeCloseTo(0.2);
+      expect(sorted.at(1)!.alpha).toBeCloseTo(0.5);
+      expect(sorted.at(2)!.alpha).toBeCloseTo(0.8);
+    });
+
+    it("returns new Palette instance", () => {
+      const sorted = palette.sortBy("hue");
+      expect(sorted).toBeInstanceOf(Palette);
+      expect(sorted).not.toBe(palette);
+    });
+
+    it("handles empty palette", () => {
+      const empty = new Palette([]);
+      expect(empty.sortBy("hue").length).toBe(0);
+    });
+
+    it("handles single-color palette", () => {
+      const single = new Palette([red]);
+      expect(single.sortBy("hue").length).toBe(1);
+    });
+  });
+
   describe("spread()", () => {
     it("upsamples palette (3 → 5)", () => {
       const spread = palette.spread(5);
