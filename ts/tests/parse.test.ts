@@ -8,6 +8,7 @@ import {
   css,
   grayscale,
   kleur as kleurFn,
+  resolve,
 } from "../src/parse.js";
 
 describe("rgb()", () => {
@@ -293,6 +294,20 @@ describe("kleur()", () => {
   it("throws a library error for invalid non-color values", () => {
     expect(() => kleurFn(true as never)).toThrow(ParseError);
     expect(() => kleurFn(true as never)).toThrow("Invalid color value: true");
+  });
+});
+
+describe("resolve() null/undefined guard", () => {
+  it("throws ParseError for null", () => {
+    expect(() => resolve(null as never)).toThrow(ParseError);
+    expect(() => resolve(null as never)).toThrow("Invalid color value: null");
+  });
+
+  it("throws ParseError for undefined", () => {
+    expect(() => resolve(undefined as never)).toThrow(ParseError);
+    expect(() => resolve(undefined as never)).toThrow(
+      "Invalid color value: undefined",
+    );
   });
 });
 

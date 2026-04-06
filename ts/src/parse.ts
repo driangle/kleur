@@ -128,6 +128,10 @@ export function kleur(
 
 /** Resolve any supported color input to a Color instance. */
 export function resolve(value: string | number | Color): Color {
+  if (value == null) {
+    throw new ParseError("value", value);
+  }
+
   if (value instanceof Color) {
     return value;
   }

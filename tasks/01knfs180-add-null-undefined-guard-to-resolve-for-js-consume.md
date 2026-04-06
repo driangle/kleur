@@ -1,7 +1,7 @@
 ---
 title: "Add null/undefined guard to resolve() for JS consumers"
 id: "01knfs180"
-status: pending
+status: completed
 priority: medium
 type: bug
 tags: ["api", "parse", "validation"]
@@ -26,9 +26,9 @@ A generic `TypeError` is thrown (e.g., "Cannot read properties of null"), which 
 
 ## Tasks
 
-- [ ] Add an explicit `value == null` guard at the top of `resolve()` that throws `ParseError`
-- [ ] Add tests for `resolve(null)` and `resolve(undefined)` verifying the correct error type and message
-- [ ] Check other public entry points in parse.ts for the same issue and add guards if needed
+- [x] Add an explicit `value == null` guard at the top of `resolve()` that throws `ParseError`
+- [x] Add tests for `resolve(null)` and `resolve(undefined)` verifying the correct error type and message
+- [x] Check other public entry points in parse.ts for the same issue and add guards if needed
 
 ## Acceptance Criteria
 
