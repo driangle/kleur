@@ -1,7 +1,7 @@
 ---
 title: "Add Palette.balanceLightness() method for uniform perceived lightness"
 id: "01kngqqs1"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["palette", "api-enhancement"]

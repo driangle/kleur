@@ -340,6 +340,43 @@ describe("Palette", () => {
     });
   });
 
+  describe("balanceLightness()", () => {
+    it("converges varied lightness to median", () => {
+      const dark = rgb(50, 0, 0);
+      const light = rgb(255, 200, 200);
+      const p = new Palette([dark, red, light]);
+      const balanced = p.balanceLightness();
+      const lightnesses = [...balanced].map((c) => c.lightness);
+      // All should be approximately the same
+      expect(lightnesses[0]).toBeCloseTo(lightnesses[1], 0);
+      expect(lightnesses[1]).toBeCloseTo(lightnesses[2], 0);
+    });
+
+    it("custom target sets exact lightness", () => {
+      const balanced = palette.balanceLightness(60);
+      for (const c of balanced) {
+        expect(c.lightness).toBeCloseTo(60, 0);
+      }
+    });
+
+    it("preserves hue", () => {
+      const balanced = palette.balanceLightness(50);
+      for (let i = 0; i < palette.length; i++) {
+        expect(balanced.at(i)!.hue).toBeCloseTo(palette.at(i)!.hue, 0);
+      }
+    });
+
+    it("single-color palette works", () => {
+      const single = new Palette([red]);
+      const balanced = single.balanceLightness();
+      expect(balanced.length).toBe(1);
+    });
+
+    it("empty palette returns empty", () => {
+      expect(new Palette([]).balanceLightness().length).toBe(0);
+    });
+  });
+
   describe("harmonize()", () => {
     it("amount 0 returns unchanged hues", () => {
       const harmonized = palette.harmonize(0);
