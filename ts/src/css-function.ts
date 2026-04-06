@@ -24,9 +24,13 @@ export function parseCssFunction(s: string): [string, ...string[]] | null {
   return [name, ...tokens];
 }
 
+const NUMERIC_TOKEN = /^-?\d+(\.\d+)?(%)?$/;
+
 /**
  * Parse a numeric token, stripping a trailing `%` if present.
+ * Returns NaN for tokens with invalid unit suffixes.
  */
 export function parseNumericToken(token: string): number {
-  return parseFloat(token.replace(/%$/, ""));
+  if (!NUMERIC_TOKEN.test(token)) return NaN;
+  return parseFloat(token);
 }

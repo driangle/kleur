@@ -1,7 +1,7 @@
 ---
 title: "Reject non-% unit suffixes in parseNumericToken()"
 id: "01knfs891"
-status: pending
+status: completed
 priority: medium
 type: bug
 tags: ["parse", "validation", "css"]
@@ -27,11 +27,11 @@ created: "2026-04-05"
 
 ## Tasks
 
-- [ ] Replace `parseFloat` with a strict numeric/percentage pattern match (e.g., regex `/^-?\d+(\.\d+)?(%)?$/`)
-- [ ] Throw an appropriate custom error for tokens with invalid suffixes
-- [ ] Add tests for tokens with unit suffixes (`px`, `em`, `rem`, `deg`, etc.)
-- [ ] Add tests for valid tokens (bare numbers, percentages)
-- [ ] Verify existing CSS color parsing still works for valid inputs
+- [x] Replace `parseFloat` with a strict numeric/percentage pattern match (e.g., regex `/^-?\d+(\.\d+)?(%)?$/`)
+- [x] Throw an appropriate custom error for tokens with invalid suffixes
+- [x] Add tests for tokens with unit suffixes (`px`, `em`, `rem`, `deg`, etc.)
+- [x] Add tests for valid tokens (bare numbers, percentages)
+- [x] Verify existing CSS color parsing still works for valid inputs
 
 ## Acceptance Criteria
 

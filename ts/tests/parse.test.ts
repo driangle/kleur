@@ -213,6 +213,13 @@ describe("css()", () => {
     expect(() => css("not-a-color")).toThrow("Invalid CSS color");
   });
 
+  it("rejects tokens with unit suffixes", () => {
+    expect(() => css("rgb(100px, 100px, 100px)")).toThrow(ParseError);
+    expect(() => css("rgb(100em, 50em, 0em)")).toThrow(ParseError);
+    expect(() => css("rgb(100rem, 50rem, 0rem)")).toThrow(ParseError);
+    expect(() => css("hsl(180deg, 50%, 50%)")).toThrow(ParseError);
+  });
+
   it("parses space-separated rgb() (CSS Color Level 4)", () => {
     const c = css("rgb(255 128 0)");
     expect(c.red).toBe(255);
