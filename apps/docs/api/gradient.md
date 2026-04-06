@@ -36,7 +36,7 @@ fill.color; // Color
 ## linearGradient
 
 ```ts
-linearGradient(config: {
+linearGradient(options: {
   x0: number;
   y0: number;
   x1: number;
@@ -62,7 +62,7 @@ const gradient = kleur.linearGradient({
 ## radialGradient
 
 ```ts
-radialGradient(config: {
+radialGradient(options: {
   x0: number;
   y0: number;
   r0: number;

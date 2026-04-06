@@ -1,7 +1,7 @@
 ---
 title: "Standardize config vs options parameter naming"
 id: "01kngmq83"
-status: pending
+status: completed
 priority: medium
 type: chore
 tags: ["api-consistency"]

@@ -37,7 +37,7 @@ export function solid(color: KleurValue): SolidColor {
 /**
  * Create a linear gradient fill.
  */
-export function linearGradient(config: {
+export function linearGradient(options: {
   x0: number;
   y0: number;
   x1: number;
@@ -45,22 +45,22 @@ export function linearGradient(config: {
   stops: GradientStop[];
   globalAlpha?: number;
 }): LinearGradient {
-  validateStops(config.stops);
+  validateStops(options.stops);
   return {
     type: "linear",
-    x0: config.x0,
-    y0: config.y0,
-    x1: config.x1,
-    y1: config.y1,
-    stops: config.stops.map((s) => colorStop(s.offset, s.color)),
-    globalAlpha: config.globalAlpha,
+    x0: options.x0,
+    y0: options.y0,
+    x1: options.x1,
+    y1: options.y1,
+    stops: options.stops.map((s) => colorStop(s.offset, s.color)),
+    globalAlpha: options.globalAlpha,
   };
 }
 
 /**
  * Create a radial gradient fill.
  */
-export function radialGradient(config: {
+export function radialGradient(options: {
   x0: number;
   y0: number;
   r0: number;
@@ -70,17 +70,17 @@ export function radialGradient(config: {
   stops: GradientStop[];
   globalAlpha?: number;
 }): RadialGradient {
-  validateStops(config.stops);
+  validateStops(options.stops);
   return {
     type: "radial",
-    x0: config.x0,
-    y0: config.y0,
-    r0: config.r0,
-    x1: config.x1,
-    y1: config.y1,
-    r1: config.r1,
-    stops: config.stops.map((s) => colorStop(s.offset, s.color)),
-    globalAlpha: config.globalAlpha,
+    x0: options.x0,
+    y0: options.y0,
+    r0: options.r0,
+    x1: options.x1,
+    y1: options.y1,
+    r1: options.r1,
+    stops: options.stops.map((s) => colorStop(s.offset, s.color)),
+    globalAlpha: options.globalAlpha,
   };
 }
 

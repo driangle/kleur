@@ -88,8 +88,8 @@ See [Gradients](/api/gradient).
 |----------|-------------|
 | `kleur.colorStop(offset, color)` | Create a gradient stop |
 | `kleur.solid(color)` | Create a solid fill |
-| `kleur.linearGradient(config)` | Create a linear gradient |
-| `kleur.radialGradient(config)` | Create a radial gradient |
+| `kleur.linearGradient(options)` | Create a linear gradient |
+| `kleur.radialGradient(options)` | Create a radial gradient |
 | `kleur.isSolid(fill)` | Type guard for solid fills |
 | `kleur.isLinearGradient(fill)` | Type guard for linear gradients |
 | `kleur.isRadialGradient(fill)` | Type guard for radial gradients |
