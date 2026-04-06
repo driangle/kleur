@@ -10,7 +10,7 @@ export interface RandomOptions {
   lightness?: [number, number];
   /** Fixed alpha value (0-1) */
   alpha?: number;
-  /** Custom RNG function (returns 0–1, same contract as Math.random) */
+  /** Custom RNG function. Must return values in `[0, 1)`, matching `Math.random()`'s contract. */
   rng?: () => number;
 }
 
@@ -42,6 +42,7 @@ function randomHue(
 
 /**
  * Generate a random color with optional constraints.
+ * If `options.rng` is provided, it must return values in `[0, 1)` like `Math.random()`.
  */
 export function random(options?: RandomOptions): Color {
   const rng = options?.rng ?? Math.random;

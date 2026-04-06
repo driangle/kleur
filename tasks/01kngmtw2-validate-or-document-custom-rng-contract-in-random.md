@@ -1,7 +1,7 @@
 ---
 title: "Validate or document custom RNG contract in random()"
 id: "01kngmtw2"
-status: pending
+status: completed
 priority: medium
 type: chore
 tags: ["robustness"]

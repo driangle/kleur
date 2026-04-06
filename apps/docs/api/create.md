@@ -146,7 +146,7 @@ Generate a random color with optional constraints.
 | `saturation` | `[min, max]` | Constrain saturation (0-100). |
 | `lightness` | `[min, max]` | Constrain lightness (0-100). |
 | `alpha` | `number` | Fixed alpha value (0-1). Default `1`. |
-| `rng` | `() => number` | Custom RNG function (returns 0-1, same contract as `Math.random`). For deterministic/seeded output. |
+| `rng` | `() => number` | Custom RNG function. Must return values in `[0, 1)`, matching `Math.random()`'s contract. For deterministic/seeded output. |
 
 ```ts
 const any = kleur.random();
