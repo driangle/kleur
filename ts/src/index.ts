@@ -30,6 +30,7 @@ export type {
   LinearGradient,
   RadialGradient,
   GradientStop,
+  GradientStopInput,
   KleurFill,
   KleurValue,
   DistancePreset,

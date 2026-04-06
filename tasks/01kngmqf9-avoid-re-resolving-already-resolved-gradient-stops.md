@@ -1,7 +1,7 @@
 ---
 title: "Avoid re-resolving already-resolved gradient stops"
 id: "01kngmqf9"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["performance", "api-consistency"]

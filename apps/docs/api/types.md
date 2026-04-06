@@ -99,6 +99,17 @@ interface GradientStop {
 }
 ```
 
+### GradientStopInput
+
+```ts
+interface GradientStopInput {
+  offset: number;
+  color: KleurValue; // string, number, or Color
+}
+```
+
+Used as input to `linearGradient()` and `radialGradient()`. Colors are resolved to `Color` instances automatically.
+
 ### KleurFill
 
 ```ts

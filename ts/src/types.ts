@@ -68,10 +68,16 @@ export interface RadialGradient {
   globalAlpha?: number;
 }
 
-/** A color stop within a gradient */
+/** A color stop within a gradient (resolved) */
 export interface GradientStop {
   offset: number;
   color: Color;
+}
+
+/** A color stop input that accepts any color value */
+export interface GradientStopInput {
+  offset: number;
+  color: KleurValue;
 }
 
 /** Union of all fill types */

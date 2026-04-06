@@ -41,20 +41,20 @@ linearGradient(options: {
   y0: number;
   x1: number;
   y1: number;
-  stops: GradientStop[];
+  stops: GradientStopInput[];
   globalAlpha?: number;
 }): LinearGradient
 ```
 
-Create a linear gradient fill. Coordinates define the gradient line; stops define color transitions.
+Create a linear gradient fill. Coordinates define the gradient line; stops define color transitions. Stops accept any `KleurValue` as the color — strings, numbers, or `Color` instances are all resolved automatically.
 
 ```ts
 const gradient = kleur.linearGradient({
   x0: 0, y0: 0,
   x1: 100, y1: 0,
   stops: [
-    kleur.colorStop(0, "#ff0000"),
-    kleur.colorStop(1, "#0000ff"),
+    { offset: 0, color: "#ff0000" },
+    { offset: 1, color: "#0000ff" },
   ],
 });
 ```
@@ -69,7 +69,7 @@ radialGradient(options: {
   x1: number;
   y1: number;
   r1: number;
-  stops: GradientStop[];
+  stops: GradientStopInput[];
   globalAlpha?: number;
 }): RadialGradient
 ```

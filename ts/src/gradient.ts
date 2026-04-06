@@ -3,13 +3,14 @@ import type {
   LinearGradient,
   RadialGradient,
   GradientStop,
+  GradientStopInput,
   KleurFill,
   KleurValue,
 } from "./types.js";
 import { InvalidOffsetError, KleurError } from "./errors.js";
 import { resolve } from "./parse.js";
 
-export function validateStops(stops: readonly GradientStop[]): void {
+export function validateStops(stops: readonly GradientStopInput[]): void {
   if (stops.length === 0) {
     throw new KleurError("A gradient requires at least one color stop.");
   }
@@ -42,7 +43,7 @@ export function linearGradient(options: {
   y0: number;
   x1: number;
   y1: number;
-  stops: GradientStop[];
+  stops: GradientStopInput[];
   globalAlpha?: number;
 }): LinearGradient {
   validateStops(options.stops);
@@ -67,7 +68,7 @@ export function radialGradient(options: {
   x1: number;
   y1: number;
   r1: number;
-  stops: GradientStop[];
+  stops: GradientStopInput[];
   globalAlpha?: number;
 }): RadialGradient {
   validateStops(options.stops);
