@@ -28,11 +28,13 @@ const semiTransparent = kleur.rgb(255, 0, 0, 0.5);
 hex(hex: string): Color
 ```
 
-Parse a hex color string. Requires `#` prefix. Supports 3-digit (`#abc`) and 6-digit (`#aabbcc`) forms.
+Parse a hex color string. Requires `#` prefix. Supports 3-digit (`#rgb`), 4-digit (`#rgba`), 6-digit (`#rrggbb`), and 8-digit (`#rrggbbaa`) forms.
 
 ```ts
 const coral = kleur.hex("#ff7f50");
-const short = kleur.hex("#f60"); // same as #ff6600
+const short = kleur.hex("#f60");       // same as #ff6600
+const alpha = kleur.hex("#ff000080");  // red at ~50% alpha
+const shortA = kleur.hex("#f008");     // same as #ff000088
 ```
 
 Throws if the string is not a valid hex color.

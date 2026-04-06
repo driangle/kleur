@@ -1,7 +1,7 @@
 ---
 title: "Support 4-digit and 8-digit hex formats (#rgba, #rrggbbaa)"
 id: "01kngmtpb"
-status: pending
+status: completed
 priority: high
 type: feature
 tags: ["parsing"]

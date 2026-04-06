@@ -47,7 +47,7 @@ function buildParseMessage(
     case "hex": {
       const messages: Record<string, string> = {
         "missing-prefix": `Invalid hex color: "${input}" (must start with #)`,
-        "invalid-length": `Invalid hex color: "${input}" (must be 3 or 6 digits)`,
+        "invalid-length": `Invalid hex color: "${input}" (must be 3, 4, 6, or 8 digits)`,
         "invalid-digits": `Invalid hex color: "${input}" (contains non-hex characters)`,
       };
       return messages[reason!];

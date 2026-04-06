@@ -63,8 +63,68 @@ describe("hex()", () => {
   });
 
   it("throws for invalid length", () => {
-    expect(() => hex("#abcd")).toThrow(ParseError);
-    expect(() => hex("#abcd")).toThrow("must be 3 or 6 digits");
+    expect(() => hex("#ab")).toThrow(ParseError);
+    expect(() => hex("#ab")).toThrow("must be 3, 4, 6, or 8 digits");
+    expect(() => hex("#abcde")).toThrow(ParseError);
+    expect(() => hex("#abcdef0")).toThrow(ParseError);
+    expect(() => hex("#abcdef012")).toThrow(ParseError);
+  });
+
+  it("parses 4-digit hex (#rgba)", () => {
+    const c = hex("#f00f");
+    expect(c.red).toBe(255);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(0);
+    expect(c.alpha).toBeCloseTo(1, 2);
+  });
+
+  it("parses 4-digit hex with partial alpha", () => {
+    const c = hex("#f008");
+    expect(c.red).toBe(255);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(0);
+    expect(c.alpha).toBeCloseTo(0x88 / 255, 2);
+  });
+
+  it("parses 4-digit transparent black", () => {
+    const c = hex("#0000");
+    expect(c.red).toBe(0);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(0);
+    expect(c.alpha).toBeCloseTo(0, 2);
+  });
+
+  it("parses 8-digit hex (#rrggbbaa)", () => {
+    const c = hex("#ff000080");
+    expect(c.red).toBe(255);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(0);
+    expect(c.alpha).toBeCloseTo(0x80 / 255, 2);
+  });
+
+  it("parses 8-digit hex with full alpha", () => {
+    const c = hex("#00ff00ff");
+    expect(c.red).toBe(0);
+    expect(c.green).toBe(255);
+    expect(c.blue).toBe(0);
+    expect(c.alpha).toBeCloseTo(1, 2);
+  });
+
+  it("parses 8-digit fully transparent", () => {
+    const c = hex("#00000000");
+    expect(c.red).toBe(0);
+    expect(c.green).toBe(0);
+    expect(c.blue).toBe(0);
+    expect(c.alpha).toBeCloseTo(0, 2);
+  });
+
+  it("parses 4-digit and 8-digit hex case-insensitively", () => {
+    const upper = hex("#FF00FF80");
+    const lower = hex("#ff00ff80");
+    expect(upper.red).toBe(lower.red);
+    expect(upper.green).toBe(lower.green);
+    expect(upper.blue).toBe(lower.blue);
+    expect(upper.alpha).toBeCloseTo(lower.alpha, 5);
   });
 
   it("handles leading/trailing whitespace", () => {

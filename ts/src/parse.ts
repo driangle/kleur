@@ -13,7 +13,8 @@ export function rgb(r: number, g: number, b: number, a?: number): Color {
 
 /**
  * Parse a hex color string. Requires `#` prefix.
- * Supports 3-digit (#abc) and 6-digit (#aabbcc) forms.
+ * Supports 3-digit (#rgb), 4-digit (#rgba), 6-digit (#rrggbb),
+ * and 8-digit (#rrggbbaa) forms.
  */
 export function hex(hex: string): Color {
   const s = hex.trim();
@@ -33,11 +34,27 @@ export function hex(hex: string): Color {
     return new Color(r, g, b);
   }
 
+  if (digits.length === 4) {
+    const r = parseInt(digits[0] + digits[0], 16);
+    const g = parseInt(digits[1] + digits[1], 16);
+    const b = parseInt(digits[2] + digits[2], 16);
+    const a = parseInt(digits[3] + digits[3], 16) / 255;
+    return new Color(r, g, b, a);
+  }
+
   if (digits.length === 6) {
     const r = parseInt(digits.slice(0, 2), 16);
     const g = parseInt(digits.slice(2, 4), 16);
     const b = parseInt(digits.slice(4, 6), 16);
     return new Color(r, g, b);
+  }
+
+  if (digits.length === 8) {
+    const r = parseInt(digits.slice(0, 2), 16);
+    const g = parseInt(digits.slice(2, 4), 16);
+    const b = parseInt(digits.slice(4, 6), 16);
+    const a = parseInt(digits.slice(6, 8), 16) / 255;
+    return new Color(r, g, b, a);
   }
 
   throw new ParseError("hex", hex, "invalid-length");
