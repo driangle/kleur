@@ -187,3 +187,5 @@ const [base, second, third] = coral.triadic();
 const lighter = coral.tints(5);
 const darker = coral.shades(3);
 ```
+
+<HarmonyDemo />

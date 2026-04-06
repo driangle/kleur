@@ -19,7 +19,7 @@ const muted = kleur.triadic("#ff0000").desaturate(0.3);
 const lighter = kleur.shades("#ff6600", 5).lighten(0.1);
 ```
 
-<PaletteDemo />
+<HarmonyDemo />
 
 ## triadic
 
