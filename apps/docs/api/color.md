@@ -12,19 +12,7 @@ import type { Color } from "@driangle/kleur";
 
 ## Channel Getters
 
-| Getter | Returns | Description |
-|--------|---------|-------------|
-| `red` | `number` | Red channel (0-255) |
-| `green` | `number` | Green channel (0-255) |
-| `blue` | `number` | Blue channel (0-255) |
-| `hue` | `number` | Hue (0-360, same in HSL and HSB) |
-| `saturationHsl` | `number` | HSL saturation (0-100) |
-| `lightness` | `number` | HSL lightness (0-100) |
-| `saturationHsb` | `number` | HSB saturation (0-100) |
-| `brightness` | `number` | HSB brightness (0-100) |
-| `alpha` | `number` | Alpha (0-1) |
-| `hsl` | `Hsl` | `{ h, s, l }` |
-| `hsb` | `Hsb` | `{ h, s, b }` |
+<ChannelGettersDemo />
 
 ## Immutable Setters
 

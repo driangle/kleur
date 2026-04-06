@@ -2,6 +2,7 @@ import DefaultTheme from "vitepress/theme";
 import type { Theme } from "vitepress";
 import "./style.css";
 import AdjustColorDemo from "./components/AdjustColorDemo.vue";
+import ChannelGettersDemo from "./components/ChannelGettersDemo.vue";
 import BlendDemo from "./components/BlendDemo.vue";
 import ContrastDemo from "./components/ContrastDemo.vue";
 import CreateColorDemo from "./components/CreateColorDemo.vue";
@@ -13,6 +14,7 @@ export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
     app.component("AdjustColorDemo", AdjustColorDemo);
+    app.component("ChannelGettersDemo", ChannelGettersDemo);
     app.component("BlendDemo", BlendDemo);
     app.component("ContrastDemo", ContrastDemo);
     app.component("CreateColorDemo", CreateColorDemo);
