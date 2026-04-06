@@ -15,6 +15,7 @@ import {
   InvalidCountError,
   MissingRegistrationError,
 } from "./errors.js";
+import type { Palette } from "./palette.js";
 
 function validateCount(count: number): void {
   if (!Number.isInteger(count) || count < 0) {
@@ -33,30 +34,21 @@ const clampAlpha = (v: number): number => {
 const clampHue = (v: number): number => ((v % 360) + 360) % 360;
 const clampPercent = (v: number): number => Math.min(100, Math.max(0, v));
 
-// --- Registration pattern for circular dependency resolution ---
-//
-// Color.mix() and Color.blend() accept KleurValue (string | number | Color),
-// which requires resolve() from parse.ts and blend() from blend.ts. Those
-// modules in turn import Color, creating a circular dependency.
-//
-// To break the cycle, parse.ts and blend.ts register their functions here at
-// import time. The public entry point (index.ts) imports both modules, so
-// registration is guaranteed before any user code runs.
+// Registration pattern: breaks circular deps by having dependent modules
+// register their functions at import time. See parse.ts, blend.ts, palette.ts.
 
-let _blend:
-  | ((base: KleurValue, overlay: KleurValue, mode: BlendMode) => Color)
-  | undefined;
-
-export function registerBlend(
-  fn: (base: KleurValue, overlay: KleurValue, mode: BlendMode) => Color,
-): void {
-  _blend = fn;
-}
+let _blend: ((base: KleurValue, overlay: KleurValue, mode: BlendMode) => Color) | undefined;
+export function registerBlend(fn: typeof _blend): void { _blend = fn; }
 
 let _resolve: ((value: KleurValue) => Color) | undefined;
+export function registerResolver(fn: typeof _resolve): void { _resolve = fn; }
 
-export function registerResolver(fn: (value: KleurValue) => Color): void {
-  _resolve = fn;
+let _palette: ((colors: readonly Color[]) => Palette) | undefined;
+export function registerPalette(fn: typeof _palette): void { _palette = fn; }
+
+function createPalette(colors: readonly Color[]): Palette {
+  if (!_palette) throw new MissingRegistrationError("Palette");
+  return _palette(colors);
 }
 
 function resolveValue(value: KleurValue): Color {
@@ -302,41 +294,41 @@ export class Color {
   }
 
   // --- Harmony ---
-  triadic(): [Color, Color, Color] {
-    return [this, this.rotate(120), this.rotate(240)];
+  triadic(): Palette {
+    return createPalette([this, this.rotate(120), this.rotate(240)]);
   }
 
-  tetradic(): [Color, Color, Color, Color] {
-    return [this, this.rotate(90), this.rotate(180), this.rotate(270)];
+  tetradic(): Palette {
+    return createPalette([this, this.rotate(90), this.rotate(180), this.rotate(270)]);
   }
 
-  analogous(angle = 30): [Color, Color, Color] {
-    return [this.rotate(-angle), this, this.rotate(angle)];
+  analogous(angle = 30): Palette {
+    return createPalette([this.rotate(-angle), this, this.rotate(angle)]);
   }
 
-  splitComplement(angle = 30): [Color, Color, Color] {
-    return [this, this.rotate(180 - angle), this.rotate(180 + angle)];
+  splitComplement(angle = 30): Palette {
+    return createPalette([this, this.rotate(180 - angle), this.rotate(180 + angle)]);
   }
 
-  tints(count: number): Color[] {
+  tints(count: number): Palette {
     validateCount(count);
     const result: Color[] = [];
     for (let i = 1; i <= count; i++) result.push(this.lighten(i / (count + 1)));
-    return result;
+    return createPalette(result);
   }
 
-  shades(count: number): Color[] {
+  shades(count: number): Palette {
     validateCount(count);
     const result: Color[] = [];
     for (let i = 1; i <= count; i++) result.push(this.darken(i / (count + 1)));
-    return result;
+    return createPalette(result);
   }
 
-  tones(count: number): Color[] {
+  tones(count: number): Palette {
     validateCount(count);
     const result: Color[] = [];
     for (let i = 1; i <= count; i++)
       result.push(this.desaturate(i / (count + 1)));
-    return result;
+    return createPalette(result);
   }
 }

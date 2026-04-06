@@ -1,7 +1,7 @@
 ---
 title: "Unify harmony method return types between Color and kleur module"
 id: "01kngmm78"
-status: pending
+status: completed
 priority: medium
 type: feature
 tags: ["api-consistency"]

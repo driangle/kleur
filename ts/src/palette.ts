@@ -1,4 +1,4 @@
-import { Color } from "./color.js";
+import { Color, registerPalette } from "./color.js";
 import type { KleurValue, BlendMode } from "./types.js";
 
 /**
@@ -99,3 +99,5 @@ export class Palette {
     return new Palette(this.#colors.map((c) => c.blend(overlay, mode)));
   }
 }
+
+registerPalette((colors) => new Palette(colors));

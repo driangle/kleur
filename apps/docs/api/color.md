@@ -180,13 +180,13 @@ These methods are convenience shortcuts for the [harmony functions](/api/harmony
 
 | Method | Returns | Description |
 |--------|---------|-------------|
-| `triadic()` | `[Color, Color, Color]` | 3 colors, 120 degrees apart |
-| `tetradic()` | `[Color, Color, Color, Color]` | 4 colors, 90 degrees apart |
-| `analogous(angle?)` | `[Color, Color, Color]` | 3 adjacent colors (default 30°) |
-| `splitComplement(angle?)` | `[Color, Color, Color]` | Base + two near the complement (default 30°) |
-| `tints(count)` | `Color[]` | Progressively lighter variations |
-| `shades(count)` | `Color[]` | Progressively darker variations |
-| `tones(count)` | `Color[]` | Progressively desaturated variations |
+| `triadic()` | `Palette` | 3 colors, 120 degrees apart |
+| `tetradic()` | `Palette` | 4 colors, 90 degrees apart |
+| `analogous(angle?)` | `Palette` | 3 adjacent colors (default 30°) |
+| `splitComplement(angle?)` | `Palette` | Base + two near the complement (default 30°) |
+| `tints(count)` | `Palette` | Progressively lighter variations |
+| `shades(count)` | `Palette` | Progressively darker variations |
+| `tones(count)` | `Palette` | Progressively desaturated variations |
 
 ```ts
 const coral = kleur("#ff6347");
