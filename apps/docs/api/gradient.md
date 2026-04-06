@@ -135,6 +135,8 @@ const gradient = new RadialGradientBuilder()
 | `alpha(value)` | Set global alpha |
 | `build()` | Returns a `RadialGradient` |
 
+<GradientDemo />
+
 ## Type Guards
 
 Use these to narrow `KleurFill` union types:
