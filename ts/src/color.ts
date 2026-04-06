@@ -235,19 +235,23 @@ export class Color {
   }
 
   // --- Color adjustments ---
+  /** Lighten by `amount` (0–1), a proportion of remaining lightness headroom. */
   lighten(amount: number): Color {
     const { h, s, l } = this._hsl();
     return this.fromHsl(h, s, l + (100 - l) * amount);
   }
+  /** Darken by `amount` (0–1), a proportion of current lightness. */
   darken(amount: number): Color {
     return this.mapHsl(({ h, s, l }) => ({ h, s, l: l - l * amount }));
   }
+  /** Increase saturation by `amount` (0–1), a proportion of remaining saturation headroom. */
   saturate(amount: number): Color {
     return this.mapHsl(({ h, s, l }) => ({ h, s: s + (100 - s) * amount, l }));
   }
   saturateHsl(amount: number): Color {
     return this.saturate(amount);
   }
+  /** Decrease saturation by `amount` (0–1), a proportion of current saturation. */
   desaturate(amount: number): Color {
     return this.mapHsl(({ h, s, l }) => ({ h, s: s - s * amount, l }));
   }

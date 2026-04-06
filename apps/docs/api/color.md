@@ -96,8 +96,8 @@ All adjustment methods return a new `Color`.
 | Method | Param | Description |
 |--------|-------|-------------|
 | `adjustLightness(delta)` | `number` | Add to HSL lightness in channel units. |
-| `lighten(amount)` | `number` (0-1) | Increase lightness. `0.3` = 30% toward white. |
-| `darken(amount)` | `number` (0-1) | Decrease lightness. `0.3` = 30% toward black. |
+| `lighten(amount)` | `number` (0-1) | Lighten by proportion of remaining headroom. `0.3` = 30% toward white. |
+| `darken(amount)` | `number` (0-1) | Darken by proportion of current lightness. `0.3` = 30% toward black. |
 | `scaleLightness(factor)` | `number` | Multiply lightness by factor. `1.5` = 50% brighter. |
 | `adjustBrightness(delta)` | `number` | Add to HSB brightness in channel units. |
 | `scaleBrightness(factor)` | `number` | Multiply brightness by factor. |
@@ -107,9 +107,9 @@ All adjustment methods return a new `Color`.
 | Method | Param | Description |
 |--------|-------|-------------|
 | `adjustSaturationHsl(delta)` | `number` | Add to HSL saturation in channel units. |
-| `saturate(amount)` | `number` (0-1) | Increase HSL saturation toward 100. |
+| `saturate(amount)` | `number` (0-1) | Saturate by proportion of remaining headroom toward 100. |
 | `saturateHsl(amount)` | `number` (0-1) | Alias for `saturate()`. |
-| `desaturate(amount)` | `number` (0-1) | Decrease HSL saturation toward 0. |
+| `desaturate(amount)` | `number` (0-1) | Desaturate by proportion of current saturation toward 0. |
 | `desaturateHsl(amount)` | `number` (0-1) | Alias for `desaturate()`. |
 | `scaleSaturationHsl(factor)` | `number` | Multiply HSL saturation by factor. |
 | `adjustSaturationHsb(delta)` | `number` | Add to HSB saturation in channel units. |

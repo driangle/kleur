@@ -1,7 +1,7 @@
 ---
 title: "Document or validate lighten/darken/saturate/desaturate amount range"
 id: "01kngmtv3"
-status: pending
+status: completed
 priority: medium
 type: chore
 tags: ["robustness"]
