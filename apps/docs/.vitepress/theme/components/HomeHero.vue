@@ -23,9 +23,12 @@ onMounted(() => {
     <section class="kl-hero">
       <h1 class="kl-hero-title">Kleur</h1>
       <p class="kl-hero-tagline">
-        A minimal, zero-dependency color manipulation library. Lightweight by
-        design, powerful by default.
+        A minimal software library for color
       </p>
+      <div class="kl-hero-languages">
+        <span class="kl-lang">TypeScript</span>
+        <span class="kl-lang kl-lang-soon">Python</span>
+      </div>
       <div class="kl-hero-actions">
         <a href="./guide/getting-started" class="kl-btn kl-btn-primary">
           Get Started
@@ -138,7 +141,7 @@ onMounted(() => {
 
 /* ── Hero ── */
 .kl-hero {
-  padding: 100px 0 80px;
+  padding: 48px 0 40px;
 }
 
 .kl-hero-title {
@@ -155,8 +158,35 @@ onMounted(() => {
   color: var(--kl-outline);
   max-width: 520px;
   line-height: 1.7;
-  margin: 0 0 48px;
+  margin: 0 0 16px;
   font-weight: 400;
+}
+
+.kl-hero-languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.kl-lang {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 6px 14px;
+  border: 1px solid var(--kl-outline-variant);
+  color: var(--kl-on-surface);
+}
+
+.kl-lang-soon {
+  color: var(--kl-outline);
+  border-style: dashed;
+}
+
+.kl-lang-soon::after {
+  content: " — soon";
+  font-weight: 400;
+  color: var(--kl-outline);
 }
 
 .kl-hero-actions {
