@@ -24,6 +24,14 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install library dependencies
+        working-directory: ts
+        run: npm ci
+
+      - name: Build library
+        working-directory: ts
+        run: npm run build
+
       - name: Install docs dependencies
         working-directory: apps/docs
         run: npm ci
