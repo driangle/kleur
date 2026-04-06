@@ -1,7 +1,7 @@
 ---
 title: "Add missing ease parameter to Palette.mix()"
 id: "01kngmsp3"
-status: pending
+status: completed
 priority: high
 type: bug
 tags: ["api-consistency"]

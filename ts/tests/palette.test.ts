@@ -155,6 +155,45 @@ describe("Palette", () => {
     });
   });
 
+  describe("mix with ease", () => {
+    it("mix() without ease works as before", () => {
+      const mixed = palette.mix("#000000", 0.5);
+      expect(mixed).toBeInstanceOf(Palette);
+      expect(mixed.length).toBe(3);
+      // Red mixed 50% toward black
+      expect(mixed.at(0)!.red).toBeCloseTo(128, 0);
+      expect(mixed.at(0)!.green).toBeCloseTo(0, 0);
+      expect(mixed.at(0)!.blue).toBeCloseTo(0, 0);
+    });
+
+    it("mix() with ease applies easing function", () => {
+      // Ease that always returns 1 → fully target color
+      const alwaysOne = () => 1;
+      const mixed = palette.mix("#000000", 0.5, alwaysOne);
+      for (const c of mixed) {
+        expect(c.red).toBeCloseTo(0, 0);
+        expect(c.green).toBeCloseTo(0, 0);
+        expect(c.blue).toBeCloseTo(0, 0);
+      }
+    });
+
+    it("mix() with ease that returns 0 keeps original colors", () => {
+      const alwaysZero = () => 0;
+      const mixed = palette.mix("#000000", 0.5, alwaysZero);
+      expect(mixed.at(0)!.red).toBeCloseTo(255, 0);
+      expect(mixed.at(1)!.green).toBeCloseTo(255, 0);
+      expect(mixed.at(2)!.blue).toBeCloseTo(255, 0);
+    });
+
+    it("mix() with custom easing curve", () => {
+      // Quadratic ease: t² at t=0.5 → 0.25
+      const easeIn = (t: number) => t * t;
+      const mixed = palette.mix("#000000", 0.5, easeIn);
+      // Red channel of first color: 255 + (0 - 255) * 0.25 = 191.25
+      expect(mixed.at(0)!.red).toBeCloseTo(191, 0);
+    });
+  });
+
   describe("empty palette", () => {
     const empty = new Palette([]);
 

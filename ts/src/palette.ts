@@ -91,8 +91,8 @@ export class Palette {
     return new Palette(this.#colors.map((c) => c.cool(amount)));
   }
 
-  mix(target: KleurValue, t = 0.5): Palette {
-    return new Palette(this.#colors.map((c) => c.mix(target, t)));
+  mix(target: KleurValue, t = 0.5, ease?: (t: number) => number): Palette {
+    return new Palette(this.#colors.map((c) => c.mix(target, t, ease)));
   }
 
   blend(overlay: KleurValue, mode: BlendMode): Palette {
