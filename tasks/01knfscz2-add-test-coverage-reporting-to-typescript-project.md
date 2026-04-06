@@ -1,7 +1,7 @@
 ---
 title: "Add test coverage reporting to TypeScript project"
 id: "01knfscz2"
-status: pending
+status: completed
 priority: low
 type: chore
 tags: ["testing", "ci"]
@@ -16,10 +16,10 @@ Set up test coverage reporting for the TypeScript project so developers can iden
 
 ## Tasks
 
-- [ ] Install `@vitest/coverage-v8` as a dev dependency
-- [ ] Add a `test:coverage` script to `ts/package.json`
-- [ ] Configure coverage thresholds and reporter options in vitest config (if needed)
-- [ ] Verify coverage report generates successfully
+- [x] Install `@vitest/coverage-v8` as a dev dependency
+- [x] Add a `test:coverage` script to `ts/package.json`
+- [x] Configure coverage thresholds and reporter options in vitest config (if needed) — defaults sufficient (v8 provider, text reporter)
+- [x] Verify coverage report generates successfully
 
 ## Acceptance Criteria
 
